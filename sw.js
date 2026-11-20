@@ -1,6 +1,6 @@
 /* 尼康 F 卡口镜头全表 · Service Worker
  * 改数据后请把 CACHE 版本号 +1，否则用户会一直看到旧缓存。 */
-const CACHE = 'nikkor-f-v3';
+const CACHE = 'nikkor-f-v6';
 const ASSETS = [
   './',
   './index.html',
@@ -36,16 +36,16 @@ self.addEventListener('fetch', (e) => {
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
 
-  // 页面导航：网络优先，失败回落到缓存（离线也能打开）
+  // 页面导航：网络优先，失败回落到该页自己的缓存（离线也能打开）
   if (req.mode === 'navigate') {
     e.respondWith(
       fetch(req)
         .then((res) => {
           const copy = res.clone();
-          caches.open(CACHE).then((c) => c.put('./index.html', copy));
+          caches.open(CACHE).then((c) => c.put(req, copy));
           return res;
         })
-        .catch(() => caches.match('./index.html').then((hit) => hit || caches.match('./')))
+        .catch(() => caches.match(req).then((hit) => hit || caches.match('./index.html')))
     );
     return;
   }
