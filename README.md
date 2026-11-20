@@ -1,18 +1,23 @@
-# 尼康 F 卡口镜头全表 · PWA
+# 尼康 F 卡口资料库 · PWA
 
-一个可离线运行的静态 PWA：379 支尼康 F 卡口原厂镜头，支持按世代、焦距、光圈、重量、滤镜口径筛选与排序，详情弹窗、CSV 导出，全部数据内嵌在 `index.html` 里。
+可离线运行的静态站点，包含三个页面：
+
+| 页面 | 内容 |
+|---|---|
+| `index.html` | 379 支尼康 F 卡口原厂镜头，按世代/焦距/光圈/重量/口径筛选排序 |
+| `cameras.html` | 113 台尼康 F 卡口机身（胶片 60 + 数码 53）、机身时间线、22 台非尼康 F 卡口机身；点机身看 632 条原厂配件清单 |
+| `reviews.html` | 每支镜头 / 每台机身的评测检索入口 |
 
 ## 文件
 
 | 文件 | 作用 |
 |---|---|
-| `index.html` | 应用本体（单文件，含全部数据与样式脚本） |
-| `manifest.json` | 应用名称、图标、启动方式（standalone） |
-| `sw.js` | Service Worker，首次访问后缓存全部资源，断网可用 |
-| `icon-192.png` / `icon-512.png` | 桌面/开始菜单图标 |
-| `icon-maskable-512.png` | Android 自适应图标（留了安全边距） |
-| `apple-touch-icon.png` | iOS 添加到主屏用 |
-| `serve.bat` | Windows 本地预览脚本（需要 Python） |
+| `index.html` / `cameras.html` / `reviews.html` | 三个页面，各含全部数据，互相用顶部导航跳转 |
+| `manifest.json` | 应用名称、图标、standalone 启动 |
+| `sw.js` | Service Worker，首次访问后缓存全部页面，断网可用 |
+| `icon-192/512.png`、`icon-maskable-512.png` | 桌面 / Android 自适应图标 |
+| `apple-touch-icon.png` | iOS 添加到主屏 |
+| `serve.bat` | Windows 本地预览（需要 Python） |
 
 ## 本地预览
 
@@ -20,54 +25,33 @@
 serve.bat
 ```
 
-或手动：
+或 `python -m http.server 8080` 后打开 http://localhost:8080/
 
-```bash
-python -m http.server 8080
-# 打开 http://localhost:8080/
-```
+> 必须 `https://` 或 `localhost`，`file://` 下不能注册 Service Worker，也就无法安装。
 
-> 必须是 `https://` 或 `http://localhost` / `127.0.0.1`。直接双击 `index.html`（`file://`）无法注册 Service Worker，也就不能安装。
+## 部署
 
-## 部署到 HTTPS
+**GitHub Pages**：把本目录所有文件传到仓库根目录 → Settings → Pages → Deploy from a branch → main / (root) → 等 1–3 分钟。
 
-**GitHub Pages（最省事）**
-
-1. 新建仓库，把本目录所有文件上传到仓库根目录
-2. Settings → Pages → Source 选 `Deploy from a branch` → `main` / `(root)`
-3. 等 1 分钟，访问 `https://<用户名>.github.io/<仓库名>/`
-
-**Cloudflare Pages / Netlify / Vercel**：直接把本目录拖进控制台即可，无需构建命令。
+**Cloudflare Pages / Netlify / Vercel**：直接拖文件夹。
 
 ## 在 Edge 中安装
 
-1. Edge 打开部署后的 HTTPS 地址，等页面完全加载
-2. 地址栏右侧出现「安装」图标；或点 `···` → **应用** → **将此站点安装为应用**
-3. 确认名称 → 安装
-4. 开始菜单/桌面出现图标，独立窗口运行，无地址栏
-
-管理已安装应用：地址栏输入 `edge://apps`，可卸载、创建桌面快捷方式、设置登录 Windows 时自动启动。
-
-手机 Edge 同理：`···` → **添加到手机**，会装成独立图标的应用。
-
-## 验证是否真的离线可用
-
-1. 首次打开后按 F12 → Application → Service Worker，确认状态为 `activated`
-2. Application → Cache Storage 里应有 `nikkor-f-v1`
-3. 断网（或 DevTools → Network 勾 Offline）后刷新，页面应照常显示 379 条
+打开 HTTPS 地址 → 地址栏「安装」图标，或 `···` → 应用 → 将此站点安装为应用。
+管理：`edge://apps`。
 
 ## 更新数据
 
 ```bash
-python ../build.py      # 重建 Excel（数据源在 ../data/）
-python ../make_site.py  # 重建单文件 HTML
-python ../make_pwa.py   # 注入 PWA 头，生成 pwa/index.html
+python ../build_cams.py     # 合并机身 / 配件 / 非尼康数据
+python ../build_pages.py    # 生成三个页面
 ```
 
-**改完记得把 `sw.js` 里的 `nikkor-f-v1` 改成 `v2`**，否则已安装的用户会一直读到旧缓存。
+改完把 `sw.js` 里的 `nikkor-f-v2` 改成 `v3`，否则已安装用户读到旧缓存。
 
-## 已知边界
+## 数据说明
 
-- 数据为爱好者整理，停产年份、金圈、马达形态等存在推断项，页面底部与 Excel「图例与说明」有说明
-- `index.html` 约 180 KB，首屏无网络请求，加载很快
-- 不支持 `file://` 安装；这是浏览器安全策略，不是页面问题
+- 镜头表字段以尼康原厂说明书、mir.com.my、photosynthesis 为准，见各页页脚
+- 机身表字段参照中文摄影圈流传的尼康 F 机身速查表，数码机型另加像素/传感器/电池
+- 评测页的链接是**按型号精确检索**的入口，不是某一篇固定文章（多数老镜头没有单一权威评测）
+- 标注 `—` 表示不适用或资料缺失，`约` 表示年份有争议

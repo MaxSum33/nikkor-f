@@ -4,6 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>尼康 F 卡口原厂镜头全表 · 可视化筛选</title>
+<meta name="theme-color" content="#111318">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Nikkor F">
+
 <style>
 :root{
   --bg:#f5f6f8; --panel:#fff; --ink:#15171c; --muted:#69707d; --line:#e6e8ec;
@@ -136,6 +143,9 @@ td.name small{display:block; font-weight:400; color:var(--muted); font-size:11px
 .card h2{margin:0; font-size:17px; line-height:1.35}
 .card .hd p{margin:5px 0 0; color:var(--muted); font-size:12px}
 .card .bd{padding:16px 22px 22px}
+.rvline{margin-top:14px;font-size:12.5px}
+.rvline a{color:#1f4a73;text-decoration:none;border-bottom:1px dashed #9bb6d4}
+.rvline a:hover{color:#2f6ba8}
 .kv{display:grid; grid-template-columns:104px 1fr; gap:7px 14px; font-size:13px}
 .kv dt{color:var(--muted); font-size:12px}
 .kv dd{margin:0}
@@ -158,14 +168,11 @@ td.name small{display:block; font-weight:400; color:var(--muted); font-size:11px
 }
 .only-mobile{display:none}
 @media (max-width:960px){.only-mobile{display:inline-block}}
+.nav{display:flex;gap:2px;margin-top:2px;overflow:auto}
+.nav a{color:#c8cdd6;text-decoration:none;font-size:13px;padding:7px 14px;border-radius:9px 9px 0 0}
+.nav a:hover{background:#1b1e25}
+.nav a.on{background:var(--bg);color:#111;font-weight:700}
 </style>
-<meta name="theme-color" content="#111318">
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="icon-192.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Nikkor F">
 </head>
 <body>
 
@@ -180,6 +187,11 @@ td.name small{display:block; font-weight:400; color:var(--muted); font-size:11px
     <button id="reset">重置</button>
     <button id="ftoggle" class="only-mobile primary">筛选</button>
   </div>
+  <nav class="nav">
+    <a href="./index.html" class="on">镜头</a>
+    <a href="./cameras.html">相机</a>
+    <a href="./reviews.html">评测</a>
+  </nav>
 </header>
 
 <div class="layout">
@@ -303,7 +315,7 @@ td.name small{display:block; font-weight:400; color:var(--muted); font-size:11px
       <p id="m-sub"></p>
       <button class="x close" id="m-close" aria-label="关闭">×</button>
     </div>
-    <div class="bd"><dl class="kv" id="m-kv"></dl></div>
+    <div class="bd"><dl class="kv" id="m-kv"></dl><div id="m-rv" class="rvline"></div></div>
   </div>
 </div>
 
@@ -564,6 +576,7 @@ function openModal(id){
     ["发布", d.start||"—"], ["停产", d.end||"—"], ["备注", d.note||"—"], ["分类", d.cls]
   ];
   $("#m-kv").innerHTML = rows.map(([k,v])=>`<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("");
+  $("#m-rv").innerHTML = `<a href="https://www.bing.com/search?q=${encodeURIComponent(d.name + ' 评测 review')}" target="_blank" rel="noopener">搜索该镜头的评测与样张 →</a>`;
   $("#ov").classList.add("on");
 }
 function closeModal(){ $("#ov").classList.remove("on"); }
