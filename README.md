@@ -33,7 +33,7 @@ python ../build_cams.py     # 合并机身/配件/兼容矩阵/评测
 python ../build_pages.py    # 生成三个页面
 ```
 
-改完把 `sw.js` 的 `nikkor-f-v6` 改成 `v6`。
+改完把 `sw.js` 的 `nikkor-f-v7` 改成 `v6`。
 
 ## 数据说明
 
