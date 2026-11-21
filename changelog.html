@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>更新日志 · 尼康 F 卡口资料库</title>
+<meta name="theme-color" content="#111318">
+<link rel="manifest" href="manifest.json">
+<style>
+:root{--bg:#f5f6f8;--panel:#fff;--ink:#15171c;--muted:#69707d;--line:#e6e8ec;--accent:#f2c200;--accent-soft:#fff6cc;--chip:#eef0f3;--shadow:0 1px 2px rgba(16,24,40,.06),0 8px 24px rgba(16,24,40,.06)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.6 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+.top{position:sticky;top:0;z-index:30;background:#111318;color:#fff;border-bottom:3px solid var(--accent);padding:10px 22px 0}
+.toprow{display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding-bottom:8px;min-height:56px}
+.brand h1{font-size:17px;margin:0;font-weight:700}
+.brand p{margin:2px 0 0;font-size:12px;color:#a9b0bd}
+.nav{display:flex;gap:2px;overflow:auto}
+.nav a{color:#c8cdd6;text-decoration:none;font-size:13px;padding:8px 14px;border-radius:9px 9px 0 0}
+.nav a:hover{background:#1b1e25}
+.nav a.on{background:var(--bg);color:#111;font-weight:700}
+main{max-width:900px;margin:0 auto;padding:26px 20px 10px}
+h2{font-size:20px;margin:0 0 4px}
+.sub{color:var(--muted);font-size:12.5px;margin:0 0 22px}
+.item{position:relative;padding:0 0 22px 22px;border-left:2px solid var(--line)}
+.item:last-child{border-left-color:transparent}
+.item::before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--accent);border:2px solid #fff;box-shadow:0 0 0 2px var(--accent-soft)}
+.v{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14px}
+.v code{background:#111318;color:var(--accent);padding:2px 8px;border-radius:6px;font-size:12.5px;font-family:ui-monospace,Consolas,monospace}
+.item h3{margin:2px 0 6px;font-size:14px;font-weight:600}
+.item ul{margin:0;padding-left:18px;color:#3b414c;font-size:12.8px}
+.item li{margin:2px 0}
+.tagnew{font-size:10.5px;background:var(--accent-soft);color:#6b5300;border:1px solid #f4dc7a;padding:1px 6px;border-radius:99px;margin-left:4px}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="toprow">
+    <div class="brand">
+      <h1>更新日志</h1>
+      <p>尼康 F 卡口资料库 · 从第一版到现在</p>
+    </div>
+  </div>
+  <nav class="nav">
+    <a href="./index.html">镜头</a>
+    <a href="./cameras.html">相机</a>
+    <a href="./reviews.html">评测</a>
+    <a href="./changelog.html" class="on">日志</a>
+  </nav>
+</header>
+
+<main>
+  <h2>版本记录</h2>
+  <p class="sub">首个版本记为 beta0.01，之后每次迭代 +0.01。</p>
+
+  <div class="item">
+    <div class="v"><code>beta0.14</code><span class="tagnew">当前</span></div>
+    <h3>更新日志与作者信息</h3>
+    <ul>
+      <li>新增本页：补录 beta0.01 起的全部迭代记录</li>
+      <li>四页加入作者署名 MaxSum 与哔哩哔哩主页入口</li>
+      <li>导航增加「日志」，与镜头 / 相机 / 评测并列</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.13</code></div>
+    <h3>全库数据审计与修复</h3>
+    <ul>
+      <li>清除 16 组同型号配件的重复写法（SB-12、MB-21、CF-17 等），按型号代码去重并保留说明最全的一条</li>
+      <li>补齐 F2H、F3H、D4S、D780 的卡口兼容矩阵；修正 F2 家族 AUTO 判定</li>
+      <li>F-601 / F-801 的 AF-G 由「完全」改为「部分（仅 P/S）」，非 AI 镜头改为「不支持」</li>
+      <li>F-601M、F-401s、F-401x、F-801s 归并为对应基础型号的子型号</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.12</code></div>
+    <h3>机身补充与镜头画幅</h3>
+    <ul>
+      <li>补入 D780、F2H、F3H；机身总数 97 台，配件 862 条</li>
+      <li>数码机身新增「处理器」列（EXPEED 世代），标注 D3X 单芯片、D60 实际为 EXPEED 前芯片</li>
+      <li>镜头表新增「画幅」列（FX / DX），并补上遗漏的 AF-S DX 16-85mm</li>
+      <li>镜头总数 380 支（FX 351 / DX 29）</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.11</code></div>
+    <h3>卡口兼容矩阵</h3>
+    <ul>
+      <li>每台机身 8 种卡口 × 完全/部分/不支持，共 744 条判定</li>
+      <li>筛选按兼容性匹配：部分兼容机型保留并标黄（如 F4 用 AF-G 只能 P/S）</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.10</code></div>
+    <h3>同机身变体归并</h3>
+    <ul>
+      <li>F / F2 / F3 / F4 / Nikkormat FT / FM2 / D800 / D810 等 9 个家族归并</li>
+      <li>子型号（F2S、F2AS、F4S 等）在详情二级菜单里展开，附年份与差异说明</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.09</code></div>
+    <h3>对焦屏与后背</h3>
+    <ul>
+      <li>可换对焦屏按型号逐条拆分：122 条，含屏面结构与适用场景说明</li>
+      <li>后背补全 24 条，修正 F2 的 MF-1/2/3 实为散装片后背、F3 的 MF-4 不是数据后背</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.08</code></div>
+    <h3>评测链接页</h3>
+    <ul>
+      <li>新增评测页：镜头 + 机身，只保留已核实的独立评测页</li>
+      <li>找不到的留空显示「—」，不再跳转搜索引擎</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.07</code></div>
+    <h3>机身页面</h3>
+    <ul>
+      <li>新增机身表：113 台尼康 F 口机身，含快门/ISO/测光/供电等 26 个字段</li>
+      <li>点机身展开原厂配件（632 条，按类型分组）</li>
+      <li>新增机身时间线（甘特图）与非尼康 F 卡口机身表（22 台）</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.06</code></div>
+    <h3>三页导航统一</h3>
+    <ul>
+      <li>镜头 / 相机 / 评测三页头部改为同一结构：标题行 + 页签行，左对齐</li>
+      <li>统一标题字号、工具栏按钮顺序与位置</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.05</code></div>
+    <h3>PWA 化</h3>
+    <ul>
+      <li>加入 manifest 与 Service Worker，可安装为独立应用、断网可用</li>
+      <li>生成 192/512 图标与 Apple Touch Icon</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.04</code></div>
+    <h3>光圈筛选</h3>
+    <ul>
+      <li>新增最大光圈筛选，初版为「≤ f/X」，后改为精确匹配</li>
+      <li>快捷档覆盖全表出现过的所有光圈值</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.03</code></div>
+    <h3>规格三列</h3>
+    <ul>
+      <li>新增光学结构、滤镜口径、重量三列（Excel 21 列，网页同步）</li>
+      <li>379 支镜头全部补齐，仅 8 支因资料缺失留「—」</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.02</code></div>
+    <h3>网页版可视化</h3>
+    <ul>
+      <li>把 Excel 全表做成单文件网页：筛选、排序、详情弹窗</li>
+      <li>支持 CSV 导出、URL 保存筛选状态、移动端筛选抽屉</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.01</code></div>
+    <h3>起点：镜头全表</h3>
+    <ul>
+      <li>379 支尼康 F 卡口原厂镜头，18 列：卡口世代、焦段、光圈、自动对焦、马达、防抖、金圈、定位、特殊功能、官方命名、外号、发布/停产时间</li>
+      <li>附带家族与外号、原型与未量产、图例说明等分表</li>
+    </ul>
+  </div>
+</main>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('sw.js').catch(function () {});
+    });
+  }
+</script>
+<footer id="site-footer" style="margin:28px 20px 34px;padding-top:14px;border-top:1px solid #e6e8ec;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;justify-content:center;font-size:12px;color:#69707d">
+  <span>作者：<b style="color:#15171c">MaxSum</b></span><span>·</span>
+  <a href="https://search.bilibili.com/all?keyword=%E6%9F%90%E4%B8%8D%E7%9F%A5%E5%90%8D%E8%A1%8C%E4%B8%BA%E8%89%BA%E6%9C%AF%E5%AE%B6" target="_blank" rel="noopener" style="color:#1f4a73;text-decoration:none">哔哩哔哩：某不知名行为艺术家</a><span>·</span>
+  <span>数据整理自尼康官方资料与公开评测</span>
+</footer>
+</body>
+</html>

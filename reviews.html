@@ -59,6 +59,7 @@ a.rv.alt{background:#eef0f3;color:#3b414c}
     <a href="./index.html">镜头</a>
     <a href="./cameras.html">相机</a>
     <a href="./reviews.html" class="on">评测</a>
+    <a href="./changelog.html">日志</a>
   </nav>
 </header>
 
@@ -139,7 +140,7 @@ function render(){
   }).join("");
   $("#shown").textContent = list.length;
   $("#linked").textContent = withLink;
-  $("#hint").textContent = tab==="lens" ? "（379 支镜头）" : "（全部尼康 F 口机身）";
+  $("#hint").textContent = tab==="lens" ? "（" + DATA.lenses.length + " 支镜头）" : "（" + DATA.cams.length + " 台机身）";
 }
 render();
 </script>
@@ -149,5 +150,11 @@ render();
       navigator.serviceWorker.register('sw.js').catch(function () {});
     });
   }
-</script></body>
+</script>
+<footer id="site-footer" style="margin:28px 20px 34px;padding-top:14px;border-top:1px solid #e6e8ec;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;justify-content:center;font-size:12px;color:#69707d">
+  <span>作者：<b style="color:#15171c">MaxSum</b></span><span>·</span>
+  <a href="https://search.bilibili.com/all?keyword=%E6%9F%90%E4%B8%8D%E7%9F%A5%E5%90%8D%E8%A1%8C%E4%B8%BA%E8%89%BA%E6%9C%AF%E5%AE%B6" target="_blank" rel="noopener" style="color:#1f4a73;text-decoration:none">哔哩哔哩：某不知名行为艺术家</a><span>·</span>
+  <span>数据整理自尼康官方资料与公开评测</span>
+</footer>
+</body>
 </html>
