@@ -1,12 +1,13 @@
 /* 尼康 F 卡口镜头全表 · Service Worker
  * 改数据后请把 CACHE 版本号 +1，否则用户会一直看到旧缓存。 */
-const CACHE = 'nikkor-f-v16';
+const CACHE = 'nikkor-f-v17';
 const ASSETS = [
   './',
   './index.html',
   './cameras.html',
   './reviews.html',
   './changelog.html',
+  './thirdparty.html',
   './manifest.json',
   './icon-192.png',
   './icon-512.png',

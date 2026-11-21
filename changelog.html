@@ -29,6 +29,9 @@ h2{font-size:20px;margin:0 0 4px}
 .item h3{margin:2px 0 6px;font-size:14px;font-weight:600}
 .item ul{margin:0;padding-left:18px;color:#3b414c;font-size:12.8px}
 .item li{margin:2px 0}
+.date{margin-left:auto;color:var(--muted);font-size:11.5px;font-variant-numeric:tabular-nums}
+.v{display:flex;align-items:center;gap:8px;width:100%}
+.lastup{margin-left:10px;color:var(--muted);font-size:12px}
 .tagnew{font-size:10.5px;background:var(--accent-soft);color:#6b5300;border:1px solid #f4dc7a;padding:1px 6px;border-radius:99px;margin-left:4px}
 </style>
 </head>
@@ -43,6 +46,7 @@ h2{font-size:20px;margin:0 0 4px}
   <nav class="nav">
     <a href="./index.html">镜头</a>
     <a href="./cameras.html">相机</a>
+    <a href="./thirdparty.html">副厂镜头</a>
     <a href="./reviews.html">评测</a>
     <a href="./changelog.html" class="on">日志</a>
   </nav>
@@ -50,10 +54,22 @@ h2{font-size:20px;margin:0 0 4px}
 
 <main>
   <h2>版本记录</h2>
-  <p class="sub">首个版本记为 beta0.01，之后每次迭代 +0.01。</p>
+  <p class="sub">首个版本记为 beta0.01，之后每次迭代 +0.01。<span class="lastup">最后更新：<b>2026-11-21</b></span></p>
 
   <div class="item">
-    <div class="v"><code>beta0.14</code><span class="tagnew">当前</span></div>
+    <div class="v"><code>beta0.15</code><span class="tagnew">当前</span><span class="date">2026-11-21</span></div>
+    <h3>副厂镜头、非尼康机身详情、评分与 Nikonos</h3>
+    <ul>
+      <li>新增「副厂镜头」页：10 个品牌 170 支 F 口第三方镜头（适马 47、腾龙 36、图丽 27、蔡司 13、三阳 13、威达 11、福伦达 8、中一 6、Irix 4、其他 5），可按品牌筛选、排序、导出 CSV</li>
+      <li>22 台非尼康 F 口机身补齐详细规格（卡口耦合、快门、ISO、测光、取景器、屏幕、重量、存储卡）与原厂配件，点行可看完整详情</li>
+      <li>机身详情新增「稀有度」「可靠性」五星评分（分别按产量与网络口碑估算，附免责声明）</li>
+      <li>新增 Nikonos 标签页：6 台水下相机（Nikonos I–V、RS），非 F 卡口、单列供参考</li>
+      <li>更新日志加入每条版本的更新日期与「最后更新」时间</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.14</code><span class="date">2026-11-21</span></div>
     <h3>更新日志与作者信息</h3>
     <ul>
       <li>新增本页：补录 beta0.01 起的全部迭代记录</li>
@@ -63,7 +79,7 @@ h2{font-size:20px;margin:0 0 4px}
   </div>
 
   <div class="item">
-    <div class="v"><code>beta0.13</code></div>
+    <div class="v"><code>beta0.13</code><span class="date">2026-11-21</span></div>
     <h3>全库数据审计与修复</h3>
     <ul>
       <li>清除 16 组同型号配件的重复写法（SB-12、MB-21、CF-17 等），按型号代码去重并保留说明最全的一条</li>
@@ -74,7 +90,7 @@ h2{font-size:20px;margin:0 0 4px}
   </div>
 
   <div class="item">
-    <div class="v"><code>beta0.12</code></div>
+    <div class="v"><code>beta0.12</code><span class="date">2026-11-20</span></div>
     <h3>机身补充与镜头画幅</h3>
     <ul>
       <li>补入 D780、F2H、F3H；机身总数 97 台，配件 862 条</li>
@@ -85,7 +101,7 @@ h2{font-size:20px;margin:0 0 4px}
   </div>
 
   <div class="item">
-    <div class="v"><code>beta0.11</code></div>
+    <div class="v"><code>beta0.11</code><span class="date">2026-11-20</span></div>
     <h3>卡口兼容矩阵</h3>
     <ul>
       <li>每台机身 8 种卡口 × 完全/部分/不支持，共 744 条判定</li>
@@ -94,7 +110,7 @@ h2{font-size:20px;margin:0 0 4px}
   </div>
 
   <div class="item">
-    <div class="v"><code>beta0.10</code></div>
+    <div class="v"><code>beta0.10</code><span class="date">2026-11-20</span></div>
     <h3>同机身变体归并</h3>
     <ul>
       <li>F / F2 / F3 / F4 / Nikkormat FT / FM2 / D800 / D810 等 9 个家族归并</li>
@@ -103,7 +119,7 @@ h2{font-size:20px;margin:0 0 4px}
   </div>
 
   <div class="item">
-    <div class="v"><code>beta0.09</code></div>
+    <div class="v"><code>beta0.09</code><span class="date">2026-11-20</span></div>
     <h3>对焦屏与后背</h3>
     <ul>
       <li>可换对焦屏按型号逐条拆分：122 条，含屏面结构与适用场景说明</li>
@@ -112,7 +128,7 @@ h2{font-size:20px;margin:0 0 4px}
   </div>
 
   <div class="item">
-    <div class="v"><code>beta0.08</code></div>
+    <div class="v"><code>beta0.08</code><span class="date">2026-11-20</span></div>
     <h3>评测链接页</h3>
     <ul>
       <li>新增评测页：镜头 + 机身，只保留已核实的独立评测页</li>
@@ -121,7 +137,7 @@ h2{font-size:20px;margin:0 0 4px}
   </div>
 
   <div class="item">
-    <div class="v"><code>beta0.07</code></div>
+    <div class="v"><code>beta0.07</code><span class="date">2026-11-20</span></div>
     <h3>机身页面</h3>
     <ul>
       <li>新增机身表：113 台尼康 F 口机身，含快门/ISO/测光/供电等 26 个字段</li>
@@ -131,7 +147,7 @@ h2{font-size:20px;margin:0 0 4px}
   </div>
 
   <div class="item">
-    <div class="v"><code>beta0.06</code></div>
+    <div class="v"><code>beta0.06</code><span class="date">2026-11-20</span></div>
     <h3>三页导航统一</h3>
     <ul>
       <li>镜头 / 相机 / 评测三页头部改为同一结构：标题行 + 页签行，左对齐</li>
@@ -140,7 +156,7 @@ h2{font-size:20px;margin:0 0 4px}
   </div>
 
   <div class="item">
-    <div class="v"><code>beta0.05</code></div>
+    <div class="v"><code>beta0.05</code><span class="date">2026-11-20</span></div>
     <h3>PWA 化</h3>
     <ul>
       <li>加入 manifest 与 Service Worker，可安装为独立应用、断网可用</li>
@@ -149,7 +165,7 @@ h2{font-size:20px;margin:0 0 4px}
   </div>
 
   <div class="item">
-    <div class="v"><code>beta0.04</code></div>
+    <div class="v"><code>beta0.04</code><span class="date">2026-11-20</span></div>
     <h3>光圈筛选</h3>
     <ul>
       <li>新增最大光圈筛选，初版为「≤ f/X」，后改为精确匹配</li>
@@ -158,7 +174,7 @@ h2{font-size:20px;margin:0 0 4px}
   </div>
 
   <div class="item">
-    <div class="v"><code>beta0.03</code></div>
+    <div class="v"><code>beta0.03</code><span class="date">2026-11-20</span></div>
     <h3>规格三列</h3>
     <ul>
       <li>新增光学结构、滤镜口径、重量三列（Excel 21 列，网页同步）</li>
@@ -167,7 +183,7 @@ h2{font-size:20px;margin:0 0 4px}
   </div>
 
   <div class="item">
-    <div class="v"><code>beta0.02</code></div>
+    <div class="v"><code>beta0.02</code><span class="date">2026-11-20</span></div>
     <h3>网页版可视化</h3>
     <ul>
       <li>把 Excel 全表做成单文件网页：筛选、排序、详情弹窗</li>
@@ -176,7 +192,7 @@ h2{font-size:20px;margin:0 0 4px}
   </div>
 
   <div class="item">
-    <div class="v"><code>beta0.01</code></div>
+    <div class="v"><code>beta0.01</code><span class="date">2026-11-20</span></div>
     <h3>起点：镜头全表</h3>
     <ul>
       <li>379 支尼康 F 卡口原厂镜头，18 列：卡口世代、焦段、光圈、自动对焦、马达、防抖、金圈、定位、特殊功能、官方命名、外号、发布/停产时间</li>
