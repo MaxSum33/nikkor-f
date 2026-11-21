@@ -101,6 +101,15 @@ html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:
   #themeBtn{right:12px;bottom:12px;width:40px;height:40px}
 }
 </style>
+
+<style id="nav-fix">
+/* 导航：任何宽度都允许换行，避免第 5、6 项被挤出屏幕 */
+.top .nav{display:flex;flex-wrap:wrap;overflow:visible;row-gap:4px}
+.top .nav a{white-space:nowrap}
+@media (max-width:960px){
+  .top .nav a{padding:7px 10px;font-size:12.5px}
+}
+</style>
 </head>
 <body>
 <header class="top">

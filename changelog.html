@@ -95,6 +95,15 @@ html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:
   #themeBtn{right:12px;bottom:12px;width:40px;height:40px}
 }
 </style>
+
+<style id="nav-fix">
+/* 导航：任何宽度都允许换行，避免第 5、6 项被挤出屏幕 */
+.top .nav{display:flex;flex-wrap:wrap;overflow:visible;row-gap:4px}
+.top .nav a{white-space:nowrap}
+@media (max-width:960px){
+  .top .nav a{padding:7px 10px;font-size:12.5px}
+}
+</style>
 </head>
 <body>
 <header class="top">
@@ -119,7 +128,18 @@ html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:
   <p class="sub">首个版本记为 beta0.01，之后每次迭代 +0.01。（时间为各版本构建时刻，早期版本按会话记录推算）<span class="lastup">最后更新：<b>2026-11-21 23:30:26</b></span></p>
 
   <div class="item">
-    <div class="v"><code>beta0.20</code><span class="tagnew">当前</span><span class="date">2026-11-22 00:09:43</span></div>
+    <div class="v"><code>beta0.21</code><span class="tagnew">当前</span><span class="date">2026-11-22 00:20:18</span></div>
+    <h3>说明书数据上线、导航彻底修好</h3>
+    <ul>
+      <li>说明书页收录 121 台相机与 122 项配件：相机 103 条有链接（尼康官方下载中心 / Butkus / MIR），配件 56 条有链接，其余标注「—」</li>
+      <li>机身二级菜单加「说明书 →」，配件表加「说明书」列，可直接打开对应页面</li>
+      <li>导航 6 项在手机端强制换行，不再被挤出屏幕；新增自检脚本，每次改动后按 390/768/1280 三种宽度自动校验</li>
+      <li>说明书页支持深色模式</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.20</code><span class="date">2026-11-22 00:09:43</span></div>
     <h3>厂商筛选、说明书页与深色细节</h3>
     <ul>
       <li>副厂镜头侧栏新增「品牌」筛选，10 个厂商一键切换</li>
