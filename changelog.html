@@ -399,7 +399,7 @@ html[data-theme="dark"] .g-head{ background:#1a212a !important; }
 .g-lab{ background:#fff !important; }
 html[data-theme="dark"] .g-lab{ background:#141a21 !important; }
 .g-bar{ border-radius:6px !important; }
-.g-row:hover .g-track{ background: rgba(242,194,0,.08); }
+.g-row:hover{ background: rgba(242,194,0,.10) !important; }
 
 #site-footer{ border-top:1px solid rgba(16,24,40,.07) !important; }
 html[data-theme="dark"] #site-footer{ border-top-color: rgba(255,255,255,.08) !important; }
@@ -577,10 +577,33 @@ html:has(body.drawer-open){ overflow: hidden; }
 
 <main>
   <h2>版本记录</h2>
-  <p class="sub">首个版本记为 beta0.01，之后每次迭代 +0.01。（时间为各版本构建时刻，早期版本按会话记录推算）<span class="lastup">最后更新：<b>2026-11-22 02:22:36</b></span></p>
+  <p class="sub">首个版本记为 beta0.01，之后每次迭代 +0.01。（时间为各版本构建时刻，早期版本按会话记录推算）<span class="lastup">最后更新：<b>2026-11-22 02:33:49</b></span></p>
 
   <div class="item">
-    <div class="v"><code>beta0.33</code><span class="tagnew">当前</span><span class="date">2026-11-22 02:22:36</span></div>
+    <div class="v"><code>beta0.35</code><span class="tagnew">当前</span><span class="date">2026-11-22 02:33:49</span></div>
+    <h3>镜头稀有度与配件清单、时间线横线贯穿</h3>
+    <ul>
+      <li>镜头与副厂镜头抽屉新增「稀有度」：按序列号推算产量分档（≥100 万 1 星、30 万 2 星、10 万 3 星、2 万 4 星、更少 5 星）</li>
+      <li>新增「配件清单」表：遮光罩、皮盒/皮套、滤镜口径；无数据的镜头显示占位说明</li>
+      <li>产量数字改为千分位显示</li>
+      <li>修复时间线横线不贯穿：行宽改为内容宽（max-content），左右滑动到任意位置都有分隔线</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.34</code><span class="date">2026-11-22 02:29:14</span></div>
+    <h3>时间线重构：左右滑动不再分层</h3>
+    <ul>
+      <li>左列机型名与右侧时间轴拆成两层：左列固定，时间轴独立横向滚动，年份刻度与柱条严格对齐</li>
+      <li>隔行底色从「轨道」改到「整行」，固定列背景随行继承，滑动时不再出现白色块错位</li>
+      <li>系列标题改为整行吸附，滚动时始终压住行内容</li>
+      <li>手机端左列收窄到 128px，给时间轴留出更多空间；桌面端 190px</li>
+      <li>交互保持不变：点柱条仍会切回「机身表」并打开该机详情</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.33</code><span class="date">2026-11-22 02:22:36</span></div>
     <h3>打开二级菜单时锁住主界面</h3>
     <ul>
       <li>打开抽屉时给 body 加锁：主列表不再跟着手指滑动，只能滚动抽屉内部</li>
@@ -996,7 +1019,7 @@ html[data-theme="dark"] .sub,html[data-theme="dark"] .date,html[data-theme="dark
 <footer id="site-footer">
   <span>作者：<b>MaxSum</b></span><span>·</span>
   <a href="https://space.bilibili.com/399566399" target="_blank" rel="noopener">哔哩哔哩：某不知名行为艺术家</a><span>·</span>
-  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v37</span>
+  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v39</span>
 </footer>
 </body>
 </html>

@@ -84,22 +84,23 @@ small.badges{display:flex;gap:4px;margin-top:3px;flex-wrap:wrap}
 .empty{padding:50px;text-align:center;color:var(--muted)}
 /* timeline */
 .gantt{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:auto;max-height:calc(100vh - 230px);position:relative}
-.g-head{display:flex;position:sticky;top:0;z-index:6;background:#fafbfc;border-bottom:1px solid var(--line)}
-.g-head .g-lab{width:210px;flex:0 0 210px;position:sticky;left:0;background:#fafbfc;border-right:1px solid var(--line);font-size:11px;color:var(--muted);padding:7px 10px}
-.g-years{position:relative;height:30px}
+.g-head{display:flex;position:sticky;top:0;z-index:6;background:#fafbfc;border-bottom:1px solid var(--line);width:max-content;min-width:100%}
+.g-head .g-lab{width:190px;flex:0 0 190px;position:sticky;left:0;z-index:7;background:#fafbfc;
+  border-right:1px solid var(--line);font-size:11px;color:var(--muted);padding:7px 10px}
+.g-years{position:relative;height:30px;flex:0 0 auto}
 .g-years span{position:absolute;top:6px;font-size:10px;color:#8a919c;transform:translateX(-50%)}
 .g-years i{position:absolute;top:26px;bottom:0;width:1px;background:#eef0f3}
-.g-series{margin:0}
-.g-stitle{position:sticky;left:0;background:#f1f3f6;font-size:12px;font-weight:700;color:#3b414c;padding:6px 10px;border-bottom:1px solid var(--line);border-top:1px solid var(--line);z-index:3}
-.g-row{display:flex;border-bottom:1px solid #e9ebef;align-items:stretch}
+.g-series{margin:0;position:relative;width:max-content;min-width:100%}
+.g-stitle{position:sticky;left:0;z-index:5;display:inline-block;min-width:100%;box-sizing:border-box;
+  background:#f1f3f6;font-size:12px;font-weight:700;color:#3b414c;padding:6px 10px;
+  border-bottom:1px solid var(--line);border-top:1px solid var(--line)}
+.g-row{display:flex;align-items:stretch;border-bottom:1px solid #e9ebef;background:#fff;width:max-content;min-width:100%}
+.g-row:nth-child(even){background:#fcfcfd}
 .g-row:hover{background:#fffbea}
-.g-lab{width:210px;flex:0 0 210px;position:sticky;left:0;background:#fff;border-right:1px solid var(--line);font-size:11.5px;padding:4px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;z-index:2}
-.g-row:hover .g-lab{background:#fffbea}
-.g-track{position:relative;height:26px;flex:1}
-.g-track::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:#e9ebef}
-.g-row:nth-child(even) .g-track{background:#fcfcfd}
-html[data-theme="dark"] .g-track::after{background:#2f3641}
-html[data-theme="dark"] .g-row:nth-child(even) .g-track{background:#12161c}
+.g-row .g-lab{width:190px;flex:0 0 190px;position:sticky;left:0;z-index:4;background:inherit;
+  border-right:1px solid var(--line);font-size:11.5px;padding:4px 10px;white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;color:var(--ink)}
+.g-track{position:relative;height:26px;flex:0 0 auto;background:inherit}
 .g-bar{position:absolute;top:5px;height:16px;border-radius:4px;background:#4a86c5;opacity:.85;cursor:pointer}
 .g-bar:hover{opacity:1;outline:2px solid #f2c200}
 .g-bar .lbl{position:absolute;left:6px;top:0;line-height:16px;font-size:10px;color:#fff;white-space:nowrap;display:none}
@@ -142,6 +143,11 @@ html[data-theme="dark"] a.man{color:#8fb8e8}
 #d-serial .acctab{table-layout:auto}
 #d-serial .acctab td,#d-serial .acctab th{white-space:nowrap}
 .acctab td.num{white-space:nowrap}
+@media (max-width: 640px){
+  .g-head .g-lab, .g-row .g-lab{ width:128px !important; flex-basis:128px !important; font-size:11px !important; }
+  .g-stitle{ font-size:11px !important; }
+  .g-years span{ font-size:9px !important; }
+}
 </style>
 
 <style id="theme-css">
@@ -501,7 +507,7 @@ html[data-theme="dark"] .g-head{ background:#1a212a !important; }
 .g-lab{ background:#fff !important; }
 html[data-theme="dark"] .g-lab{ background:#141a21 !important; }
 .g-bar{ border-radius:6px !important; }
-.g-row:hover .g-track{ background: rgba(242,194,0,.08); }
+.g-row:hover{ background: rgba(242,194,0,.10) !important; }
 
 #site-footer{ border-top:1px solid rgba(16,24,40,.07) !important; }
 html[data-theme="dark"] #site-footer{ border-top-color: rgba(255,255,255,.08) !important; }
@@ -953,7 +959,7 @@ function renderTime(){
   const yMin = Math.max(1950, Math.min(...years) - 1);
   const yMax = Math.max(...rows.map(d=>Math.max(num(d.end)||0, num(d.start)||0)), 2020) + 1;
   const span = yMax - yMin;
-  const avail = (g.clientWidth || 900) - 220;
+  const avail = (g.clientWidth || 900) - 200;
   const W = Math.max(9, Math.min(20, avail / span));
   if(!rows.length){ g.innerHTML='<div class="empty">没有符合条件的机型。</div>'; return; }
   let head = `<div class="g-head"><div class="g-lab">机型 / 系列</div><div class="g-years" style="width:${span*W}px">`;
@@ -1320,7 +1326,7 @@ html[data-theme="dark"] .sub,html[data-theme="dark"] .date,html[data-theme="dark
 <footer id="site-footer">
   <span>作者：<b>MaxSum</b></span><span>·</span>
   <a href="https://space.bilibili.com/399566399" target="_blank" rel="noopener">哔哩哔哩：某不知名行为艺术家</a><span>·</span>
-  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v37</span>
+  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v39</span>
 </footer>
 </body>
 </html>
