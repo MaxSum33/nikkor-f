@@ -129,10 +129,43 @@ html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:
 
 <main>
   <h2>版本记录</h2>
-  <p class="sub">首个版本记为 beta0.01，之后每次迭代 +0.01。（时间为各版本构建时刻，早期版本按会话记录推算）<span class="lastup">最后更新：<b>2026-11-22 00:45:07</b></span></p>
+  <p class="sub">首个版本记为 beta0.01，之后每次迭代 +0.01。（时间为各版本构建时刻，早期版本按会话记录推算）<span class="lastup">最后更新：<b>2026-11-22 01:00:30</b></span></p>
 
   <div class="item">
-    <div class="v"><code>beta0.24</code><span class="tagnew">当前</span><span class="date">2026-11-22 00:45:07</span></div>
+    <div class="v"><code>beta0.27</code><span class="tagnew">当前</span><span class="date">2026-11-22 01:00:30</span></div>
+    <h3>镜头二级菜单改为与相机一致的右侧抽屉</h3>
+    <ul>
+      <li>镜头与副厂镜头页的详情由居中弹窗改为右侧抽屉，滑入动画、遮罩淡入与相机页相同</li>
+      <li>结构对齐：标题栏（型号 + 副标题 + 关闭按钮）+ 可滚动内容区，字段顺序不变</li>
+      <li>抽屉宽度、圆角、阴影、点击遮罩与 Esc 关闭逻辑与相机页共用一套参数</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.26</code><span class="date">2026-11-22 00:57:44</span></div>
+    <h3>稀有度改用序列号推算产量重新评分</h3>
+    <ul>
+      <li>产量改为按序列号区间推算：各区域「最高号 − 起始号 + 1」求和，49 台数码机身已更新</li>
+      <li>稀有度按产量分档：≥40 万 1 星、20 万 2 星、8 万 3 星、2 万 4 星、更少 5 星</li>
+      <li>变化举例：D850 2→1 星（约 479,436 台）、D700 2→1 星（约 543,560）、D3 2→3 星（约 96,541）、D5 3→4 星（约 41,401）</li>
+      <li>免责声明改写，注明分档规则与数据来源</li>
+    </ul>
+    <p class="src">参考来源：<a href="https://www.photosynthesis.co.nz/nikon/camera.html" target="_blank" rel="noopener">photosynthesis.co.nz 相机序列号</a></p>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.25</code><span class="date">2026-11-22 00:55:11</span></div>
+    <h3>镜头序列号区间</h3>
+    <ul>
+      <li>镜头详情新增「序列号区间」表：工厂/产地、起始号、已见区间、数量、生产年代</li>
+      <li>293 支镜头有对应区间；按本站发布/停产年做重叠过滤，避免同焦段不同代混入</li>
+      <li>相机端的序列号区间在机身详情抽屉底部，本次保持不变</li>
+    </ul>
+    <p class="src">参考来源：<a href="https://www.photosynthesis.co.nz/nikon/serialno.html" target="_blank" rel="noopener">photosynthesis.co.nz 镜头序列号</a></p>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.24</code><span class="date">2026-11-22 00:45:07</span></div>
     <h3>镜头序列号、镜头配件与数据复核</h3>
     <ul>
       <li>接入 photosynthesis.co.nz 的镜头序列号统计：293 支镜头补上「产量（序列号统计）」与「生产年代」</li>
