@@ -512,6 +512,13 @@ html[data-theme="dark"] .g-lab{ background:#141a21 !important; }
 #site-footer{ border-top:1px solid rgba(16,24,40,.07) !important; }
 html[data-theme="dark"] #site-footer{ border-top-color: rgba(255,255,255,.08) !important; }
 
+/* ---------- 部分兼容行（深色下不再刺眼） ---------- */
+html[data-theme="dark"] tr.partial,
+html[data-theme="dark"] .partial{ background: rgba(242,194,0,.10) !important; }
+html[data-theme="dark"] tr.partial:hover,
+html[data-theme="dark"] .partial:hover{ background: rgba(242,194,0,.16) !important; }
+html[data-theme="dark"] tr.partial td{ border-bottom-color: rgba(242,194,0,.14) !important; }
+
 /* ---------- 动效 ---------- */
 @keyframes iosIn{ from{ opacity:0; transform: translateY(6px);} to{ opacity:1; transform:none;} }
 .tablewrap, #side{ animation: iosIn .28s var(--ios-ease) both; }
@@ -605,11 +612,6 @@ html[data-theme="dark"] .tabs button.on{ background:#e9edf3 !important; color:#1
 }
 /* 抽屉内的标签也降低对比 */
 .drawer .tag,
-.drawer .mt{
-  background: rgba(120,120,128,.12) !important;
-  color: #4a515c !important;
-  border-color: transparent !important;
-}
 
 html[data-theme="dark"] .drawer thead th,
 html[data-theme="dark"] .drawer .acctab th{
@@ -630,11 +632,7 @@ html[data-theme="dark"] .drawer .acctab td{
   border-bottom-color: rgba(255,255,255,.06) !important;
 }
 html[data-theme="dark"] .drawer .tag,
-html[data-theme="dark"] .drawer .mt{
-  background: rgba(255,255,255,.08) !important;
-  color: #c6cdd8 !important;
-}
-
+html[data-theme="dark"] 
 /* 抽屉统一尺寸（镜头 / 副厂 / 相机 完全一致） */
 #drawer, .drawer{
   top: 0 !important;
@@ -1326,7 +1324,7 @@ html[data-theme="dark"] .sub,html[data-theme="dark"] .date,html[data-theme="dark
 <footer id="site-footer">
   <span>作者：<b>MaxSum</b></span><span>·</span>
   <a href="https://space.bilibili.com/399566399" target="_blank" rel="noopener">哔哩哔哩：某不知名行为艺术家</a><span>·</span>
-  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v39</span>
+  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v40</span>
 </footer>
 </body>
 </html>
