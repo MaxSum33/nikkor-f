@@ -246,12 +246,18 @@ html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:
     <a href="./thirdparty.html">副厂镜头</a>
     <a href="./cameras.html">相机</a>
     <a href="./reviews.html">评测</a>
+    <a href="./manuals.html">说明书</a>
     <a href="./changelog.html">日志</a>
   </nav>
 </header>
 
 <div class="layout">
   <aside id="side">
+    <div id="brandwrap" style="display:none">
+      <h3>品牌</h3>
+      <div class="chips" id="f-brand"></div>
+    </div>
+
     <h3>卡口世代</h3>
     <div class="chips" id="f-gen"></div>
 
@@ -399,7 +405,7 @@ const COLS = [
   {k:"start",t:"发布",      s:true, cls:"num hide-sm"},
   {k:"end",  t:"停产",      s:true, cls:"num hide-xs"}
 ];
-const state = {q:"", gens:new Set(), cls:new Set(), tier:new Set(), af:"", vr:"", gold:"",
+const state = {q:"", gens:new Set(), cls:new Set(), tier:new Set(), brands:new Set(), af:"", vr:"", gold:"",
                fmin:null, fmax:null, wmin:null, wmax:null, dmin:null, dmax:null, apval:null,
                sort:{k:"id", dir:1}};
 
@@ -441,6 +447,11 @@ function buildChips(box, values, set, cls){
 }
 buildChips($("#f-gen"), GEN_ORDER, state.gens);
 document.querySelectorAll("#f-gen .chip").forEach(c=>{ c.onclick = ()=>toggleGen(c.dataset.v); });
+const BRANDS = [...new Set(DATA.map(d=>d.brand).filter(Boolean))].sort();
+if(BRANDS.length){
+  $("#brandwrap").style.display = "";
+  buildChips($("#f-brand"), BRANDS, state.brands);
+}
 buildChips($("#f-cls"), CLS_ORDER, state.cls);
 buildChips($("#f-tier"), ["顶级专业","专业","高端","消费","入门","特殊用途"], state.tier);
 
@@ -504,7 +515,7 @@ document.addEventListener("keydown", e=>{
   if(e.key==="Escape"){ closeModal(); }
 });
 $("#reset").onclick = ()=>{
-  state.q=""; state.gens.clear(); state.cls.clear(); state.tier.clear();
+  state.q=""; state.gens.clear(); state.cls.clear(); state.tier.clear(); state.brands.clear();
   state.af=""; state.vr=""; state.gold="";
   state.fmin=state.fmax=state.wmin=state.wmax=state.dmin=state.dmax=state.apval=null;
   state.sort={k:"id",dir:1};
@@ -533,6 +544,7 @@ COLS.forEach(c=>{
 function match(d){
   if(state.gens.size && !state.gens.has(d.gen)) return false;
   if(state.cls.size && !state.cls.has(d.cls)) return false;
+  if(state.brands.size && !state.brands.has(d.brand||"")) return false;
   if(state.tier.size && !state.tier.has(d.tier)) return false;
   if(state.af && d.af!==state.af) return false;
   if(state.vr && d.vr!==state.vr) return false;
@@ -548,7 +560,7 @@ function match(d){
   if(state.dmin!=null && (f==null || f < state.dmin)) return false;
   if(state.dmax!=null && (f==null || f > state.dmax)) return false;
   if(state.q){
-    const hay = [d.name,d.nick,d.feat,d.naming,d.note,d.gen,d.tier].join(" ").toLowerCase();
+    const hay = [d.name,d.nick,d.feat,d.naming,d.note,d.gen,d.tier,d.brand||""].join(" ").toLowerCase();
     if(!hay.includes(state.q)) return false;
   }
   return true;
@@ -754,9 +766,23 @@ render();
 </script>
 
 
-<footer id="site-footer" style="margin:28px 20px 34px;padding-top:14px;border-top:1px solid #e6e8ec;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;justify-content:center;font-size:12px;color:#69707d">
-  <span>作者：<b style="color:#15171c">MaxSum</b></span><span>·</span>
-  <a href="https://space.bilibili.com/399566399" target="_blank" rel="noopener" style="color:#1f4a73;text-decoration:none">哔哩哔哩：某不知名行为艺术家</a><span>·</span>
+<style id="footer-css">
+#site-footer{margin:28px 20px 34px;padding-top:14px;border-top:1px solid #e6e8ec;
+  display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;justify-content:center;
+  font-size:12px;color:#5b626d}
+#site-footer b{color:#15171c;font-weight:700}
+#site-footer a{color:#1f4a73;text-decoration:none}
+#site-footer a:hover{text-decoration:underline}
+html[data-theme="dark"] #site-footer{color:#c3cbd6;border-top-color:#252b35}
+html[data-theme="dark"] #site-footer b{color:#f2c200}
+html[data-theme="dark"] #site-footer a{color:#9cc4ef}
+html[data-theme="dark"] .item ul,html[data-theme="dark"] .item li{color:#c6cdd8}
+html[data-theme="dark"] .sub,html[data-theme="dark"] .date,html[data-theme="dark"] .lastup{color:#b3bcc8}
+</style>
+
+<footer id="site-footer">
+  <span>作者：<b>MaxSum</b></span><span>·</span>
+  <a href="https://space.bilibili.com/399566399" target="_blank" rel="noopener">哔哩哔哩：某不知名行为艺术家</a><span>·</span>
   <span>数据整理自尼康官方资料与公开评测</span>
 </footer>
 </body>

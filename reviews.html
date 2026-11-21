@@ -118,6 +118,7 @@ html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:
     <a href="./thirdparty.html">副厂镜头</a>
     <a href="./cameras.html">相机</a>
     <a href="./reviews.html" class="on">评测</a>
+    <a href="./manuals.html">说明书</a>
     <a href="./changelog.html">日志</a>
   </nav>
 </header>
@@ -229,6 +230,20 @@ render();
 })();
 </script>
 
+
+<style id="footer-css">
+#site-footer{margin:28px 20px 34px;padding-top:14px;border-top:1px solid #e6e8ec;
+  display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;justify-content:center;
+  font-size:12px;color:#5b626d}
+#site-footer b{color:#15171c;font-weight:700}
+#site-footer a{color:#1f4a73;text-decoration:none}
+#site-footer a:hover{text-decoration:underline}
+html[data-theme="dark"] #site-footer{color:#c3cbd6;border-top-color:#252b35}
+html[data-theme="dark"] #site-footer b{color:#f2c200}
+html[data-theme="dark"] #site-footer a{color:#9cc4ef}
+html[data-theme="dark"] .item ul,html[data-theme="dark"] .item li{color:#c6cdd8}
+html[data-theme="dark"] .sub,html[data-theme="dark"] .date,html[data-theme="dark"] .lastup{color:#b3bcc8}
+</style>
 <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function () {
@@ -236,9 +251,9 @@ render();
     });
   }
 </script>
-<footer id="site-footer" style="margin:28px 20px 34px;padding-top:14px;border-top:1px solid #e6e8ec;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;justify-content:center;font-size:12px;color:#69707d">
-  <span>作者：<b style="color:#15171c">MaxSum</b></span><span>·</span>
-  <a href="https://space.bilibili.com/399566399" target="_blank" rel="noopener" style="color:#1f4a73;text-decoration:none">哔哩哔哩：某不知名行为艺术家</a><span>·</span>
+<footer id="site-footer">
+  <span>作者：<b>MaxSum</b></span><span>·</span>
+  <a href="https://space.bilibili.com/399566399" target="_blank" rel="noopener">哔哩哔哩：某不知名行为艺术家</a><span>·</span>
   <span>数据整理自尼康官方资料与公开评测</span>
 </footer>
 </body>

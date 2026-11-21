@@ -29,10 +29,13 @@ h2{font-size:20px;margin:0 0 4px}
 .item h3{margin:2px 0 6px;font-size:14px;font-weight:600}
 .item ul{margin:0;padding-left:18px;color:#3b414c;font-size:12.8px}
 .item li{margin:2px 0}
-.date{margin-left:auto;color:var(--muted);font-size:11.5px;font-variant-numeric:tabular-nums}
+.date{margin-left:auto;color:var(--muted);font:12px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;font-variant-numeric:tabular-nums}
 .v{display:flex;align-items:center;gap:8px;width:100%}
-.lastup{margin-left:10px;color:var(--muted);font-size:12px}
+.lastup{margin-left:10px;color:var(--muted);font:12px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;font-variant-numeric:tabular-nums}
+.lastup b{font:inherit;font-weight:600;color:var(--ink)}
 .tagnew{font-size:10.5px;background:var(--accent-soft);color:#6b5300;border:1px solid #f4dc7a;padding:1px 6px;border-radius:99px;margin-left:4px}
+html[data-theme="dark"] .tagnew{background:#3a3418;color:#f0d97a;border-color:#5a5122}
+html[data-theme="dark"] .v code{background:#e7eaf0;color:#111}
 </style>
 
 <style id="theme-css">
@@ -106,6 +109,7 @@ html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:
     <a href="./thirdparty.html">副厂镜头</a>
     <a href="./cameras.html">相机</a>
     <a href="./reviews.html">评测</a>
+    <a href="./manuals.html">说明书</a>
     <a href="./changelog.html" class="on">日志</a>
   </nav>
 </header>
@@ -115,7 +119,19 @@ html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:
   <p class="sub">首个版本记为 beta0.01，之后每次迭代 +0.01。（时间为各版本构建时刻，早期版本按会话记录推算）<span class="lastup">最后更新：<b>2026-11-21 23:30:26</b></span></p>
 
   <div class="item">
-    <div class="v"><code>beta0.19</code><span class="tagnew">当前</span><span class="date">2026-11-21 23:46:36</span></div>
+    <div class="v"><code>beta0.20</code><span class="tagnew">当前</span><span class="date">2026-11-22 00:09:43</span></div>
+    <h3>厂商筛选、说明书页与深色细节</h3>
+    <ul>
+      <li>副厂镜头侧栏新增「品牌」筛选，10 个厂商一键切换</li>
+      <li>新增「说明书」页（导航第 5 项）：相机与配件说明书链接分两个标签，只收录可打开且型号对应的页面</li>
+      <li>机身二级菜单的「备注」改为自动换行，不再需要左右滑动；配件表加「说明书」列</li>
+      <li>深色模式下更新日志正文与页脚作者名提亮，修复看不清的问题</li>
+      <li>更新日志的时间与「最后更新」统一为等宽字体</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.19</code><span class="date">2026-11-21 23:46:36</span></div>
     <h3>机身通病与产量显示修正</h3>
     <ul>
       <li>每台机身的二级菜单末尾新增「可能存在的通病」，收录 115 台尼康 / 非尼康机身的常见故障（掉渣、快门召回、LCD 漏液、BGLOD、马达崩齿等）</li>
@@ -325,6 +341,20 @@ html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:
 })();
 </script>
 
+
+<style id="footer-css">
+#site-footer{margin:28px 20px 34px;padding-top:14px;border-top:1px solid #e6e8ec;
+  display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;justify-content:center;
+  font-size:12px;color:#5b626d}
+#site-footer b{color:#15171c;font-weight:700}
+#site-footer a{color:#1f4a73;text-decoration:none}
+#site-footer a:hover{text-decoration:underline}
+html[data-theme="dark"] #site-footer{color:#c3cbd6;border-top-color:#252b35}
+html[data-theme="dark"] #site-footer b{color:#f2c200}
+html[data-theme="dark"] #site-footer a{color:#9cc4ef}
+html[data-theme="dark"] .item ul,html[data-theme="dark"] .item li{color:#c6cdd8}
+html[data-theme="dark"] .sub,html[data-theme="dark"] .date,html[data-theme="dark"] .lastup{color:#b3bcc8}
+</style>
 <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function () {
@@ -332,9 +362,9 @@ html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:
     });
   }
 </script>
-<footer id="site-footer" style="margin:28px 20px 34px;padding-top:14px;border-top:1px solid #e6e8ec;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;justify-content:center;font-size:12px;color:#69707d">
-  <span>作者：<b style="color:#15171c">MaxSum</b></span><span>·</span>
-  <a href="https://space.bilibili.com/399566399" target="_blank" rel="noopener" style="color:#1f4a73;text-decoration:none">哔哩哔哩：某不知名行为艺术家</a><span>·</span>
+<footer id="site-footer">
+  <span>作者：<b>MaxSum</b></span><span>·</span>
+  <a href="https://space.bilibili.com/399566399" target="_blank" rel="noopener">哔哩哔哩：某不知名行为艺术家</a><span>·</span>
   <span>数据整理自尼康官方资料与公开评测</span>
 </footer>
 </body>

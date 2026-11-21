@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>说明书下载 · 尼康 F 卡口资料库</title>
+<meta name="theme-color" content="#111318">
+<link rel="manifest" href="manifest.json">
+<style>
+:root{--bg:#f5f6f8;--panel:#fff;--ink:#15171c;--muted:#69707d;--line:#e6e8ec;--accent:#f2c200;--accent-soft:#fff6cc;--chip:#eef0f3;--shadow:0 1px 2px rgba(16,24,40,.06),0 8px 24px rgba(16,24,40,.06)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+.top{position:sticky;top:0;z-index:30;background:#111318;color:#fff;border-bottom:3px solid var(--accent);padding:10px 22px 0}
+.toprow{display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding-bottom:8px;min-height:56px}
+.brand h1{font-size:17px;margin:0;font-weight:700}
+.brand p{margin:2px 0 0;font-size:12px;color:#a9b0bd}
+.tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+#q{width:280px;max-width:52vw;padding:8px 12px;border-radius:9px;border:1px solid #2c313b;background:#1b1e25;color:#fff;outline:none;font-size:13px}
+#q::placeholder{color:#7d8593}
+button{font:inherit;font-size:13px;cursor:pointer;border-radius:9px;border:1px solid #2c313b;background:#1b1e25;color:#e8eaee;padding:8px 13px}
+button:hover{background:#252932}
+.nav{display:flex;gap:2px;overflow:auto}
+.nav a{color:#c8cdd6;text-decoration:none;font-size:13px;padding:8px 14px;border-radius:9px 9px 0 0;white-space:nowrap}
+.nav a:hover{background:#1b1e25}
+.nav a.on{background:var(--bg);color:#111;font-weight:700}
+main{padding:16px 20px 20px}
+.tabs{display:flex;gap:8px;margin-bottom:12px}
+.tabs button{border-radius:99px}
+.tabs button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.statline{display:flex;align-items:baseline;gap:10px;font-size:13px;color:var(--muted);margin:4px 0 10px}
+.statline b{font-size:20px;color:var(--ink)}
+.statline .sp{flex:1}
+.tablewrap{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:auto;max-height:calc(100vh - 250px)}
+table{border-collapse:separate;border-spacing:0;width:100%;font-size:12.5px}
+thead th{position:sticky;top:0;z-index:5;background:#fafbfc;text-align:left;white-space:nowrap;padding:9px 10px;border-bottom:1px solid var(--line);font-size:11.5px;color:#555c68}
+tbody td{padding:8px 10px;border-bottom:1px solid #f0f1f3;white-space:nowrap}
+tbody tr:nth-child(even){background:#fcfcfd}
+tbody tr:hover{background:var(--accent-soft)}
+td.model{font-weight:600}
+a.man{color:#1f4a73;text-decoration:none}
+a.man:hover{text-decoration:underline}
+.tag{display:inline-block;padding:1px 7px;border-radius:99px;font-size:11px;background:var(--chip);color:#4a515c}
+.muted{color:var(--muted)}
+.foot{margin:14px 2px 0;font-size:11.5px;color:var(--muted);line-height:1.7}
+@media (max-width:960px){.tablewrap{max-height:none}#q{width:160px}td.hide-sm,th.hide-sm{display:none}}
+@media (max-width:640px){.brand h1{font-size:15px}td.hide-xs,th.hide-xs{display:none}.nav{flex-wrap:wrap}.nav a{padding:7px 10px;font-size:12.5px}}
+
+#site-footer{margin:28px 20px 34px;padding-top:14px;border-top:1px solid #e6e8ec;
+  display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;justify-content:center;
+  font-size:12px;color:#69707d}
+#site-footer b{color:#15171c;font-weight:700}
+#site-footer a{color:#1f4a73;text-decoration:none}
+#site-footer a:hover{text-decoration:underline}
+html[data-theme="dark"] #site-footer{color:#9aa4b2;border-top-color:#252b35}
+html[data-theme="dark"] #site-footer b{color:#e7eaf0}
+html[data-theme="dark"] #site-footer a{color:#8fb8e8}
+html[data-theme="dark"] .item ul,html[data-theme="dark"] .item li{color:#c6cdd8}
+html[data-theme="dark"] .item h3{color:#e7eaf0}
+html[data-theme="dark"] .sub,html[data-theme="dark"] .date,html[data-theme="dark"] .lastup{color:#9aa4b2}
+html[data-theme="dark"] .v code{background:#e7eaf0;color:#111}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="toprow">
+    <div class="brand">
+      <h1>说明书下载</h1>
+      <p>相机与配件 · <b id="total">0</b> 条 · 点击在新标签打开</p>
+    </div>
+    <div class="tools">
+      <input id="q" type="search" placeholder="搜索型号 / 配件" autocomplete="off">
+      <button id="csv">导出 CSV</button>
+      <button id="reset">重置</button>
+    </div>
+  </div>
+  <nav class="nav">
+    <a href="./index.html">镜头</a>
+    <a href="./thirdparty.html">副厂镜头</a>
+    <a href="./cameras.html">相机</a>
+    <a href="./reviews.html">评测</a>
+    <a href="./manuals.html" class="on">说明书</a>
+    <a href="./changelog.html">日志</a>
+  </nav>
+</header>
+
+<main>
+  <div class="tabs">
+    <button data-tab="cam" class="on">相机说明书</button>
+    <button data-tab="acc">配件说明书</button>
+  </div>
+  <div class="statline"><span>当前 <b id="shown">0</b> 条 / 共 <span id="all">0</span> 条</span><span class="sp"></span><span class="mini" id="mini"></span></div>
+  <div class="tablewrap">
+    <table><thead><tr id="thead"></tr></thead><tbody id="tbody"></tbody></table>
+  </div>
+  <p class="foot"><b>说明</b>：链接指向厂商官方说明书页（尼康下载中心）或公共说明书库（Butkus、MIR）。只收能打开且与型号对应的页面；
+    显示「—」表示暂未找到可靠来源，不是没有说明书。部分老机型只有英文版。</p>
+</main>
+
+<script>
+const DATA = {"cams":[],"accs":[]};
+const $ = s=>document.querySelector(s);
+const esc = s=>String(s==null?"":s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+const state = {tab:"cam", q:""};
+const COLS = {
+  cam:[{k:"model",t:"相机型号"},{k:"series",t:"系列"},{k:"src",t:"来源"},{k:"url",t:"说明书"}],
+  acc:[{k:"code",t:"配件型号"},{k:"type",t:"类型"},{k:"src",t:"来源"},{k:"url",t:"说明书"}]
+};
+function list(){ return state.tab==="cam" ? DATA.cams : DATA.accs; }
+function render(){
+  const cols = COLS[state.tab];
+  $("#thead").innerHTML = cols.map(c=>`<th>${c.t}</th>`).join("");
+  let rows = list().filter(d=>{
+    if(!state.q) return true;
+    return [d.model,d.code,d.series,d.type,d.src].join(" ").toLowerCase().includes(state.q);
+  });
+  $("#tbody").innerHTML = rows.map(d=>`<tr>
+    <td class="model">${esc(d.model||d.code||"")}</td>
+    <td>${esc(d.series||d.type||"—")}</td>
+    <td><span class="tag">${esc(d.src||"—")}</span></td>
+    <td>${d.url && d.url!=="—" ? `<a class="man" href="${esc(d.url)}" target="_blank" rel="noopener">打开说明书 →</a>` : '<span class="muted">—</span>'}</td>
+  </tr>`).join("");
+  $("#shown").textContent = rows.length;
+  $("#all").textContent = list().length;
+  $("#mini").textContent = `${DATA.cams.length} 台相机 / ${DATA.accs.length} 项配件`;
+}
+document.querySelectorAll(".tabs button").forEach(b=>{
+  b.onclick = ()=>{ state.tab=b.dataset.tab; document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x===b)); render(); };
+});
+$("#q").oninput = e=>{ state.q=e.target.value.trim().toLowerCase(); render(); };
+$("#reset").onclick = ()=>{ state.q=""; $("#q").value=""; render(); };
+$("#csv").onclick = ()=>{
+  const rows=list().filter(d=>!state.q || [d.model,d.code,d.series,d.type,d.src].join(" ").toLowerCase().includes(state.q));
+  const head = state.tab==="cam" ? ["型号","系列","来源","说明书链接"] : ["配件型号","类型","来源","说明书链接"];
+  const cell=v=>`"${String(v==null?"":v).replace(/"/g,'""')}"`;
+  const body = rows.map(d=> state.tab==="cam"
+    ? [d.model,d.series,d.src,d.url].map(cell).join(",")
+    : [d.code,d.type,d.src,d.url].map(cell).join(","));
+  const blob=new Blob(["\ufeff"+head.map(cell).join(",")+"\n"+body.join("\n")],{type:"text/csv;charset=utf-8"});
+  const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="说明书链接.csv"; a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+};
+$("#total").textContent = DATA.cams.length + DATA.accs.length;
+render();
+</script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('sw.js').catch(function () {});
+    });
+  }
+</script>
+<footer id="site-footer">
+  <span>作者：<b>MaxSum</b></span><span>·</span>
+  <a href="https://space.bilibili.com/399566399" target="_blank" rel="noopener">哔哩哔哩：某不知名行为艺术家</a><span>·</span>
+  <span>数据整理自尼康官方资料与公开评测</span>
+</footer>
+</body>
+</html>
