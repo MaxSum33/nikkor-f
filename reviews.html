@@ -549,6 +549,15 @@ html[data-theme="dark"] .drawer .mt{
     border-radius: 20px !important;
   }
 }
+
+/* ---------- 抽屉打开时锁定背景滚动 ---------- */
+body.drawer-open{ overflow: hidden !important; }
+html:has(body.drawer-open){ overflow: hidden; }
+.ov2.on, .overlay.on{ touch-action: none; }
+.d-body, .drawer{ overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+@media (max-width: 640px){
+  body.drawer-open{ position: fixed; width: 100%; }
+}
 </style></head>
 <body>
 <header class="top">
@@ -700,7 +709,7 @@ html[data-theme="dark"] .sub,html[data-theme="dark"] .date,html[data-theme="dark
 <footer id="site-footer">
   <span>作者：<b>MaxSum</b></span><span>·</span>
   <a href="https://space.bilibili.com/399566399" target="_blank" rel="noopener">哔哩哔哩：某不知名行为艺术家</a><span>·</span>
-  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v36</span>
+  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v37</span>
 </footer>
 </body>
 </html>
