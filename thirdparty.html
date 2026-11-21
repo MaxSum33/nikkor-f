@@ -3,61 +3,242 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>尼康 F 卡口副厂镜头 · 可视化</title>
+<title>尼康 F 卡口副厂镜头 · 可视化筛选</title>
 <meta name="theme-color" content="#111318">
 <link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Nikkor F">
+
 <style>
-:root{--bg:#f5f6f8;--panel:#fff;--ink:#15171c;--muted:#69707d;--line:#e6e8ec;--accent:#f2c200;--accent-soft:#fff6cc;--chip:#eef0f3;--shadow:0 1px 2px rgba(16,24,40,.06),0 8px 24px rgba(16,24,40,.06)}
+:root{
+  --bg:#f5f6f8; --panel:#fff; --ink:#15171c; --muted:#69707d; --line:#e6e8ec;
+  --accent:#f2c200; --accent-soft:#fff6cc; --ink2:#2b2f38; --chip:#eef0f3;
+  --shadow:0 1px 2px rgba(16,24,40,.06),0 8px 24px rgba(16,24,40,.06);
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--ink);
+  font:14px/1.5 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+/* ---------- header ---------- */
 .top{position:sticky;top:0;z-index:30;background:#111318;color:#fff;border-bottom:3px solid var(--accent);padding:10px 22px 0}
 .toprow{display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding-bottom:8px;min-height:56px}
-.brand h1{font-size:17px;margin:0;font-weight:700}
+.brand h1{font-size:17px;margin:0;font-weight:700;letter-spacing:0}
 .brand p{margin:2px 0 0;font-size:12px;color:#a9b0bd}
 .brand b{color:var(--accent)}
 .tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 #q{width:300px;max-width:52vw;padding:8px 12px;border-radius:9px;border:1px solid #2c313b;background:#1b1e25;color:#fff;outline:none;font-size:13px}
 #q::placeholder{color:#7d8593}
-button{font:inherit;font-size:13px;cursor:pointer;border-radius:9px;border:1px solid #2c313b;background:#1b1e25;color:#e8eaee;padding:8px 13px}
+#q:focus{border-color:var(--accent); box-shadow:0 0 0 3px rgba(242,194,0,.15)}
+button{
+  font:inherit; font-size:13px; cursor:pointer; border-radius:9px; border:1px solid #2c313b;
+  background:#1b1e25; color:#e8eaee; padding:8px 13px; transition:.15s;
+}
 button:hover{background:#252932}
+button.primary{background:var(--accent); color:#111; border-color:var(--accent); font-weight:600}
+button.primary:hover{filter:brightness(1.05)}
+/* ---------- layout ---------- */
+.layout{display:grid; grid-template-columns:250px 1fr; gap:18px; padding:18px 22px 40px; align-items:start}
+aside{
+  background:var(--panel); border:1px solid var(--line); border-radius:14px;
+  box-shadow:var(--shadow); padding:14px; position:sticky; top:78px;
+  max-height:calc(100vh - 96px); overflow:auto;
+}
+aside h3{
+  font-size:11px; text-transform:uppercase; letter-spacing:.9px; color:var(--muted);
+  margin:16px 0 8px; font-weight:700;
+}
+aside h3:first-child{margin-top:0}
+.chips{display:flex; flex-wrap:wrap; gap:6px}
+.chip{
+  font-size:12px; padding:4px 9px; border-radius:99px; background:var(--chip);
+  border:1px solid transparent; cursor:pointer; user-select:none; color:#3b414c; white-space:nowrap;
+}
+.chip:hover{background:#e3e6ea}
+.chip.on{background:var(--ink); color:#fff; border-color:var(--ink)}
+.chip.on.gold{background:var(--accent); color:#111; border-color:var(--accent)}
+.seg{display:flex; background:var(--chip); border-radius:9px; padding:2px; gap:2px}
+.seg button{
+  flex:1; border:0; background:transparent; color:#4b515c; padding:6px 4px; border-radius:7px; font-size:12px;
+}
+.seg button.on{background:#fff; color:#111; box-shadow:0 1px 2px rgba(0,0,0,.12); font-weight:600}
+.range{display:flex; gap:6px; align-items:center}
+.range input{
+  width:100%; padding:6px 8px; font:inherit; font-size:12px; border:1px solid var(--line);
+  border-radius:8px; background:#fbfbfc; color:var(--ink); outline:none; -moz-appearance:textfield;
+}
+.range input:focus{border-color:var(--accent); background:#fff}
+.range span{color:var(--muted); font-size:12px; white-space:nowrap}
+.hint{font-size:11px; color:var(--muted); margin:6px 0 0}
+.presets{display:flex; flex-wrap:wrap; gap:5px; margin-top:7px}
+.presets .chip{font-size:11px; padding:3px 8px}
+/* ---------- main ---------- */
+main{min-width:0}
+.statline{
+  display:flex; align-items:baseline; gap:10px; margin:2px 0 10px; font-size:13px; color:var(--muted);
+  flex-wrap:wrap;
+}
+.statline b{font-size:20px; color:var(--ink); font-variant-numeric:tabular-nums}
+.statline .sp{flex:1}
+.mini{display:flex; gap:12px; font-size:12px; color:var(--muted)}
+.mini i{font-style:normal; color:var(--ink2); font-weight:600; font-variant-numeric:tabular-nums}
+.bar{display:flex; height:9px; border-radius:99px; overflow:hidden; background:#eceef1; margin:0 0 12px; cursor:pointer}
+.bar span{height:100%; transition:opacity .15s}
+.bar span:hover{opacity:.75}
+.foot{margin:14px 2px 0; font-size:11.5px; color:var(--muted); line-height:1.7}
+.foot b{color:#4a515c}
+.tablewrap{
+  background:var(--panel); border:1px solid var(--line); border-radius:14px;
+  box-shadow:var(--shadow); overflow:auto; max-height:calc(100vh - 168px);
+}
+table{border-collapse:separate; border-spacing:0; width:100%; font-size:12.5px}
+thead th{
+  position:sticky; top:0; z-index:5; background:#fafbfc; text-align:left; white-space:nowrap;
+  border-bottom:1px solid var(--line); padding:9px 10px; font-size:11.5px; color:#555c68;
+  font-weight:700; cursor:pointer; user-select:none;
+}
+thead th:hover{background:#f1f3f6}
+thead th .ar{opacity:.25; margin-left:3px; font-size:10px}
+thead th.sorted .ar{opacity:1; color:#111}
+tbody td{padding:8px 10px; border-bottom:1px solid #f0f1f3; vertical-align:middle}
+tbody tr{cursor:pointer}
+tbody tr:nth-child(even){background:#fcfcfd}
+tbody tr:hover{background:var(--accent-soft)}
+td.name{font-weight:600; min-width:250px; white-space:nowrap}
+td.name small{display:block; font-weight:400; color:var(--muted); font-size:11px; margin-top:1px}
+.num{font-variant-numeric:tabular-nums; white-space:nowrap}
+.tag{
+  display:inline-block; padding:1px 7px; border-radius:99px; font-size:11px; background:var(--chip); color:#4a515c;
+  white-space:nowrap;
+}
+.tag.dx{background:#e8f1ff;color:#1f57a8;font-weight:600}
+.tag.gold{background:var(--accent-soft); color:#6b5300; border:1px solid #f4dc7a; font-weight:600}
+.tag.vr{background:#e8f1ff; color:#1f57a8}
+.tag.af{background:#eaf7ee; color:#1d6b3a}
+.dot{width:8px; height:8px; border-radius:50%; background:var(--accent); display:inline-block; margin-right:4px; vertical-align:middle; box-shadow:0 0 0 2px #fff6cc}
+.muted{color:var(--muted)}
+.empty{padding:50px; text-align:center; color:var(--muted)}
+/* ---------- modal ---------- */
+.overlay{
+  position:fixed; inset:0; background:rgba(15,18,24,.55); display:none; z-index:60;
+  align-items:center; justify-content:center; padding:20px;
+}
+.overlay.on{display:flex}
+.card{
+  background:#fff; border-radius:16px; max-width:720px; width:100%; max-height:86vh; overflow:auto;
+  box-shadow:0 30px 80px rgba(0,0,0,.35);
+}
+.card .hd{padding:18px 22px 12px; border-bottom:1px solid var(--line); position:sticky; top:0; background:#fff; border-radius:16px 16px 0 0}
+.card h2{margin:0; font-size:17px; line-height:1.35}
+.card .hd p{margin:5px 0 0; color:var(--muted); font-size:12px}
+.card .bd{padding:16px 22px 22px}
+.rvline{margin-top:14px;font-size:12.5px}
+.rvline a{color:#1f4a73;text-decoration:none;border-bottom:1px dashed #9bb6d4}
+.rvline a:hover{color:#2f6ba8}
+.kv{display:grid; grid-template-columns:104px 1fr; gap:7px 14px; font-size:13px}
+.kv dt{color:var(--muted); font-size:12px}
+.kv dd{margin:0}
+.close{position:absolute; right:14px; top:12px}
+.x{background:#f2f3f5; border:1px solid var(--line); color:#333; border-radius:50%; width:30px; height:30px; padding:0; font-size:16px; line-height:1}
+/* ---------- responsive ---------- */
+@media (max-width:960px){
+  .layout{grid-template-columns:1fr; padding:12px}
+  aside{display:none; position:static; max-height:none}
+  aside.open{display:block}
+  .tablewrap{max-height:none}
+  #q{width:170px}
+  td.hide-sm,th.hide-sm{display:none}
+}
+@media (max-width:640px){
+  td.hide-xs,th.hide-xs{display:none}
+  td.name{min-width:168px; white-space:normal; line-height:1.35}
+  tbody td{padding:7px 8px}
+  .brand h1{font-size:15px}
+}
+.only-mobile{display:none}
+@media (max-width:960px){.only-mobile{display:inline-block}}
 .nav{display:flex;gap:2px;overflow:auto}
 .nav a{color:#c8cdd6;text-decoration:none;font-size:13px;padding:8px 14px;border-radius:9px 9px 0 0}
 .nav a:hover{background:#1b1e25}
 .nav a.on{background:var(--bg);color:#111;font-weight:700}
-main{padding:16px 20px 20px}
-.side{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
-.side .chip{font-size:12px;padding:5px 11px;border-radius:99px;background:var(--chip);border:1px solid transparent;cursor:pointer;color:#3b414c;user-select:none}
-.side .chip:hover{background:#e3e6ea}
-.side .chip.on{background:var(--ink);color:#fff}
-.statline{display:flex;align-items:baseline;gap:10px;font-size:13px;color:var(--muted);margin:4px 0 10px}
-.statline b{font-size:20px;color:var(--ink)}
-.statline .sp{flex:1}
-.tablewrap{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:auto;max-height:calc(100vh - 240px)}
-table{border-collapse:separate;border-spacing:0;width:100%;font-size:12.5px}
-thead th{position:sticky;top:0;z-index:5;background:#fafbfc;text-align:left;white-space:nowrap;padding:9px 10px;border-bottom:1px solid var(--line);font-size:11.5px;color:#555c68;cursor:pointer;user-select:none}
-tbody td{padding:8px 10px;border-bottom:1px solid #f0f1f3;white-space:nowrap}
-tbody tr:nth-child(even){background:#fcfcfd}
-tbody tr:hover{background:var(--accent-soft)}
-td.model{font-weight:600;min-width:230px}
-.num{font-variant-numeric:tabular-nums}
-.tag{display:inline-block;padding:1px 7px;border-radius:99px;font-size:11px;background:var(--chip);color:#4a515c}
-.muted{color:var(--muted)}
-.foot{margin:14px 2px 0;font-size:11.5px;color:var(--muted);line-height:1.7}
-@media (max-width:960px){.tablewrap{max-height:none}#q{width:170px}td.hide-sm,th.hide-sm{display:none}}
-@media (max-width:640px){.brand h1{font-size:15px}td.hide-xs,th.hide-xs{display:none}}
+</style>
+
+<style id="theme-css">
+html[data-theme="dark"]{
+  --bg:#0d1015; --panel:#151920; --ink:#e7eaf0; --muted:#98a2b0; --line:#252b35;
+  --chip:#1e232b; --accent-soft:#33301a; --ink2:#dfe3ea; --accent:#f2c200;
+  background:#0d1015;
+}
+html[data-theme="dark"] body{background:var(--bg);color:var(--ink)}
+html[data-theme="dark"] thead th{background:#1a1f27;color:#a9b3c0;border-bottom-color:var(--line)}
+html[data-theme="dark"] tbody td{border-bottom-color:#222833}
+html[data-theme="dark"] tbody tr:nth-child(even){background:#12161c}
+html[data-theme="dark"] tbody tr:hover{background:#2a2718}
+html[data-theme="dark"] .tablewrap,html[data-theme="dark"] .gantt,html[data-theme="dark"] aside,
+html[data-theme="dark"] .card,html[data-theme="dark"] .drawer,html[data-theme="dark"] .wrap{background:var(--panel)}
+html[data-theme="dark"] .tag{background:var(--chip);color:#b9c2cf}
+html[data-theme="dark"] .tag.gold{background:#33301a;color:#f0d97a;border-color:#5a5122}
+html[data-theme="dark"] .tag.dx{background:#1b2a3f;color:#8fb8e8}
+html[data-theme="dark"] .tag.warn{background:#3a3016;border-color:#6b5a22;color:#f0d97a}
+html[data-theme="dark"] .mt.full{background:#16301f;color:#8fe0ac}
+html[data-theme="dark"] .mt.part{background:#3a3016;color:#f0d97a}
+html[data-theme="dark"] .mt.no{background:#232830;color:#8a94a2}
+html[data-theme="dark"] .stars .dim{color:#3a414d}
+html[data-theme="dark"] .range input{background:#1b2028;color:var(--ink);border-color:var(--line)}
+html[data-theme="dark"] .chip{background:var(--chip);color:#b9c2cf}
+html[data-theme="dark"] .chip.on{background:#e7eaf0;color:#111;border-color:#e7eaf0}
+html[data-theme="dark"] .seg{background:var(--chip)}
+html[data-theme="dark"] .seg button{color:#aab3bf}
+html[data-theme="dark"] .seg button.on{background:#2a303a;color:#fff;box-shadow:none}
+html[data-theme="dark"] .tabs button{background:var(--panel);border-color:var(--line);color:#b9c2cf}
+html[data-theme="dark"] .tabs button.on{background:#e7eaf0;color:#111;border-color:#e7eaf0}
+html[data-theme="dark"] .nav a.on{background:#e7eaf0;color:#111}
+html[data-theme="dark"] .g-head{background:#1a1f27}
+html[data-theme="dark"] .g-head .g-lab{background:#1a1f27;border-right-color:var(--line)}
+html[data-theme="dark"] .g-lab{background:var(--panel);border-right-color:var(--line);color:#c6cdd8}
+html[data-theme="dark"] .g-row:hover .g-lab{background:#2a2718}
+html[data-theme="dark"] .g-stitle{background:#1a1f27;color:#a9b3c0}
+html[data-theme="dark"] .g-row{border-bottom-color:#1f242c}
+html[data-theme="dark"] .d-head{background:var(--panel);border-bottom-color:var(--line)}
+html[data-theme="dark"] .d-close{background:#232830;border-color:var(--line);color:#c6cdd8}
+html[data-theme="dark"] .acctab td,html[data-theme="dark"] .acctab th{border-bottom-color:#222833}
+html[data-theme="dark"] a.rv.alt{background:#232830;color:#c6cdd8}
+html[data-theme="dark"] .empty{color:var(--muted)}
+html[data-theme="dark"] .bread,html[data-theme="dark"] .foot{color:var(--muted)}
+html[data-theme="dark"] .hint,html[data-theme="dark"] .muted,html[data-theme="dark"] .d-kv dt{color:#98a2b0}
+html[data-theme="dark"] #site-footer{color:#98a2b0}
+html[data-theme="dark"] .acctab th{background:#1a1f27;color:#a9b3c0}
+#themeBtn{
+  position:fixed;right:18px;bottom:18px;width:44px;height:44px;border-radius:50%;
+  border:1px solid #cfd4db;background:#fff;color:#111;font-size:18px;line-height:1;
+  cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.18);z-index:80;
+}
+html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:#3a414d}
+@media (max-width:640px){
+  .nav{flex-wrap:wrap}
+  .nav a{padding:7px 10px;font-size:12.5px}
+  #themeBtn{right:12px;bottom:12px;width:40px;height:40px}
+}
 </style>
 </head>
 <body>
+
 <header class="top">
   <div class="toprow">
     <div class="brand">
       <h1>尼康 F 卡口副厂镜头</h1>
-      <p>适马 / 腾龙 / 图丽 / 蔡司 / 三阳 等 · <b id="total">0</b> 支</p>
+      <p><b id="total">0</b> 支第三方镜头 · 适马 / 腾龙 / 图丽 / 蔡司 / 三阳等</p>
     </div>
     <div class="tools">
-      <input id="q" type="search" placeholder="搜索型号 / 品牌（按 / 聚焦）" autocomplete="off">
+      <input id="q" type="search" placeholder="搜索型号 / 外号 / 特性（按 / 聚焦）" autocomplete="off">
       <button id="csv">导出 CSV</button>
       <button id="reset">重置</button>
+      <button id="ftoggle" class="only-mobile primary">筛选</button>
     </div>
   </div>
   <nav class="nav">
@@ -69,112 +250,474 @@ td.model{font-weight:600;min-width:230px}
   </nav>
 </header>
 
-<main>
-  <div class="side" id="brands"></div>
-  <div class="statline"><span>当前 <b id="shown">0</b> 支 / 共 <span id="all">0</span> 支</span><span class="sp"></span><span class="mini" id="mini"></span></div>
-  <div class="tablewrap">
-    <table><thead><tr id="thead"></tr></thead><tbody id="tbody"></tbody></table>
+<div class="layout">
+  <aside id="side">
+    <h3>卡口世代</h3>
+    <div class="chips" id="f-gen"></div>
+
+    <h3>类型</h3>
+    <div class="chips" id="f-cls"></div>
+
+    <h3>自动对焦</h3>
+    <div class="seg" id="f-af">
+      <button data-v="" class="on">全部</button><button data-v="是">是</button><button data-v="否">否</button>
+    </div>
+
+    <h3>防抖 VR</h3>
+    <div class="seg" id="f-vr">
+      <button data-v="" class="on">全部</button><button data-v="是">是</button><button data-v="否">否</button>
+    </div>
+
+    <h3>金圈</h3>
+    <div class="seg" id="f-gold">
+      <button data-v="" class="on">全部</button><button data-v="是">是</button><button data-v="否">否</button>
+    </div>
+
+    <h3>最大光圈</h3>
+    <div class="range">
+      <input id="apval" type="number" step="0.1" min="0.9" placeholder="输入如 2.8">
+    </div>
+    <div class="presets" id="appre">
+      <span class="chip" data-ap="">全部</span>
+      <span class="chip" data-ap="1.2">1.2</span>
+      <span class="chip" data-ap="1.4">1.4</span>
+      <span class="chip" data-ap="1.8">1.8</span>
+      <span class="chip" data-ap="2">2</span>
+      <span class="chip" data-ap="2.5">2.5</span>
+      <span class="chip" data-ap="2.8">2.8</span>
+      <span class="chip" data-ap="3.3">3.3</span>
+      <span class="chip" data-ap="3.5">3.5</span>
+      <span class="chip" data-ap="4">4</span>
+      <span class="chip" data-ap="4.5">4.5</span>
+      <span class="chip" data-ap="5">5</span>
+      <span class="chip" data-ap="5.6">5.6</span>
+      <span class="chip" data-ap="8">8</span>
+      <span class="chip" data-ap="9.5">9.5</span>
+      <span class="chip" data-ap="11">11</span>
+    </div>
+    <p class="hint">精确匹配：选 2.8 只显示 f/2.8 的镜头，不会带出 f/1.8、f/1.4。变焦按广角端计，如 16-80 f/2.8-4 归入 2.8。</p>
+
+    <h3>定位</h3>
+    <div class="chips" id="f-tier"></div>
+
+    <h3>焦距（mm）</h3>
+    <div class="range">
+      <input id="fmin" type="number" min="0" placeholder="最小">
+      <span>–</span>
+      <input id="fmax" type="number" min="0" placeholder="最大">
+    </div>
+    <div class="presets">
+      <span class="chip" data-fmin="0" data-fmax="35">广角 ≤35</span>
+      <span class="chip" data-fmin="35" data-fmax="85">标准 35–85</span>
+      <span class="chip" data-fmin="85" data-fmax="200">中长焦 85–200</span>
+      <span class="chip" data-fmin="200" data-fmax="9999">长焦 &gt;200</span>
+    </div>
+
+    <h3>重量（g）</h3>
+    <div class="range">
+      <input id="wmin" type="number" min="0" placeholder="最小">
+      <span>–</span>
+      <input id="wmax" type="number" min="0" placeholder="最大">
+    </div>
+    <div class="presets">
+      <span class="chip" data-wmin="0" data-wmax="500">≤500</span>
+      <span class="chip" data-wmin="500" data-wmax="1000">500–1000</span>
+      <span class="chip" data-wmin="1000" data-wmax="2000">1000–2000</span>
+      <span class="chip" data-wmin="2000" data-wmax="99999">&gt;2000</span>
+    </div>
+
+    <h3>滤镜口径（mm）</h3>
+    <div class="range">
+      <input id="dmin" type="number" min="0" placeholder="最小">
+      <span>–</span>
+      <input id="dmax" type="number" min="0" placeholder="最大">
+    </div>
+    <div class="presets" id="dpre">
+      <span class="chip" data-d="52">52</span>
+      <span class="chip" data-d="62">62</span>
+      <span class="chip" data-d="67">67</span>
+      <span class="chip" data-d="72">72</span>
+      <span class="chip" data-d="77">77</span>
+      <span class="chip" data-d="82">82</span>
+      <span class="chip" data-d="95">95</span>
+    </div>
+    <p class="hint">后置滤镜与内置转塔不计入口径区间</p>
+  </aside>
+
+  <main>
+    <div class="statline">
+      <span>当前 <b id="shown">0</b> 支 / 共 <span id="all">0</span> 支</span>
+      <span class="sp"></span>
+      <span class="mini" id="mini"></span>
+    </div>
+    <div class="bar" id="bar" title="点击色段可按世代筛选"></div>
+    <div class="tablewrap">
+      <table id="tbl">
+        <thead><tr id="thead"></tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+      <div class="empty" id="empty" style="display:none">没有符合条件的镜头，试试放宽筛选。</div>
+    </div>
+    <p class="foot"><b>关于数据</b>：共收录 Nikon/NIKKOR 自产 F 卡口镜头（不含第三方、Z 卡口与增距镜等附件）。同一光学结构的不同世代分别列行，同世代外观小改合并。
+      光学结构 / 滤镜口径 / 重量以尼康原厂说明书与官网规格页为准，缺资料处记“—”；重量不含遮光罩与脚架环。
+      停产年份尼康从不系统公布，标“约/不详”处为推算；金圈与 SWM 马达形态官方不披露，个别为推断；“定位”为编者按规格归纳，非官方分级。</p>
+  </main>
+</div>
+
+<div class="overlay" id="ov">
+  <div class="card" role="dialog" aria-modal="true">
+    <div class="hd">
+      <h2 id="m-title"></h2>
+      <p id="m-sub"></p>
+      <button class="x close" id="m-close" aria-label="关闭">×</button>
+    </div>
+    <div class="bd"><dl class="kv" id="m-kv"></dl><div id="m-rv" class="rvline"></div></div>
   </div>
-  <p class="foot"><b>说明</b>：本表只收 <b>尼康 F 卡口</b> 的第三方镜头（原厂 Nikkor 见「镜头」页）。同一型号的不同代（如腾龙 90mm 微距 172E/272E/F004/F017）分别列行；
-    标注「—」表示该字段资料缺失。数据为爱好者整理，年份与重量以厂商公布值为准。</p>
-</main>
+</div>
 
 <script>
-const DATA = [{"brand":"Irix","model":"11mm f/4 Blackstone/Firefly","gen":"手动","aptype":"D","focal":"11","ap":"4","af":"否","motor":"无（手动）","vr":"否","tier":"超广","feat":"非球面、ED、防尘防滴","nick":"无","start":"约2016","end":"—","optics":"16片10组","filter":"无（后置凝胶）","weight":"790","note":"全画幅；CPU 触点；最近0.275m"},{"brand":"Irix","model":"150mm f/2.8 Macro","gen":"手动","aptype":"D","focal":"150","ap":"2.8","af":"否","motor":"无（手动）","vr":"否","tier":"微距","feat":"1:1微距、ED","nick":"无","start":"约2018","end":"—","optics":"12片9组","filter":"77","weight":"840","note":"全画幅；CPU 触点；最近0.345m；可拆脚架环"},{"brand":"Irix","model":"15mm f/2.4 Blackstone/Firefly","gen":"手动","aptype":"D","focal":"15","ap":"2.4","af":"否","motor":"无（手动）","vr":"否","tier":"超广","feat":"非球面、ED、防尘防滴","nick":"无","start":"约2016","end":"—","optics":"15片11组","filter":"95","weight":"581","note":"Blackstone 653g；CPU 触点；最近0.28m；后置凝胶滤镜"},{"brand":"Irix","model":"21mm f/1.4","gen":"手动","aptype":"D","focal":"21","ap":"1.4","af":"否","motor":"无（手动）","vr":"否","tier":"大光圈超广","feat":"非球面、超低色散","nick":"无","start":"2022","end":"—","optics":"15片11组","filter":"无","weight":"—","note":"全画幅；CPU 触点；最近0.3m"},{"brand":"Mitakon","model":"20mm f/2 4.5x Super Macro","gen":"手动","aptype":"非CPU","focal":"20","ap":"2","af":"否","motor":"无（手动）","vr":"否","tier":"微距","feat":"4.5:1超微距","nick":"无","start":"2016","end":"—","optics":"6片4组","filter":"无","weight":"230","note":"中一光学；全画幅；最近0.2m"},{"brand":"Mitakon","model":"85mm f/2.8 1-5x Super Macro","gen":"手动","aptype":"非CPU","focal":"85","ap":"2.8","af":"否","motor":"无（手动）","vr":"否","tier":"微距","feat":"1:1–5:1超微距","nick":"无","start":"2019","end":"—","optics":"12片8组","filter":"58","weight":"750","note":"中一光学；全画幅；最近0.1m"},{"brand":"Mitakon","model":"Creator 35mm f/2","gen":"手动","aptype":"非CPU","focal":"35","ap":"2","af":"否","motor":"无（手动）","vr":"否","tier":"轻量人文","feat":"无","nick":"无","start":"约2015","end":"—","optics":"7片5组","filter":"55","weight":"470","note":"中一光学；全画幅；最近0.25m"},{"brand":"Mitakon","model":"Creator 85mm f/2","gen":"手动","aptype":"非CPU","focal":"85","ap":"2","af":"否","motor":"无（手动）","vr":"否","tier":"轻量人像","feat":"无","nick":"无","start":"约2015","end":"—","optics":"6片6组","filter":"55","weight":"500","note":"中一光学；全画幅；最近0.85m"},{"brand":"Mitakon","model":"Speedmaster 135mm f/1.4","gen":"手动","aptype":"非CPU","focal":"135","ap":"1.4","af":"否","motor":"无（手动）","vr":"否","tier":"超大光圈长焦","feat":"ED、限量","nick":"无","start":"约2015","end":"—","optics":"11片5组","filter":"105","weight":"3000","note":"中一光学；全画幅；最近1.6m；重约3kg"},{"brand":"Mitakon","model":"Speedmaster 85mm f/1.2","gen":"手动","aptype":"非CPU","focal":"85","ap":"1.2","af":"否","motor":"无（手动）","vr":"否","tier":"大光圈人像","feat":"ED、11叶光圈","nick":"无","start":"约2015","end":"—","optics":"9片6组","filter":"77","weight":"921","note":"中一光学；全画幅；最近1m"},{"brand":"Samyang","model":"100mm f/2.8 ED UMC Macro","gen":"手动","aptype":"D","focal":"100","ap":"2.8","af":"否","motor":"无（手动）","vr":"否","tier":"微距","feat":"1:1微距、ED","nick":"无","start":"2014","end":"—","optics":"15片12组","filter":"67","weight":"705","note":"全画幅；AE 芯片版；最近0.307m"},{"brand":"Samyang","model":"12mm f/2.8 ED AS NCS Fisheye","gen":"手动","aptype":"D","focal":"12","ap":"2.8","af":"否","motor":"无（手动）","vr":"否","tier":"高端鱼眼","feat":"鱼眼、NCS镀膜","nick":"无","start":"2014","end":"—","optics":"12片8组","filter":"无","weight":"525","note":"全画幅对角线鱼眼（约180°）；AE 芯片版带CPU"},{"brand":"Samyang","model":"135mm f/2 ED UMC","gen":"手动","aptype":"D","focal":"135","ap":"2","af":"否","motor":"无（手动）","vr":"否","tier":"中长焦大光圈","feat":"ED","nick":"无","start":"2015","end":"—","optics":"11片7组","filter":"77","weight":"815","note":"全画幅；AE 芯片版；最近0.8m"},{"brand":"Samyang","model":"14mm f/2.8 ED AS IF UMC","gen":"手动","aptype":"D","focal":"14","ap":"2.8","af":"否","motor":"无（手动）","vr":"否","tier":"高性价比超广","feat":"非球面、ED","nick":"无","start":"2009","end":"约2020","optics":"14片10组","filter":"无","weight":"573","note":"全画幅；AE 芯片版带CPU；后被 MK2 取代"},{"brand":"Samyang","model":"14mm f/2.8 MK2","gen":"手动","aptype":"D","focal":"14","ap":"2.8","af":"否","motor":"无（手动）","vr":"否","tier":"高性价比超广","feat":"防尘防滴、非球面","nick":"无","start":"2020","end":"—","optics":"14片10组","filter":"无","weight":"708","note":"全画幅；AE 芯片版；最近0.28m"},{"brand":"Samyang","model":"16mm f/2 ED AS UMC CS","gen":"手动","aptype":"D","focal":"16","ap":"2","af":"否","motor":"无（手动）","vr":"否","tier":"DX 大光圈广角","feat":"非球面、ED","nick":"无","start":"约2013","end":"—","optics":"13片11组","filter":"77","weight":"571","note":"APS-C 专用（等效24mm）；AE 芯片版"},{"brand":"Samyang","model":"20mm f/1.8 ED AS UMC","gen":"手动","aptype":"D","focal":"20","ap":"1.8","af":"否","motor":"无（手动）","vr":"否","tier":"高性价比广角","feat":"非球面、ED","nick":"无","start":"2016","end":"—","optics":"13片12组","filter":"77","weight":"488","note":"全画幅；AE 芯片版"},{"brand":"Samyang","model":"24mm f/1.4 ED AS IF UMC","gen":"手动","aptype":"D","focal":"24","ap":"1.4","af":"否","motor":"无（手动）","vr":"否","tier":"大光圈广角","feat":"非球面、ED","nick":"无","start":"约2011","end":"约2019","optics":"13片12组","filter":"77","weight":"680","note":"全画幅；AE 芯片版"},{"brand":"Samyang","model":"24mm f/3.5 T-S ED AS UMC","gen":"手动","aptype":"D","focal":"24","ap":"3.5","af":"否","motor":"无（手动）","vr":"否","tier":"移轴","feat":"移轴（倾斜/偏移）","nick":"无","start":"2012","end":"—","optics":"16片11组","filter":"82","weight":"680","note":"全画幅移轴；AE 芯片版"},{"brand":"Samyang","model":"35mm f/1.4 AS UMC","gen":"手动","aptype":"D","focal":"35","ap":"1.4","af":"否","motor":"无（手动）","vr":"否","tier":"大光圈人文","feat":"非球面","nick":"无","start":"2010","end":"—","optics":"12片10组","filter":"77","weight":"660","note":"全画幅；AE 芯片版"},{"brand":"Samyang","model":"50mm f/1.4 AS UMC","gen":"手动","aptype":"D","focal":"50","ap":"1.4","af":"否","motor":"无（手动）","vr":"否","tier":"大光圈标头","feat":"非球面","nick":"无","start":"2014","end":"—","optics":"9片6组","filter":"77","weight":"520","note":"全画幅；AE 芯片版"},{"brand":"Samyang","model":"85mm f/1.4 AS IF UMC","gen":"手动","aptype":"D","focal":"85","ap":"1.4","af":"否","motor":"无（手动）","vr":"否","tier":"人像","feat":"非球面","nick":"无","start":"2011","end":"约2020","optics":"9片7组","filter":"72","weight":"513","note":"全画幅；AE 芯片版；后被 MK2 取代"},{"brand":"Samyang","model":"8mm f/3.5 Aspherical IF MC Fisheye CS","gen":"手动","aptype":"非CPU","focal":"8","ap":"3.5","af":"否","motor":"无（手动）","vr":"否","tier":"入门鱼眼","feat":"DX 对角线鱼眼（约167°）","nick":"无","start":"约2009","end":"—","optics":"10片7组","filter":"无","weight":"约420","note":"APS-C 专用；前组无法装滤镜；早期无CPU版"},{"brand":"Sigma","model":"10-20mm f/3.5 EX DC HSM","gen":"AF-D","aptype":"D","focal":"10-20","ap":"f/3.5","af":"是","motor":"环形超声波","vr":"否","tier":"高端","feat":"HSM、非球面、SLD、ELD","nick":"无","start":"2009","end":"不详","optics":"13片10组","filter":"82","weight":"520","note":"APS-C 专用恒定 f/3.5 超广变焦"},{"brand":"Sigma","model":"10-20mm f/4-5.6 EX DC HSM","gen":"AF-D","aptype":"D","focal":"10-20","ap":"f/4-5.6","af":"是","motor":"环形超声波","vr":"否","tier":"消费","feat":"HSM、非球面、SLD","nick":"无","start":"2005","end":"不详","optics":"14片10组","filter":"77","weight":"470","note":"APS-C 专用超广变焦"},{"brand":"Sigma","model":"100-400mm f/5-6.3 DG OS HSM Contemporary","gen":"AF-D","aptype":"G","focal":"100-400","ap":"f/5-6.3","af":"是","motor":"环形超声波","vr":"是","tier":"消费","feat":"HSM、OS防抖、非球面、SLD","nick":"无","start":"2017","end":"不详","optics":"21片15组","filter":"67","weight":"1160","note":"轻量化远摄变焦"},{"brand":"Sigma","model":"105mm f/1.4 DG HSM Art","gen":"AF-D","aptype":"G","focal":"105","ap":"f/1.4","af":"是","motor":"环形超声波","vr":"否","tier":"专业","feat":"HSM、非球面、FLD、SLD","nick":"虚化大师","start":"2018","end":"不详","optics":"17片12组","filter":"105","weight":"1645","note":"官方称 Bokeh Master，重量级人像镜"},{"brand":"Sigma","model":"105mm f/2.8 EX DG OS HSM Macro","gen":"AF-D","aptype":"D","focal":"105","ap":"f/2.8","af":"是","motor":"环形超声波","vr":"是","tier":"高端","feat":"HSM、OS防抖、微距1:1、SLD","nick":"无","start":"2011","end":"不详","optics":"16片11组","filter":"62","weight":"725","note":"1:1 微距，带防抖"},{"brand":"Sigma","model":"10mm f/2.8 EX DC Fisheye HSM","gen":"AF-D","aptype":"D","focal":"10","ap":"f/2.8","af":"是","motor":"环形超声波","vr":"否","tier":"高端","feat":"鱼眼、HSM","nick":"无","start":"2007","end":"不详","optics":"12片7组","filter":"无","weight":"475","note":"APS-C 专用对角线鱼眼"},{"brand":"Sigma","model":"12-24mm f/4 DG HSM Art","gen":"AF-D","aptype":"G","focal":"12-24","ap":"f/4","af":"是","motor":"环形超声波","vr":"否","tier":"高端","feat":"HSM、非球面、FLD、SLD","nick":"无","start":"2016","end":"不详","optics":"16片11组","filter":"无","weight":"1150","note":"灯泡前组，无前置滤镜螺纹，可后置滤镜"},{"brand":"Sigma","model":"12-24mm f/4.5-5.6 II DG HSM","gen":"AF-D","aptype":"D","focal":"12-24","ap":"f/4.5-5.6","af":"是","motor":"环形超声波","vr":"否","tier":"高端","feat":"HSM、非球面、FLD、SLD","nick":"无","start":"2011","end":"不详","optics":"17片13组","filter":"无","weight":"670","note":"灯泡前组；II 代改进镀膜与后置滤镜"},{"brand":"Sigma","model":"120-300mm f/2.8 DG OS HSM Sports","gen":"AF-D","aptype":"G","focal":"120-300","ap":"f/2.8","af":"是","motor":"环形超声波","vr":"是","tier":"专业","feat":"HSM、OS防抖、非球面、SLD","nick":"无","start":"2013","end":"不详","optics":"23片18组","filter":"105","weight":"3390","note":"Sports 系列恒定 f/2.8 远摄变焦"},{"brand":"Sigma","model":"120-300mm f/2.8 EX DG OS HSM","gen":"AF-D","aptype":"D","focal":"120-300","ap":"f/2.8","af":"是","motor":"环形超声波","vr":"是","tier":"专业","feat":"HSM、OS防抖、非球面、SLD","nick":"无","start":"2011","end":"不详","optics":"23片18组","filter":"105","weight":"2950","note":"EX 系列恒定 f/2.8 远摄变焦"},{"brand":"Sigma","model":"120-400mm f/4.5-5.6 DG OS HSM","gen":"AF-D","aptype":"D","focal":"120-400","ap":"f/4.5-5.6","af":"是","motor":"环形超声波","vr":"是","tier":"消费","feat":"HSM、OS防抖、非球面、SLD","nick":"无","start":"2008","end":"不详","optics":"21片15组","filter":"77","weight":"1640","note":"EX 系列远摄变焦"},{"brand":"Sigma","model":"135mm f/1.8 DG HSM Art","gen":"AF-D","aptype":"G","focal":"135","ap":"f/1.8","af":"是","motor":"环形超声波","vr":"否","tier":"高端","feat":"HSM、非球面、FLD、SLD","nick":"无","start":"2017","end":"不详","optics":"13片10组","filter":"82","weight":"1130","note":"Art 系列中长焦定焦"},{"brand":"Sigma","model":"14-24mm f/2.8 DG HSM Art","gen":"AF-D","aptype":"G","focal":"14-24","ap":"f/2.8","af":"是","motor":"环形超声波","vr":"否","tier":"专业","feat":"HSM、非球面、FLD、SLD","nick":"无","start":"2018","end":"不详","optics":"17片11组","filter":"无","weight":"1150","note":"灯泡前组，无前置滤镜螺纹"},{"brand":"Sigma","model":"14mm f/1.8 DG HSM Art","gen":"AF-D","aptype":"G","focal":"14","ap":"f/1.8","af":"是","motor":"环形超声波","vr":"否","tier":"高端","feat":"HSM、非球面、FLD、SLD","nick":"无","start":"2017","end":"不详","optics":"16片11组","filter":"无","weight":"1120","note":"灯泡前组，无前置滤镜螺纹；可后置滤镜"},{"brand":"Sigma","model":"150-500mm f/5-6.3 DG OS HSM","gen":"AF-D","aptype":"D","focal":"150-500","ap":"f/5-6.3","af":"是","motor":"环形超声波","vr":"是","tier":"消费","feat":"HSM、OS防抖、非球面、SLD","nick":"无","start":"2008","end":"不详","optics":"21片15组","filter":"86","weight":"1780","note":"EX 系列远摄变焦"},{"brand":"Sigma","model":"150-600mm f/5-6.3 DG OS HSM Contemporary","gen":"AF-D","aptype":"G","focal":"150-600","ap":"f/5-6.3","af":"是","motor":"环形超声波","vr":"是","tier":"消费","feat":"HSM、OS防抖、非球面、FLD、SLD","nick":"无","start":"2014","end":"不详","optics":"20片14组","filter":"95","weight":"1930","note":"Contemporary 版，轻量化"},{"brand":"Sigma","model":"150-600mm f/5-6.3 DG OS HSM Sports","gen":"AF-D","aptype":"G","focal":"150-600","ap":"f/5-6.3","af":"是","motor":"环形超声波","vr":"是","tier":"专业","feat":"HSM、OS防抖、非球面、FLD、SLD","nick":"健身炮","start":"2014","end":"不详","optics":"24片16组","filter":"105","weight":"2860","note":"Sports 版，金属镜身，重量大"},{"brand":"Sigma","model":"150mm f/2.8 EX DG OS HSM Macro","gen":"AF-D","aptype":"D","focal":"150","ap":"f/2.8","af":"是","motor":"环形超声波","vr":"是","tier":"高端","feat":"HSM、OS防抖、微距1:1、SLD","nick":"无","start":"2010","end":"不详","optics":"19片13组","filter":"72","weight":"1150","note":"1:1 微距，带防抖"},{"brand":"Sigma","model":"15mm f/2.8 EX DG Diagonal Fisheye","gen":"AF-D","aptype":"D","focal":"15","ap":"f/2.8","af":"是","motor":"环形超声波","vr":"否","tier":"高端","feat":"对角线鱼眼","nick":"无","start":"2006","end":"不详","optics":"7片6组","filter":"无","weight":"370","note":"全画幅对角线鱼眼，后置滤镜"},{"brand":"Sigma","model":"17-50mm f/2.8 EX DC OS HSM","gen":"AF-D","aptype":"D","focal":"17-50","ap":"f/2.8","af":"是","motor":"环形超声波","vr":"是","tier":"高端","feat":"HSM、OS防抖、非球面、FLD","nick":"无","start":"2010","end":"不详","optics":"17片13组","filter":"77","weight":"565","note":"APS-C 专用恒定 f/2.8 标准变焦"},{"brand":"Sigma","model":"17-70mm f/2.8-4 DC Macro OS HSM","gen":"AF-D","aptype":"D","focal":"17-70","ap":"f/2.8-4","af":"是","motor":"环形超声波","vr":"是","tier":"消费","feat":"HSM、OS防抖、非球面、微距","nick":"无","start":"2010","end":"不详","optics":"17片13组","filter":"72","weight":"535","note":"APS-C 专用标准变焦（C 版前身）"},{"brand":"Sigma","model":"17-70mm f/2.8-4 DC Macro OS HSM Contemporary","gen":"AF-D","aptype":"G","focal":"17-70","ap":"f/2.8-4","af":"是","motor":"环形超声波","vr":"是","tier":"消费","feat":"HSM、OS防抖、非球面、微距","nick":"无","start":"2013","end":"不详","optics":"16片14组","filter":"72","weight":"465","note":"APS-C 专用，C 版轻量化"},{"brand":"Sigma","model":"18-300mm f/3.5-6.3 DC Macro OS HSM Contemporary","gen":"AF-D","aptype":"G","focal":"18-300","ap":"f/3.5-6.3","af":"是","motor":"环形超声波","vr":"是","tier":"消费","feat":"HSM、OS防抖、非球面、微距","nick":"无","start":"2014","end":"不详","optics":"17片13组","filter":"72","weight":"585","note":"APS-C 专用高倍变焦"},{"brand":"Sigma","model":"18-35mm f/1.8 DC HSM Art","gen":"AF-D","aptype":"G","focal":"18-35","ap":"f/1.8","af":"是","motor":"环形超声波","vr":"否","tier":"高端","feat":"HSM、非球面、SLD、恒定f/1.8","nick":"半幅神镜","start":"2013","end":"不详","optics":"17片12组","filter":"72","weight":"810","note":"APS-C 专用恒定 f/1.8 广角变焦"},{"brand":"Sigma","model":"180mm f/2.8 EX DG OS HSM Macro","gen":"AF-D","aptype":"D","focal":"180","ap":"f/2.8","af":"是","motor":"环形超声波","vr":"是","tier":"高端","feat":"HSM、OS防抖、微距1:1、SLD","nick":"无","start":"2012","end":"不详","optics":"19片14组","filter":"86","weight":"1640","note":"1:1 微距，带防抖"},{"brand":"Sigma","model":"20mm f/1.4 DG HSM Art","gen":"AF-D","aptype":"G","focal":"20","ap":"f/1.4","af":"是","motor":"环形超声波","vr":"否","tier":"高端","feat":"HSM、非球面、FLD、SLD","nick":"无","start":"2015","end":"不详","optics":"15片11组","filter":"无","weight":"950","note":"灯泡前组，无前置滤镜螺纹"},{"brand":"Sigma","model":"24-105mm f/4 DG OS HSM Art","gen":"AF-D","aptype":"G","focal":"24-105","ap":"f/4","af":"是","motor":"环形超声波","vr":"是","tier":"高端","feat":"HSM、OS防抖、非球面、SLD","nick":"无","start":"2013","end":"不详","optics":"19片14组","filter":"82","weight":"885","note":"Art 系列标准变焦"},{"brand":"Sigma","model":"24-35mm f/2 DG HSM Art","gen":"AF-D","aptype":"G","focal":"24-35","ap":"f/2","af":"是","motor":"环形超声波","vr":"否","tier":"高端","feat":"HSM、非球面、FLD、SLD、恒定f/2","nick":"无","start":"2015","end":"不详","optics":"18片13组","filter":"82","weight":"940","note":"全画幅恒定 f/2 广角变焦"},{"brand":"Sigma","model":"24-70mm f/2.8 DG OS HSM Art","gen":"AF-D","aptype":"G","focal":"24-70","ap":"f/2.8","af":"是","motor":"环形超声波","vr":"是","tier":"专业","feat":"HSM、OS防抖、非球面、SLD","nick":"无","start":"2017","end":"不详","optics":"19片14组","filter":"82","weight":"1020","note":"Art 系列大三元标准变焦"},{"brand":"Sigma","model":"24-70mm f/2.8 IF EX DG HSM","gen":"AF-D","aptype":"D","focal":"24-70","ap":"f/2.8","af":"是","motor":"环形超声波","vr":"否","tier":"专业","feat":"HSM、非球面、SLD","nick":"无","start":"2008","end":"不详","optics":"14片12组","filter":"82","weight":"790","note":"EX 系列大三元标准变焦"},{"brand":"Sigma","model":"24mm f/1.4 DG HSM Art","gen":"AF-D","aptype":"G","focal":"24","ap":"f/1.4","af":"是","motor":"环形超声波","vr":"否","tier":"高端","feat":"HSM、非球面、SLD","nick":"无","start":"2015","end":"不详","optics":"15片11组","filter":"77","weight":"665","note":"Art 系列大光圈广角定焦"},{"brand":"Sigma","model":"28mm f/1.4 DG HSM Art","gen":"AF-D","aptype":"G","focal":"28","ap":"f/1.4","af":"是","motor":"环形超声波","vr":"否","tier":"高端","feat":"HSM、非球面、FLD、SLD","nick":"无","start":"2018","end":"不详","optics":"17片12组","filter":"77","weight":"865","note":"Art 系列新款广角定焦"},{"brand":"Sigma","model":"30mm f/1.4 DC HSM Art","gen":"AF-D","aptype":"G","focal":"30","ap":"f/1.4","af":"是","motor":"环形超声波","vr":"否","tier":"高端","feat":"HSM、非球面","nick":"无","start":"2013","end":"不详","optics":"9片8组","filter":"62","weight":"435","note":"APS-C 专用标准定焦"},{"brand":"Sigma","model":"30mm f/1.4 EX DC HSM","gen":"AF-D","aptype":"D","focal":"30","ap":"f/1.4","af":"是","motor":"环形超声波","vr":"否","tier":"高端","feat":"HSM、非球面","nick":"无","start":"2005","end":"不详","optics":"7片7组","filter":"62","weight":"430","note":"APS-C 专用大光圈标准定焦"},{"brand":"Sigma","model":"35mm f/1.4 DG HSM Art","gen":"AF-D","aptype":"G","focal":"35","ap":"f/1.4","af":"是","motor":"环形超声波","vr":"否","tier":"高端","feat":"HSM、非球面、FLD、SLD","nick":"无","start":"2012","end":"不详","optics":"13片11组","filter":"67","weight":"665","note":"Art 系列首支镜头，确立 Art 路线"},{"brand":"Sigma","model":"4.5mm f/2.8 EX DC Circular Fisheye HSM","gen":"AF-D","aptype":"D","focal":"4.5","ap":"f/2.8","af":"是","motor":"环形超声波","vr":"否","tier":"高端","feat":"圆形鱼眼、HSM","nick":"无","start":"约2008","end":"不详","optics":"13片9组","filter":"无","weight":"470","note":"APS-C 专用圆周鱼眼，视角 180°"},{"brand":"Sigma","model":"40mm f/1.4 DG HSM Art","gen":"AF-D","aptype":"G","focal":"40","ap":"f/1.4","af":"是","motor":"环形超声波","vr":"否","tier":"专业","feat":"HSM、非球面、SLD","nick":"无","start":"2018","end":"不详","optics":"16片12组","filter":"82","weight":"1200","note":"源自电影镜头光学设计，体积重量大"},{"brand":"Sigma","model":"50-100mm f/1.8 DC HSM Art","gen":"AF-D","aptype":"G","focal":"50-100","ap":"f/1.8","af":"是","motor":"环形超声波","vr":"否","tier":"高端","feat":"HSM、非球面、FLD、SLD、恒定f/1.8","nick":"无","start":"2016","end":"不详","optics":"21片15组","filter":"82","weight":"1490","note":"APS-C 专用恒定 f/1.8 中长焦变焦"},{"brand":"Sigma","model":"50-500mm f/4.5-6.3 DG OS HSM","gen":"AF-D","aptype":"D","focal":"50-500","ap":"f/4.5-6.3","af":"是","motor":"环形超声波","vr":"是","tier":"高端","feat":"HSM、OS防抖、非球面、SLD","nick":"无","start":"2010","end":"不详","optics":"22片16组","filter":"95","weight":"1970","note":"10 倍远摄变焦，外号 Bigma"},{"brand":"Sigma","model":"50mm f/1.4 DG HSM Art","gen":"AF-D","aptype":"G","focal":"50","ap":"f/1.4","af":"是","motor":"环形超声波","vr":"否","tier":"高端","feat":"HSM、非球面、SLD","nick":"无","start":"2014","end":"不详","optics":"13片8组","filter":"77","weight":"815","note":"Art 系列标准定焦"},{"brand":"Sigma","model":"50mm f/1.4 EX DG HSM","gen":"AF-D","aptype":"D","focal":"50","ap":"f/1.4","af":"是","motor":"环形超声波","vr":"否","tier":"高端","feat":"HSM、非球面","nick":"无","start":"2008","end":"不详","optics":"8片6组","filter":"77","weight":"505","note":"EX 系列标准定焦"},{"brand":"Sigma","model":"60-600mm f/4.5-6.3 DG OS HSM Sports","gen":"AF-D","aptype":"G","focal":"60-600","ap":"f/4.5-6.3","af":"是","motor":"环形超声波","vr":"是","tier":"专业","feat":"HSM、OS防抖、非球面、SLD","nick":"无","start":"2018","end":"不详","optics":"25片19组","filter":"105","weight":"2700","note":"10 倍远摄变焦"},{"brand":"Sigma","model":"70-200mm f/2.8 DG OS HSM Sports","gen":"AF-D","aptype":"G","focal":"70-200","ap":"f/2.8","af":"是","motor":"环形超声波","vr":"是","tier":"专业","feat":"HSM、OS防抖、非球面、FLD、SLD","nick":"无","start":"2018","end":"不详","optics":"24片22组","filter":"82","weight":"1805","note":"Sports 系列大三元长焦变焦"},{"brand":"Sigma","model":"70-200mm f/2.8 EX DG OS HSM","gen":"AF-D","aptype":"D","focal":"70-200","ap":"f/2.8","af":"是","motor":"环形超声波","vr":"是","tier":"专业","feat":"HSM、OS防抖、非球面、SLD","nick":"无","start":"2010","end":"不详","optics":"22片17组","filter":"77","weight":"1430","note":"EX 系列防抖大三元长焦"},{"brand":"Sigma","model":"85mm f/1.4 DG HSM Art","gen":"AF-D","aptype":"G","focal":"85","ap":"f/1.4","af":"是","motor":"环形超声波","vr":"否","tier":"高端","feat":"HSM、非球面、SLD","nick":"无","start":"2016","end":"不详","optics":"14片12组","filter":"86","weight":"1130","note":"Art 系列人像定焦"},{"brand":"Sigma","model":"85mm f/1.4 EX DG HSM","gen":"AF-D","aptype":"D","focal":"85","ap":"f/1.4","af":"是","motor":"环形超声波","vr":"否","tier":"高端","feat":"HSM、非球面、SLD","nick":"无","start":"2010","end":"不详","optics":"11片8组","filter":"77","weight":"725","note":"EX 系列人像定焦"},{"brand":"Sigma","model":"8mm f/3.5 EX DG Circular Fisheye","gen":"AF-D","aptype":"D","focal":"8","ap":"f/3.5","af":"是","motor":"环形超声波","vr":"否","tier":"高端","feat":"圆形鱼眼、SLD","nick":"无","start":"2006","end":"不详","optics":"11片6组","filter":"无","weight":"400","note":"全画幅圆周鱼眼，视角 180°"},{"brand":"Tamron","model":"10-24mm f/3.5-4.5 Di II VC HLD (B023)","gen":"AF-D","aptype":"G","focal":"10-24","ap":"f/3.5-4.5","af":"是","motor":"步进马达","vr":"是","tier":"消费","feat":"VC防抖、HLD、非球面","nick":"无","start":"2017","end":"2020","optics":"16片11组","filter":"77","weight":"440","note":"HLD 为无刷马达"},{"brand":"Tamron","model":"100-400mm f/4.5-6.3 Di VC USD (A035)","gen":"AF-D","aptype":"G","focal":"100-400","ap":"f/4.5-6.3","af":"是","motor":"环形超声波","vr":"是","tier":"消费","feat":"VC防抖、USD","nick":"无","start":"2017","end":"2024","optics":"17片11组","filter":"67","weight":"1135","note":"远摄变焦，可加增距镜"},{"brand":"Tamron","model":"16-300mm f/3.5-6.3 Di II VC PZD Macro (B016)","gen":"AF-D","aptype":"D","focal":"16-300","ap":"f/3.5-6.3","af":"是","motor":"微型超声波","vr":"是","tier":"消费","feat":"VC防抖、PZD、微距","nick":"无","start":"2014","end":"2021","optics":"16片12组","filter":"67","weight":"540","note":"APS-C 专用 18.8 倍变焦"},{"brand":"Tamron","model":"17-35mm f/2.8-4 Di OSD (A037)","gen":"AF-D","aptype":"G","focal":"17-35","ap":"f/2.8-4","af":"是","motor":"步进马达","vr":"否","tier":"高端","feat":"OSD、非球面、LD","nick":"无","start":"2018","end":"2020","optics":"15片10组","filter":"77","weight":"460","note":"OSD 为直流马达，官方称静音驱动"},{"brand":"Tamron","model":"18-270mm f/3.5-6.3 Di II VC PZD (B008)","gen":"AF-D","aptype":"D","focal":"18-270","ap":"f/3.5-6.3","af":"是","motor":"微型超声波","vr":"是","tier":"消费","feat":"VC防抖、PZD、非球面","nick":"无","start":"2010","end":"2017","optics":"16片13组","filter":"62","weight":"450","note":"PZD 压电驱动，轻量化"},{"brand":"Tamron","model":"18-400mm f/3.5-6.3 Di II VC HLD (B028)","gen":"AF-D","aptype":"G","focal":"18-400","ap":"f/3.5-6.3","af":"是","motor":"步进马达","vr":"是","tier":"消费","feat":"VC防抖、HLD、非球面","nick":"无","start":"2017","end":"2024","optics":"16片11组","filter":"72","weight":"710","note":"APS-C 专用 22.2 倍变焦；HLD 为无刷马达"},{"brand":"Tamron","model":"28-300mm f/3.5-6.3 Di VC PZD (A010)","gen":"AF-D","aptype":"D","focal":"28-300","ap":"f/3.5-6.3","af":"是","motor":"微型超声波","vr":"是","tier":"消费","feat":"VC防抖、PZD","nick":"无","start":"2014","end":"2020","optics":"19片15组","filter":"67","weight":"540","note":"全画幅高倍变焦"},{"brand":"Tamron","model":"35-150mm f/2.8-4 Di VC OSD (A043)","gen":"AF-D","aptype":"G","focal":"35-150","ap":"f/2.8-4","af":"是","motor":"步进马达","vr":"是","tier":"高端","feat":"VC防抖、OSD、非球面、LD","nick":"无","start":"2019","end":"2020","optics":"19片14组","filter":"77","weight":"796","note":"OSD 为直流马达；F 口 2019 年发布、2020 年停产"},{"brand":"Tamron","model":"70-210mm f/4 Di VC USD (A034)","gen":"AF-D","aptype":"G","focal":"70-210","ap":"f/4","af":"是","motor":"环形超声波","vr":"是","tier":"消费","feat":"VC防抖、USD","nick":"无","start":"2018","end":"2019","optics":"20片14组","filter":"67","weight":"860","note":"轻量 f/4 远摄变焦"},{"brand":"Tamron","model":"AF 18-270mm f/3.5-6.3 Di II VC LD Aspherical (IF) Macro (B003)","gen":"AF-D","aptype":"D","focal":"18-270","ap":"f/3.5-6.3","af":"是","motor":"微型超声波","vr":"是","tier":"消费","feat":"VC防抖、LD、非球面","nick":"无","start":"2008","end":"2011","optics":"18片13组","filter":"72","weight":"550","note":"APS-C 专用 15 倍变焦；内置微型马达（BIM）"},{"brand":"Tamron","model":"SP 15-30mm f/2.8 Di VC USD (A012)","gen":"AF-D","aptype":"G","focal":"15-30","ap":"f/2.8","af":"是","motor":"环形超声波","vr":"是","tier":"高端","feat":"VC防抖、USD、非球面、eBAND","nick":"灯泡","start":"2014","end":"2018","optics":"18片13组","filter":"无","weight":"1100","note":"灯泡前组，无前置滤镜螺纹；电磁光圈，无机身光圈环"},{"brand":"Tamron","model":"SP 15-30mm f/2.8 Di VC USD G2 (A041)","gen":"AF-D","aptype":"G","focal":"15-30","ap":"f/2.8","af":"是","motor":"环形超声波","vr":"是","tier":"高端","feat":"VC防抖、USD、非球面、eBAND","nick":"灯泡","start":"2018","end":"2021","optics":"18片13组","filter":"无","weight":"1110","note":"G2 版本，镀膜与防抖改进"},{"brand":"Tamron","model":"SP 150-600mm f/5-6.3 Di VC USD (A011)","gen":"AF-D","aptype":"G","focal":"150-600","ap":"f/5-6.3","af":"是","motor":"环形超声波","vr":"是","tier":"专业","feat":"VC防抖、USD、LD、eBAND","nick":"无","start":"2013","end":"2020","optics":"20片13组","filter":"95","weight":"1951","note":"SP 系列远摄变焦"},{"brand":"Tamron","model":"SP 150-600mm f/5-6.3 Di VC USD G2 (A022)","gen":"AF-D","aptype":"G","focal":"150-600","ap":"f/5-6.3","af":"是","motor":"环形超声波","vr":"是","tier":"专业","feat":"VC防抖、USD、LD、eBAND","nick":"无","start":"2016","end":"2024","optics":"21片13组","filter":"95","weight":"2010","note":"G2 版本，光学与防抖改进"},{"brand":"Tamron","model":"SP 24-70mm f/2.8 Di VC USD (A007)","gen":"AF-D","aptype":"G","focal":"24-70","ap":"f/2.8","af":"是","motor":"环形超声波","vr":"是","tier":"专业","feat":"VC防抖、USD、非球面、LD","nick":"无","start":"2012","end":"2017","optics":"17片12组","filter":"82","weight":"825","note":"SP 系列大三元标准变焦；电磁光圈"},{"brand":"Tamron","model":"SP 24-70mm f/2.8 Di VC USD G2 (A032)","gen":"AF-D","aptype":"G","focal":"24-70","ap":"f/2.8","af":"是","motor":"环形超声波","vr":"是","tier":"专业","feat":"VC防抖、USD、非球面、eBAND","nick":"无","start":"2017","end":"不详","optics":"17片12组","filter":"82","weight":"900","note":"G2 版本"},{"brand":"Tamron","model":"SP 35mm f/1.4 Di USD (F045)","gen":"AF-D","aptype":"G","focal":"35","ap":"f/1.4","af":"是","motor":"环形超声波","vr":"否","tier":"高端","feat":"USD、非球面、LD","nick":"无","start":"2019","end":"2024","optics":"14片10组","filter":"72","weight":"815","note":"SP 系列最后一支 F 口定焦"},{"brand":"Tamron","model":"SP 35mm f/1.8 Di VC USD (F012)","gen":"AF-D","aptype":"G","focal":"35","ap":"f/1.8","af":"是","motor":"环形超声波","vr":"是","tier":"高端","feat":"VC防抖、USD、非球面","nick":"无","start":"2015","end":"2021","optics":"10片9组","filter":"67","weight":"480","note":"SP 系列大光圈定焦"},{"brand":"Tamron","model":"SP 45mm f/1.8 Di VC USD (F013)","gen":"AF-D","aptype":"G","focal":"45","ap":"f/1.8","af":"是","motor":"环形超声波","vr":"是","tier":"高端","feat":"VC防抖、USD、非球面","nick":"无","start":"2015","end":"2019","optics":"10片8组","filter":"67","weight":"540","note":"SP 系列大光圈定焦"},{"brand":"Tamron","model":"SP 70-200mm f/2.8 Di LD (IF) Macro (A001)","gen":"AF-D","aptype":"D","focal":"70-200","ap":"f/2.8","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"专业","feat":"LD、非球面、微距","nick":"无","start":"2008","end":"2019","optics":"18片13组","filter":"77","weight":"1150","note":"F 口无内置马达，靠机身马达驱动；不含三脚架环"},{"brand":"Tamron","model":"SP 70-200mm f/2.8 Di VC USD (A009)","gen":"AF-D","aptype":"G","focal":"70-200","ap":"f/2.8","af":"是","motor":"环形超声波","vr":"是","tier":"专业","feat":"VC防抖、USD、LD、非球面","nick":"小龙炮","start":"2012","end":"2017","optics":"23片17组","filter":"77","weight":"1470","note":"SP 系列防抖大三元长焦；电磁光圈"},{"brand":"Tamron","model":"SP 70-200mm f/2.8 Di VC USD G2 (A025)","gen":"AF-D","aptype":"G","focal":"70-200","ap":"f/2.8","af":"是","motor":"环形超声波","vr":"是","tier":"专业","feat":"VC防抖、USD、LD、非球面","nick":"小龙炮","start":"2017","end":"2024","optics":"23片17组","filter":"77","weight":"1500","note":"G2 版本"},{"brand":"Tamron","model":"SP 70-300mm f/4-5.6 Di VC USD (A005)","gen":"AF-D","aptype":"D","focal":"70-300","ap":"f/4-5.6","af":"是","motor":"环形超声波","vr":"是","tier":"高端","feat":"VC防抖、USD、LD","nick":"无","start":"2010","end":"2020","optics":"17片12组","filter":"62","weight":"765","note":"SP 系列远摄变焦"},{"brand":"Tamron","model":"SP 85mm f/1.8 Di VC USD (F016)","gen":"AF-D","aptype":"G","focal":"85","ap":"f/1.8","af":"是","motor":"环形超声波","vr":"是","tier":"高端","feat":"VC防抖、USD、LD","nick":"无","start":"2016","end":"2020","optics":"13片9组","filter":"67","weight":"700","note":"SP 系列人像定焦"},{"brand":"Tamron","model":"SP 90mm f/2.8 Di Macro 1:1 VC USD (F004)","gen":"AF-D","aptype":"G","focal":"90","ap":"f/2.8","af":"是","motor":"环形超声波","vr":"是","tier":"高端","feat":"VC防抖、USD、微距1:1","nick":"90微","start":"2012","end":"2016","optics":"14片11组","filter":"58","weight":"550","note":"内对焦，带防抖"},{"brand":"Tamron","model":"SP 90mm f/2.8 Di Macro 1:1 VC USD (F017)","gen":"AF-D","aptype":"G","focal":"90","ap":"f/2.8","af":"是","motor":"环形超声波","vr":"是","tier":"高端","feat":"VC防抖、USD、微距1:1、eBAND","nick":"90微","start":"2016","end":"2020","optics":"14片11组","filter":"62","weight":"610","note":"F004 的改进版；电磁光圈，无光圈环"},{"brand":"Tamron","model":"SP AF 10-24mm f/3.5-4.5 Di II LD Aspherical (IF) (B001)","gen":"AF-D","aptype":"D","focal":"10-24","ap":"f/3.5-4.5","af":"是","motor":"微型超声波","vr":"否","tier":"高端","feat":"LD、非球面","nick":"无","start":"2008","end":"2017","optics":"12片9组","filter":"77","weight":"406","note":"APS-C 专用超广变焦；内置微型马达（BIM）"},{"brand":"Tamron","model":"SP AF 17-35mm f/2.8-4 Di LD Aspherical (IF) (A05)","gen":"AF-D","aptype":"D","focal":"17-35","ap":"f/2.8-4","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"高端","feat":"LD、非球面","nick":"无","start":"2003","end":"2008","optics":"14片11组","filter":"77","weight":"440","note":"F 口无内置马达"},{"brand":"Tamron","model":"SP AF 17-50mm f/2.8 XR Di II LD Aspherical (IF) (A16)","gen":"AF-D","aptype":"D","focal":"17-50","ap":"f/2.8","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"高端","feat":"LD、非球面","nick":"无","start":"2006","end":"2020","optics":"16片13组","filter":"67","weight":"434","note":"APS-C 专用；F 口分无马达版与内置马达版"},{"brand":"Tamron","model":"SP AF 17-50mm f/2.8 XR Di II VC LD Aspherical (IF) (B005)","gen":"AF-D","aptype":"G","focal":"17-50","ap":"f/2.8","af":"是","motor":"微型超声波","vr":"是","tier":"高端","feat":"VC防抖、LD、非球面","nick":"无","start":"2009","end":"2020","optics":"19片14组","filter":"72","weight":"570","note":"APS-C 专用，带防抖；内置微型马达（BIM）"},{"brand":"Tamron","model":"SP AF 180mm f/3.5 Di LD (IF) Macro 1:1 (B01)","gen":"AF-D","aptype":"D","focal":"180","ap":"f/3.5","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"高端","feat":"微距1:1、LD","nick":"无","start":"2003","end":"2016","optics":"14片11组","filter":"72","weight":"920","note":"F 口无内置马达；1:1 长焦微距"},{"brand":"Tamron","model":"SP AF 200-500mm f/5-6.3 Di LD (IF) (A08)","gen":"AF-D","aptype":"D","focal":"200-500","ap":"f/5-6.3","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"高端","feat":"LD","nick":"无","start":"2004","end":"2014","optics":"13片10组","filter":"86","weight":"1237","note":"F 口无内置马达"},{"brand":"Tamron","model":"SP AF 28-75mm f/2.8 XR Di LD Aspherical (IF) Macro (A09)","gen":"AF-D","aptype":"D","focal":"28-75","ap":"f/2.8","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"高端","feat":"LD、非球面、微距","nick":"无","start":"2003","end":"2020","optics":"16片14组","filter":"67","weight":"510","note":"F 口后期有内置马达版（BIM）"},{"brand":"Tamron","model":"SP AF 60mm f/2 Di II LD (IF) Macro 1:1 (G005)","gen":"AF-D","aptype":"D","focal":"60","ap":"f/2","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"高端","feat":"微距1:1、LD","nick":"无","start":"2010","end":"2018","optics":"14片10组","filter":"55","weight":"350","note":"APS-C 专用 1:1 微距"},{"brand":"Tamron","model":"SP AF 90mm f/2.8 Di Macro 1:1 (272E)","gen":"AF-D","aptype":"D","focal":"90","ap":"f/2.8","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"高端","feat":"微距1:1、Di","nick":"90微","start":"2004","end":"2020","optics":"10片9组","filter":"55","weight":"405","note":"F 口后期有内置马达版（BIM）"},{"brand":"Tamron","model":"SP AF 90mm f/2.8 Macro 1:1 (172E)","gen":"AF-D","aptype":"D","focal":"90","ap":"f/2.8","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"高端","feat":"微距1:1","nick":"90微","start":"1999","end":"2003","optics":"10片9组","filter":"55","weight":"420","note":"F 口无内置马达；90mm 微距第二代"},{"brand":"Tokina","model":"AF 193 19-35mm f/3.5-4.5","gen":"AF-D","aptype":"D","focal":"19-35","ap":"f/3.5-4.5","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"消费","feat":"非球面","nick":"无","start":"约1999","end":"2006","optics":"13片11组","filter":"77","weight":"400","note":"F 口无内置马达；廉价超广变焦"},{"brand":"Tokina","model":"AT-X 107 DX 10-17mm f/3.5-4.5 Fisheye","gen":"AF-D","aptype":"D","focal":"10-17","ap":"f/3.5-4.5","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"高端","feat":"鱼眼、SD","nick":"无","start":"2006","end":"2022","optics":"10片8组","filter":"无","weight":"350","note":"DX 专用鱼眼，视角 180°"},{"brand":"Tokina","model":"AT-X 11-20mm f/2.8 PRO DX","gen":"AF-D","aptype":"D","focal":"11-20","ap":"f/2.8","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"高端","feat":"SD、非球面、内对焦","nick":"无","start":"2015","end":"2020","optics":"14片12组","filter":"82","weight":"560","note":"DX 专用超广变焦"},{"brand":"Tokina","model":"AT-X 116 PRO DX 11-16mm f/2.8","gen":"AF-D","aptype":"D","focal":"11-16","ap":"f/2.8","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"高端","feat":"SD、非球面、内对焦","nick":"星空神器","start":"2007","end":"2012","optics":"13片11组","filter":"77","weight":"560","note":"DX 专用；F 口无内置马达，靠机身马达驱动"},{"brand":"Tokina","model":"AT-X 116 PRO DX II 11-16mm f/2.8","gen":"AF-D","aptype":"D","focal":"11-16","ap":"f/2.8","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"高端","feat":"SD、非球面、内对焦","nick":"星空神器","start":"2012","end":"2020","optics":"13片11组","filter":"77","weight":"550","note":"DX 专用；二代改进镀膜"},{"brand":"Tokina","model":"AT-X 12-28mm f/4 PRO DX","gen":"AF-D","aptype":"D","focal":"12-28","ap":"f/4","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"高端","feat":"SD、非球面","nick":"无","start":"2013","end":"2020","optics":"14片12组","filter":"77","weight":"530","note":"DX 专用超广变焦"},{"brand":"Tokina","model":"AT-X 124 PRO DX 12-24mm f/4","gen":"AF-D","aptype":"D","focal":"12-24","ap":"f/4","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"高端","feat":"SD、非球面","nick":"无","start":"2004","end":"2009","optics":"13片11组","filter":"77","weight":"570","note":"DX 专用超广变焦"},{"brand":"Tokina","model":"AT-X 124 PRO DX II 12-24mm f/4","gen":"AF-D","aptype":"D","focal":"12-24","ap":"f/4","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"高端","feat":"SD、非球面","nick":"无","start":"2008","end":"2013","optics":"13片11组","filter":"77","weight":"540","note":"DX 专用；二代改进镀膜"},{"brand":"Tokina","model":"AT-X 16-28mm f/2.8 PRO FX","gen":"AF-D","aptype":"D","focal":"16-28","ap":"f/2.8","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"专业","feat":"SD、非球面、内对焦","nick":"无","start":"2010","end":"2019","optics":"15片13组","filter":"无","weight":"950","note":"灯泡前组，无前置滤镜螺纹；F 口无内置马达"},{"brand":"Tokina","model":"AT-X 165 PRO DX 16-50mm f/2.8","gen":"AF-D","aptype":"D","focal":"16-50","ap":"f/2.8","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"高端","feat":"SD、非球面","nick":"无","start":"2006","end":"2010","optics":"14片12组","filter":"77","weight":"620","note":"DX 专用恒定 f/2.8 标准变焦"},{"brand":"Tokina","model":"AT-X 17 AF PRO 17mm f/3.5","gen":"AF-D","aptype":"D","focal":"17","ap":"f/3.5","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"高端","feat":"SD、非球面","nick":"无","start":"约1993","end":"2003","optics":"11片9组","filter":"77","weight":"435","note":"F 口无内置马达；早期超广定焦"},{"brand":"Tokina","model":"AT-X 17-35mm f/4 PRO FX","gen":"AF-D","aptype":"D","focal":"17-35","ap":"f/4","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"高端","feat":"SD、非球面","nick":"无","start":"2011","end":"2020","optics":"13片12组","filter":"82","weight":"600","note":"全画幅超广变焦"},{"brand":"Tokina","model":"AT-X 235 AF PRO 20-35mm f/2.8","gen":"AF-D","aptype":"D","focal":"20-35","ap":"f/2.8","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"高端","feat":"SD、非球面","nick":"无","start":"约1997","end":"2005","optics":"15片11组","filter":"77","weight":"585","note":"F 口无内置马达"},{"brand":"Tokina","model":"AT-X 24-70mm f/2.8 PRO FX","gen":"AF-D","aptype":"D","focal":"24-70","ap":"f/2.8","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"专业","feat":"SD、非球面、内对焦","nick":"无","start":"2014","end":"2020","optics":"15片11组","filter":"82","weight":"1010","note":"全画幅恒定 f/2.8 标准变焦"},{"brand":"Tokina","model":"AT-X 242 AF 24-200mm f/3.5-5.6","gen":"AF-D","aptype":"D","focal":"24-200","ap":"f/3.5-5.6","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"消费","feat":"SD、非球面","nick":"无","start":"约2000","end":"2004","optics":"15片11组","filter":"72","weight":"690","note":"F 口无内置马达；高倍变焦"},{"brand":"Tokina","model":"AT-X 270 AF PRO 28-70mm f/2.8","gen":"AF-D","aptype":"D","focal":"28-70","ap":"f/2.8","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"高端","feat":"SD、非球面","nick":"无","start":"约1994","end":"1997","optics":"16片12组","filter":"77","weight":"760","note":"F 口无内置马达；后由 PRO II 取代"},{"brand":"Tokina","model":"AT-X 270 AF PRO II 28-70mm f/2.8","gen":"AF-D","aptype":"D","focal":"28-70","ap":"f/2.8","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"高端","feat":"SD、非球面","nick":"无","start":"1997","end":"2001","optics":"16片12组","filter":"77","weight":"760","note":"又称 New AT-X 270 AF PRO"},{"brand":"Tokina","model":"AT-X 280 AF PRO 28-80mm f/2.8","gen":"AF-D","aptype":"D","focal":"28-80","ap":"f/2.8","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"高端","feat":"SD、非球面","nick":"无","start":"约2002","end":"2005","optics":"16片12组","filter":"77","weight":"819","note":"F 口无内置马达"},{"brand":"Tokina","model":"AT-X 282 AF PRO 80-200mm f/2.8","gen":"AF-D","aptype":"D","focal":"80-200","ap":"f/2.8","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"高端","feat":"SD、非球面","nick":"无","start":"约1996","end":"不详","optics":"17片11组","filter":"77","weight":"1350","note":"F 口无内置马达；大三元长焦"},{"brand":"Tokina","model":"AT-X 300 AF PRO 300mm f/2.8","gen":"AF-D","aptype":"D","focal":"300","ap":"f/2.8","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"专业","feat":"SD、低色散","nick":"无","start":"约1995","end":"2005","optics":"9片7组","filter":"112","weight":"2300","note":"F 口无内置马达；专业大光圈定焦"},{"brand":"Tokina","model":"AT-X 340 AF-II 100-300mm f/4","gen":"AF-D","aptype":"D","focal":"100-300","ap":"f/4","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"高端","feat":"SD、非球面","nick":"无","start":"约1998","end":"2002","optics":"15片11组","filter":"77","weight":"1540","note":"F 口无内置马达；恒定 f/4 远摄变焦"},{"brand":"Tokina","model":"AT-X 535 PRO DX 50-135mm f/2.8","gen":"AF-D","aptype":"D","focal":"50-135","ap":"f/2.8","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"高端","feat":"SD、非球面","nick":"无","start":"2006","end":"2011","optics":"18片14组","filter":"67","weight":"845","note":"DX 专用恒定 f/2.8 中长焦"},{"brand":"Tokina","model":"AT-X 70-200mm f/4 PRO FX VCM-S","gen":"AF-D","aptype":"D","focal":"70-200","ap":"f/4","af":"是","motor":"环形超声波","vr":"是","tier":"高端","feat":"防抖、环形超声波、VCM","nick":"无","start":"2014","end":"2020","optics":"19片14组","filter":"67","weight":"980","note":"Tokina 首支带防抖的镜头；仅尼康 F 口"},{"brand":"Tokina","model":"AT-X 840 D AF 80-400mm f/4.5-5.6","gen":"AF-D","aptype":"D","focal":"80-400","ap":"f/4.5-5.6","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"消费","feat":"SD、非球面","nick":"无","start":"约2006","end":"2013","optics":"16片10组","filter":"72","weight":"990","note":"F 口无内置马达；带三脚架环"},{"brand":"Tokina","model":"AT-X M100 PRO D 100mm f/2.8 Macro","gen":"AF-D","aptype":"D","focal":"100","ap":"f/2.8","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"高端","feat":"微距1:1","nick":"百微","start":"2005","end":"2020","optics":"9片8组","filter":"55","weight":"490","note":"1:1 微距；F 口无内置马达"},{"brand":"Tokina","model":"AT-X M35 PRO DX 35mm f/2.8 Macro","gen":"AF-D","aptype":"D","focal":"35","ap":"f/2.8","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"消费","feat":"微距1:1","nick":"无","start":"2007","end":"2010","optics":"9片8组","filter":"52","weight":"340","note":"DX 专用 1:1 微距"},{"brand":"Tokina","model":"AT-X M90 Macro 90mm f/2.5","gen":"手动","aptype":"非CPU","focal":"90","ap":"f/2.5","af":"否","motor":"无（手动）","vr":"否","tier":"高端","feat":"微距1:2、手动光圈环","nick":"Bokina","start":"1984","end":"不详","optics":"9片7组","filter":"55","weight":"510","note":"手动对焦；以焦外成像著称"},{"brand":"Vivitar","model":"Series 1 100-400mm f/4.5-6.7 AF","gen":"AF","aptype":"非CPU","focal":"100-400","ap":"4.5-6.7","af":"是","motor":"机身螺丝驱动","vr":"否","tier":"远摄变焦","feat":"自动对焦、ED","nick":"无","start":"约1994","end":"约2000","optics":"12片9组","filter":"67","weight":"600","note":"尼康 F AF 口；塑料镜身；最近2.4m"},{"brand":"Vivitar","model":"Series 1 135mm f/2.3","gen":"手动","aptype":"非CPU","focal":"135","ap":"2.3","af":"否","motor":"无（手动）","vr":"否","tier":"人像","feat":"大光圈","nick":"无","start":"1972","end":"约1980","optics":"6片6组","filter":"72","weight":"766","note":"尼康 F 口（后期 AI 版）；最近0.9m"},{"brand":"Vivitar","model":"Series 1 200mm f/3","gen":"手动","aptype":"非CPU","focal":"200","ap":"3","af":"否","motor":"无（手动）","vr":"否","tier":"长焦","feat":"大光圈","nick":"无","start":"1973","end":"约1980","optics":"6片6组","filter":"72","weight":"820","note":"尼康 F 口；最近1.2m"},{"brand":"Vivitar","model":"Series 1 24-48mm f/3.8","gen":"手动","aptype":"非CPU","focal":"24-48","ap":"3.8","af":"否","motor":"无（手动）","vr":"否","tier":"广角变焦","feat":"大光圈广角变焦","nick":"无","start":"约1977","end":"约1985","optics":"10片9组","filter":"77","weight":"550","note":"Kiron 代工；尼康 AI 口；最近0.6m"},{"brand":"Vivitar","model":"Series 1 28-105mm f/2.8-3.8 VMC Macro","gen":"手动","aptype":"非CPU","focal":"28-105","ap":"2.8-3.8","af":"否","motor":"无（手动）","vr":"否","tier":"专业标准变焦","feat":"VMC镀膜、微距","nick":"无","start":"1985","end":"约1991","optics":"14片12组","filter":"67","weight":"620","note":"Cosina 代工；尼康 AI 口；最近0.2m"},{"brand":"Vivitar","model":"Series 1 28mm f/1.9","gen":"手动","aptype":"非CPU","focal":"28","ap":"1.9","af":"否","motor":"无（手动）","vr":"否","tier":"大光圈广角","feat":"大光圈","nick":"无","start":"约1975","end":"约1982","optics":"—","filter":"58","weight":"335","note":"尼康 F 口；最近0.3m"},{"brand":"Vivitar","model":"Series 1 35-85mm f/2.8","gen":"手动","aptype":"非CPU","focal":"35-85","ap":"2.8","af":"否","motor":"无（手动）","vr":"否","tier":"专业标准变焦","feat":"恒定光圈","nick":"无","start":"约1976","end":"约1985","optics":"12片9组","filter":"72","weight":"722","note":"尼康 AI 口；最近0.26m；体积大"},{"brand":"Vivitar","model":"Series 1 70-210mm f/2.8-4 APO","gen":"手动","aptype":"非CPU","focal":"70-210","ap":"2.8-4","af":"否","motor":"无（手动）","vr":"否","tier":"专业变焦","feat":"APO、浮动光圈","nick":"无","start":"1995","end":"约2000","optics":"14片11组","filter":"62","weight":"727","note":"Cosina 代工；尼康 AI 口；最近1.1m"},{"brand":"Vivitar","model":"Series 1 70-210mm f/3.5 Macro Focusing Zoom (I)","gen":"手动","aptype":"非CPU","focal":"70-210","ap":"3.5","af":"否","motor":"无（手动）","vr":"否","tier":"专业变焦","feat":"恒定光圈、1:2.2微距、推拉变焦","nick":"无","start":"1974","end":"约1985","optics":"15片10组","filter":"67","weight":"944","note":"Kiron 代工；尼康 AI 口；最近1.95m"},{"brand":"Vivitar","model":"Series 1 70-210mm f/3.5 Macro Focusing Zoom (II)","gen":"手动","aptype":"非CPU","focal":"70-210","ap":"3.5","af":"否","motor":"无（手动）","vr":"否","tier":"专业变焦","feat":"恒定光圈、微距、推拉变焦","nick":"无","start":"约1978","end":"约1988","optics":"14片10组","filter":"62","weight":"710","note":"Tokina 代工；尼康 AI 口；最近1.2m"},{"brand":"Vivitar","model":"Series 1 Macro 90mm f/2.5","gen":"手动","aptype":"非CPU","focal":"90","ap":"2.5","af":"否","motor":"无（手动）","vr":"否","tier":"微距","feat":"1:2微距（附接圈可1:1）","nick":"无","start":"1977","end":"1981","optics":"8片7组","filter":"58","weight":"644","note":"Tokina 代工；尼康 AI 口；最近0.393m"},{"brand":"Voigtlander","model":"APO-Lanthar 90mm f/3.5 SL II","gen":"手动","aptype":"D","focal":"90","ap":"3.5","af":"否","motor":"无（手动）","vr":"否","tier":"轻量中焦","feat":"APO、CPU触点","nick":"无","start":"2010","end":"—","optics":"6片5组","filter":"52","weight":"320","note":"全画幅；初代 SL 版 2003 年、49mm/390g、无CPU；最近0.5m"},{"brand":"Voigtlander","model":"APO-Skopar 90mm f/2.8 SL II S","gen":"手动","aptype":"D","focal":"90","ap":"2.8","af":"否","motor":"无（手动）","vr":"否","tier":"轻量中焦","feat":"APO、CPU触点","nick":"无","start":"约2019","end":"—","optics":"7片7组","filter":"52","weight":"260","note":"全画幅；S 版外观；最近0.9m"},{"brand":"Voigtlander","model":"Color Heliar 75mm f/2.5 SL","gen":"手动","aptype":"非CPU","focal":"75","ap":"2.5","af":"否","motor":"无（手动）","vr":"否","tier":"轻量人像","feat":"无","nick":"无","start":"2003","end":"2007","optics":"6片5组","filter":"49","weight":"250","note":"全画幅；无CPU（AI-S 式）；最近0.7m"},{"brand":"Voigtlander","model":"Color Skopar 20mm f/3.5 SL II","gen":"手动","aptype":"D","focal":"20","ap":"3.5","af":"否","motor":"无（手动）","vr":"否","tier":"轻量广角","feat":"CPU触点、非球面","nick":"无","start":"2009","end":"—","optics":"9片6组","filter":"52","weight":"205","note":"全画幅；AI-P 式 CPU；最近0.2m；极轻"},{"brand":"Voigtlander","model":"Color Skopar 28mm f/2.8 SL II","gen":"手动","aptype":"D","focal":"28","ap":"2.8","af":"否","motor":"无（手动）","vr":"否","tier":"轻量广角","feat":"CPU触点","nick":"无","start":"2012","end":"—","optics":"7片6组","filter":"52","weight":"180","note":"全画幅；AI-P 式 CPU；最近0.22m"},{"brand":"Voigtlander","model":"Macro APO-Lanthar 125mm f/2.5 SL","gen":"手动","aptype":"非CPU","focal":"125","ap":"2.5","af":"否","motor":"无（手动）","vr":"否","tier":"微距","feat":"1:1微距、APO、浮动对焦","nick":"微距王","start":"2001","end":"2007","optics":"11片9组","filter":"58","weight":"690","note":"全画幅；无CPU（AI-S 式）；Cosina 产；最近0.38m；二手价高"},{"brand":"Voigtlander","model":"Nokton 58mm f/1.4 SL II","gen":"手动","aptype":"D","focal":"58","ap":"1.4","af":"否","motor":"无（手动）","vr":"否","tier":"大光圈标头","feat":"CPU触点","nick":"凤凰瞳","start":"2007","end":"—","optics":"7片6组","filter":"58","weight":"320","note":"全画幅；初代 SL 版 2003 年、无CPU；最近0.45m"},{"brand":"Voigtlander","model":"Ultron 40mm f/2 SL II","gen":"手动","aptype":"D","focal":"40","ap":"2","af":"否","motor":"无（手动）","vr":"否","tier":"轻量标头","feat":"CPU触点、2片非球面、饼干结构","nick":"饼干头","start":"2007","end":"—","optics":"6片5组","filter":"52","weight":"200","note":"全画幅；初代 SL 版 2002 年、无CPU；最近0.38m（近摄镜0.25m）"},{"brand":"Zeiss","model":"Apo Sonnar T* 135mm f/2 ZF.2","gen":"手动","aptype":"D","focal":"135","ap":"2","af":"否","motor":"无（手动）","vr":"否","tier":"顶级中长焦","feat":"T*镀膜、CPU触点、APO","nick":"无","start":"2012","end":"—","optics":"11片8组","filter":"77","weight":"920","note":"仅 ZF.2/ZE；最近0.8m；1:4"},{"brand":"Zeiss","model":"Distagon T* 15mm f/2.8 ZF.2","gen":"手动","aptype":"D","focal":"15","ap":"2.8","af":"否","motor":"无（手动）","vr":"否","tier":"顶级超广","feat":"T*镀膜、CPU触点、浮动镜组","nick":"无","start":"2012","end":"—","optics":"15片12组","filter":"95","weight":"730","note":"110°超广；仅 ZF.2/ZE，无 ZF 版；最近0.25m；体积大"},{"brand":"Zeiss","model":"Distagon T* 18mm f/3.5 ZF.2","gen":"手动","aptype":"D","focal":"18","ap":"3.5","af":"否","motor":"无（手动）","vr":"否","tier":"高端超广","feat":"T*镀膜、CPU触点","nick":"无","start":"2008","end":"—","optics":"13片11组","filter":"82","weight":"470","note":"ZF 初代无CPU；ZF.2 版 2009 起带CPU；最近0.3m；暗角明显"},{"brand":"Zeiss","model":"Distagon T* 21mm f/2.8 ZF.2","gen":"手动","aptype":"D","focal":"21","ap":"2.8","af":"否","motor":"无（手动）","vr":"否","tier":"顶级超广","feat":"T*镀膜、CPU触点、2片非球面","nick":"广角王","start":"2008","end":"—","optics":"16片13组","filter":"82","weight":"600","note":"ZF 初代无CPU；ZF.2 版 2010.04 上市；最近0.22m；康泰时 21/2.8 血统"},{"brand":"Zeiss","model":"Distagon T* 25mm f/2 ZF.2","gen":"手动","aptype":"D","focal":"25","ap":"2","af":"否","motor":"无（手动）","vr":"否","tier":"高端广角","feat":"T*镀膜、CPU触点","nick":"无","start":"2011","end":"—","optics":"11片10组","filter":"67","weight":"600","note":"仅 ZF.2/ZE；最近0.25m；防尘防滴"},{"brand":"Zeiss","model":"Distagon T* 25mm f/2.8 ZF.2","gen":"手动","aptype":"D","focal":"25","ap":"2.8","af":"否","motor":"无（手动）","vr":"否","tier":"高端广角","feat":"T*镀膜、CPU触点","nick":"无","start":"2006","end":"—","optics":"10片8组","filter":"58","weight":"480","note":"ZF 初代无CPU；ZF.2 版 2009 起；最近0.17m；轻巧"},{"brand":"Zeiss","model":"Distagon T* 28mm f/2 ZF.2","gen":"手动","aptype":"D","focal":"28","ap":"2","af":"否","motor":"无（手动）","vr":"否","tier":"高端广角","feat":"T*镀膜、CPU触点","nick":"无","start":"2007","end":"—","optics":"10片8组","filter":"58","weight":"520","note":"ZF 初代无CPU；ZF.2 版 2009 起；最近0.24m"},{"brand":"Zeiss","model":"Distagon T* 35mm f/1.4 ZF.2","gen":"手动","aptype":"D","focal":"35","ap":"1.4","af":"否","motor":"无（手动）","vr":"否","tier":"顶级人文","feat":"T*镀膜、CPU触点","nick":"无","start":"2010","end":"—","optics":"11片9组","filter":"72","weight":"830","note":"仅 ZF.2/ZE；最近0.3m；口径大、重量沉"},{"brand":"Zeiss","model":"Distagon T* 35mm f/2 ZF.2","gen":"手动","aptype":"D","focal":"35","ap":"2","af":"否","motor":"无（手动）","vr":"否","tier":"高端人文","feat":"T*镀膜、CPU触点","nick":"无","start":"2006","end":"—","optics":"9片7组","filter":"58","weight":"530","note":"ZF 初代无CPU；ZF.2 版 2009 起；最近0.3m"},{"brand":"Zeiss","model":"Makro-Planar T* 100mm f/2 ZF.2","gen":"手动","aptype":"D","focal":"100","ap":"2","af":"否","motor":"无（手动）","vr":"否","tier":"高端微距","feat":"T*镀膜、CPU触点、1:2微距","nick":"无","start":"2006","end":"—","optics":"9片8组","filter":"67","weight":"680","note":"ZF 初代无CPU；ZF.2 版 2009 起；最近0.44m"},{"brand":"Zeiss","model":"Makro-Planar T* 50mm f/2 ZF.2","gen":"手动","aptype":"D","focal":"50","ap":"2","af":"否","motor":"无（手动）","vr":"否","tier":"高端微距","feat":"T*镀膜、CPU触点、1:2微距","nick":"无","start":"2006","end":"—","optics":"8片6组","filter":"67","weight":"530","note":"ZF 初代无CPU；ZF.2 版 2009 起；最近0.24m"},{"brand":"Zeiss","model":"Planar T* 50mm f/1.4 ZF.2","gen":"手动","aptype":"D","focal":"50","ap":"1.4","af":"否","motor":"无（手动）","vr":"否","tier":"高端标头","feat":"T*镀膜、CPU触点","nick":"无","start":"2006","end":"—","optics":"7片6组","filter":"58","weight":"330","note":"ZF 初代无CPU；ZF.2 版 2009 起；最近0.45m；官网仍列在售"},{"brand":"Zeiss","model":"Planar T* 85mm f/1.4 ZF.2","gen":"手动","aptype":"D","focal":"85","ap":"1.4","af":"否","motor":"无（手动）","vr":"否","tier":"高端人像","feat":"T*镀膜、CPU触点","nick":"无","start":"2006","end":"—","optics":"6片5组","filter":"72","weight":"570","note":"ZF 初代无CPU；ZF.2 版 2009 起；最近1.0m；官网仍列在售"},{"brand":"其他","model":"Laowa 100mm f/2.8 2x Ultra Macro APO","gen":"手动","aptype":"非CPU","focal":"100","ap":"2.8","af":"否","motor":"无（手动）","vr":"否","tier":"微距","feat":"2:1微距、APO","nick":"无","start":"2018","end":"—","optics":"12片10组","filter":"67","weight":"638","note":"老蛙；全画幅；最近0.247m"},{"brand":"其他","model":"Laowa 15mm f/4 Wide Angle Macro","gen":"手动","aptype":"非CPU","focal":"15","ap":"4","af":"否","motor":"无（手动）","vr":"否","tier":"广角微距","feat":"1:1广角微距、±6mm移轴","nick":"无","start":"2015","end":"—","optics":"12片9组","filter":"77","weight":"410","note":"老蛙（Venus Optics）；全画幅；最近0.12m"},{"brand":"其他","model":"Laowa 15mm f/4.5 Zero-D Shift","gen":"手动","aptype":"非CPU","focal":"15","ap":"4.5","af":"否","motor":"无（手动）","vr":"否","tier":"移轴超广","feat":"移轴、零畸变","nick":"无","start":"约2021","end":"—","optics":"17片11组","filter":"无","weight":"—","note":"老蛙；全画幅；最近0.2m"},{"brand":"其他","model":"Laowa 25mm f/2.8 Ultra Macro 2.5-5x","gen":"手动","aptype":"非CPU","focal":"25","ap":"2.8","af":"否","motor":"无（手动）","vr":"否","tier":"超微距","feat":"2.5:1–5:1","nick":"无","start":"2018","end":"—","optics":"8片6组","filter":"无","weight":"400","note":"老蛙；全画幅；最近0.177m"},{"brand":"其他","model":"Zenitar 16mm f/2.8 Fisheye","gen":"手动","aptype":"非CPU","focal":"16","ap":"2.8","af":"否","motor":"无（手动）","vr":"否","tier":"入门鱼眼","feat":"鱼眼、后置滤镜","nick":"无","start":"约1990","end":"—","optics":"11片7组","filter":"后置滤镜","weight":"250","note":"俄罗斯 KMZ；尼康 F 口 AI；最近0.3m"}];
-const $ = s=>document.querySelector(s);
-const esc = s=>String(s==null?"":s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
-const state = {q:"", brands:new Set(), sort:{k:"brand",dir:1}};
-
+const DATA = [{"id":1,"name":"Irix 11mm f/4 Blackstone/Firefly","gen":"手动","aptype":"D","focal":"11","ap":"4","optics":"16片10组","filter":"无（后置凝胶）","weight":"790","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"超广","feat":"非球面、ED、防尘防滴","naming":"—","nick":"无","start":"约2016","end":"—","note":"全画幅；CPU 触点；最近0.275m","cls":"手动定焦","frame":"FX"},{"id":2,"name":"Irix 150mm f/2.8 Macro","gen":"手动","aptype":"D","focal":"150","ap":"2.8","optics":"12片9组","filter":"77","weight":"840","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"微距","feat":"1:1微距、ED","naming":"—","nick":"无","start":"约2018","end":"—","note":"全画幅；CPU 触点；最近0.345m；可拆脚架环","cls":"手动定焦","frame":"FX"},{"id":3,"name":"Irix 15mm f/2.4 Blackstone/Firefly","gen":"手动","aptype":"D","focal":"15","ap":"2.4","optics":"15片11组","filter":"95","weight":"581","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"超广","feat":"非球面、ED、防尘防滴","naming":"—","nick":"无","start":"约2016","end":"—","note":"Blackstone 653g；CPU 触点；最近0.28m；后置凝胶滤镜","cls":"手动定焦","frame":"FX"},{"id":4,"name":"Irix 21mm f/1.4","gen":"手动","aptype":"D","focal":"21","ap":"1.4","optics":"15片11组","filter":"无","weight":"—","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"大光圈超广","feat":"非球面、超低色散","naming":"—","nick":"无","start":"2022","end":"—","note":"全画幅；CPU 触点；最近0.3m","cls":"手动定焦","frame":"FX"},{"id":5,"name":"Mitakon 20mm f/2 4.5x Super Macro","gen":"手动","aptype":"非CPU","focal":"20","ap":"2","optics":"6片4组","filter":"无","weight":"230","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"微距","feat":"4.5:1超微距","naming":"—","nick":"无","start":"2016","end":"—","note":"中一光学；全画幅；最近0.2m","cls":"手动定焦","frame":"FX"},{"id":6,"name":"Mitakon 85mm f/2.8 1-5x Super Macro","gen":"手动","aptype":"非CPU","focal":"85","ap":"2.8","optics":"12片8组","filter":"58","weight":"750","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"微距","feat":"1:1–5:1超微距","naming":"—","nick":"无","start":"2019","end":"—","note":"中一光学；全画幅；最近0.1m","cls":"手动定焦","frame":"FX"},{"id":7,"name":"Mitakon Creator 35mm f/2","gen":"手动","aptype":"非CPU","focal":"35","ap":"2","optics":"7片5组","filter":"55","weight":"470","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"轻量人文","feat":"无","naming":"—","nick":"无","start":"约2015","end":"—","note":"中一光学；全画幅；最近0.25m","cls":"手动定焦","frame":"FX"},{"id":8,"name":"Mitakon Creator 85mm f/2","gen":"手动","aptype":"非CPU","focal":"85","ap":"2","optics":"6片6组","filter":"55","weight":"500","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"轻量人像","feat":"无","naming":"—","nick":"无","start":"约2015","end":"—","note":"中一光学；全画幅；最近0.85m","cls":"手动定焦","frame":"FX"},{"id":9,"name":"Mitakon Speedmaster 135mm f/1.4","gen":"手动","aptype":"非CPU","focal":"135","ap":"1.4","optics":"11片5组","filter":"105","weight":"3000","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"超大光圈长焦","feat":"ED、限量","naming":"—","nick":"无","start":"约2015","end":"—","note":"中一光学；全画幅；最近1.6m；重约3kg","cls":"手动定焦","frame":"FX"},{"id":10,"name":"Mitakon Speedmaster 85mm f/1.2","gen":"手动","aptype":"非CPU","focal":"85","ap":"1.2","optics":"9片6组","filter":"77","weight":"921","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"大光圈人像","feat":"ED、11叶光圈","naming":"—","nick":"无","start":"约2015","end":"—","note":"中一光学；全画幅；最近1m","cls":"手动定焦","frame":"FX"},{"id":11,"name":"Samyang 100mm f/2.8 ED UMC Macro","gen":"手动","aptype":"D","focal":"100","ap":"2.8","optics":"15片12组","filter":"67","weight":"705","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"微距","feat":"1:1微距、ED","naming":"—","nick":"无","start":"2014","end":"—","note":"全画幅；AE 芯片版；最近0.307m","cls":"手动定焦","frame":"FX"},{"id":12,"name":"Samyang 12mm f/2.8 ED AS NCS Fisheye","gen":"手动","aptype":"D","focal":"12","ap":"2.8","optics":"12片8组","filter":"无","weight":"525","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"高端鱼眼","feat":"鱼眼、NCS镀膜","naming":"—","nick":"无","start":"2014","end":"—","note":"全画幅对角线鱼眼（约180°）；AE 芯片版带CPU","cls":"手动定焦","frame":"FX"},{"id":13,"name":"Samyang 135mm f/2 ED UMC","gen":"手动","aptype":"D","focal":"135","ap":"2","optics":"11片7组","filter":"77","weight":"815","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"中长焦大光圈","feat":"ED","naming":"—","nick":"无","start":"2015","end":"—","note":"全画幅；AE 芯片版；最近0.8m","cls":"手动定焦","frame":"FX"},{"id":14,"name":"Samyang 14mm f/2.8 ED AS IF UMC","gen":"手动","aptype":"D","focal":"14","ap":"2.8","optics":"14片10组","filter":"无","weight":"573","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"高性价比超广","feat":"非球面、ED","naming":"—","nick":"无","start":"2009","end":"约2020","note":"全画幅；AE 芯片版带CPU；后被 MK2 取代","cls":"手动定焦","frame":"FX"},{"id":15,"name":"Samyang 14mm f/2.8 MK2","gen":"手动","aptype":"D","focal":"14","ap":"2.8","optics":"14片10组","filter":"无","weight":"708","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"高性价比超广","feat":"防尘防滴、非球面","naming":"—","nick":"无","start":"2020","end":"—","note":"全画幅；AE 芯片版；最近0.28m","cls":"手动定焦","frame":"FX"},{"id":16,"name":"Samyang 16mm f/2 ED AS UMC CS","gen":"手动","aptype":"D","focal":"16","ap":"2","optics":"13片11组","filter":"77","weight":"571","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"DX 大光圈广角","feat":"非球面、ED","naming":"—","nick":"无","start":"约2013","end":"—","note":"APS-C 专用（等效24mm）；AE 芯片版","cls":"手动定焦","frame":"FX"},{"id":17,"name":"Samyang 20mm f/1.8 ED AS UMC","gen":"手动","aptype":"D","focal":"20","ap":"1.8","optics":"13片12组","filter":"77","weight":"488","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"高性价比广角","feat":"非球面、ED","naming":"—","nick":"无","start":"2016","end":"—","note":"全画幅；AE 芯片版","cls":"手动定焦","frame":"FX"},{"id":18,"name":"Samyang 24mm f/1.4 ED AS IF UMC","gen":"手动","aptype":"D","focal":"24","ap":"1.4","optics":"13片12组","filter":"77","weight":"680","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"大光圈广角","feat":"非球面、ED","naming":"—","nick":"无","start":"约2011","end":"约2019","note":"全画幅；AE 芯片版","cls":"手动定焦","frame":"FX"},{"id":19,"name":"Samyang 24mm f/3.5 T-S ED AS UMC","gen":"手动","aptype":"D","focal":"24","ap":"3.5","optics":"16片11组","filter":"82","weight":"680","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"移轴","feat":"移轴（倾斜/偏移）","naming":"—","nick":"无","start":"2012","end":"—","note":"全画幅移轴；AE 芯片版","cls":"手动定焦","frame":"FX"},{"id":20,"name":"Samyang 35mm f/1.4 AS UMC","gen":"手动","aptype":"D","focal":"35","ap":"1.4","optics":"12片10组","filter":"77","weight":"660","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"大光圈人文","feat":"非球面","naming":"—","nick":"无","start":"2010","end":"—","note":"全画幅；AE 芯片版","cls":"手动定焦","frame":"FX"},{"id":21,"name":"Samyang 50mm f/1.4 AS UMC","gen":"手动","aptype":"D","focal":"50","ap":"1.4","optics":"9片6组","filter":"77","weight":"520","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"大光圈标头","feat":"非球面","naming":"—","nick":"无","start":"2014","end":"—","note":"全画幅；AE 芯片版","cls":"手动定焦","frame":"FX"},{"id":22,"name":"Samyang 85mm f/1.4 AS IF UMC","gen":"手动","aptype":"D","focal":"85","ap":"1.4","optics":"9片7组","filter":"72","weight":"513","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"人像","feat":"非球面","naming":"—","nick":"无","start":"2011","end":"约2020","note":"全画幅；AE 芯片版；后被 MK2 取代","cls":"手动定焦","frame":"FX"},{"id":23,"name":"Samyang 8mm f/3.5 Aspherical IF MC Fisheye CS","gen":"手动","aptype":"非CPU","focal":"8","ap":"3.5","optics":"10片7组","filter":"无","weight":"约420","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"入门鱼眼","feat":"DX 对角线鱼眼（约167°）","naming":"—","nick":"无","start":"约2009","end":"—","note":"APS-C 专用；前组无法装滤镜；早期无CPU版","cls":"手动定焦","frame":"FX"},{"id":24,"name":"Sigma 10-20mm f/3.5 EX DC HSM","gen":"AF-D","aptype":"D","focal":"10-20","ap":"f/3.5","optics":"13片10组","filter":"82","weight":"520","af":"是","motor":"环形超声波","vr":"否","gold":"否","tier":"高端","feat":"HSM、非球面、SLD、ELD","naming":"—","nick":"无","start":"2009","end":"不详","note":"APS-C 专用恒定 f/3.5 超广变焦","cls":"自动变焦","frame":"FX"},{"id":25,"name":"Sigma 10-20mm f/4-5.6 EX DC HSM","gen":"AF-D","aptype":"D","focal":"10-20","ap":"f/4-5.6","optics":"14片10组","filter":"77","weight":"470","af":"是","motor":"环形超声波","vr":"否","gold":"否","tier":"消费","feat":"HSM、非球面、SLD","naming":"—","nick":"无","start":"2005","end":"不详","note":"APS-C 专用超广变焦","cls":"自动变焦","frame":"FX"},{"id":26,"name":"Sigma 100-400mm f/5-6.3 DG OS HSM Contemporary","gen":"AF-D","aptype":"G","focal":"100-400","ap":"f/5-6.3","optics":"21片15组","filter":"67","weight":"1160","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"消费","feat":"HSM、OS防抖、非球面、SLD","naming":"—","nick":"无","start":"2017","end":"不详","note":"轻量化远摄变焦","cls":"自动变焦","frame":"FX"},{"id":27,"name":"Sigma 105mm f/1.4 DG HSM Art","gen":"AF-D","aptype":"G","focal":"105","ap":"f/1.4","optics":"17片12组","filter":"105","weight":"1645","af":"是","motor":"环形超声波","vr":"否","gold":"否","tier":"专业","feat":"HSM、非球面、FLD、SLD","naming":"—","nick":"虚化大师","start":"2018","end":"不详","note":"官方称 Bokeh Master，重量级人像镜","cls":"自动定焦","frame":"FX"},{"id":28,"name":"Sigma 105mm f/2.8 EX DG OS HSM Macro","gen":"AF-D","aptype":"D","focal":"105","ap":"f/2.8","optics":"16片11组","filter":"62","weight":"725","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"高端","feat":"HSM、OS防抖、微距1:1、SLD","naming":"—","nick":"无","start":"2011","end":"不详","note":"1:1 微距，带防抖","cls":"自动定焦","frame":"FX"},{"id":29,"name":"Sigma 10mm f/2.8 EX DC Fisheye HSM","gen":"AF-D","aptype":"D","focal":"10","ap":"f/2.8","optics":"12片7组","filter":"无","weight":"475","af":"是","motor":"环形超声波","vr":"否","gold":"否","tier":"高端","feat":"鱼眼、HSM","naming":"—","nick":"无","start":"2007","end":"不详","note":"APS-C 专用对角线鱼眼","cls":"自动定焦","frame":"FX"},{"id":30,"name":"Sigma 12-24mm f/4 DG HSM Art","gen":"AF-D","aptype":"G","focal":"12-24","ap":"f/4","optics":"16片11组","filter":"无","weight":"1150","af":"是","motor":"环形超声波","vr":"否","gold":"否","tier":"高端","feat":"HSM、非球面、FLD、SLD","naming":"—","nick":"无","start":"2016","end":"不详","note":"灯泡前组，无前置滤镜螺纹，可后置滤镜","cls":"自动变焦","frame":"FX"},{"id":31,"name":"Sigma 12-24mm f/4.5-5.6 II DG HSM","gen":"AF-D","aptype":"D","focal":"12-24","ap":"f/4.5-5.6","optics":"17片13组","filter":"无","weight":"670","af":"是","motor":"环形超声波","vr":"否","gold":"否","tier":"高端","feat":"HSM、非球面、FLD、SLD","naming":"—","nick":"无","start":"2011","end":"不详","note":"灯泡前组；II 代改进镀膜与后置滤镜","cls":"自动变焦","frame":"FX"},{"id":32,"name":"Sigma 120-300mm f/2.8 DG OS HSM Sports","gen":"AF-D","aptype":"G","focal":"120-300","ap":"f/2.8","optics":"23片18组","filter":"105","weight":"3390","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"专业","feat":"HSM、OS防抖、非球面、SLD","naming":"—","nick":"无","start":"2013","end":"不详","note":"Sports 系列恒定 f/2.8 远摄变焦","cls":"自动变焦","frame":"FX"},{"id":33,"name":"Sigma 120-300mm f/2.8 EX DG OS HSM","gen":"AF-D","aptype":"D","focal":"120-300","ap":"f/2.8","optics":"23片18组","filter":"105","weight":"2950","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"专业","feat":"HSM、OS防抖、非球面、SLD","naming":"—","nick":"无","start":"2011","end":"不详","note":"EX 系列恒定 f/2.8 远摄变焦","cls":"自动变焦","frame":"FX"},{"id":34,"name":"Sigma 120-400mm f/4.5-5.6 DG OS HSM","gen":"AF-D","aptype":"D","focal":"120-400","ap":"f/4.5-5.6","optics":"21片15组","filter":"77","weight":"1640","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"消费","feat":"HSM、OS防抖、非球面、SLD","naming":"—","nick":"无","start":"2008","end":"不详","note":"EX 系列远摄变焦","cls":"自动变焦","frame":"FX"},{"id":35,"name":"Sigma 135mm f/1.8 DG HSM Art","gen":"AF-D","aptype":"G","focal":"135","ap":"f/1.8","optics":"13片10组","filter":"82","weight":"1130","af":"是","motor":"环形超声波","vr":"否","gold":"否","tier":"高端","feat":"HSM、非球面、FLD、SLD","naming":"—","nick":"无","start":"2017","end":"不详","note":"Art 系列中长焦定焦","cls":"自动定焦","frame":"FX"},{"id":36,"name":"Sigma 14-24mm f/2.8 DG HSM Art","gen":"AF-D","aptype":"G","focal":"14-24","ap":"f/2.8","optics":"17片11组","filter":"无","weight":"1150","af":"是","motor":"环形超声波","vr":"否","gold":"否","tier":"专业","feat":"HSM、非球面、FLD、SLD","naming":"—","nick":"无","start":"2018","end":"不详","note":"灯泡前组，无前置滤镜螺纹","cls":"自动变焦","frame":"FX"},{"id":37,"name":"Sigma 14mm f/1.8 DG HSM Art","gen":"AF-D","aptype":"G","focal":"14","ap":"f/1.8","optics":"16片11组","filter":"无","weight":"1120","af":"是","motor":"环形超声波","vr":"否","gold":"否","tier":"高端","feat":"HSM、非球面、FLD、SLD","naming":"—","nick":"无","start":"2017","end":"不详","note":"灯泡前组，无前置滤镜螺纹；可后置滤镜","cls":"自动定焦","frame":"FX"},{"id":38,"name":"Sigma 150-500mm f/5-6.3 DG OS HSM","gen":"AF-D","aptype":"D","focal":"150-500","ap":"f/5-6.3","optics":"21片15组","filter":"86","weight":"1780","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"消费","feat":"HSM、OS防抖、非球面、SLD","naming":"—","nick":"无","start":"2008","end":"不详","note":"EX 系列远摄变焦","cls":"自动变焦","frame":"FX"},{"id":39,"name":"Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary","gen":"AF-D","aptype":"G","focal":"150-600","ap":"f/5-6.3","optics":"20片14组","filter":"95","weight":"1930","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"消费","feat":"HSM、OS防抖、非球面、FLD、SLD","naming":"—","nick":"无","start":"2014","end":"不详","note":"Contemporary 版，轻量化","cls":"自动变焦","frame":"FX"},{"id":40,"name":"Sigma 150-600mm f/5-6.3 DG OS HSM Sports","gen":"AF-D","aptype":"G","focal":"150-600","ap":"f/5-6.3","optics":"24片16组","filter":"105","weight":"2860","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"专业","feat":"HSM、OS防抖、非球面、FLD、SLD","naming":"—","nick":"健身炮","start":"2014","end":"不详","note":"Sports 版，金属镜身，重量大","cls":"自动变焦","frame":"FX"},{"id":41,"name":"Sigma 150mm f/2.8 EX DG OS HSM Macro","gen":"AF-D","aptype":"D","focal":"150","ap":"f/2.8","optics":"19片13组","filter":"72","weight":"1150","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"高端","feat":"HSM、OS防抖、微距1:1、SLD","naming":"—","nick":"无","start":"2010","end":"不详","note":"1:1 微距，带防抖","cls":"自动定焦","frame":"FX"},{"id":42,"name":"Sigma 15mm f/2.8 EX DG Diagonal Fisheye","gen":"AF-D","aptype":"D","focal":"15","ap":"f/2.8","optics":"7片6组","filter":"无","weight":"370","af":"是","motor":"环形超声波","vr":"否","gold":"否","tier":"高端","feat":"对角线鱼眼","naming":"—","nick":"无","start":"2006","end":"不详","note":"全画幅对角线鱼眼，后置滤镜","cls":"自动定焦","frame":"FX"},{"id":43,"name":"Sigma 17-50mm f/2.8 EX DC OS HSM","gen":"AF-D","aptype":"D","focal":"17-50","ap":"f/2.8","optics":"17片13组","filter":"77","weight":"565","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"高端","feat":"HSM、OS防抖、非球面、FLD","naming":"—","nick":"无","start":"2010","end":"不详","note":"APS-C 专用恒定 f/2.8 标准变焦","cls":"自动变焦","frame":"FX"},{"id":44,"name":"Sigma 17-70mm f/2.8-4 DC Macro OS HSM","gen":"AF-D","aptype":"D","focal":"17-70","ap":"f/2.8-4","optics":"17片13组","filter":"72","weight":"535","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"消费","feat":"HSM、OS防抖、非球面、微距","naming":"—","nick":"无","start":"2010","end":"不详","note":"APS-C 专用标准变焦（C 版前身）","cls":"自动变焦","frame":"FX"},{"id":45,"name":"Sigma 17-70mm f/2.8-4 DC Macro OS HSM Contemporary","gen":"AF-D","aptype":"G","focal":"17-70","ap":"f/2.8-4","optics":"16片14组","filter":"72","weight":"465","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"消费","feat":"HSM、OS防抖、非球面、微距","naming":"—","nick":"无","start":"2013","end":"不详","note":"APS-C 专用，C 版轻量化","cls":"自动变焦","frame":"FX"},{"id":46,"name":"Sigma 18-300mm f/3.5-6.3 DC Macro OS HSM Contemporary","gen":"AF-D","aptype":"G","focal":"18-300","ap":"f/3.5-6.3","optics":"17片13组","filter":"72","weight":"585","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"消费","feat":"HSM、OS防抖、非球面、微距","naming":"—","nick":"无","start":"2014","end":"不详","note":"APS-C 专用高倍变焦","cls":"自动变焦","frame":"FX"},{"id":47,"name":"Sigma 18-35mm f/1.8 DC HSM Art","gen":"AF-D","aptype":"G","focal":"18-35","ap":"f/1.8","optics":"17片12组","filter":"72","weight":"810","af":"是","motor":"环形超声波","vr":"否","gold":"否","tier":"高端","feat":"HSM、非球面、SLD、恒定f/1.8","naming":"—","nick":"半幅神镜","start":"2013","end":"不详","note":"APS-C 专用恒定 f/1.8 广角变焦","cls":"自动变焦","frame":"FX"},{"id":48,"name":"Sigma 180mm f/2.8 EX DG OS HSM Macro","gen":"AF-D","aptype":"D","focal":"180","ap":"f/2.8","optics":"19片14组","filter":"86","weight":"1640","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"高端","feat":"HSM、OS防抖、微距1:1、SLD","naming":"—","nick":"无","start":"2012","end":"不详","note":"1:1 微距，带防抖","cls":"自动定焦","frame":"FX"},{"id":49,"name":"Sigma 20mm f/1.4 DG HSM Art","gen":"AF-D","aptype":"G","focal":"20","ap":"f/1.4","optics":"15片11组","filter":"无","weight":"950","af":"是","motor":"环形超声波","vr":"否","gold":"否","tier":"高端","feat":"HSM、非球面、FLD、SLD","naming":"—","nick":"无","start":"2015","end":"不详","note":"灯泡前组，无前置滤镜螺纹","cls":"自动定焦","frame":"FX"},{"id":50,"name":"Sigma 24-105mm f/4 DG OS HSM Art","gen":"AF-D","aptype":"G","focal":"24-105","ap":"f/4","optics":"19片14组","filter":"82","weight":"885","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"高端","feat":"HSM、OS防抖、非球面、SLD","naming":"—","nick":"无","start":"2013","end":"不详","note":"Art 系列标准变焦","cls":"自动变焦","frame":"FX"},{"id":51,"name":"Sigma 24-35mm f/2 DG HSM Art","gen":"AF-D","aptype":"G","focal":"24-35","ap":"f/2","optics":"18片13组","filter":"82","weight":"940","af":"是","motor":"环形超声波","vr":"否","gold":"否","tier":"高端","feat":"HSM、非球面、FLD、SLD、恒定f/2","naming":"—","nick":"无","start":"2015","end":"不详","note":"全画幅恒定 f/2 广角变焦","cls":"自动变焦","frame":"FX"},{"id":52,"name":"Sigma 24-70mm f/2.8 DG OS HSM Art","gen":"AF-D","aptype":"G","focal":"24-70","ap":"f/2.8","optics":"19片14组","filter":"82","weight":"1020","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"专业","feat":"HSM、OS防抖、非球面、SLD","naming":"—","nick":"无","start":"2017","end":"不详","note":"Art 系列大三元标准变焦","cls":"自动变焦","frame":"FX"},{"id":53,"name":"Sigma 24-70mm f/2.8 IF EX DG HSM","gen":"AF-D","aptype":"D","focal":"24-70","ap":"f/2.8","optics":"14片12组","filter":"82","weight":"790","af":"是","motor":"环形超声波","vr":"否","gold":"否","tier":"专业","feat":"HSM、非球面、SLD","naming":"—","nick":"无","start":"2008","end":"不详","note":"EX 系列大三元标准变焦","cls":"自动变焦","frame":"FX"},{"id":54,"name":"Sigma 24mm f/1.4 DG HSM Art","gen":"AF-D","aptype":"G","focal":"24","ap":"f/1.4","optics":"15片11组","filter":"77","weight":"665","af":"是","motor":"环形超声波","vr":"否","gold":"否","tier":"高端","feat":"HSM、非球面、SLD","naming":"—","nick":"无","start":"2015","end":"不详","note":"Art 系列大光圈广角定焦","cls":"自动定焦","frame":"FX"},{"id":55,"name":"Sigma 28mm f/1.4 DG HSM Art","gen":"AF-D","aptype":"G","focal":"28","ap":"f/1.4","optics":"17片12组","filter":"77","weight":"865","af":"是","motor":"环形超声波","vr":"否","gold":"否","tier":"高端","feat":"HSM、非球面、FLD、SLD","naming":"—","nick":"无","start":"2018","end":"不详","note":"Art 系列新款广角定焦","cls":"自动定焦","frame":"FX"},{"id":56,"name":"Sigma 30mm f/1.4 DC HSM Art","gen":"AF-D","aptype":"G","focal":"30","ap":"f/1.4","optics":"9片8组","filter":"62","weight":"435","af":"是","motor":"环形超声波","vr":"否","gold":"否","tier":"高端","feat":"HSM、非球面","naming":"—","nick":"无","start":"2013","end":"不详","note":"APS-C 专用标准定焦","cls":"自动定焦","frame":"FX"},{"id":57,"name":"Sigma 30mm f/1.4 EX DC HSM","gen":"AF-D","aptype":"D","focal":"30","ap":"f/1.4","optics":"7片7组","filter":"62","weight":"430","af":"是","motor":"环形超声波","vr":"否","gold":"否","tier":"高端","feat":"HSM、非球面","naming":"—","nick":"无","start":"2005","end":"不详","note":"APS-C 专用大光圈标准定焦","cls":"自动定焦","frame":"FX"},{"id":58,"name":"Sigma 35mm f/1.4 DG HSM Art","gen":"AF-D","aptype":"G","focal":"35","ap":"f/1.4","optics":"13片11组","filter":"67","weight":"665","af":"是","motor":"环形超声波","vr":"否","gold":"否","tier":"高端","feat":"HSM、非球面、FLD、SLD","naming":"—","nick":"无","start":"2012","end":"不详","note":"Art 系列首支镜头，确立 Art 路线","cls":"自动定焦","frame":"FX"},{"id":59,"name":"Sigma 4.5mm f/2.8 EX DC Circular Fisheye HSM","gen":"AF-D","aptype":"D","focal":"4.5","ap":"f/2.8","optics":"13片9组","filter":"无","weight":"470","af":"是","motor":"环形超声波","vr":"否","gold":"否","tier":"高端","feat":"圆形鱼眼、HSM","naming":"—","nick":"无","start":"约2008","end":"不详","note":"APS-C 专用圆周鱼眼，视角 180°","cls":"自动定焦","frame":"FX"},{"id":60,"name":"Sigma 40mm f/1.4 DG HSM Art","gen":"AF-D","aptype":"G","focal":"40","ap":"f/1.4","optics":"16片12组","filter":"82","weight":"1200","af":"是","motor":"环形超声波","vr":"否","gold":"否","tier":"专业","feat":"HSM、非球面、SLD","naming":"—","nick":"无","start":"2018","end":"不详","note":"源自电影镜头光学设计，体积重量大","cls":"自动定焦","frame":"FX"},{"id":61,"name":"Sigma 50-100mm f/1.8 DC HSM Art","gen":"AF-D","aptype":"G","focal":"50-100","ap":"f/1.8","optics":"21片15组","filter":"82","weight":"1490","af":"是","motor":"环形超声波","vr":"否","gold":"否","tier":"高端","feat":"HSM、非球面、FLD、SLD、恒定f/1.8","naming":"—","nick":"无","start":"2016","end":"不详","note":"APS-C 专用恒定 f/1.8 中长焦变焦","cls":"自动变焦","frame":"FX"},{"id":62,"name":"Sigma 50-500mm f/4.5-6.3 DG OS HSM","gen":"AF-D","aptype":"D","focal":"50-500","ap":"f/4.5-6.3","optics":"22片16组","filter":"95","weight":"1970","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"高端","feat":"HSM、OS防抖、非球面、SLD","naming":"—","nick":"无","start":"2010","end":"不详","note":"10 倍远摄变焦，外号 Bigma","cls":"自动变焦","frame":"FX"},{"id":63,"name":"Sigma 50mm f/1.4 DG HSM Art","gen":"AF-D","aptype":"G","focal":"50","ap":"f/1.4","optics":"13片8组","filter":"77","weight":"815","af":"是","motor":"环形超声波","vr":"否","gold":"否","tier":"高端","feat":"HSM、非球面、SLD","naming":"—","nick":"无","start":"2014","end":"不详","note":"Art 系列标准定焦","cls":"自动定焦","frame":"FX"},{"id":64,"name":"Sigma 50mm f/1.4 EX DG HSM","gen":"AF-D","aptype":"D","focal":"50","ap":"f/1.4","optics":"8片6组","filter":"77","weight":"505","af":"是","motor":"环形超声波","vr":"否","gold":"否","tier":"高端","feat":"HSM、非球面","naming":"—","nick":"无","start":"2008","end":"不详","note":"EX 系列标准定焦","cls":"自动定焦","frame":"FX"},{"id":65,"name":"Sigma 60-600mm f/4.5-6.3 DG OS HSM Sports","gen":"AF-D","aptype":"G","focal":"60-600","ap":"f/4.5-6.3","optics":"25片19组","filter":"105","weight":"2700","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"专业","feat":"HSM、OS防抖、非球面、SLD","naming":"—","nick":"无","start":"2018","end":"不详","note":"10 倍远摄变焦","cls":"自动变焦","frame":"FX"},{"id":66,"name":"Sigma 70-200mm f/2.8 DG OS HSM Sports","gen":"AF-D","aptype":"G","focal":"70-200","ap":"f/2.8","optics":"24片22组","filter":"82","weight":"1805","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"专业","feat":"HSM、OS防抖、非球面、FLD、SLD","naming":"—","nick":"无","start":"2018","end":"不详","note":"Sports 系列大三元长焦变焦","cls":"自动变焦","frame":"FX"},{"id":67,"name":"Sigma 70-200mm f/2.8 EX DG OS HSM","gen":"AF-D","aptype":"D","focal":"70-200","ap":"f/2.8","optics":"22片17组","filter":"77","weight":"1430","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"专业","feat":"HSM、OS防抖、非球面、SLD","naming":"—","nick":"无","start":"2010","end":"不详","note":"EX 系列防抖大三元长焦","cls":"自动变焦","frame":"FX"},{"id":68,"name":"Sigma 85mm f/1.4 DG HSM Art","gen":"AF-D","aptype":"G","focal":"85","ap":"f/1.4","optics":"14片12组","filter":"86","weight":"1130","af":"是","motor":"环形超声波","vr":"否","gold":"否","tier":"高端","feat":"HSM、非球面、SLD","naming":"—","nick":"无","start":"2016","end":"不详","note":"Art 系列人像定焦","cls":"自动定焦","frame":"FX"},{"id":69,"name":"Sigma 85mm f/1.4 EX DG HSM","gen":"AF-D","aptype":"D","focal":"85","ap":"f/1.4","optics":"11片8组","filter":"77","weight":"725","af":"是","motor":"环形超声波","vr":"否","gold":"否","tier":"高端","feat":"HSM、非球面、SLD","naming":"—","nick":"无","start":"2010","end":"不详","note":"EX 系列人像定焦","cls":"自动定焦","frame":"FX"},{"id":70,"name":"Sigma 8mm f/3.5 EX DG Circular Fisheye","gen":"AF-D","aptype":"D","focal":"8","ap":"f/3.5","optics":"11片6组","filter":"无","weight":"400","af":"是","motor":"环形超声波","vr":"否","gold":"否","tier":"高端","feat":"圆形鱼眼、SLD","naming":"—","nick":"无","start":"2006","end":"不详","note":"全画幅圆周鱼眼，视角 180°","cls":"自动定焦","frame":"FX"},{"id":71,"name":"Tamron 10-24mm f/3.5-4.5 Di II VC HLD (B023)","gen":"AF-D","aptype":"G","focal":"10-24","ap":"f/3.5-4.5","optics":"16片11组","filter":"77","weight":"440","af":"是","motor":"步进马达","vr":"是","gold":"否","tier":"消费","feat":"VC防抖、HLD、非球面","naming":"—","nick":"无","start":"2017","end":"2020","note":"HLD 为无刷马达","cls":"自动变焦","frame":"FX"},{"id":72,"name":"Tamron 100-400mm f/4.5-6.3 Di VC USD (A035)","gen":"AF-D","aptype":"G","focal":"100-400","ap":"f/4.5-6.3","optics":"17片11组","filter":"67","weight":"1135","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"消费","feat":"VC防抖、USD","naming":"—","nick":"无","start":"2017","end":"2024","note":"远摄变焦，可加增距镜","cls":"自动变焦","frame":"FX"},{"id":73,"name":"Tamron 16-300mm f/3.5-6.3 Di II VC PZD Macro (B016)","gen":"AF-D","aptype":"D","focal":"16-300","ap":"f/3.5-6.3","optics":"16片12组","filter":"67","weight":"540","af":"是","motor":"微型超声波","vr":"是","gold":"否","tier":"消费","feat":"VC防抖、PZD、微距","naming":"—","nick":"无","start":"2014","end":"2021","note":"APS-C 专用 18.8 倍变焦","cls":"自动变焦","frame":"FX"},{"id":74,"name":"Tamron 17-35mm f/2.8-4 Di OSD (A037)","gen":"AF-D","aptype":"G","focal":"17-35","ap":"f/2.8-4","optics":"15片10组","filter":"77","weight":"460","af":"是","motor":"步进马达","vr":"否","gold":"否","tier":"高端","feat":"OSD、非球面、LD","naming":"—","nick":"无","start":"2018","end":"2020","note":"OSD 为直流马达，官方称静音驱动","cls":"自动变焦","frame":"FX"},{"id":75,"name":"Tamron 18-270mm f/3.5-6.3 Di II VC PZD (B008)","gen":"AF-D","aptype":"D","focal":"18-270","ap":"f/3.5-6.3","optics":"16片13组","filter":"62","weight":"450","af":"是","motor":"微型超声波","vr":"是","gold":"否","tier":"消费","feat":"VC防抖、PZD、非球面","naming":"—","nick":"无","start":"2010","end":"2017","note":"PZD 压电驱动，轻量化","cls":"自动变焦","frame":"FX"},{"id":76,"name":"Tamron 18-400mm f/3.5-6.3 Di II VC HLD (B028)","gen":"AF-D","aptype":"G","focal":"18-400","ap":"f/3.5-6.3","optics":"16片11组","filter":"72","weight":"710","af":"是","motor":"步进马达","vr":"是","gold":"否","tier":"消费","feat":"VC防抖、HLD、非球面","naming":"—","nick":"无","start":"2017","end":"2024","note":"APS-C 专用 22.2 倍变焦；HLD 为无刷马达","cls":"自动变焦","frame":"FX"},{"id":77,"name":"Tamron 28-300mm f/3.5-6.3 Di VC PZD (A010)","gen":"AF-D","aptype":"D","focal":"28-300","ap":"f/3.5-6.3","optics":"19片15组","filter":"67","weight":"540","af":"是","motor":"微型超声波","vr":"是","gold":"否","tier":"消费","feat":"VC防抖、PZD","naming":"—","nick":"无","start":"2014","end":"2020","note":"全画幅高倍变焦","cls":"自动变焦","frame":"FX"},{"id":78,"name":"Tamron 35-150mm f/2.8-4 Di VC OSD (A043)","gen":"AF-D","aptype":"G","focal":"35-150","ap":"f/2.8-4","optics":"19片14组","filter":"77","weight":"796","af":"是","motor":"步进马达","vr":"是","gold":"否","tier":"高端","feat":"VC防抖、OSD、非球面、LD","naming":"—","nick":"无","start":"2019","end":"2020","note":"OSD 为直流马达；F 口 2019 年发布、2020 年停产","cls":"自动变焦","frame":"FX"},{"id":79,"name":"Tamron 70-210mm f/4 Di VC USD (A034)","gen":"AF-D","aptype":"G","focal":"70-210","ap":"f/4","optics":"20片14组","filter":"67","weight":"860","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"消费","feat":"VC防抖、USD","naming":"—","nick":"无","start":"2018","end":"2019","note":"轻量 f/4 远摄变焦","cls":"自动变焦","frame":"FX"},{"id":80,"name":"Tamron AF 18-270mm f/3.5-6.3 Di II VC LD Aspherical (IF) Macro (B003)","gen":"AF-D","aptype":"D","focal":"18-270","ap":"f/3.5-6.3","optics":"18片13组","filter":"72","weight":"550","af":"是","motor":"微型超声波","vr":"是","gold":"否","tier":"消费","feat":"VC防抖、LD、非球面","naming":"—","nick":"无","start":"2008","end":"2011","note":"APS-C 专用 15 倍变焦；内置微型马达（BIM）","cls":"自动变焦","frame":"FX"},{"id":81,"name":"Tamron SP 15-30mm f/2.8 Di VC USD (A012)","gen":"AF-D","aptype":"G","focal":"15-30","ap":"f/2.8","optics":"18片13组","filter":"无","weight":"1100","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"高端","feat":"VC防抖、USD、非球面、eBAND","naming":"—","nick":"灯泡","start":"2014","end":"2018","note":"灯泡前组，无前置滤镜螺纹；电磁光圈，无机身光圈环","cls":"自动变焦","frame":"FX"},{"id":82,"name":"Tamron SP 15-30mm f/2.8 Di VC USD G2 (A041)","gen":"AF-D","aptype":"G","focal":"15-30","ap":"f/2.8","optics":"18片13组","filter":"无","weight":"1110","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"高端","feat":"VC防抖、USD、非球面、eBAND","naming":"—","nick":"灯泡","start":"2018","end":"2021","note":"G2 版本，镀膜与防抖改进","cls":"自动变焦","frame":"FX"},{"id":83,"name":"Tamron SP 150-600mm f/5-6.3 Di VC USD (A011)","gen":"AF-D","aptype":"G","focal":"150-600","ap":"f/5-6.3","optics":"20片13组","filter":"95","weight":"1951","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"专业","feat":"VC防抖、USD、LD、eBAND","naming":"—","nick":"无","start":"2013","end":"2020","note":"SP 系列远摄变焦","cls":"自动变焦","frame":"FX"},{"id":84,"name":"Tamron SP 150-600mm f/5-6.3 Di VC USD G2 (A022)","gen":"AF-D","aptype":"G","focal":"150-600","ap":"f/5-6.3","optics":"21片13组","filter":"95","weight":"2010","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"专业","feat":"VC防抖、USD、LD、eBAND","naming":"—","nick":"无","start":"2016","end":"2024","note":"G2 版本，光学与防抖改进","cls":"自动变焦","frame":"FX"},{"id":85,"name":"Tamron SP 24-70mm f/2.8 Di VC USD (A007)","gen":"AF-D","aptype":"G","focal":"24-70","ap":"f/2.8","optics":"17片12组","filter":"82","weight":"825","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"专业","feat":"VC防抖、USD、非球面、LD","naming":"—","nick":"无","start":"2012","end":"2017","note":"SP 系列大三元标准变焦；电磁光圈","cls":"自动变焦","frame":"FX"},{"id":86,"name":"Tamron SP 24-70mm f/2.8 Di VC USD G2 (A032)","gen":"AF-D","aptype":"G","focal":"24-70","ap":"f/2.8","optics":"17片12组","filter":"82","weight":"900","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"专业","feat":"VC防抖、USD、非球面、eBAND","naming":"—","nick":"无","start":"2017","end":"不详","note":"G2 版本","cls":"自动变焦","frame":"FX"},{"id":87,"name":"Tamron SP 35mm f/1.4 Di USD (F045)","gen":"AF-D","aptype":"G","focal":"35","ap":"f/1.4","optics":"14片10组","filter":"72","weight":"815","af":"是","motor":"环形超声波","vr":"否","gold":"否","tier":"高端","feat":"USD、非球面、LD","naming":"—","nick":"无","start":"2019","end":"2024","note":"SP 系列最后一支 F 口定焦","cls":"自动定焦","frame":"FX"},{"id":88,"name":"Tamron SP 35mm f/1.8 Di VC USD (F012)","gen":"AF-D","aptype":"G","focal":"35","ap":"f/1.8","optics":"10片9组","filter":"67","weight":"480","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"高端","feat":"VC防抖、USD、非球面","naming":"—","nick":"无","start":"2015","end":"2021","note":"SP 系列大光圈定焦","cls":"自动定焦","frame":"FX"},{"id":89,"name":"Tamron SP 45mm f/1.8 Di VC USD (F013)","gen":"AF-D","aptype":"G","focal":"45","ap":"f/1.8","optics":"10片8组","filter":"67","weight":"540","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"高端","feat":"VC防抖、USD、非球面","naming":"—","nick":"无","start":"2015","end":"2019","note":"SP 系列大光圈定焦","cls":"自动定焦","frame":"FX"},{"id":90,"name":"Tamron SP 70-200mm f/2.8 Di LD (IF) Macro (A001)","gen":"AF-D","aptype":"D","focal":"70-200","ap":"f/2.8","optics":"18片13组","filter":"77","weight":"1150","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"专业","feat":"LD、非球面、微距","naming":"—","nick":"无","start":"2008","end":"2019","note":"F 口无内置马达，靠机身马达驱动；不含三脚架环","cls":"自动变焦","frame":"FX"},{"id":91,"name":"Tamron SP 70-200mm f/2.8 Di VC USD (A009)","gen":"AF-D","aptype":"G","focal":"70-200","ap":"f/2.8","optics":"23片17组","filter":"77","weight":"1470","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"专业","feat":"VC防抖、USD、LD、非球面","naming":"—","nick":"小龙炮","start":"2012","end":"2017","note":"SP 系列防抖大三元长焦；电磁光圈","cls":"自动变焦","frame":"FX"},{"id":92,"name":"Tamron SP 70-200mm f/2.8 Di VC USD G2 (A025)","gen":"AF-D","aptype":"G","focal":"70-200","ap":"f/2.8","optics":"23片17组","filter":"77","weight":"1500","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"专业","feat":"VC防抖、USD、LD、非球面","naming":"—","nick":"小龙炮","start":"2017","end":"2024","note":"G2 版本","cls":"自动变焦","frame":"FX"},{"id":93,"name":"Tamron SP 70-300mm f/4-5.6 Di VC USD (A005)","gen":"AF-D","aptype":"D","focal":"70-300","ap":"f/4-5.6","optics":"17片12组","filter":"62","weight":"765","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"高端","feat":"VC防抖、USD、LD","naming":"—","nick":"无","start":"2010","end":"2020","note":"SP 系列远摄变焦","cls":"自动变焦","frame":"FX"},{"id":94,"name":"Tamron SP 85mm f/1.8 Di VC USD (F016)","gen":"AF-D","aptype":"G","focal":"85","ap":"f/1.8","optics":"13片9组","filter":"67","weight":"700","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"高端","feat":"VC防抖、USD、LD","naming":"—","nick":"无","start":"2016","end":"2020","note":"SP 系列人像定焦","cls":"自动定焦","frame":"FX"},{"id":95,"name":"Tamron SP 90mm f/2.8 Di Macro 1:1 VC USD (F004)","gen":"AF-D","aptype":"G","focal":"90","ap":"f/2.8","optics":"14片11组","filter":"58","weight":"550","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"高端","feat":"VC防抖、USD、微距1:1","naming":"—","nick":"90微","start":"2012","end":"2016","note":"内对焦，带防抖","cls":"自动定焦","frame":"FX"},{"id":96,"name":"Tamron SP 90mm f/2.8 Di Macro 1:1 VC USD (F017)","gen":"AF-D","aptype":"G","focal":"90","ap":"f/2.8","optics":"14片11组","filter":"62","weight":"610","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"高端","feat":"VC防抖、USD、微距1:1、eBAND","naming":"—","nick":"90微","start":"2016","end":"2020","note":"F004 的改进版；电磁光圈，无光圈环","cls":"自动定焦","frame":"FX"},{"id":97,"name":"Tamron SP AF 10-24mm f/3.5-4.5 Di II LD Aspherical (IF) (B001)","gen":"AF-D","aptype":"D","focal":"10-24","ap":"f/3.5-4.5","optics":"12片9组","filter":"77","weight":"406","af":"是","motor":"微型超声波","vr":"否","gold":"否","tier":"高端","feat":"LD、非球面","naming":"—","nick":"无","start":"2008","end":"2017","note":"APS-C 专用超广变焦；内置微型马达（BIM）","cls":"自动变焦","frame":"FX"},{"id":98,"name":"Tamron SP AF 17-35mm f/2.8-4 Di LD Aspherical (IF) (A05)","gen":"AF-D","aptype":"D","focal":"17-35","ap":"f/2.8-4","optics":"14片11组","filter":"77","weight":"440","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"高端","feat":"LD、非球面","naming":"—","nick":"无","start":"2003","end":"2008","note":"F 口无内置马达","cls":"自动变焦","frame":"FX"},{"id":99,"name":"Tamron SP AF 17-50mm f/2.8 XR Di II LD Aspherical (IF) (A16)","gen":"AF-D","aptype":"D","focal":"17-50","ap":"f/2.8","optics":"16片13组","filter":"67","weight":"434","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"高端","feat":"LD、非球面","naming":"—","nick":"无","start":"2006","end":"2020","note":"APS-C 专用；F 口分无马达版与内置马达版","cls":"自动变焦","frame":"FX"},{"id":100,"name":"Tamron SP AF 17-50mm f/2.8 XR Di II VC LD Aspherical (IF) (B005)","gen":"AF-D","aptype":"G","focal":"17-50","ap":"f/2.8","optics":"19片14组","filter":"72","weight":"570","af":"是","motor":"微型超声波","vr":"是","gold":"否","tier":"高端","feat":"VC防抖、LD、非球面","naming":"—","nick":"无","start":"2009","end":"2020","note":"APS-C 专用，带防抖；内置微型马达（BIM）","cls":"自动变焦","frame":"FX"},{"id":101,"name":"Tamron SP AF 180mm f/3.5 Di LD (IF) Macro 1:1 (B01)","gen":"AF-D","aptype":"D","focal":"180","ap":"f/3.5","optics":"14片11组","filter":"72","weight":"920","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"高端","feat":"微距1:1、LD","naming":"—","nick":"无","start":"2003","end":"2016","note":"F 口无内置马达；1:1 长焦微距","cls":"自动定焦","frame":"FX"},{"id":102,"name":"Tamron SP AF 200-500mm f/5-6.3 Di LD (IF) (A08)","gen":"AF-D","aptype":"D","focal":"200-500","ap":"f/5-6.3","optics":"13片10组","filter":"86","weight":"1237","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"高端","feat":"LD","naming":"—","nick":"无","start":"2004","end":"2014","note":"F 口无内置马达","cls":"自动变焦","frame":"FX"},{"id":103,"name":"Tamron SP AF 28-75mm f/2.8 XR Di LD Aspherical (IF) Macro (A09)","gen":"AF-D","aptype":"D","focal":"28-75","ap":"f/2.8","optics":"16片14组","filter":"67","weight":"510","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"高端","feat":"LD、非球面、微距","naming":"—","nick":"无","start":"2003","end":"2020","note":"F 口后期有内置马达版（BIM）","cls":"自动变焦","frame":"FX"},{"id":104,"name":"Tamron SP AF 60mm f/2 Di II LD (IF) Macro 1:1 (G005)","gen":"AF-D","aptype":"D","focal":"60","ap":"f/2","optics":"14片10组","filter":"55","weight":"350","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"高端","feat":"微距1:1、LD","naming":"—","nick":"无","start":"2010","end":"2018","note":"APS-C 专用 1:1 微距","cls":"自动定焦","frame":"FX"},{"id":105,"name":"Tamron SP AF 90mm f/2.8 Di Macro 1:1 (272E)","gen":"AF-D","aptype":"D","focal":"90","ap":"f/2.8","optics":"10片9组","filter":"55","weight":"405","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"高端","feat":"微距1:1、Di","naming":"—","nick":"90微","start":"2004","end":"2020","note":"F 口后期有内置马达版（BIM）","cls":"自动定焦","frame":"FX"},{"id":106,"name":"Tamron SP AF 90mm f/2.8 Macro 1:1 (172E)","gen":"AF-D","aptype":"D","focal":"90","ap":"f/2.8","optics":"10片9组","filter":"55","weight":"420","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"高端","feat":"微距1:1","naming":"—","nick":"90微","start":"1999","end":"2003","note":"F 口无内置马达；90mm 微距第二代","cls":"自动定焦","frame":"FX"},{"id":107,"name":"Tokina AF 193 19-35mm f/3.5-4.5","gen":"AF-D","aptype":"D","focal":"19-35","ap":"f/3.5-4.5","optics":"13片11组","filter":"77","weight":"400","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"消费","feat":"非球面","naming":"—","nick":"无","start":"约1999","end":"2006","note":"F 口无内置马达；廉价超广变焦","cls":"自动变焦","frame":"FX"},{"id":108,"name":"Tokina AT-X 107 DX 10-17mm f/3.5-4.5 Fisheye","gen":"AF-D","aptype":"D","focal":"10-17","ap":"f/3.5-4.5","optics":"10片8组","filter":"无","weight":"350","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"高端","feat":"鱼眼、SD","naming":"—","nick":"无","start":"2006","end":"2022","note":"DX 专用鱼眼，视角 180°","cls":"自动变焦","frame":"FX"},{"id":109,"name":"Tokina AT-X 11-20mm f/2.8 PRO DX","gen":"AF-D","aptype":"D","focal":"11-20","ap":"f/2.8","optics":"14片12组","filter":"82","weight":"560","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"高端","feat":"SD、非球面、内对焦","naming":"—","nick":"无","start":"2015","end":"2020","note":"DX 专用超广变焦","cls":"自动变焦","frame":"FX"},{"id":110,"name":"Tokina AT-X 116 PRO DX 11-16mm f/2.8","gen":"AF-D","aptype":"D","focal":"11-16","ap":"f/2.8","optics":"13片11组","filter":"77","weight":"560","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"高端","feat":"SD、非球面、内对焦","naming":"—","nick":"星空神器","start":"2007","end":"2012","note":"DX 专用；F 口无内置马达，靠机身马达驱动","cls":"自动变焦","frame":"FX"},{"id":111,"name":"Tokina AT-X 116 PRO DX II 11-16mm f/2.8","gen":"AF-D","aptype":"D","focal":"11-16","ap":"f/2.8","optics":"13片11组","filter":"77","weight":"550","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"高端","feat":"SD、非球面、内对焦","naming":"—","nick":"星空神器","start":"2012","end":"2020","note":"DX 专用；二代改进镀膜","cls":"自动变焦","frame":"FX"},{"id":112,"name":"Tokina AT-X 12-28mm f/4 PRO DX","gen":"AF-D","aptype":"D","focal":"12-28","ap":"f/4","optics":"14片12组","filter":"77","weight":"530","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"高端","feat":"SD、非球面","naming":"—","nick":"无","start":"2013","end":"2020","note":"DX 专用超广变焦","cls":"自动变焦","frame":"FX"},{"id":113,"name":"Tokina AT-X 124 PRO DX 12-24mm f/4","gen":"AF-D","aptype":"D","focal":"12-24","ap":"f/4","optics":"13片11组","filter":"77","weight":"570","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"高端","feat":"SD、非球面","naming":"—","nick":"无","start":"2004","end":"2009","note":"DX 专用超广变焦","cls":"自动变焦","frame":"FX"},{"id":114,"name":"Tokina AT-X 124 PRO DX II 12-24mm f/4","gen":"AF-D","aptype":"D","focal":"12-24","ap":"f/4","optics":"13片11组","filter":"77","weight":"540","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"高端","feat":"SD、非球面","naming":"—","nick":"无","start":"2008","end":"2013","note":"DX 专用；二代改进镀膜","cls":"自动变焦","frame":"FX"},{"id":115,"name":"Tokina AT-X 16-28mm f/2.8 PRO FX","gen":"AF-D","aptype":"D","focal":"16-28","ap":"f/2.8","optics":"15片13组","filter":"无","weight":"950","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"专业","feat":"SD、非球面、内对焦","naming":"—","nick":"无","start":"2010","end":"2019","note":"灯泡前组，无前置滤镜螺纹；F 口无内置马达","cls":"自动变焦","frame":"FX"},{"id":116,"name":"Tokina AT-X 165 PRO DX 16-50mm f/2.8","gen":"AF-D","aptype":"D","focal":"16-50","ap":"f/2.8","optics":"14片12组","filter":"77","weight":"620","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"高端","feat":"SD、非球面","naming":"—","nick":"无","start":"2006","end":"2010","note":"DX 专用恒定 f/2.8 标准变焦","cls":"自动变焦","frame":"FX"},{"id":117,"name":"Tokina AT-X 17 AF PRO 17mm f/3.5","gen":"AF-D","aptype":"D","focal":"17","ap":"f/3.5","optics":"11片9组","filter":"77","weight":"435","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"高端","feat":"SD、非球面","naming":"—","nick":"无","start":"约1993","end":"2003","note":"F 口无内置马达；早期超广定焦","cls":"自动定焦","frame":"FX"},{"id":118,"name":"Tokina AT-X 17-35mm f/4 PRO FX","gen":"AF-D","aptype":"D","focal":"17-35","ap":"f/4","optics":"13片12组","filter":"82","weight":"600","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"高端","feat":"SD、非球面","naming":"—","nick":"无","start":"2011","end":"2020","note":"全画幅超广变焦","cls":"自动变焦","frame":"FX"},{"id":119,"name":"Tokina AT-X 235 AF PRO 20-35mm f/2.8","gen":"AF-D","aptype":"D","focal":"20-35","ap":"f/2.8","optics":"15片11组","filter":"77","weight":"585","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"高端","feat":"SD、非球面","naming":"—","nick":"无","start":"约1997","end":"2005","note":"F 口无内置马达","cls":"自动变焦","frame":"FX"},{"id":120,"name":"Tokina AT-X 24-70mm f/2.8 PRO FX","gen":"AF-D","aptype":"D","focal":"24-70","ap":"f/2.8","optics":"15片11组","filter":"82","weight":"1010","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"专业","feat":"SD、非球面、内对焦","naming":"—","nick":"无","start":"2014","end":"2020","note":"全画幅恒定 f/2.8 标准变焦","cls":"自动变焦","frame":"FX"},{"id":121,"name":"Tokina AT-X 242 AF 24-200mm f/3.5-5.6","gen":"AF-D","aptype":"D","focal":"24-200","ap":"f/3.5-5.6","optics":"15片11组","filter":"72","weight":"690","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"消费","feat":"SD、非球面","naming":"—","nick":"无","start":"约2000","end":"2004","note":"F 口无内置马达；高倍变焦","cls":"自动变焦","frame":"FX"},{"id":122,"name":"Tokina AT-X 270 AF PRO 28-70mm f/2.8","gen":"AF-D","aptype":"D","focal":"28-70","ap":"f/2.8","optics":"16片12组","filter":"77","weight":"760","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"高端","feat":"SD、非球面","naming":"—","nick":"无","start":"约1994","end":"1997","note":"F 口无内置马达；后由 PRO II 取代","cls":"自动变焦","frame":"FX"},{"id":123,"name":"Tokina AT-X 270 AF PRO II 28-70mm f/2.8","gen":"AF-D","aptype":"D","focal":"28-70","ap":"f/2.8","optics":"16片12组","filter":"77","weight":"760","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"高端","feat":"SD、非球面","naming":"—","nick":"无","start":"1997","end":"2001","note":"又称 New AT-X 270 AF PRO","cls":"自动变焦","frame":"FX"},{"id":124,"name":"Tokina AT-X 280 AF PRO 28-80mm f/2.8","gen":"AF-D","aptype":"D","focal":"28-80","ap":"f/2.8","optics":"16片12组","filter":"77","weight":"819","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"高端","feat":"SD、非球面","naming":"—","nick":"无","start":"约2002","end":"2005","note":"F 口无内置马达","cls":"自动变焦","frame":"FX"},{"id":125,"name":"Tokina AT-X 282 AF PRO 80-200mm f/2.8","gen":"AF-D","aptype":"D","focal":"80-200","ap":"f/2.8","optics":"17片11组","filter":"77","weight":"1350","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"高端","feat":"SD、非球面","naming":"—","nick":"无","start":"约1996","end":"不详","note":"F 口无内置马达；大三元长焦","cls":"自动变焦","frame":"FX"},{"id":126,"name":"Tokina AT-X 300 AF PRO 300mm f/2.8","gen":"AF-D","aptype":"D","focal":"300","ap":"f/2.8","optics":"9片7组","filter":"112","weight":"2300","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"专业","feat":"SD、低色散","naming":"—","nick":"无","start":"约1995","end":"2005","note":"F 口无内置马达；专业大光圈定焦","cls":"自动定焦","frame":"FX"},{"id":127,"name":"Tokina AT-X 340 AF-II 100-300mm f/4","gen":"AF-D","aptype":"D","focal":"100-300","ap":"f/4","optics":"15片11组","filter":"77","weight":"1540","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"高端","feat":"SD、非球面","naming":"—","nick":"无","start":"约1998","end":"2002","note":"F 口无内置马达；恒定 f/4 远摄变焦","cls":"自动变焦","frame":"FX"},{"id":128,"name":"Tokina AT-X 535 PRO DX 50-135mm f/2.8","gen":"AF-D","aptype":"D","focal":"50-135","ap":"f/2.8","optics":"18片14组","filter":"67","weight":"845","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"高端","feat":"SD、非球面","naming":"—","nick":"无","start":"2006","end":"2011","note":"DX 专用恒定 f/2.8 中长焦","cls":"自动变焦","frame":"FX"},{"id":129,"name":"Tokina AT-X 70-200mm f/4 PRO FX VCM-S","gen":"AF-D","aptype":"D","focal":"70-200","ap":"f/4","optics":"19片14组","filter":"67","weight":"980","af":"是","motor":"环形超声波","vr":"是","gold":"否","tier":"高端","feat":"防抖、环形超声波、VCM","naming":"—","nick":"无","start":"2014","end":"2020","note":"Tokina 首支带防抖的镜头；仅尼康 F 口","cls":"自动变焦","frame":"FX"},{"id":130,"name":"Tokina AT-X 840 D AF 80-400mm f/4.5-5.6","gen":"AF-D","aptype":"D","focal":"80-400","ap":"f/4.5-5.6","optics":"16片10组","filter":"72","weight":"990","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"消费","feat":"SD、非球面","naming":"—","nick":"无","start":"约2006","end":"2013","note":"F 口无内置马达；带三脚架环","cls":"自动变焦","frame":"FX"},{"id":131,"name":"Tokina AT-X M100 PRO D 100mm f/2.8 Macro","gen":"AF-D","aptype":"D","focal":"100","ap":"f/2.8","optics":"9片8组","filter":"55","weight":"490","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"高端","feat":"微距1:1","naming":"—","nick":"百微","start":"2005","end":"2020","note":"1:1 微距；F 口无内置马达","cls":"自动定焦","frame":"FX"},{"id":132,"name":"Tokina AT-X M35 PRO DX 35mm f/2.8 Macro","gen":"AF-D","aptype":"D","focal":"35","ap":"f/2.8","optics":"9片8组","filter":"52","weight":"340","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"消费","feat":"微距1:1","naming":"—","nick":"无","start":"2007","end":"2010","note":"DX 专用 1:1 微距","cls":"自动定焦","frame":"FX"},{"id":133,"name":"Tokina AT-X M90 Macro 90mm f/2.5","gen":"手动","aptype":"非CPU","focal":"90","ap":"f/2.5","optics":"9片7组","filter":"55","weight":"510","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"高端","feat":"微距1:2、手动光圈环","naming":"—","nick":"Bokina","start":"1984","end":"不详","note":"手动对焦；以焦外成像著称","cls":"手动定焦","frame":"FX"},{"id":134,"name":"Vivitar Series 1 100-400mm f/4.5-6.7 AF","gen":"AF","aptype":"非CPU","focal":"100-400","ap":"4.5-6.7","optics":"12片9组","filter":"67","weight":"600","af":"是","motor":"机身螺丝驱动","vr":"否","gold":"否","tier":"远摄变焦","feat":"自动对焦、ED","naming":"—","nick":"无","start":"约1994","end":"约2000","note":"尼康 F AF 口；塑料镜身；最近2.4m","cls":"自动变焦","frame":"FX"},{"id":135,"name":"Vivitar Series 1 135mm f/2.3","gen":"手动","aptype":"非CPU","focal":"135","ap":"2.3","optics":"6片6组","filter":"72","weight":"766","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"人像","feat":"大光圈","naming":"—","nick":"无","start":"1972","end":"约1980","note":"尼康 F 口（后期 AI 版）；最近0.9m","cls":"手动定焦","frame":"FX"},{"id":136,"name":"Vivitar Series 1 200mm f/3","gen":"手动","aptype":"非CPU","focal":"200","ap":"3","optics":"6片6组","filter":"72","weight":"820","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"长焦","feat":"大光圈","naming":"—","nick":"无","start":"1973","end":"约1980","note":"尼康 F 口；最近1.2m","cls":"手动定焦","frame":"FX"},{"id":137,"name":"Vivitar Series 1 24-48mm f/3.8","gen":"手动","aptype":"非CPU","focal":"24-48","ap":"3.8","optics":"10片9组","filter":"77","weight":"550","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"广角变焦","feat":"大光圈广角变焦","naming":"—","nick":"无","start":"约1977","end":"约1985","note":"Kiron 代工；尼康 AI 口；最近0.6m","cls":"手动变焦","frame":"FX"},{"id":138,"name":"Vivitar Series 1 28-105mm f/2.8-3.8 VMC Macro","gen":"手动","aptype":"非CPU","focal":"28-105","ap":"2.8-3.8","optics":"14片12组","filter":"67","weight":"620","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"专业标准变焦","feat":"VMC镀膜、微距","naming":"—","nick":"无","start":"1985","end":"约1991","note":"Cosina 代工；尼康 AI 口；最近0.2m","cls":"手动变焦","frame":"FX"},{"id":139,"name":"Vivitar Series 1 28mm f/1.9","gen":"手动","aptype":"非CPU","focal":"28","ap":"1.9","optics":"—","filter":"58","weight":"335","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"大光圈广角","feat":"大光圈","naming":"—","nick":"无","start":"约1975","end":"约1982","note":"尼康 F 口；最近0.3m","cls":"手动定焦","frame":"FX"},{"id":140,"name":"Vivitar Series 1 35-85mm f/2.8","gen":"手动","aptype":"非CPU","focal":"35-85","ap":"2.8","optics":"12片9组","filter":"72","weight":"722","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"专业标准变焦","feat":"恒定光圈","naming":"—","nick":"无","start":"约1976","end":"约1985","note":"尼康 AI 口；最近0.26m；体积大","cls":"手动变焦","frame":"FX"},{"id":141,"name":"Vivitar Series 1 70-210mm f/2.8-4 APO","gen":"手动","aptype":"非CPU","focal":"70-210","ap":"2.8-4","optics":"14片11组","filter":"62","weight":"727","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"专业变焦","feat":"APO、浮动光圈","naming":"—","nick":"无","start":"1995","end":"约2000","note":"Cosina 代工；尼康 AI 口；最近1.1m","cls":"手动变焦","frame":"FX"},{"id":142,"name":"Vivitar Series 1 70-210mm f/3.5 Macro Focusing Zoom (I)","gen":"手动","aptype":"非CPU","focal":"70-210","ap":"3.5","optics":"15片10组","filter":"67","weight":"944","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"专业变焦","feat":"恒定光圈、1:2.2微距、推拉变焦","naming":"—","nick":"无","start":"1974","end":"约1985","note":"Kiron 代工；尼康 AI 口；最近1.95m","cls":"手动变焦","frame":"FX"},{"id":143,"name":"Vivitar Series 1 70-210mm f/3.5 Macro Focusing Zoom (II)","gen":"手动","aptype":"非CPU","focal":"70-210","ap":"3.5","optics":"14片10组","filter":"62","weight":"710","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"专业变焦","feat":"恒定光圈、微距、推拉变焦","naming":"—","nick":"无","start":"约1978","end":"约1988","note":"Tokina 代工；尼康 AI 口；最近1.2m","cls":"手动变焦","frame":"FX"},{"id":144,"name":"Vivitar Series 1 Macro 90mm f/2.5","gen":"手动","aptype":"非CPU","focal":"90","ap":"2.5","optics":"8片7组","filter":"58","weight":"644","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"微距","feat":"1:2微距（附接圈可1:1）","naming":"—","nick":"无","start":"1977","end":"1981","note":"Tokina 代工；尼康 AI 口；最近0.393m","cls":"手动定焦","frame":"FX"},{"id":145,"name":"Voigtlander APO-Lanthar 90mm f/3.5 SL II","gen":"手动","aptype":"D","focal":"90","ap":"3.5","optics":"6片5组","filter":"52","weight":"320","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"轻量中焦","feat":"APO、CPU触点","naming":"—","nick":"无","start":"2010","end":"—","note":"全画幅；初代 SL 版 2003 年、49mm/390g、无CPU；最近0.5m","cls":"手动定焦","frame":"FX"},{"id":146,"name":"Voigtlander APO-Skopar 90mm f/2.8 SL II S","gen":"手动","aptype":"D","focal":"90","ap":"2.8","optics":"7片7组","filter":"52","weight":"260","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"轻量中焦","feat":"APO、CPU触点","naming":"—","nick":"无","start":"约2019","end":"—","note":"全画幅；S 版外观；最近0.9m","cls":"手动定焦","frame":"FX"},{"id":147,"name":"Voigtlander Color Heliar 75mm f/2.5 SL","gen":"手动","aptype":"非CPU","focal":"75","ap":"2.5","optics":"6片5组","filter":"49","weight":"250","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"轻量人像","feat":"无","naming":"—","nick":"无","start":"2003","end":"2007","note":"全画幅；无CPU（AI-S 式）；最近0.7m","cls":"手动定焦","frame":"FX"},{"id":148,"name":"Voigtlander Color Skopar 20mm f/3.5 SL II","gen":"手动","aptype":"D","focal":"20","ap":"3.5","optics":"9片6组","filter":"52","weight":"205","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"轻量广角","feat":"CPU触点、非球面","naming":"—","nick":"无","start":"2009","end":"—","note":"全画幅；AI-P 式 CPU；最近0.2m；极轻","cls":"手动定焦","frame":"FX"},{"id":149,"name":"Voigtlander Color Skopar 28mm f/2.8 SL II","gen":"手动","aptype":"D","focal":"28","ap":"2.8","optics":"7片6组","filter":"52","weight":"180","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"轻量广角","feat":"CPU触点","naming":"—","nick":"无","start":"2012","end":"—","note":"全画幅；AI-P 式 CPU；最近0.22m","cls":"手动定焦","frame":"FX"},{"id":150,"name":"Voigtlander Macro APO-Lanthar 125mm f/2.5 SL","gen":"手动","aptype":"非CPU","focal":"125","ap":"2.5","optics":"11片9组","filter":"58","weight":"690","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"微距","feat":"1:1微距、APO、浮动对焦","naming":"—","nick":"微距王","start":"2001","end":"2007","note":"全画幅；无CPU（AI-S 式）；Cosina 产；最近0.38m；二手价高","cls":"手动定焦","frame":"FX"},{"id":151,"name":"Voigtlander Nokton 58mm f/1.4 SL II","gen":"手动","aptype":"D","focal":"58","ap":"1.4","optics":"7片6组","filter":"58","weight":"320","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"大光圈标头","feat":"CPU触点","naming":"—","nick":"凤凰瞳","start":"2007","end":"—","note":"全画幅；初代 SL 版 2003 年、无CPU；最近0.45m","cls":"手动定焦","frame":"FX"},{"id":152,"name":"Voigtlander Ultron 40mm f/2 SL II","gen":"手动","aptype":"D","focal":"40","ap":"2","optics":"6片5组","filter":"52","weight":"200","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"轻量标头","feat":"CPU触点、2片非球面、饼干结构","naming":"—","nick":"饼干头","start":"2007","end":"—","note":"全画幅；初代 SL 版 2002 年、无CPU；最近0.38m（近摄镜0.25m）","cls":"手动定焦","frame":"FX"},{"id":153,"name":"Zeiss Apo Sonnar T* 135mm f/2 ZF.2","gen":"手动","aptype":"D","focal":"135","ap":"2","optics":"11片8组","filter":"77","weight":"920","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"顶级中长焦","feat":"T*镀膜、CPU触点、APO","naming":"—","nick":"无","start":"2012","end":"—","note":"仅 ZF.2/ZE；最近0.8m；1:4","cls":"手动定焦","frame":"FX"},{"id":154,"name":"Zeiss Distagon T* 15mm f/2.8 ZF.2","gen":"手动","aptype":"D","focal":"15","ap":"2.8","optics":"15片12组","filter":"95","weight":"730","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"顶级超广","feat":"T*镀膜、CPU触点、浮动镜组","naming":"—","nick":"无","start":"2012","end":"—","note":"110°超广；仅 ZF.2/ZE，无 ZF 版；最近0.25m；体积大","cls":"手动定焦","frame":"FX"},{"id":155,"name":"Zeiss Distagon T* 18mm f/3.5 ZF.2","gen":"手动","aptype":"D","focal":"18","ap":"3.5","optics":"13片11组","filter":"82","weight":"470","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"高端超广","feat":"T*镀膜、CPU触点","naming":"—","nick":"无","start":"2008","end":"—","note":"ZF 初代无CPU；ZF.2 版 2009 起带CPU；最近0.3m；暗角明显","cls":"手动定焦","frame":"FX"},{"id":156,"name":"Zeiss Distagon T* 21mm f/2.8 ZF.2","gen":"手动","aptype":"D","focal":"21","ap":"2.8","optics":"16片13组","filter":"82","weight":"600","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"顶级超广","feat":"T*镀膜、CPU触点、2片非球面","naming":"—","nick":"广角王","start":"2008","end":"—","note":"ZF 初代无CPU；ZF.2 版 2010.04 上市；最近0.22m；康泰时 21/2.8 血统","cls":"手动定焦","frame":"FX"},{"id":157,"name":"Zeiss Distagon T* 25mm f/2 ZF.2","gen":"手动","aptype":"D","focal":"25","ap":"2","optics":"11片10组","filter":"67","weight":"600","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"高端广角","feat":"T*镀膜、CPU触点","naming":"—","nick":"无","start":"2011","end":"—","note":"仅 ZF.2/ZE；最近0.25m；防尘防滴","cls":"手动定焦","frame":"FX"},{"id":158,"name":"Zeiss Distagon T* 25mm f/2.8 ZF.2","gen":"手动","aptype":"D","focal":"25","ap":"2.8","optics":"10片8组","filter":"58","weight":"480","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"高端广角","feat":"T*镀膜、CPU触点","naming":"—","nick":"无","start":"2006","end":"—","note":"ZF 初代无CPU；ZF.2 版 2009 起；最近0.17m；轻巧","cls":"手动定焦","frame":"FX"},{"id":159,"name":"Zeiss Distagon T* 28mm f/2 ZF.2","gen":"手动","aptype":"D","focal":"28","ap":"2","optics":"10片8组","filter":"58","weight":"520","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"高端广角","feat":"T*镀膜、CPU触点","naming":"—","nick":"无","start":"2007","end":"—","note":"ZF 初代无CPU；ZF.2 版 2009 起；最近0.24m","cls":"手动定焦","frame":"FX"},{"id":160,"name":"Zeiss Distagon T* 35mm f/1.4 ZF.2","gen":"手动","aptype":"D","focal":"35","ap":"1.4","optics":"11片9组","filter":"72","weight":"830","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"顶级人文","feat":"T*镀膜、CPU触点","naming":"—","nick":"无","start":"2010","end":"—","note":"仅 ZF.2/ZE；最近0.3m；口径大、重量沉","cls":"手动定焦","frame":"FX"},{"id":161,"name":"Zeiss Distagon T* 35mm f/2 ZF.2","gen":"手动","aptype":"D","focal":"35","ap":"2","optics":"9片7组","filter":"58","weight":"530","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"高端人文","feat":"T*镀膜、CPU触点","naming":"—","nick":"无","start":"2006","end":"—","note":"ZF 初代无CPU；ZF.2 版 2009 起；最近0.3m","cls":"手动定焦","frame":"FX"},{"id":162,"name":"Zeiss Makro-Planar T* 100mm f/2 ZF.2","gen":"手动","aptype":"D","focal":"100","ap":"2","optics":"9片8组","filter":"67","weight":"680","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"高端微距","feat":"T*镀膜、CPU触点、1:2微距","naming":"—","nick":"无","start":"2006","end":"—","note":"ZF 初代无CPU；ZF.2 版 2009 起；最近0.44m","cls":"手动定焦","frame":"FX"},{"id":163,"name":"Zeiss Makro-Planar T* 50mm f/2 ZF.2","gen":"手动","aptype":"D","focal":"50","ap":"2","optics":"8片6组","filter":"67","weight":"530","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"高端微距","feat":"T*镀膜、CPU触点、1:2微距","naming":"—","nick":"无","start":"2006","end":"—","note":"ZF 初代无CPU；ZF.2 版 2009 起；最近0.24m","cls":"手动定焦","frame":"FX"},{"id":164,"name":"Zeiss Planar T* 50mm f/1.4 ZF.2","gen":"手动","aptype":"D","focal":"50","ap":"1.4","optics":"7片6组","filter":"58","weight":"330","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"高端标头","feat":"T*镀膜、CPU触点","naming":"—","nick":"无","start":"2006","end":"—","note":"ZF 初代无CPU；ZF.2 版 2009 起；最近0.45m；官网仍列在售","cls":"手动定焦","frame":"FX"},{"id":165,"name":"Zeiss Planar T* 85mm f/1.4 ZF.2","gen":"手动","aptype":"D","focal":"85","ap":"1.4","optics":"6片5组","filter":"72","weight":"570","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"高端人像","feat":"T*镀膜、CPU触点","naming":"—","nick":"无","start":"2006","end":"—","note":"ZF 初代无CPU；ZF.2 版 2009 起；最近1.0m；官网仍列在售","cls":"手动定焦","frame":"FX"},{"id":166,"name":"其他 Laowa 100mm f/2.8 2x Ultra Macro APO","gen":"手动","aptype":"非CPU","focal":"100","ap":"2.8","optics":"12片10组","filter":"67","weight":"638","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"微距","feat":"2:1微距、APO","naming":"—","nick":"无","start":"2018","end":"—","note":"老蛙；全画幅；最近0.247m","cls":"手动定焦","frame":"FX"},{"id":167,"name":"其他 Laowa 15mm f/4 Wide Angle Macro","gen":"手动","aptype":"非CPU","focal":"15","ap":"4","optics":"12片9组","filter":"77","weight":"410","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"广角微距","feat":"1:1广角微距、±6mm移轴","naming":"—","nick":"无","start":"2015","end":"—","note":"老蛙（Venus Optics）；全画幅；最近0.12m","cls":"手动定焦","frame":"FX"},{"id":168,"name":"其他 Laowa 15mm f/4.5 Zero-D Shift","gen":"手动","aptype":"非CPU","focal":"15","ap":"4.5","optics":"17片11组","filter":"无","weight":"—","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"移轴超广","feat":"移轴、零畸变","naming":"—","nick":"无","start":"约2021","end":"—","note":"老蛙；全画幅；最近0.2m","cls":"手动定焦","frame":"FX"},{"id":169,"name":"其他 Laowa 25mm f/2.8 Ultra Macro 2.5-5x","gen":"手动","aptype":"非CPU","focal":"25","ap":"2.8","optics":"8片6组","filter":"无","weight":"400","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"超微距","feat":"2.5:1–5:1","naming":"—","nick":"无","start":"2018","end":"—","note":"老蛙；全画幅；最近0.177m","cls":"手动定焦","frame":"FX"},{"id":170,"name":"其他 Zenitar 16mm f/2.8 Fisheye","gen":"手动","aptype":"非CPU","focal":"16","ap":"2.8","optics":"11片7组","filter":"后置滤镜","weight":"250","af":"否","motor":"无（手动）","vr":"否","gold":"否","tier":"入门鱼眼","feat":"鱼眼、后置滤镜","naming":"—","nick":"无","start":"约1990","end":"—","note":"俄罗斯 KMZ；尼康 F 口 AI；最近0.3m","cls":"手动定焦","frame":"FX"}];
+const GEN_ORDER = ["手动","AF","AF-D"];
+const GEN_COLOR = {Auto:"#9aa4b2",AI:"#7d8998","AI-S":"#617080","Series E":"#bcc3cb",
+                   PC:"#a8825a","PC-E":"#c19a6b",AF:"#4a86c5","AF-D":"#2f6ba8",
+                   "AF-I":"#245788","AF-S":"#1f4a73","AF-P":"#17395a"};
+const CLS_ORDER = ["手动定焦","手动变焦","自动定焦","自动变焦"];
 const COLS = [
-  {k:"brand",t:"品牌",s:true},
-  {k:"model",t:"型号",s:true,cls:"model"},
-  {k:"focal",t:"焦段",s:true,cls:"num"},
-  {k:"ap",t:"光圈",s:true,cls:"num"},
-  {k:"af",t:"AF",s:false,cls:"hide-xs"},
-  {k:"vr",t:"防抖",s:false,cls:"hide-xs"},
-  {k:"optics",t:"结构",s:false,cls:"muted hide-sm"},
-  {k:"filter",t:"口径",s:true,cls:"num hide-sm"},
-  {k:"weight",t:"重量 g",s:true,cls:"num"},
-  {k:"start",t:"发布",s:true,cls:"num hide-sm"}
+  {k:"id",   t:"#",        w:44,  s:true},
+  {k:"name", t:"型号",      s:true, cls:"name"},
+  {k:"gen",  t:"世代",      s:true},
+  {k:"focal",t:"焦段",      s:true, cls:"num"},
+  {k:"frame",t:"画幅",      s:true, cls:"num"},
+  {k:"ap",   t:"光圈",      s:true, cls:"num"},
+  {k:"optics",t:"光学结构", s:false, cls:"muted hide-sm"},
+  {k:"filter",t:"口径",     s:true, cls:"num hide-sm"},
+  {k:"weight",t:"重量 g",   s:true, cls:"num"},
+  {k:"af",   t:"AF",        s:false, cls:"hide-xs"},
+  {k:"vr",   t:"VR",        s:false, cls:"hide-xs"},
+  {k:"gold", t:"金圈",      s:false},
+  {k:"nick", t:"外号",      s:false, cls:"muted hide-sm"},
+  {k:"start",t:"发布",      s:true, cls:"num hide-sm"},
+  {k:"end",  t:"停产",      s:true, cls:"num hide-xs"}
 ];
+const state = {q:"", gens:new Set(), cls:new Set(), tier:new Set(), af:"", vr:"", gold:"",
+               fmin:null, fmax:null, wmin:null, wmax:null, dmin:null, dmax:null, apval:null,
+               sort:{k:"id", dir:1}};
 
+const $ = s => document.querySelector(s);
+const el = (t,c,h) => { const e=document.createElement(t); if(c)e.className=c; if(h!=null)e.innerHTML=h; return e; };
+const esc = s => String(s==null?"":s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+
+/* ---------- helpers ---------- */
 function focalSpan(f){
-  const m = String(f||"").match(/\d+(\.\d+)?/g);
+  const m = String(f).match(/\d+(\.\d+)?/g);
   if(!m) return [9999,9999];
   return [parseFloat(m[0]), parseFloat(m[m.length-1])];
 }
-function num(v){ const m=String(v==null?"":v).match(/\d+(\.\d+)?/); return m?parseFloat(m[0]):null; }
+function num(v){
+  if(v==null) return null;
+  const m = String(v).match(/\d+(\.\d+)?/);
+  return m ? parseFloat(m[0]) : null;
+}
+function fmtW(v){
+  const n = num(v);
+  if(n==null) return '<span class="muted">—</span>';
+  return n.toLocaleString("en-US");
+}
+function goldTag(v){
+  return v==="是" ? '<span class="tag gold"><span class="dot"></span>金圈</span>' : '<span class="muted">—</span>';
+}
+function yesTag(v, cls){
+  return v==="是" ? `<span class="tag ${cls}">是</span>` : '<span class="muted">—</span>';
+}
 
-// 品牌筛选
-const brands = [...new Set(DATA.map(d=>d.brand))].sort();
-brands.forEach(b=>{
-  const c=document.createElement("span"); c.className="chip"; c.textContent=b; c.dataset.v=b;
-  c.onclick=()=>{ state.brands.has(b)?state.brands.delete(b):state.brands.add(b); c.classList.toggle("on"); render(); };
-  $("#brands").appendChild(c);
+/* ---------- filters UI ---------- */
+function buildChips(box, values, set, cls){
+  values.forEach(v=>{
+    const c = el("span","chip"+(cls?" "+cls:""), esc(v));
+    c.dataset.v = v;
+    c.onclick = ()=>{ set.has(v)?set.delete(v):set.add(v); c.classList.toggle("on"); render(); };
+    box.appendChild(c);
+  });
+}
+buildChips($("#f-gen"), GEN_ORDER, state.gens);
+document.querySelectorAll("#f-gen .chip").forEach(c=>{ c.onclick = ()=>toggleGen(c.dataset.v); });
+buildChips($("#f-cls"), CLS_ORDER, state.cls);
+buildChips($("#f-tier"), ["顶级专业","专业","高端","消费","入门","特殊用途"], state.tier);
+
+function toggleGen(g){
+  state.gens.has(g) ? state.gens.delete(g) : state.gens.add(g);
+  document.querySelectorAll("#f-gen .chip").forEach(c=>c.classList.toggle("on", state.gens.has(c.dataset.v)));
+  render();
+}
+
+document.querySelectorAll(".seg").forEach(seg=>{
+  seg.querySelectorAll("button").forEach(b=>{
+    b.onclick = ()=>{
+      seg.querySelectorAll("button").forEach(x=>x.classList.remove("on"));
+      b.classList.add("on");
+      const id = seg.id;
+      if(id==="f-af") state.af=b.dataset.v;
+      if(id==="f-vr") state.vr=b.dataset.v;
+      if(id==="f-gold") state.gold=b.dataset.v;
+      render();
+    };
+  });
 });
 
-const thead=$("#thead");
+function bindRange(a,b,ka,kb){
+  const ea=$(a), eb=$(b);
+  const upd=()=>{ state[ka]= ea.value===""?null:parseFloat(ea.value); state[kb]= eb.value===""?null:parseFloat(eb.value); render(); };
+  ea.oninput=upd; eb.oninput=upd;
+}
+bindRange("#fmin","#fmax","fmin","fmax");
+bindRange("#wmin","#wmax","wmin","wmax");
+bindRange("#dmin","#dmax","dmin","dmax");
+
+document.querySelectorAll(".presets .chip").forEach(c=>{
+  c.onclick = ()=>{
+    if(c.dataset.fmin!=null){
+      $("#fmin").value = c.dataset.fmin; $("#fmax").value = c.dataset.fmax;
+      state.fmin=parseFloat(c.dataset.fmin); state.fmax=parseFloat(c.dataset.fmax);
+    } else if(c.dataset.wmin!=null){
+      $("#wmin").value = c.dataset.wmin; $("#wmax").value = c.dataset.wmax;
+      state.wmin=parseFloat(c.dataset.wmin); state.wmax=parseFloat(c.dataset.wmax);
+    } else if(c.dataset.d!=null){
+      $("#dmin").value = c.dataset.d; $("#dmax").value = c.dataset.d;
+      state.dmin=parseFloat(c.dataset.d); state.dmax=parseFloat(c.dataset.d);
+    } else if(c.dataset.ap!=null){
+      const v = c.dataset.ap;
+      $("#apval").value = v;
+      state.apval = v==="" ? null : parseFloat(v);
+    }
+    render();
+  };
+});
+
+$("#apval").oninput = e=>{
+  state.apval = e.target.value==="" ? null : parseFloat(e.target.value);
+  render();
+};
+
+$("#q").oninput = e => { state.q = e.target.value.trim().toLowerCase(); render(); };
+document.addEventListener("keydown", e=>{
+  if(e.key==="/" && document.activeElement!==$("#q")){ e.preventDefault(); $("#q").focus(); }
+  if(e.key==="Escape"){ closeModal(); }
+});
+$("#reset").onclick = ()=>{
+  state.q=""; state.gens.clear(); state.cls.clear(); state.tier.clear();
+  state.af=""; state.vr=""; state.gold="";
+  state.fmin=state.fmax=state.wmin=state.wmax=state.dmin=state.dmax=state.apval=null;
+  state.sort={k:"id",dir:1};
+  $("#q").value=""; ["fmin","fmax","wmin","wmax","dmin","dmax","apval"].forEach(i=>$( "#"+i ).value="");
+  document.querySelectorAll(".chip.on").forEach(c=>c.classList.remove("on"));
+  document.querySelectorAll(".seg").forEach(s=>{ s.querySelectorAll("button").forEach((b,i)=>b.classList.toggle("on",i===0)); });
+  render();
+};
+$("#ftoggle").onclick = ()=> $("#side").classList.toggle("open");
+
+/* ---------- table head ---------- */
+const thead = $("#thead");
 COLS.forEach(c=>{
-  const th=document.createElement("th");
-  th.textContent=c.t; if(c.cls) th.className=c.cls.replace("model","").trim();
+  const th = el("th", c.cls&&c.cls.includes("hide-sm")?"hide-sm":"", esc(c.t)+'<span class="ar">↕</span>');
+  if(c.cls&&c.cls.includes("hide-xs")&&!c.cls.includes("hide-sm")) th.className="hide-xs";
   th.dataset.k=c.k;
-  th.onclick=()=>{ state.sort = state.sort.k===c.k ? {k:c.k,dir:-state.sort.dir} : {k:c.k,dir:1}; render(); };
+  th.onclick = ()=>{
+    if(state.sort.k===c.k) state.sort.dir*=-1;
+    else state.sort={k:c.k, dir:1};
+    render();
+  };
   thead.appendChild(th);
 });
 
-$("#q").oninput=e=>{ state.q=e.target.value.trim().toLowerCase(); render(); };
-$("#reset").onclick=()=>{ state.q=""; state.brands.clear(); $("#q").value=""; document.querySelectorAll(".chip.on").forEach(c=>c.classList.remove("on")); render(); };
-document.addEventListener("keydown",e=>{ if(e.key==="/"&&document.activeElement!==$("#q")){e.preventDefault();$("#q").focus();} });
-
-$("#csv").onclick=()=>{
-  const rows=filtered();
-  const head=["品牌","型号","世代","光圈类型","焦段","最大光圈","自动对焦","对焦马达","防抖","定位","特殊功能","外号","发布","停产","光学结构","滤镜口径","重量","备注"];
-  const cell=v=>`"${String(v==null?"":v).replace(/"/g,'""')}"`;
-  const body=rows.map(d=>[d.brand,d.model,d.gen,d.aptype,d.focal,d.ap,d.af,d.motor,d.vr,d.tier,d.feat,d.nick,d.start,d.end,d.optics,d.filter,d.weight,d.note].map(cell).join(","));
-  const blob=new Blob(["\ufeff"+head.map(cell).join(",")+"\n"+body.join("\n")],{type:"text/csv;charset=utf-8"});
-  const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="尼康F卡口副厂镜头.csv"; a.click();
-  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
-};
-
-function filtered(){
-  return DATA.filter(d=>{
-    if(state.brands.size && !state.brands.has(d.brand)) return false;
-    if(state.q){
-      const hay=[d.brand,d.model,d.feat,d.note].join(" ").toLowerCase();
-      if(!hay.includes(state.q)) return false;
-    }
-    return true;
-  });
+/* ---------- render ---------- */
+function match(d){
+  if(state.gens.size && !state.gens.has(d.gen)) return false;
+  if(state.cls.size && !state.cls.has(d.cls)) return false;
+  if(state.tier.size && !state.tier.has(d.tier)) return false;
+  if(state.af && d.af!==state.af) return false;
+  if(state.vr && d.vr!==state.vr) return false;
+  if(state.gold && d.gold!==state.gold) return false;
+  if(state.apval!=null && !(d.apnum!=null && Math.abs(d.apnum - state.apval) < 1e-9)) return false;
+  const [a,b] = d.span;
+  if(state.fmin!=null && b < state.fmin) return false;
+  if(state.fmax!=null && a > state.fmax) return false;
+  const w = d.wnum;
+  if(state.wmin!=null && (w==null || w < state.wmin)) return false;
+  if(state.wmax!=null && (w==null || w > state.wmax)) return false;
+  const f = d.dnum;
+  if(state.dmin!=null && (f==null || f < state.dmin)) return false;
+  if(state.dmax!=null && (f==null || f > state.dmax)) return false;
+  if(state.q){
+    const hay = [d.name,d.nick,d.feat,d.naming,d.note,d.gen,d.tier].join(" ").toLowerCase();
+    if(!hay.includes(state.q)) return false;
+  }
+  return true;
+}
+const NULLV = 1e15;
+function yearNum(s){ const m = String(s==null?"":s).match(/(\d{4})/); return m ? +m[1] : null; }
+function sortVal(d,k){
+  switch(k){
+    case "id": return d.id;
+    case "name": return d.name.toLowerCase();
+    case "gen": return GEN_ORDER.indexOf(d.gen);
+    case "focal": return d.span[0]*10000 + d.span[1];
+    case "ap": return d.apnum==null?NULLV:d.apnum;
+    case "filter": return d.dnum==null?NULLV:d.dnum;
+    case "weight": return d.wnum==null?NULLV:d.wnum;
+    case "start": { const y=yearNum(d.start); return y==null?NULLV:y; }
+    case "end": { const y=yearNum(d.end); return y==null?NULLV:y; }
+    default: return 0;
+  }
 }
 function render(){
-  const rows=filtered();
-  const {k,dir}=state.sort;
-  rows.sort((a,b)=>{
-    let x,y;
-    if(k==="focal"){ x=focalSpan(a.focal)[0]*10000+focalSpan(a.focal)[1]; y=focalSpan(b.focal)[0]*10000+focalSpan(b.focal)[1]; }
-    else if(k==="ap"||k==="weight"||k==="filter"){ x=num(a[k])||99999; y=num(b[k])||99999; }
-    else if(k==="start"){ x=num(a[k])||9999; y=num(b[k])||9999; }
-    else { x=String(a[k]||"").toLowerCase(); y=String(b[k]||"").toLowerCase(); }
-    if(x<y) return -dir; if(x>y) return dir; return 0;
+  const rows = DATA.filter(match);
+  const {k,dir} = state.sort;
+  rows.sort((x,y)=>{
+    const a=sortVal(x,k), b=sortVal(y,k);
+    const na = a===NULLV, nb = b===NULLV;
+    if(na && nb) return x.id-y.id;
+    if(na) return 1;
+    if(nb) return -1;
+    if(a<b) return -1*dir; if(a>b) return 1*dir; return x.id-y.id;
   });
-  document.querySelectorAll("#thead th").forEach(th=>th.classList.toggle("sorted",th.dataset.k===k));
-  $("#tbody").innerHTML=rows.map(d=>`<tr>
-    <td><span class="tag">${esc(d.brand)}</span></td>
-    <td class="model">${esc(d.model)}</td>
-    <td class="num">${esc(d.focal)}</td>
-    <td class="num">f/${esc(d.ap)}</td>
-    <td class="hide-xs">${d.af==="是"?"是":"—"}</td>
-    <td class="hide-xs">${d.vr==="是"?"是":"—"}</td>
-    <td class="muted hide-sm">${esc(d.optics||"—")}</td>
-    <td class="num hide-sm">${esc(d.filter||"—")}</td>
-    <td class="num">${esc(d.weight||"—")}</td>
-    <td class="num hide-sm">${esc(d.start||"—")}</td>
-  </tr>`).join("");
-  $("#shown").textContent=rows.length;
-  $("#mini").textContent=`品牌 ${new Set(rows.map(d=>d.brand)).size} 个`;
+  document.querySelectorAll("thead th").forEach(th=>{
+    th.classList.toggle("sorted", th.dataset.k===k);
+    const ar = th.querySelector(".ar");
+    if(ar) ar.textContent = th.dataset.k===k ? (dir>0?"↑":"↓") : "↕";
+  });
+  const tb = $("#tbody"); tb.innerHTML = rows.map(d=>`
+    <tr data-id="${d.id}">
+      <td class="num muted">${d.id}</td>
+      <td class="name">${esc(d.name)}${d.nick&&d.nick!=="无"?`<small>${esc(d.nick)}</small>`:""}</td>
+      <td><span class="tag">${esc(d.gen)}</span></td>
+      <td class="num">${esc(d.focal)}</td>
+      <td class="num"><span class="tag ${d.frame==="DX"?"dx":""}">${d.frame}</span></td>
+      <td class="num">f/${esc(d.ap)}</td>
+      <td class="muted hide-sm">${esc(d.optics||"—")}</td>
+      <td class="num hide-sm">${esc(d.filter||"—")}</td>
+      <td class="num">${fmtW(d.weight)}</td>
+      <td class="hide-xs">${yesTag(d.af,"af")}</td>
+      <td class="hide-xs">${yesTag(d.vr,"vr")}</td>
+      <td>${goldTag(d.gold)}</td>
+      <td class="muted hide-sm">${esc(d.nick&&d.nick!=="无"?d.nick:"—")}</td>
+      <td class="num hide-sm">${esc(d.start||"—")}</td>
+      <td class="num hide-xs">${esc(d.end||"—")}</td>
+    </tr>`).join("");
+  $("#shown").textContent = rows.length;
+  $("#empty").style.display = rows.length?"none":"block";
+  const golds = rows.filter(d=>d.gold==="是").length;
+  const vrs = rows.filter(d=>d.vr==="是").length;
+  $("#mini").innerHTML = `金圈 <i>${golds}</i> · 带 VR <i>${vrs}</i> · 手动 <i>${rows.filter(d=>d.af==="否").length}</i>`;
+
+  const byGen = {};
+  rows.forEach(d=>byGen[d.gen]=(byGen[d.gen]||0)+1);
+  const bar = $("#bar");
+  bar.innerHTML = rows.length ? GEN_ORDER.filter(g=>byGen[g]).map(g=>
+    `<span data-g="${g}" style="width:${(byGen[g]/rows.length*100).toFixed(2)}%;background:${GEN_COLOR[g]}" title="${g}：${byGen[g]} 支（点击筛选）"></span>`
+  ).join("") : "";
+  bar.querySelectorAll("span").forEach(s=>{ s.onclick = ()=>toggleGen(s.dataset.g); });
+
+  syncPresets();
+  try{ history.replaceState(null, "", serialize()); }catch(e){}
+
+  tb.querySelectorAll("tr").forEach(tr=>tr.onclick=()=>openModal(+tr.dataset.id));
 }
-$("#total").textContent=DATA.length;
-$("#all").textContent=DATA.length;
+function openModal(id){
+  const d = DATA.find(x=>x.id===id); if(!d) return;
+  $("#m-title").textContent = d.name;
+  $("#m-sub").textContent = `${d.gen} · ${d.focal}mm · f/${d.ap} · ${d.tier}`;
+  const rows = [
+    ["卡口世代", d.gen], ["光圈/信息", d.aptype], ["焦距", d.focal+" mm"], ["画幅", d.frame], ["最大光圈", "f/"+d.ap],
+    ["光学结构", d.optics||"—"], ["滤镜口径", d.filter||"—"], ["重量", d.weight?fmtW(d.weight)+" g":"—"],
+    ["自动对焦", d.af], ["对焦马达", d.motor], ["防抖", d.vr], ["金圈", d.gold],
+    ["定位", d.tier], ["特殊功能", d.feat||"—"], ["官方命名", d.naming||"—"], ["外号", d.nick||"—"],
+    ["发布", d.start||"—"], ["停产", d.end||"—"], ["备注", d.note||"—"], ["分类", d.cls]
+  ];
+  $("#m-kv").innerHTML = rows.map(([k,v])=>`<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("");
+  $("#m-rv").innerHTML = d.review ? `<a href="${esc(d.review)}" target="_blank" rel="noopener">查看独立评测页 →</a>` : "";
+  $("#ov").classList.add("on");
+}
+function closeModal(){ $("#ov").classList.remove("on"); }
+$("#m-close").onclick = closeModal;
+$("#ov").onclick = e => { if(e.target.id==="ov") closeModal(); };
+
+/* ---------- csv ---------- */
+$("#csv").onclick = ()=>{
+  const rows = DATA.filter(match);
+  const head = ["序号","型号","卡口世代","光圈信息类型","焦段","最大光圈","光学结构","滤镜口径","重量g","自动对焦","对焦马达","防抖","金圈","定位","特殊功能","官方命名","外号","发布","停产","备注","分类"];
+  const cell = v => `"${String(v==null?"":v).replace(/"/g,'""')}"`;
+  const body = rows.map(d=>[d.id,d.name,d.gen,d.aptype,d.focal,d.ap,d.optics,d.filter,d.wnum,d.af,d.motor,d.vr,d.gold,d.tier,d.feat,d.naming,d.nick,d.start,d.end,d.note,d.cls].map(cell).join(","));
+  const blob = new Blob(["\ufeff"+head.map(cell).join(",")+"\n"+body.join("\n")], {type:"text/csv;charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = "尼康F卡口镜头_筛选结果.csv"; a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
+};
+
+/* ---------- url state ---------- */
+function syncPresets(){
+  document.querySelectorAll(".presets .chip").forEach(c=>{
+    let on = false;
+    if(c.dataset.ap!=null) on = (c.dataset.ap==="" ? state.apval==null : state.apval===parseFloat(c.dataset.ap));
+    else if(c.dataset.fmin!=null) on = (state.fmin===parseFloat(c.dataset.fmin) && state.fmax===parseFloat(c.dataset.fmax));
+    else if(c.dataset.wmin!=null) on = (state.wmin===parseFloat(c.dataset.wmin) && state.wmax===parseFloat(c.dataset.wmax));
+    else if(c.dataset.d!=null) on = (state.dmin===parseFloat(c.dataset.d) && state.dmax===parseFloat(c.dataset.d));
+    c.classList.toggle("on", on);
+  });
+}
+function syncUI(){
+  $("#q").value = state.q;
+  document.querySelectorAll("#f-gen .chip").forEach(c=>c.classList.toggle("on", state.gens.has(c.dataset.v)));
+  document.querySelectorAll("#f-cls .chip").forEach(c=>c.classList.toggle("on", state.cls.has(c.dataset.v)));
+  document.querySelectorAll("#f-tier .chip").forEach(c=>c.classList.toggle("on", state.tier.has(c.dataset.v)));
+  const setSeg=(id,v)=>document.querySelectorAll("#"+id+" button").forEach(b=>b.classList.toggle("on",(b.dataset.v||"")===v));
+  setSeg("f-af",state.af); setSeg("f-vr",state.vr); setSeg("f-gold",state.gold);
+  $("#fmin").value=state.fmin??""; $("#fmax").value=state.fmax??"";
+  $("#wmin").value=state.wmin??""; $("#wmax").value=state.wmax??"";
+  $("#dmin").value=state.dmin??""; $("#dmax").value=state.dmax??"";
+  $("#apval").value=state.apval??"";
+}
+function serialize(){
+  const p = new URLSearchParams();
+  if(state.q) p.set("q", state.q);
+  if(state.gens.size) p.set("g", [...state.gens].join(","));
+  if(state.cls.size) p.set("c", [...state.cls].join(","));
+  if(state.tier.size) p.set("t", [...state.tier].join(","));
+  ["af","vr","gold"].forEach(k=>{ if(state[k]) p.set(k, state[k]); });
+  [["fmin","f0"],["fmax","f1"],["wmin","w0"],["wmax","w1"],["dmin","d0"],["dmax","d1"]]
+    .forEach(([k,q])=>{ if(state[k]!=null) p.set(q, state[k]); });
+  if(state.apval!=null) p.set("ap", state.apval);
+  if(state.sort.k!=="id" || state.sort.dir!==1) p.set("s", state.sort.k+":"+state.sort.dir);
+  return "#"+p.toString();
+}
+function applyHash(){
+  const h = location.hash.slice(1);
+  if(!h) return;
+  const p = new URLSearchParams(h);
+  if(p.get("q")) state.q = p.get("q").toLowerCase();
+  const split = v => v ? new Set(v.split(",").filter(Boolean)) : new Set();
+  if(p.get("g")) state.gens = split(p.get("g"));
+  if(p.get("c")) state.cls = split(p.get("c"));
+  if(p.get("t")) state.tier = split(p.get("t"));
+  state.af = p.get("af")||""; state.vr = p.get("vr")||""; state.gold = p.get("gold")||"";
+  const n = k => { const v=p.get(k); return (v==null||v==="") ? null : parseFloat(v); };
+  state.fmin=n("f0"); state.fmax=n("f1"); state.wmin=n("w0");
+  state.wmax=n("w1"); state.dmin=n("d0"); state.dmax=n("d1"); state.apval=n("ap");
+  const s = p.get("s");
+  if(s){ const [k,d] = s.split(":"); state.sort = {k, dir:+d||1}; }
+}
+
+/* ---------- init ---------- */
+DATA.forEach(d=>{
+  d.span = focalSpan(d.focal);
+  d.wnum = num(d.weight);
+  d.dnum = (d.filter && !/后置|内置/.test(d.filter)) ? num(d.filter) : null;
+  const am = String(d.ap||"").match(/\d+(\.\d+)?/);
+  d.apnum = am ? parseFloat(am[0]) : null;
+});
+$("#total").textContent = DATA.length;
+$("#all").textContent = DATA.length;
+applyHash();
+syncUI();
 render();
 </script>
 <script>
@@ -184,6 +727,33 @@ render();
     });
   }
 </script>
+
+<button id="themeBtn" title="切换深色 / 浅色">🌙</button>
+<script>
+(function(){
+  var K="nikkor-theme", root=document.documentElement;
+  function apply(t){
+    root.setAttribute("data-theme", t);
+    var b=document.getElementById("themeBtn");
+    if(b) b.textContent = t==="dark" ? "☀️" : "🌙";
+  }
+  var saved=null;
+  try{ saved=localStorage.getItem(K); }catch(e){}
+  if(!saved){ saved = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; }
+  apply(saved);
+  window.addEventListener("DOMContentLoaded", function(){
+    var b=document.getElementById("themeBtn");
+    if(!b) return;
+    b.onclick=function(){
+      var t=root.getAttribute("data-theme")==="dark" ? "light" : "dark";
+      apply(t);
+      try{ localStorage.setItem(K,t); }catch(e){}
+    };
+  });
+})();
+</script>
+
+
 <footer id="site-footer" style="margin:28px 20px 34px;padding-top:14px;border-top:1px solid #e6e8ec;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;justify-content:center;font-size:12px;color:#69707d">
   <span>作者：<b style="color:#15171c">MaxSum</b></span><span>·</span>
   <a href="https://space.bilibili.com/399566399" target="_blank" rel="noopener" style="color:#1f4a73;text-decoration:none">哔哩哔哩：某不知名行为艺术家</a><span>·</span>

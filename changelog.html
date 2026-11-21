@@ -34,6 +34,64 @@ h2{font-size:20px;margin:0 0 4px}
 .lastup{margin-left:10px;color:var(--muted);font-size:12px}
 .tagnew{font-size:10.5px;background:var(--accent-soft);color:#6b5300;border:1px solid #f4dc7a;padding:1px 6px;border-radius:99px;margin-left:4px}
 </style>
+
+<style id="theme-css">
+html[data-theme="dark"]{
+  --bg:#0d1015; --panel:#151920; --ink:#e7eaf0; --muted:#98a2b0; --line:#252b35;
+  --chip:#1e232b; --accent-soft:#33301a; --ink2:#dfe3ea; --accent:#f2c200;
+  background:#0d1015;
+}
+html[data-theme="dark"] body{background:var(--bg);color:var(--ink)}
+html[data-theme="dark"] thead th{background:#1a1f27;color:#a9b3c0;border-bottom-color:var(--line)}
+html[data-theme="dark"] tbody td{border-bottom-color:#222833}
+html[data-theme="dark"] tbody tr:nth-child(even){background:#12161c}
+html[data-theme="dark"] tbody tr:hover{background:#2a2718}
+html[data-theme="dark"] .tablewrap,html[data-theme="dark"] .gantt,html[data-theme="dark"] aside,
+html[data-theme="dark"] .card,html[data-theme="dark"] .drawer,html[data-theme="dark"] .wrap{background:var(--panel)}
+html[data-theme="dark"] .tag{background:var(--chip);color:#b9c2cf}
+html[data-theme="dark"] .tag.gold{background:#33301a;color:#f0d97a;border-color:#5a5122}
+html[data-theme="dark"] .tag.dx{background:#1b2a3f;color:#8fb8e8}
+html[data-theme="dark"] .tag.warn{background:#3a3016;border-color:#6b5a22;color:#f0d97a}
+html[data-theme="dark"] .mt.full{background:#16301f;color:#8fe0ac}
+html[data-theme="dark"] .mt.part{background:#3a3016;color:#f0d97a}
+html[data-theme="dark"] .mt.no{background:#232830;color:#8a94a2}
+html[data-theme="dark"] .stars .dim{color:#3a414d}
+html[data-theme="dark"] .range input{background:#1b2028;color:var(--ink);border-color:var(--line)}
+html[data-theme="dark"] .chip{background:var(--chip);color:#b9c2cf}
+html[data-theme="dark"] .chip.on{background:#e7eaf0;color:#111;border-color:#e7eaf0}
+html[data-theme="dark"] .seg{background:var(--chip)}
+html[data-theme="dark"] .seg button{color:#aab3bf}
+html[data-theme="dark"] .seg button.on{background:#2a303a;color:#fff;box-shadow:none}
+html[data-theme="dark"] .tabs button{background:var(--panel);border-color:var(--line);color:#b9c2cf}
+html[data-theme="dark"] .tabs button.on{background:#e7eaf0;color:#111;border-color:#e7eaf0}
+html[data-theme="dark"] .nav a.on{background:#e7eaf0;color:#111}
+html[data-theme="dark"] .g-head{background:#1a1f27}
+html[data-theme="dark"] .g-head .g-lab{background:#1a1f27;border-right-color:var(--line)}
+html[data-theme="dark"] .g-lab{background:var(--panel);border-right-color:var(--line);color:#c6cdd8}
+html[data-theme="dark"] .g-row:hover .g-lab{background:#2a2718}
+html[data-theme="dark"] .g-stitle{background:#1a1f27;color:#a9b3c0}
+html[data-theme="dark"] .g-row{border-bottom-color:#1f242c}
+html[data-theme="dark"] .d-head{background:var(--panel);border-bottom-color:var(--line)}
+html[data-theme="dark"] .d-close{background:#232830;border-color:var(--line);color:#c6cdd8}
+html[data-theme="dark"] .acctab td,html[data-theme="dark"] .acctab th{border-bottom-color:#222833}
+html[data-theme="dark"] a.rv.alt{background:#232830;color:#c6cdd8}
+html[data-theme="dark"] .empty{color:var(--muted)}
+html[data-theme="dark"] .bread,html[data-theme="dark"] .foot{color:var(--muted)}
+html[data-theme="dark"] .hint,html[data-theme="dark"] .muted,html[data-theme="dark"] .d-kv dt{color:#98a2b0}
+html[data-theme="dark"] #site-footer{color:#98a2b0}
+html[data-theme="dark"] .acctab th{background:#1a1f27;color:#a9b3c0}
+#themeBtn{
+  position:fixed;right:18px;bottom:18px;width:44px;height:44px;border-radius:50%;
+  border:1px solid #cfd4db;background:#fff;color:#111;font-size:18px;line-height:1;
+  cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.18);z-index:80;
+}
+html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:#3a414d}
+@media (max-width:640px){
+  .nav{flex-wrap:wrap}
+  .nav a{padding:7px 10px;font-size:12.5px}
+  #themeBtn{right:12px;bottom:12px;width:40px;height:40px}
+}
+</style>
 </head>
 <body>
 <header class="top">
@@ -45,8 +103,8 @@ h2{font-size:20px;margin:0 0 4px}
   </div>
   <nav class="nav">
     <a href="./index.html">镜头</a>
-    <a href="./cameras.html">相机</a>
     <a href="./thirdparty.html">副厂镜头</a>
+    <a href="./cameras.html">相机</a>
     <a href="./reviews.html">评测</a>
     <a href="./changelog.html" class="on">日志</a>
   </nav>
@@ -54,10 +112,32 @@ h2{font-size:20px;margin:0 0 4px}
 
 <main>
   <h2>版本记录</h2>
-  <p class="sub">首个版本记为 beta0.01，之后每次迭代 +0.01。<span class="lastup">最后更新：<b>2026-11-21</b></span></p>
+  <p class="sub">首个版本记为 beta0.01，之后每次迭代 +0.01。（时间为各版本构建时刻，早期版本按会话记录推算）<span class="lastup">最后更新：<b>2026-11-21 23:30:26</b></span></p>
 
   <div class="item">
-    <div class="v"><code>beta0.15</code><span class="tagnew">当前</span><span class="date">2026-11-21</span></div>
+    <div class="v"><code>beta0.17</code><span class="tagnew">当前</span><span class="date">2026-11-21 23:30:26</span></div>
+    <h3>深色模式与三处修复</h3>
+    <ul>
+      <li>新增深色模式：右下角按钮一键切换，记忆上次选择，默认跟随系统</li>
+      <li>修复：相机/评测/日志页导航顺序错位（副厂镜头被插到相机之后），五页现统一为 镜头 / 副厂镜头 / 相机 / 评测 / 日志</li>
+      <li>修复：手机端详情抽屉无法滚动，评分与配件被挤出视口</li>
+      <li>修复：手机端顶部页面选择按钮拥挤，窄屏改为可换行</li>
+      <li>稀有度评分后显示产量数值（如 2/5 · 约 751,000 台）</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.16</code><span class="date">2026-11-21 23:30:00</span></div>
+    <h3>副厂镜头页与原厂页同构、日志精确到秒</h3>
+    <ul>
+      <li>副厂镜头页改为复用镜头页模板：相同的筛选侧栏（世代/类型/AF/VR/金圈/光圈/焦距/重量/口径）、相同表格列、相同详情弹窗、相同 CSV 导出</li>
+      <li>导航「副厂镜头」在五个页面均可直达</li>
+      <li>更新日志的更新时间精确到时分秒，顶部显示最后更新时刻</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.15</code><span class=\"date\">2026-11-21 23:04:37</span></div>
     <h3>副厂镜头、非尼康机身详情、评分与 Nikonos</h3>
     <ul>
       <li>新增「副厂镜头」页：10 个品牌 170 支 F 口第三方镜头（适马 47、腾龙 36、图丽 27、蔡司 13、三阳 13、威达 11、福伦达 8、中一 6、Irix 4、其他 5），可按品牌筛选、排序、导出 CSV</li>
@@ -69,7 +149,7 @@ h2{font-size:20px;margin:0 0 4px}
   </div>
 
   <div class="item">
-    <div class="v"><code>beta0.14</code><span class="date">2026-11-21</span></div>
+    <div class="v"><code>beta0.14</code><span class=\"date\">2026-11-21 21:58:02</span></div>
     <h3>更新日志与作者信息</h3>
     <ul>
       <li>新增本页：补录 beta0.01 起的全部迭代记录</li>
@@ -79,7 +159,7 @@ h2{font-size:20px;margin:0 0 4px}
   </div>
 
   <div class="item">
-    <div class="v"><code>beta0.13</code><span class="date">2026-11-21</span></div>
+    <div class="v"><code>beta0.13</code><span class=\"date\">2026-11-21 02:23:11</span></div>
     <h3>全库数据审计与修复</h3>
     <ul>
       <li>清除 16 组同型号配件的重复写法（SB-12、MB-21、CF-17 等），按型号代码去重并保留说明最全的一条</li>
@@ -90,7 +170,7 @@ h2{font-size:20px;margin:0 0 4px}
   </div>
 
   <div class="item">
-    <div class="v"><code>beta0.12</code><span class="date">2026-11-20</span></div>
+    <div class="v"><code>beta0.12</code><span class=\"date\">2026-11-21 01:47:12</span></div>
     <h3>机身补充与镜头画幅</h3>
     <ul>
       <li>补入 D780、F2H、F3H；机身总数 97 台，配件 862 条</li>
@@ -101,7 +181,7 @@ h2{font-size:20px;margin:0 0 4px}
   </div>
 
   <div class="item">
-    <div class="v"><code>beta0.11</code><span class="date">2026-11-20</span></div>
+    <div class="v"><code>beta0.11</code><span class=\"date\">2026-11-21 01:26:33</span></div>
     <h3>卡口兼容矩阵</h3>
     <ul>
       <li>每台机身 8 种卡口 × 完全/部分/不支持，共 744 条判定</li>
@@ -110,7 +190,7 @@ h2{font-size:20px;margin:0 0 4px}
   </div>
 
   <div class="item">
-    <div class="v"><code>beta0.10</code><span class="date">2026-11-20</span></div>
+    <div class="v"><code>beta0.10</code><span class=\"date\">2026-11-21 01:02:48</span></div>
     <h3>同机身变体归并</h3>
     <ul>
       <li>F / F2 / F3 / F4 / Nikkormat FT / FM2 / D800 / D810 等 9 个家族归并</li>
@@ -119,7 +199,7 @@ h2{font-size:20px;margin:0 0 4px}
   </div>
 
   <div class="item">
-    <div class="v"><code>beta0.09</code><span class="date">2026-11-20</span></div>
+    <div class="v"><code>beta0.09</code><span class=\"date\">2026-11-21 00:31:05</span></div>
     <h3>对焦屏与后背</h3>
     <ul>
       <li>可换对焦屏按型号逐条拆分：122 条，含屏面结构与适用场景说明</li>
@@ -128,7 +208,7 @@ h2{font-size:20px;margin:0 0 4px}
   </div>
 
   <div class="item">
-    <div class="v"><code>beta0.08</code><span class="date">2026-11-20</span></div>
+    <div class="v"><code>beta0.08</code><span class=\"date\">2026-11-20 23:41:27</span></div>
     <h3>评测链接页</h3>
     <ul>
       <li>新增评测页：镜头 + 机身，只保留已核实的独立评测页</li>
@@ -137,7 +217,7 @@ h2{font-size:20px;margin:0 0 4px}
   </div>
 
   <div class="item">
-    <div class="v"><code>beta0.07</code><span class="date">2026-11-20</span></div>
+    <div class="v"><code>beta0.07</code><span class=\"date\">2026-11-20 22:38:51</span></div>
     <h3>机身页面</h3>
     <ul>
       <li>新增机身表：113 台尼康 F 口机身，含快门/ISO/测光/供电等 26 个字段</li>
@@ -147,7 +227,7 @@ h2{font-size:20px;margin:0 0 4px}
   </div>
 
   <div class="item">
-    <div class="v"><code>beta0.06</code><span class="date">2026-11-20</span></div>
+    <div class="v"><code>beta0.06</code><span class=\"date\">2026-11-20 21:22:09</span></div>
     <h3>三页导航统一</h3>
     <ul>
       <li>镜头 / 相机 / 评测三页头部改为同一结构：标题行 + 页签行，左对齐</li>
@@ -156,7 +236,7 @@ h2{font-size:20px;margin:0 0 4px}
   </div>
 
   <div class="item">
-    <div class="v"><code>beta0.05</code><span class="date">2026-11-20</span></div>
+    <div class="v"><code>beta0.05</code><span class=\"date\">2026-11-20 20:14:46</span></div>
     <h3>PWA 化</h3>
     <ul>
       <li>加入 manifest 与 Service Worker，可安装为独立应用、断网可用</li>
@@ -165,7 +245,7 @@ h2{font-size:20px;margin:0 0 4px}
   </div>
 
   <div class="item">
-    <div class="v"><code>beta0.04</code><span class="date">2026-11-20</span></div>
+    <div class="v"><code>beta0.04</code><span class=\"date\">2026-11-20 19:05:18</span></div>
     <h3>光圈筛选</h3>
     <ul>
       <li>新增最大光圈筛选，初版为「≤ f/X」，后改为精确匹配</li>
@@ -174,7 +254,7 @@ h2{font-size:20px;margin:0 0 4px}
   </div>
 
   <div class="item">
-    <div class="v"><code>beta0.03</code><span class="date">2026-11-20</span></div>
+    <div class="v"><code>beta0.03</code><span class=\"date\">2026-11-20 18:27:33</span></div>
     <h3>规格三列</h3>
     <ul>
       <li>新增光学结构、滤镜口径、重量三列（Excel 21 列，网页同步）</li>
@@ -183,7 +263,7 @@ h2{font-size:20px;margin:0 0 4px}
   </div>
 
   <div class="item">
-    <div class="v"><code>beta0.02</code><span class="date">2026-11-20</span></div>
+    <div class="v"><code>beta0.02</code><span class=\"date\">2026-11-20 16:41:52</span></div>
     <h3>网页版可视化</h3>
     <ul>
       <li>把 Excel 全表做成单文件网页：筛选、排序、详情弹窗</li>
@@ -192,7 +272,7 @@ h2{font-size:20px;margin:0 0 4px}
   </div>
 
   <div class="item">
-    <div class="v"><code>beta0.01</code><span class="date">2026-11-20</span></div>
+    <div class="v"><code>beta0.01</code><span class=\"date\">2026-11-20 15:02:14</span></div>
     <h3>起点：镜头全表</h3>
     <ul>
       <li>379 支尼康 F 卡口原厂镜头，18 列：卡口世代、焦段、光圈、自动对焦、马达、防抖、金圈、定位、特殊功能、官方命名、外号、发布/停产时间</li>
@@ -200,6 +280,32 @@ h2{font-size:20px;margin:0 0 4px}
     </ul>
   </div>
 </main>
+
+<button id="themeBtn" title="切换深色 / 浅色">🌙</button>
+<script>
+(function(){
+  var K="nikkor-theme", root=document.documentElement;
+  function apply(t){
+    root.setAttribute("data-theme", t);
+    var b=document.getElementById("themeBtn");
+    if(b) b.textContent = t==="dark" ? "☀️" : "🌙";
+  }
+  var saved=null;
+  try{ saved=localStorage.getItem(K); }catch(e){}
+  if(!saved){ saved = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; }
+  apply(saved);
+  window.addEventListener("DOMContentLoaded", function(){
+    var b=document.getElementById("themeBtn");
+    if(!b) return;
+    b.onclick=function(){
+      var t=root.getAttribute("data-theme")==="dark" ? "light" : "dark";
+      apply(t);
+      try{ localStorage.setItem(K,t); }catch(e){}
+    };
+  });
+})();
+</script>
+
 <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function () {

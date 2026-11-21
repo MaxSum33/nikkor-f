@@ -43,6 +43,64 @@ a.rv.alt{background:#eef0f3;color:#3b414c}
 .foot{margin:14px 2px 0;font-size:11.5px;color:var(--muted);line-height:1.7}
 @media (max-width:640px){.brand h1{font-size:15px}.hide-sm{display:none}#q{width:150px}}
 </style>
+
+<style id="theme-css">
+html[data-theme="dark"]{
+  --bg:#0d1015; --panel:#151920; --ink:#e7eaf0; --muted:#98a2b0; --line:#252b35;
+  --chip:#1e232b; --accent-soft:#33301a; --ink2:#dfe3ea; --accent:#f2c200;
+  background:#0d1015;
+}
+html[data-theme="dark"] body{background:var(--bg);color:var(--ink)}
+html[data-theme="dark"] thead th{background:#1a1f27;color:#a9b3c0;border-bottom-color:var(--line)}
+html[data-theme="dark"] tbody td{border-bottom-color:#222833}
+html[data-theme="dark"] tbody tr:nth-child(even){background:#12161c}
+html[data-theme="dark"] tbody tr:hover{background:#2a2718}
+html[data-theme="dark"] .tablewrap,html[data-theme="dark"] .gantt,html[data-theme="dark"] aside,
+html[data-theme="dark"] .card,html[data-theme="dark"] .drawer,html[data-theme="dark"] .wrap{background:var(--panel)}
+html[data-theme="dark"] .tag{background:var(--chip);color:#b9c2cf}
+html[data-theme="dark"] .tag.gold{background:#33301a;color:#f0d97a;border-color:#5a5122}
+html[data-theme="dark"] .tag.dx{background:#1b2a3f;color:#8fb8e8}
+html[data-theme="dark"] .tag.warn{background:#3a3016;border-color:#6b5a22;color:#f0d97a}
+html[data-theme="dark"] .mt.full{background:#16301f;color:#8fe0ac}
+html[data-theme="dark"] .mt.part{background:#3a3016;color:#f0d97a}
+html[data-theme="dark"] .mt.no{background:#232830;color:#8a94a2}
+html[data-theme="dark"] .stars .dim{color:#3a414d}
+html[data-theme="dark"] .range input{background:#1b2028;color:var(--ink);border-color:var(--line)}
+html[data-theme="dark"] .chip{background:var(--chip);color:#b9c2cf}
+html[data-theme="dark"] .chip.on{background:#e7eaf0;color:#111;border-color:#e7eaf0}
+html[data-theme="dark"] .seg{background:var(--chip)}
+html[data-theme="dark"] .seg button{color:#aab3bf}
+html[data-theme="dark"] .seg button.on{background:#2a303a;color:#fff;box-shadow:none}
+html[data-theme="dark"] .tabs button{background:var(--panel);border-color:var(--line);color:#b9c2cf}
+html[data-theme="dark"] .tabs button.on{background:#e7eaf0;color:#111;border-color:#e7eaf0}
+html[data-theme="dark"] .nav a.on{background:#e7eaf0;color:#111}
+html[data-theme="dark"] .g-head{background:#1a1f27}
+html[data-theme="dark"] .g-head .g-lab{background:#1a1f27;border-right-color:var(--line)}
+html[data-theme="dark"] .g-lab{background:var(--panel);border-right-color:var(--line);color:#c6cdd8}
+html[data-theme="dark"] .g-row:hover .g-lab{background:#2a2718}
+html[data-theme="dark"] .g-stitle{background:#1a1f27;color:#a9b3c0}
+html[data-theme="dark"] .g-row{border-bottom-color:#1f242c}
+html[data-theme="dark"] .d-head{background:var(--panel);border-bottom-color:var(--line)}
+html[data-theme="dark"] .d-close{background:#232830;border-color:var(--line);color:#c6cdd8}
+html[data-theme="dark"] .acctab td,html[data-theme="dark"] .acctab th{border-bottom-color:#222833}
+html[data-theme="dark"] a.rv.alt{background:#232830;color:#c6cdd8}
+html[data-theme="dark"] .empty{color:var(--muted)}
+html[data-theme="dark"] .bread,html[data-theme="dark"] .foot{color:var(--muted)}
+html[data-theme="dark"] .hint,html[data-theme="dark"] .muted,html[data-theme="dark"] .d-kv dt{color:#98a2b0}
+html[data-theme="dark"] #site-footer{color:#98a2b0}
+html[data-theme="dark"] .acctab th{background:#1a1f27;color:#a9b3c0}
+#themeBtn{
+  position:fixed;right:18px;bottom:18px;width:44px;height:44px;border-radius:50%;
+  border:1px solid #cfd4db;background:#fff;color:#111;font-size:18px;line-height:1;
+  cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.18);z-index:80;
+}
+html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:#3a414d}
+@media (max-width:640px){
+  .nav{flex-wrap:wrap}
+  .nav a{padding:7px 10px;font-size:12.5px}
+  #themeBtn{right:12px;bottom:12px;width:40px;height:40px}
+}
+</style>
 </head>
 <body>
 <header class="top">
@@ -57,8 +115,8 @@ a.rv.alt{background:#eef0f3;color:#3b414c}
   </div>
   <nav class="nav">
     <a href="./index.html">镜头</a>
-    <a href="./cameras.html">相机</a>
     <a href="./thirdparty.html">副厂镜头</a>
+    <a href="./cameras.html">相机</a>
     <a href="./reviews.html" class="on">评测</a>
     <a href="./changelog.html">日志</a>
   </nav>
@@ -145,6 +203,32 @@ function render(){
 }
 render();
 </script>
+
+<button id="themeBtn" title="切换深色 / 浅色">🌙</button>
+<script>
+(function(){
+  var K="nikkor-theme", root=document.documentElement;
+  function apply(t){
+    root.setAttribute("data-theme", t);
+    var b=document.getElementById("themeBtn");
+    if(b) b.textContent = t==="dark" ? "☀️" : "🌙";
+  }
+  var saved=null;
+  try{ saved=localStorage.getItem(K); }catch(e){}
+  if(!saved){ saved = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; }
+  apply(saved);
+  window.addEventListener("DOMContentLoaded", function(){
+    var b=document.getElementById("themeBtn");
+    if(!b) return;
+    b.onclick=function(){
+      var t=root.getAttribute("data-theme")==="dark" ? "light" : "dark";
+      apply(t);
+      try{ localStorage.setItem(K,t); }catch(e){}
+    };
+  });
+})();
+</script>
+
 <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function () {
