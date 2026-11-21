@@ -575,10 +575,31 @@ html:has(body.drawer-open){ overflow: hidden; }
 
 <main>
   <h2>版本记录</h2>
-  <p class="sub">首个版本记为 beta0.01，之后每次迭代 +0.01。（时间为各版本构建时刻，早期版本按会话记录推算）<span class="lastup">最后更新：<b>2026-11-22 02:57:46</b></span></p>
+  <p class="sub">首个版本记为 beta0.01，之后每次迭代 +0.01。（时间为各版本构建时刻，早期版本按会话记录推算）<span class="lastup">最后更新：<b>2026-11-22 03:10:54</b></span></p>
 
   <div class="item">
-    <div class="v"><code>beta0.36</code><span class="tagnew">当前</span><span class="date">2026-11-22 02:57:46</span></div>
+    <div class="v"><code>beta0.38</code><span class="tagnew">当前</span><span class="date">2026-11-22 03:10:54</span></div>
+    <h3>D1 系列与 D100 的 AF-G 改为完全兼容</h3>
+    <ul>
+      <li>D1 / D1H / D1X / D100 的 AF-G 由「部分（仅 P/S）」更正为「完全」：尼康 D1X 说明书明确推荐使用 G 型镜头，光圈由机身设定</li>
+      <li>说明文字改为「G 头无光圈环，由机身设定光圈，全模式可用」</li>
+      <li>复查全部数码机身的 AF-E / AF-P：未发现年代矛盾；D3300、D5300 的 AF-P 全兼容依赖固件升级，备注已注明</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.37</code><span class="date">2026-11-22 03:07:10</span></div>
+    <h3>按兼容简表校正 17 台 AF 胶片机身</h3>
+    <ul>
+      <li>依「尼康 F 系列 AF 胶片单反 × Nikkor 兼容简表」重写卡口矩阵：AI/AI-S 分「A/M」与「M 无测光」，AF/AF-D 全兼容</li>
+      <li>AF-G：F5/F6/F100/F80/F75/F65/F55/F60/F50/F401 为全模式；F90/F90X/F70/F4/F801/F601 为 P/S；F501 为 P</li>
+      <li>按你指出的修正：F4 接 AF-G 只能 P/S，不再标为完全兼容</li>
+      <li>E 与 AF-P 在全部胶片机身上统一为不支持；说明文字同步刷新，去掉过时备注</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.36</code><span class="date">2026-11-22 02:57:46</span></div>
     <h3>恢复兼容性配色、修深色下的亮条</h3>
     <ul>
       <li>卡口兼容性表的「完全 / 部分 / 不支持」恢复彩色徽章：绿 / 琥珀 / 灰，深浅色各一套</li>
@@ -1027,7 +1048,7 @@ html[data-theme="dark"] .sub,html[data-theme="dark"] .date,html[data-theme="dark
 <footer id="site-footer">
   <span>作者：<b>MaxSum</b></span><span>·</span>
   <a href="https://space.bilibili.com/399566399" target="_blank" rel="noopener">哔哩哔哩：某不知名行为艺术家</a><span>·</span>
-  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v40</span>
+  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v42</span>
 </footer>
 </body>
 </html>
