@@ -649,6 +649,10 @@ function openModal(id){
   $("#m-sub").textContent = `${d.gen} · ${d.focal}mm · f/${d.ap} · ${d.tier}`;
   const rows = [
     ["卡口世代", d.gen], ["光圈/信息", d.aptype], ["焦距", d.focal+" mm"], ["画幅", d.frame], ["最大光圈", "f/"+d.ap],
+    ...(d.hood ? [["遮光罩", d.hood]] : []),
+    ...(d.case ? [["皮套", d.case]] : []),
+    ...(d.serial_qty ? [["产量（序列号统计）", d.serial_qty + " 支"]] : []),
+    ...(d.prod_dates ? [["生产年代", d.prod_dates]] : []),
     ["光学结构", d.optics||"—"], ["滤镜口径", d.filter||"—"], ["重量", d.weight?fmtW(d.weight)+" g":"—"],
     ["自动对焦", d.af], ["对焦马达", d.motor], ["防抖", d.vr], ["金圈", d.gold],
     ["定位", d.tier], ["特殊功能", d.feat||"—"], ["官方命名", d.naming||"—"], ["外号", d.nick||"—"],

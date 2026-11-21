@@ -33,6 +33,10 @@ h2{font-size:20px;margin:0 0 4px}
 .v{display:flex;align-items:center;gap:8px;width:100%}
 .lastup{margin-left:10px;color:var(--muted);font:12px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;font-variant-numeric:tabular-nums}
 .lastup b{font:inherit;font-weight:600;color:var(--ink)}
+.src{margin:8px 0 0;font-size:11.5px;color:var(--muted)}
+.src a{color:#1f4a73;text-decoration:none}
+.src a:hover{text-decoration:underline}
+html[data-theme="dark"] .src a{color:#8fb8e8}
 .tagnew{font-size:10.5px;background:var(--accent-soft);color:#6b5300;border:1px solid #f4dc7a;padding:1px 6px;border-radius:99px;margin-left:4px}
 html[data-theme="dark"] .tagnew{background:#3a3418;color:#f0d97a;border-color:#5a5122}
 html[data-theme="dark"] .v code{background:#e7eaf0;color:#111}
@@ -125,10 +129,46 @@ html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:
 
 <main>
   <h2>版本记录</h2>
-  <p class="sub">首个版本记为 beta0.01，之后每次迭代 +0.01。（时间为各版本构建时刻，早期版本按会话记录推算）<span class="lastup">最后更新：<b>2026-11-21 23:30:26</b></span></p>
+  <p class="sub">首个版本记为 beta0.01，之后每次迭代 +0.01。（时间为各版本构建时刻，早期版本按会话记录推算）<span class="lastup">最后更新：<b>2026-11-22 00:45:07</b></span></p>
 
   <div class="item">
-    <div class="v"><code>beta0.21</code><span class="tagnew">当前</span><span class="date">2026-11-22 00:20:18</span></div>
+    <div class="v"><code>beta0.24</code><span class="tagnew">当前</span><span class="date">2026-11-22 00:45:07</span></div>
+    <h3>镜头序列号、镜头配件与数据复核</h3>
+    <ul>
+      <li>接入 photosynthesis.co.nz 的镜头序列号统计：293 支镜头补上「产量（序列号统计）」与「生产年代」</li>
+      <li>接入镜头配件页：268 支镜头补上遮光罩（HB-*）与皮套（CL-*）型号</li>
+      <li>复核结论：相机侧仅 D850 像素口径差异（45 对 45.7，取更精确值）；镜头侧有 87 支在该站无序列号记录，属早期/极小产量型号，未强行对齐</li>
+      <li>该站自述生产年代「难以核实，可能不准」，且多见于区间缺起始年，因此只采用产量与配件型号，不改本站发布/停产年</li>
+    </ul>
+    <p class="src">参考来源：<a href="https://www.photosynthesis.co.nz/nikon/serialno.html" target="_blank" rel="noopener">photosynthesis.co.nz 镜头序列号</a> · <a href="https://www.photosynthesis.co.nz/nikon/accessory.html" target="_blank" rel="noopener">photosynthesis.co.nz 配件</a></p>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.23</code><span class="date">2026-11-22 00:40:58</span></div>
+    <h3>依 photosynthesis.co.nz 增补数码机身参数</h3>
+    <ul>
+      <li>52 台数码单反补充：快门寿命、取景器（覆盖率/倍率/眼点）、屏幕、存储卡、连拍速度、尺寸、重量、电池手柄、镜头兼容特性</li>
+      <li>新增「序列号区间」分区：按销售区域列出起始号与已见区间（数据来自该站机主反馈，非官方公布）</li>
+      <li>与本站数据逐项比对：像素、ISO、快门、电池基本一致；仅 D850 该站记 45MP（取整），本站保留 45.7MP</li>
+      <li>该站只覆盖数码单反，胶片机与 Z 卡口不在其列，故未增补</li>
+    </ul>
+    <p class="src">参考来源：<a href="https://www.photosynthesis.co.nz/nikon/camera.html" target="_blank" rel="noopener">photosynthesis.co.nz（相机）</a></p>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.22</code><span class="date">2026-11-22 00:34:33</span></div>
+    <h3>Nikonos 数据回归、时间线可读性、按钮居中</h3>
+    <ul>
+      <li>修复 Nikonos 标签页空白：构建流程重写数据文件时把水下相机数据冲掉了，现改为由构建脚本直接输出</li>
+      <li>时间线行间横线贯穿整个横向滚动区域，并加隔行底色，手机左右滑动后仍能对准行</li>
+      <li>深色开关的太阳/月亮图标改为 flex 居中，不再偏出圆心</li>
+      <li>Nikonos 表格在窄屏收敛列，只留型号/年份/卡口</li>
+    </ul>
+    <p class="src">参考来源：本站整理</p>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.21</code><span class="date">2026-11-22 00:20:18</span></div>
     <h3>说明书数据上线、导航彻底修好</h3>
     <ul>
       <li>说明书页收录 121 台相机与 122 项配件：相机 103 条有链接（尼康官方下载中心 / Butkus / MIR），配件 56 条有链接，其余标注「—」</li>
@@ -136,6 +176,7 @@ html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:
       <li>导航 6 项在手机端强制换行，不再被挤出屏幕；新增自检脚本，每次改动后按 390/768/1280 三种宽度自动校验</li>
       <li>说明书页支持深色模式</li>
     </ul>
+    <p class="src">参考来源：<a href="https://downloadcenter.nikonimglib.com/" target="_blank" rel="noopener">尼康下载中心</a> · <a href="https://butkus.org/chinon/index.html" target="_blank" rel="noopener">Butkus</a> · <a href="https://www.mir.com.my/rb/photography/" target="_blank" rel="noopener">MIR</a></p>
   </div>
 
   <div class="item">
@@ -148,6 +189,7 @@ html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:
       <li>深色模式下更新日志正文与页脚作者名提亮，修复看不清的问题</li>
       <li>更新日志的时间与「最后更新」统一为等宽字体</li>
     </ul>
+    <p class="src">参考来源：本站整理</p>
   </div>
 
   <div class="item">
@@ -157,6 +199,7 @@ html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:
       <li>每台机身的二级菜单末尾新增「可能存在的通病」，收录 115 台尼康 / 非尼康机身的常见故障（掉渣、快门召回、LCD 漏液、BGLOD、马达崩齿等）</li>
       <li>修复产量数值前重复出现的「约」：数据层统一去掉，渲染时只加一次</li>
     </ul>
+    <p class="src">参考来源：本站整理</p>
   </div>
 
   <div class="item">
@@ -167,6 +210,7 @@ html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:
       <li>可靠性评分改为「有把握才评」：只保留 13 台有公开共识的机型（如 D600 掉渣、D750 快门召回、F3 耐用），其余显示空五星与「暂无可靠评分」</li>
       <li>F4、F90X 等评价分歧较大的机型不再给出可靠性分数</li>
     </ul>
+    <p class="src">参考来源：本站整理</p>
   </div>
 
   <div class="item">
@@ -179,6 +223,7 @@ html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:
       <li>修复：手机端顶部页面选择按钮拥挤，窄屏改为可换行</li>
       <li>稀有度评分后显示产量数值（如 2/5 · 约 751,000 台）</li>
     </ul>
+    <p class="src">参考来源：本站整理</p>
   </div>
 
   <div class="item">
@@ -189,6 +234,7 @@ html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:
       <li>导航「副厂镜头」在五个页面均可直达</li>
       <li>更新日志的更新时间精确到时分秒，顶部显示最后更新时刻</li>
     </ul>
+    <p class="src">参考来源：本站整理</p>
   </div>
 
   <div class="item">
@@ -201,6 +247,7 @@ html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:
       <li>新增 Nikonos 标签页：6 台水下相机（Nikonos I–V、RS），非 F 卡口、单列供参考</li>
       <li>更新日志加入每条版本的更新日期与「最后更新」时间</li>
     </ul>
+    <p class="src">参考来源：<a href="https://www.sigma-global.com/" target="_blank" rel="noopener">Sigma</a> · <a href="https://www.tamron.com/" target="_blank" rel="noopener">Tamron</a> · <a href="https://tokinalens.com/" target="_blank" rel="noopener">Tokina</a> · <a href="https://www.zeiss.com/" target="_blank" rel="noopener">Zeiss</a> · <a href="https://www.dslrbodies.com/" target="_blank" rel="noopener">DSLRBodies</a> · <a href="https://allphotolenses.com/" target="_blank" rel="noopener">AllPhotoLenses</a> · <a href="https://camera-wiki.org/" target="_blank" rel="noopener">Camera-wiki</a></p>
   </div>
 
   <div class="item">
@@ -211,6 +258,7 @@ html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:
       <li>四页加入作者署名 MaxSum 与哔哩哔哩主页入口</li>
       <li>导航增加「日志」，与镜头 / 相机 / 评测并列</li>
     </ul>
+    <p class="src">参考来源：本站整理</p>
   </div>
 
   <div class="item">
@@ -222,6 +270,7 @@ html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:
       <li>F-601 / F-801 的 AF-G 由「完全」改为「部分（仅 P/S）」，非 AI 镜头改为「不支持」</li>
       <li>F-601M、F-401s、F-401x、F-801s 归并为对应基础型号的子型号</li>
     </ul>
+    <p class="src">参考来源：<a href="https://en.wikipedia.org/wiki/Nikon_F2" target="_blank" rel="noopener">Wikipedia: Nikon F2</a> · <a href="https://en.wikipedia.org/wiki/Nikon_F3" target="_blank" rel="noopener">Wikipedia: Nikon F3</a> · <a href="https://www.cameraquest.com/" target="_blank" rel="noopener">cameraquest</a></p>
   </div>
 
   <div class="item">
@@ -233,6 +282,7 @@ html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:
       <li>镜头表新增「画幅」列（FX / DX），并补上遗漏的 AF-S DX 16-85mm</li>
       <li>镜头总数 380 支（FX 351 / DX 29）</li>
     </ul>
+    <p class="src">参考来源：<a href="https://nij.nikon.com/support/faq/products/" target="_blank" rel="noopener">尼康日本 FAQ（EXPEED 世代）</a> · <a href="https://en.wikipedia.org/wiki/EXPEED" target="_blank" rel="noopener">Wikipedia: EXPEED</a> · <a href="https://www.nikon.com/" target="_blank" rel="noopener">尼康官网</a></p>
   </div>
 
   <div class="item">
@@ -242,6 +292,7 @@ html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:
       <li>每台机身 8 种卡口 × 完全/部分/不支持，共 744 条判定</li>
       <li>筛选按兼容性匹配：部分兼容机型保留并标黄（如 F4 用 AF-G 只能 P/S）</li>
     </ul>
+    <p class="src">参考来源：<a href="https://downloadcenter.nikonimglib.com/" target="_blank" rel="noopener">尼康机身说明书兼容表</a> · <a href="https://www.mir.com.my/rb/photography/" target="_blank" rel="noopener">MIR</a></p>
   </div>
 
   <div class="item">
@@ -251,6 +302,7 @@ html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:
       <li>F / F2 / F3 / F4 / Nikkormat FT / FM2 / D800 / D810 等 9 个家族归并</li>
       <li>子型号（F2S、F2AS、F4S 等）在详情二级菜单里展开，附年份与差异说明</li>
     </ul>
+    <p class="src">参考来源：<a href="https://en.wikipedia.org/wiki/Nikon_F2" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.mir.com.my/rb/photography/" target="_blank" rel="noopener">MIR</a></p>
   </div>
 
   <div class="item">
@@ -260,6 +312,7 @@ html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:
       <li>可换对焦屏按型号逐条拆分：122 条，含屏面结构与适用场景说明</li>
       <li>后背补全 24 条，修正 F2 的 MF-1/2/3 实为散装片后背、F3 的 MF-4 不是数据后背</li>
     </ul>
+    <p class="src">参考来源：<a href="https://www.mir.com.my/rb/photography/" target="_blank" rel="noopener">MIR</a></p>
   </div>
 
   <div class="item">
@@ -269,6 +322,7 @@ html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:
       <li>新增评测页：镜头 + 机身，只保留已核实的独立评测页</li>
       <li>找不到的留空显示「—」，不再跳转搜索引擎</li>
     </ul>
+    <p class="src">参考来源：<a href="https://photographylife.com/" target="_blank" rel="noopener">PhotographyLife</a> · <a href="https://www.dpreview.com/" target="_blank" rel="noopener">DPReview</a> · <a href="https://www.digitalcameraworld.com/" target="_blank" rel="noopener">Digital Camera World</a> · <a href="https://www.kenrockwell.com/" target="_blank" rel="noopener">KenRockwell</a> · <a href="https://www.cameralabs.com/" target="_blank" rel="noopener">Cameralabs</a> · <a href="https://www.imaging-resource.com/" target="_blank" rel="noopener">Imaging Resource</a></p>
   </div>
 
   <div class="item">
@@ -279,6 +333,7 @@ html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:
       <li>点机身展开原厂配件（632 条，按类型分组）</li>
       <li>新增机身时间线（甘特图）与非尼康 F 卡口机身表（22 台）</li>
     </ul>
+    <p class="src">参考来源：<a href="https://www.mir.com.my/rb/photography/" target="_blank" rel="noopener">MIR</a> · <a href="https://en.wikipedia.org/wiki/Nikon_F3" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.dpreview.com/" target="_blank" rel="noopener">DPReview</a></p>
   </div>
 
   <div class="item">
@@ -288,6 +343,7 @@ html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:
       <li>镜头 / 相机 / 评测三页头部改为同一结构：标题行 + 页签行，左对齐</li>
       <li>统一标题字号、工具栏按钮顺序与位置</li>
     </ul>
+    <p class="src">参考来源：本站整理</p>
   </div>
 
   <div class="item">
@@ -297,6 +353,7 @@ html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:
       <li>加入 manifest 与 Service Worker，可安装为独立应用、断网可用</li>
       <li>生成 192/512 图标与 Apple Touch Icon</li>
     </ul>
+    <p class="src">参考来源：本站整理</p>
   </div>
 
   <div class="item">
@@ -306,6 +363,7 @@ html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:
       <li>新增最大光圈筛选，初版为「≤ f/X」，后改为精确匹配</li>
       <li>快捷档覆盖全表出现过的所有光圈值</li>
     </ul>
+    <p class="src">参考来源：本站整理</p>
   </div>
 
   <div class="item">
@@ -315,6 +373,7 @@ html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:
       <li>新增光学结构、滤镜口径、重量三列（Excel 21 列，网页同步）</li>
       <li>379 支镜头全部补齐，仅 8 支因资料缺失留「—」</li>
     </ul>
+    <p class="src">参考来源：<a href="https://www.nikon.com/" target="_blank" rel="noopener">尼康官网</a> · <a href="https://www.mir.com.my/rb/photography/" target="_blank" rel="noopener">MIR</a></p>
   </div>
 
   <div class="item">
@@ -324,6 +383,7 @@ html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:
       <li>把 Excel 全表做成单文件网页：筛选、排序、详情弹窗</li>
       <li>支持 CSV 导出、URL 保存筛选状态、移动端筛选抽屉</li>
     </ul>
+    <p class="src">参考来源：本站整理</p>
   </div>
 
   <div class="item">
@@ -333,6 +393,7 @@ html[data-theme="dark"] #themeBtn{background:#1e232b;color:#f2c200;border-color:
       <li>379 支尼康 F 卡口原厂镜头，18 列：卡口世代、焦段、光圈、自动对焦、马达、防抖、金圈、定位、特殊功能、官方命名、外号、发布/停产时间</li>
       <li>附带家族与外号、原型与未量产、图例说明等分表</li>
     </ul>
+    <p class="src">参考来源：<a href="https://www.nikon.com/" target="_blank" rel="noopener">尼康官网</a> · <a href="https://www.mir.com.my/rb/photography/" target="_blank" rel="noopener">MIR</a> · <a href="https://en.wikipedia.org/wiki/Nikon_F-mount" target="_blank" rel="noopener">Wikipedia</a></p>
   </div>
 </main>
 
