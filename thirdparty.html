@@ -573,7 +573,7 @@ html[data-theme="dark"] tr.partial td{ border-bottom-color: rgba(242,194,0,.14) 
   .top{ padding: 10px 14px 8px !important; }
   .tools{ flex-wrap: wrap; gap: 6px; width: 100%; }
   #q{ flex: 1 1 100%; width: 100% !important; max-width: none !important; }
-  .nav{ width: 100%; }
+  .nav{ width: fit-content !important; max-width: 100%; flex-wrap: wrap; row-gap: 4px; align-items: center; }
   .nav a{ padding: 6px 10px !important; font-size: 12.5px !important; }
   #side{ border-radius: 16px !important; }
   .tablewrap{ border-radius: 16px !important; }
@@ -1189,7 +1189,9 @@ function openModal(id){
     ...(d.lens_rarity ? [["稀有度", starRow(d.lens_rarity) + ` <span class="muted" style="font-size:11px">${d.lens_rarity}/5 · ${d.serial_qty ? "约 "+Number(d.serial_qty).toLocaleString()+" 支" : "产量不详"}</span>`]] : []),
     ["光学结构", d.optics||"—"], ["滤镜口径", d.filter||"—"], ["重量", (d.weight && num(d.weight)!=null) ? fmtW(d.weight)+" g" : "—"],
     ["自动对焦", d.af], ["对焦马达", d.motor], ["防抖", d.vr], ["金圈", d.gold],
-    ["定位", d.tier], ["特殊功能", d.feat||"—"], ["官方命名", d.naming||"—"], ["外号", d.nick||"—"],
+    ["定位", d.tier], ["特殊功能", d.feat||"—"], ["官方命名", d.naming||"—"],
+    ...(d.designer ? [["设计者", d.designer + (d.designer_src ? ` <span class="muted" style="font-size:10.5px">（${d.designer_src}）</span>` : "")]] : []),
+    ["外号", d.nick||"—"],
     ["发布", d.start||"—"], ["停产", d.end||"—"], ["备注", d.note||"—"], ["分类", d.cls]
   ];
   if(d.acc_items && d.acc_items.length){
@@ -1208,7 +1210,7 @@ function openModal(id){
   } else {
     $("#m-serial").innerHTML = "";
   }
-  $("#m-kv").innerHTML = rows.map(([k,v])=>`<dt>${esc(k)}</dt><dd>${(typeof v==="string" && v.indexOf('class="stars"')>=0) ? v : esc(v||"—")}</dd>`).join("");
+  $("#m-kv").innerHTML = rows.map(([k,v])=>`<dt>${esc(k)}</dt><dd>${(typeof v==="string" && (v.indexOf('class="stars"')>=0 || v.indexOf('class="muted"')>=0)) ? v : esc(v||"—")}</dd>`).join("");
   $("#m-rv").innerHTML = d.review ? `<a href="${esc(d.review)}" target="_blank" rel="noopener">查看独立评测页 →</a>` : "";
   $("#ov").classList.add("on");
 }
@@ -1344,7 +1346,7 @@ html[data-theme="dark"] .sub,html[data-theme="dark"] .date,html[data-theme="dark
 <footer id="site-footer">
   <span>作者：<b>MaxSum</b></span><span>·</span>
   <a href="https://space.bilibili.com/399566399" target="_blank" rel="noopener">哔哩哔哩：某不知名行为艺术家</a><span>·</span>
-  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v46</span>
+  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v48</span>
 </footer>
 </body>
 </html>

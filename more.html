@@ -435,7 +435,7 @@ html[data-theme="dark"] tr.partial td{ border-bottom-color: rgba(242,194,0,.14) 
   .top{ padding: 10px 14px 8px !important; }
   .tools{ flex-wrap: wrap; gap: 6px; width: 100%; }
   #q{ flex: 1 1 100%; width: 100% !important; max-width: none !important; }
-  .nav{ width: 100%; }
+  .nav{ width: fit-content !important; max-width: 100%; flex-wrap: wrap; row-gap: 4px; align-items: center; }
   .nav a{ padding: 6px 10px !important; font-size: 12.5px !important; }
   #side{ border-radius: 16px !important; }
   .tablewrap{ border-radius: 16px !important; }
@@ -636,10 +636,31 @@ html[data-theme="dark"] .msrch{ background:#1b212a !important; color:#e9edf3 !im
   <section class="sec" id="tab-lg">
     <div class="logbody">
   <h2>版本记录</h2>
-  <p class="sub">首个版本记为 beta0.01，之后每次迭代 +0.01。（时间为各版本构建时刻，早期版本按会话记录推算）<span class="lastup">最后更新：<b>2026-11-22 15:14:11</b></span></p>
+  <p class="sub">首个版本记为 beta0.01，之后每次迭代 +0.01。（时间为各版本构建时刻，早期版本按会话记录推算）<span class="lastup">最后更新：<b>2026-11-22 16:04:33</b></span></p>
 
   <div class="item">
-    <div class="v"><code>beta0.42</code><span class="tagnew">当前</span><span class="date">2026-11-22 15:14:11</span></div>
+    <div class="v"><code>beta0.44</code><span class="tagnew">当前</span><span class="date">2026-11-22 16:04:33</span></div>
+    <h3>按本地译文批量补全镜头设计者（30 支）</h3>
+    <ul>
+      <li>依据本地已翻译的 99 期《一千零一夜》正文，逐篇提取点名的设计者，匹配到本站镜头条目</li>
+      <li>共标注 30 支镜头，例如：43-86mm（樋口崇）、105mm f/2.5（清水义幸）、OP 10mm 与 6mm 鱼眼（松木庆二）、200mm f/4（一色正之）、105mm f/1.8（纲岛照吉）、80-200mm f/2.8 一代（滨西）、Series E 100mm（松井康）、24mm f/2.8（森幸男）、AF-P 10-20mm（山本浩）、85mm f/1.8（村上三郎）</li>
+      <li>每条设计者后附出处（第几夜），无明确署名的镜头保持空白</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.43</code><span class="date">2026-11-22 15:54:09</span></div>
+    <h3>手机导航修整 + 镜头设计者</h3>
+    <ul>
+      <li>手机端导航分段控件改为按内容收缩，换行时行高对齐，「更多」右侧不再多出一截空轨道</li>
+      <li>镜头详情新增「设计者」，仅标注有明确出处的镜头：Noct 58mm f/1.2（清水義之）、24-50mm f/3.3-4.5 与 f/1.4G 58mm（佐藤治夫）</li>
+      <li>设计者后附出处小字（如「尼康一千零一夜 第16夜」），查不到的镜头保持空白</li>
+      <li>顺带清掉生产年代显示里多余的连字符</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.42</code><span class="date">2026-11-22 15:14:11</span></div>
     <h3>更多页补全深色模式</h3>
     <ul>
       <li>「评测链接」「一千零一夜」「更新日志」三块在深色下不再是白底：面板、表头、斑马纹、搜索框、标签页全部改为深色系</li>
@@ -1155,7 +1176,7 @@ render();
 <footer id="site-footer">
   <span>作者：<b>MaxSum</b></span><span>·</span>
   <a href="https://space.bilibili.com/399566399" target="_blank" rel="noopener">哔哩哔哩：某不知名行为艺术家</a><span>·</span>
-  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v46</span>
+  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v48</span>
 </footer>
 </body>
 </html>
