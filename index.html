@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
+<script>(function(){try{var t=localStorage.getItem("nikkor-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>尼康 F 卡口原厂镜头全表 · 可视化筛选</title>
@@ -670,8 +672,11 @@ html[data-theme="dark"] .drawer tbody td,
 html[data-theme="dark"] .drawer .acctab td{
   border-bottom-color: rgba(255,255,255,.06) !important;
 }
-html[data-theme="dark"] .drawer .tag,
-html[data-theme="dark"] 
+html[data-theme="dark"] .drawer .tag{
+  background: rgba(255,255,255,.08) !important;
+  color: #c6cdd8 !important;
+}
+
 /* 抽屉统一尺寸（镜头 / 副厂 / 相机 完全一致） */
 #drawer, .drawer{
   top: 0 !important;
@@ -701,6 +706,20 @@ html:has(body.drawer-open){ overflow: hidden; }
 @media (max-width: 640px){
   body.drawer-open{ position: fixed; width: 100%; }
 }
+
+/* ---------- 深色时间线 ---------- */
+html[data-theme="dark"] .g-head{ background:#1a212a !important; border-bottom-color:#252b35 !important; }
+html[data-theme="dark"] .g-head .g-lab{ background:#1a212a !important; border-right-color:#252b35 !important; color:#a9b3c0 !important; }
+html[data-theme="dark"] .g-stitle{ background:#1a212a !important; color:#c6cdd8 !important;
+  border-color:#252b35 !important; }
+html[data-theme="dark"] .g-row{ background:#141a21 !important; border-bottom-color:#222a34 !important; }
+html[data-theme="dark"] .g-row:nth-child(even){ background:#171e26 !important; }
+html[data-theme="dark"] .g-row:hover{ background: rgba(242,194,0,.10) !important; }
+html[data-theme="dark"] .g-row .g-lab{ background:inherit !important; border-right-color:#252b35 !important; color:#dfe5ee !important; }
+html[data-theme="dark"] .g-track{ background:inherit !important; }
+html[data-theme="dark"] .g-years i{ background:#2a323d !important; }
+html[data-theme="dark"] .g-years span{ color:#8b95a3 !important; }
+html[data-theme="dark"] .gantt{ background:transparent !important; }
 </style></head>
 <body>
 
@@ -908,7 +927,7 @@ function num(v){
 }
 function fmtW(v){
   const n = num(v);
-  if(n==null) return '<span class="muted">—</span>';
+  if(n==null) return "—";
   return n.toLocaleString("en-US");
 }
 function goldTag(v){
@@ -1160,7 +1179,7 @@ function openModal(id){
     ...(d.serial_qty ? [["产量（序列号统计）", Number(d.serial_qty).toLocaleString() + " 支"]] : []),
     ...(d.prod_dates ? [["生产年代", d.prod_dates]] : []),
     ...(d.lens_rarity ? [["稀有度", starRow(d.lens_rarity) + ` <span class="muted" style="font-size:11px">${d.lens_rarity}/5 · ${d.serial_qty ? "约 "+Number(d.serial_qty).toLocaleString()+" 支" : "产量不详"}</span>`]] : []),
-    ["光学结构", d.optics||"—"], ["滤镜口径", d.filter||"—"], ["重量", d.weight?fmtW(d.weight)+" g":"—"],
+    ["光学结构", d.optics||"—"], ["滤镜口径", d.filter||"—"], ["重量", (d.weight && num(d.weight)!=null) ? fmtW(d.weight)+" g" : "—"],
     ["自动对焦", d.af], ["对焦马达", d.motor], ["防抖", d.vr], ["金圈", d.gold],
     ["定位", d.tier], ["特殊功能", d.feat||"—"], ["官方命名", d.naming||"—"], ["外号", d.nick||"—"],
     ["发布", d.start||"—"], ["停产", d.end||"—"], ["备注", d.note||"—"], ["分类", d.cls]
@@ -1317,7 +1336,7 @@ html[data-theme="dark"] .sub,html[data-theme="dark"] .date,html[data-theme="dark
 <footer id="site-footer">
   <span>作者：<b>MaxSum</b></span><span>·</span>
   <a href="https://space.bilibili.com/399566399" target="_blank" rel="noopener">哔哩哔哩：某不知名行为艺术家</a><span>·</span>
-  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v42</span>
+  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v43</span>
 </footer>
 </body>
 </html>
