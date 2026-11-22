@@ -294,7 +294,7 @@ html[data-theme="dark"] .top{ background: #0a0c10 !important; }
 .brand b{ color: var(--nikon-yellow) !important; }
 
 /* 顶栏里的搜索框 */
-#q{
+.top #q{
   background: rgba(255,255,255,.10) !important;
   border: 1px solid rgba(255,255,255,.16) !important;
   color: #fff !important;
@@ -302,8 +302,8 @@ html[data-theme="dark"] .top{ background: #0a0c10 !important; }
   padding: 9px 14px !important;
   transition: background .2s var(--ios-ease), box-shadow .2s var(--ios-ease);
 }
-#q::placeholder{ color:#8f98a5 !important; }
-#q:focus{
+.top #q::placeholder{ color:#8f98a5 !important; }
+.top #q:focus{
   background: rgba(255,255,255,.16) !important;
   box-shadow: 0 0 0 3px rgba(242,194,0,.35);
   outline: none;
@@ -720,6 +720,15 @@ html[data-theme="dark"] .g-track{ background:inherit !important; }
 html[data-theme="dark"] .g-years i{ background:#2a323d !important; }
 html[data-theme="dark"] .g-years span{ color:#8b95a3 !important; }
 html[data-theme="dark"] .gantt{ background:transparent !important; }
+
+/* 更多页内的搜索框（不是顶栏那个） */
+.msrch{
+  background:#fff !important; color:#15171c !important;
+  border:1px solid #e6e8ec !important; border-radius:10px !important;
+  padding:8px 12px !important; font:inherit; font-size:13px;
+}
+.msrch:focus{ box-shadow:0 0 0 3px rgba(242,194,0,.30) !important; outline:none; border-color:#f2c200 !important; }
+html[data-theme="dark"] .msrch{ background:#1b212a !important; color:#e9edf3 !important; border-color:#2a323d !important; }
 </style></head>
 <body>
 
@@ -740,9 +749,8 @@ html[data-theme="dark"] .gantt{ background:transparent !important; }
     <a href="./index.html" class="on">镜头</a>
     <a href="./thirdparty.html">副厂镜头</a>
     <a href="./cameras.html">相机</a>
-    <a href="./reviews.html">评测</a>
     <a href="./manuals.html">说明书</a>
-    <a href="./changelog.html">日志</a>
+    <a href="./more.html">更多</a>
   </nav>
 </header>
 
@@ -1336,7 +1344,7 @@ html[data-theme="dark"] .sub,html[data-theme="dark"] .date,html[data-theme="dark
 <footer id="site-footer">
   <span>作者：<b>MaxSum</b></span><span>·</span>
   <a href="https://space.bilibili.com/399566399" target="_blank" rel="noopener">哔哩哔哩：某不知名行为艺术家</a><span>·</span>
-  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v43</span>
+  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v45</span>
 </footer>
 </body>
 </html>
