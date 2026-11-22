@@ -55,6 +55,33 @@ a.rv:hover{text-decoration:underline}
 .night a{color:#1f4a73;text-decoration:none;font-size:12px;white-space:nowrap}
 .logbody{max-width:900px}
 @media (max-width:720px){#q{width:100%;max-width:none}.night{grid-template-columns:44px 1fr}.night a{grid-column:2}}
+
+/* ---------- 深色模式 ---------- */
+html[data-theme="dark"] body{ background:#0d1015; color:#e7eaf0 }
+html[data-theme="dark"] .panel{ background:#141a21; border-color:#252b35 }
+html[data-theme="dark"] table{ color:#e7eaf0 }
+html[data-theme="dark"] thead th{ background:#1a212a; color:#a9b3c0; border-bottom-color:#252b35 }
+html[data-theme="dark"] tbody td{ border-bottom-color:#222a34 }
+html[data-theme="dark"] tbody tr:nth-child(even){ background:#171e26 }
+html[data-theme="dark"] tbody tr:hover{ background:rgba(242,194,0,.10) }
+html[data-theme="dark"] .night{ border-bottom-color:#222a34 }
+html[data-theme="dark"] .night:nth-child(even){ background:#171e26 }
+html[data-theme="dark"] .night .lens{ color:#eef2f7 }
+html[data-theme="dark"] .night .zh{ color:#c6cdd8 }
+html[data-theme="dark"] .gd{ color:#9aa4b2 }
+html[data-theme="dark"] a.rv, html[data-theme="dark"] .night a{ color:#8fb8e8 }
+html[data-theme="dark"] .tag{ background:#20262f; color:#c6cdd8 }
+html[data-theme="dark"] .stat b{ color:#eef2f7 }
+html[data-theme="dark"] .tabs{ background:#20262f !important }
+html[data-theme="dark"] .tabs button{ color:#a9b3c0 !important; background:transparent !important }
+html[data-theme="dark"] .tabs button.on{ background:#e9edf3 !important; color:#111 !important }
+html[data-theme="dark"] #tabLens, html[data-theme="dark"] #tabCam{
+  background:rgba(255,255,255,.08) !important; color:#e9edf3 !important; border-color:rgba(255,255,255,.12) !important;
+}
+html[data-theme="dark"] #tabLens.on, html[data-theme="dark"] #tabCam.on{
+  background:#e9edf3 !important; color:#111 !important;
+}
+html[data-theme="dark"] .muted{ color:#98a2b0 }
 </style>
 <style>
 :root{--bg:#f5f6f8;--panel:#fff;--ink:#15171c;--muted:#69707d;--line:#e6e8ec;--accent:#f2c200;--accent-soft:#fff6cc;--chip:#eef0f3;--shadow:0 1px 2px rgba(16,24,40,.06),0 8px 24px rgba(16,24,40,.06)}
@@ -609,10 +636,20 @@ html[data-theme="dark"] .msrch{ background:#1b212a !important; color:#e9edf3 !im
   <section class="sec" id="tab-lg">
     <div class="logbody">
   <h2>版本记录</h2>
-  <p class="sub">首个版本记为 beta0.01，之后每次迭代 +0.01。（时间为各版本构建时刻，早期版本按会话记录推算）<span class="lastup">最后更新：<b>2026-11-22 14:52:43</b></span></p>
+  <p class="sub">首个版本记为 beta0.01，之后每次迭代 +0.01。（时间为各版本构建时刻，早期版本按会话记录推算）<span class="lastup">最后更新：<b>2026-11-22 15:14:11</b></span></p>
 
   <div class="item">
-    <div class="v"><code>beta0.41</code><span class="tagnew">当前</span><span class="date">2026-11-22 14:52:43</span></div>
+    <div class="v"><code>beta0.42</code><span class="tagnew">当前</span><span class="date">2026-11-22 15:14:11</span></div>
+    <h3>更多页补全深色模式</h3>
+    <ul>
+      <li>「评测链接」「一千零一夜」「更新日志」三块在深色下不再是白底：面板、表头、斑马纹、搜索框、标签页全部改为深色系</li>
+      <li>链接、导读文字、徽章的对比度同时调整</li>
+      <li>自检脚本新增「深色模式」检查：每次构建后自动在深色下测量各页 body 与卡片背景，出现白色面板会报错</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.41</code><span class="date">2026-11-22 14:52:43</span></div>
     <h3>一千零一夜：99 期全部补齐中文导读</h3>
     <ul>
       <li>每期在中文译名之外，新增一段中文导读，说明镜头背景、设计要点与时代意义</li>
@@ -1118,7 +1155,7 @@ render();
 <footer id="site-footer">
   <span>作者：<b>MaxSum</b></span><span>·</span>
   <a href="https://space.bilibili.com/399566399" target="_blank" rel="noopener">哔哩哔哩：某不知名行为艺术家</a><span>·</span>
-  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v45</span>
+  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v46</span>
 </footer>
 </body>
 </html>
