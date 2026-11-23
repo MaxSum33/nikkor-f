@@ -666,7 +666,7 @@ html:has(body.drawer-open){ overflow: hidden; }
 .ov2.on, .overlay.on{ touch-action: none; }
 .d-body, .drawer{ overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
 @media (max-width: 640px){
-  body.drawer-open{ position: fixed; width: 100%; }
+  body.drawer-open{ position: static; width: auto; }
 }
 
 /* ---------- 深色时间线 ---------- */
@@ -710,6 +710,56 @@ html[data-theme="dark"] .msrch{ background:#1b212a !important; color:#e9edf3 !im
 }
 html[data-theme="dark"] #themeBtn{ background:#1e232b !important; color:#f2c200 !important; border-color:#3a414d !important; }
 #themeBtn svg{ display:block; }
+
+/* ---------- iOS 风格动效 ---------- */
+@keyframes pgIn{ from{opacity:0; transform:translateX(18px)} to{opacity:1; transform:none} }
+@keyframes slideFromRight{ from{opacity:0; transform:translateX(26px)} to{opacity:1; transform:none} }
+@keyframes slideFromLeft{ from{opacity:0; transform:translateX(-26px)} to{opacity:1; transform:none} }
+main{ animation: pgIn .34s cubic-bezier(.22,.61,.36,1) both; }
+.anim-r{ animation: slideFromRight .28s cubic-bezier(.22,.61,.36,1) both; }
+.anim-l{ animation: slideFromLeft .28s cubic-bezier(.22,.61,.36,1) both; }
+
+/* 按钮 / 标签按压反馈 */
+.tabs button, .nav a, .chip, .seg button, .tools button, #themeBtn{
+  transition: transform .16s cubic-bezier(.22,.61,.36,1), background .16s, color .16s, box-shadow .16s;
+}
+.tabs button:active, .chip:active, .seg button:active, .tools button:active{ transform: scale(.94); }
+.nav a:active{ transform: scale(.96); }
+#themeBtn:active{ transform: scale(.9); }
+
+/* 顶部栏收起（打开二级菜单时） */
+.top{ transition: transform .3s cubic-bezier(.22,.61,.36,1), box-shadow .3s; will-change: transform; }
+body.drawer-open .top{ transform: translateY(-105%); }
+@media (prefers-reduced-motion: reduce){
+  main, .anim-r, .anim-l{ animation: none !important; }
+  .top{ transition: none !important; }
+}
+
+/* ---------- 手机端：头部固定高度，工具条浮层 ---------- */
+@media (max-width: 640px){
+  .toprow{ height: 56px; min-height: 56px; align-items: center; overflow: visible; flex-wrap: nowrap; }
+  .brand{ min-width: 0; }
+  .brand p{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tools{ display: none !important; }
+  body.tools-open .tools{
+    display: flex !important;
+    position: absolute; left: 0; right: 0; top: 56px;
+    padding: 10px 14px; z-index: 45;
+    background: #0b0d11; border-bottom: 1px solid rgba(255,255,255,.08);
+    box-shadow: 0 10px 24px rgba(0,0,0,.45);
+  }
+  body.tools-open .tools input{ flex: 1; min-width: 0; }
+  #mobileTools{
+    position: fixed; left: 18px; bottom: 18px; z-index: 80;
+    height: 44px; padding: 0 16px; border-radius: 22px;
+    border: 1px solid #cfd4db; background: #fff; color: #111;
+    font: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0,0,0,.18);
+    display: flex; align-items: center; gap: 6px;
+  }
+  html[data-theme="dark"] #mobileTools{ background:#1e232b; color:#f2c200; border-color:#3a414d; }
+  body.tools-open #mobileTools{ transform: scale(.94); }
+}
 </style></head>
 <body>
 <header class="top">
@@ -763,8 +813,7 @@ html[data-theme="dark"] #themeBtn{ background:#1e232b !important; color:#f2c200 
       <button data-tab="cam" class="on">机身表</button>
       <button data-tab="time">时间线</button>
       <button data-tab="3p">非尼康机身</button>
-      <button data-tab="nk">Nikonos</button>
-      <button data-tab="ix">IX 系统</button>
+      <button data-tab="rel">相关系统</button>
     </div>
 
     <section id="tab-cam">
@@ -782,25 +831,25 @@ html[data-theme="dark"] #themeBtn{ background:#1e232b !important; color:#f2c200 
       <p class="foot"><b>怎么看</b>：横轴为年份，每一行是一台机身，色块范围即生产期；点色块可直接打开该机身的详情与配件。</p>
     </section>
 
-    <section id="tab-nk" style="display:none">
-      <div class="statline"><span>共 <b id="nkshown">0</b> 台</span><span class="sp"></span><span class="mini">尼康水下相机系列，非 F 卡口，单列供参考</span></div>
+    <section id="tab-rel" style="display:none">
+      <div class="statline"><span>共 <b id="relshown">0</b> 台</span><span class="sp"></span><span class="mini">尼康的旁系系统：水下 Nikonos 与 APS 画幅 IX</span></div>
+
+      <h3 id="nk-h" style="font-size:13px;margin:14px 2px 8px;color:var(--muted)">尼康水下系统（Nikonos）· <span id="nkcount">0</span> 台</h3>
       <div class="tablewrap">
         <table><thead><tr>
           <th>型号</th><th>推出</th><th>停产</th><th>卡口</th><th class="hide-sm">快门</th><th class="hide-sm">ISO</th><th class="hide-sm">测光</th><th class="hide-sm">防水</th><th class="hide-sm">镜头系统</th><th class="hide-sm">备注</th>
         </tr></thead><tbody id="nktbody"></tbody></table>
       </div>
-      <p class="foot"><b>说明</b>：Nikonos 使用独立的 Nikonos 卡口（RS 为 RS 卡口），不能直接使用 F 口镜头；这里作为尼康水下产品线单列，便于对照。</p>
-    </section>
 
-    <section id="tab-ix" style="display:none">
-      <div class="statline"><span>共 <b id="ixshown">0</b> 台</span><span class="sp"></span><span class="mini">APS 画幅的 F 卡口单反（IX-Nikkor 镜头），非 35mm</span></div>
+      <h3 style="font-size:13px;margin:20px 2px 8px;color:var(--muted)">IX 系统（APS 画幅）· <span id="ixcount">0</span> 台</h3>
       <div class="tablewrap">
         <table><thead><tr>
           <th>型号</th><th>推出</th><th>停产</th><th>卡口</th><th class="hide-sm">画幅</th>
           <th class="hide-sm">快门</th><th class="hide-sm">ISO</th><th class="hide-sm">供电</th><th class="hide-sm">备注</th>
         </tr></thead><tbody id="ixtbody"></tbody></table>
       </div>
-      <p class="foot"><b>说明</b>：IX 系统是尼康 1996 年推出的 APS 胶片单反系列，机身用 F 卡口但对应 IX-Nikkor 镜头；与 35mm 的 F 系列不通用画幅。</p>
+
+      <p class="foot"><b>说明</b>：Nikonos 使用独立的 Nikonos 卡口（RS 为 RS 卡口），不能直接使用 F 口镜头；IX 系统机身用 F 卡口但对应 IX-Nikkor 镜头，画幅是 APS。两者都与 35mm 的 F 系列不通用，单列供对照。</p>
     </section>
 
     <section id="tab-3p" style="display:none">
@@ -900,7 +949,7 @@ document.querySelectorAll(".tabs button").forEach(b=>{
   b.onclick = ()=>{
     document.querySelectorAll(".tabs button").forEach(x=>x.classList.remove("on"));
     b.classList.add("on"); tab = b.dataset.tab;
-    ["cam","time","3p","nk","ix"].forEach(t=> $("#tab-"+(t==="3p"?"3p":t)).style.display = (t===tab?"":"none"));
+    ["cam","time","3p","rel"].forEach(t=> $("#tab-"+(t==="3p"?"3p":t)).style.display = (t===tab?"":"none"));
     renderAll();
   };
 });
@@ -1101,7 +1150,6 @@ function renderThird(){
 /* ---------- IX 系统 ---------- */
 function renderIX(){
   const list = DATA.ix || [];
-  $("#ixshown").textContent = list.length;
   $("#ixtbody").innerHTML = list.map(d=>`<tr>
     <td class="model">${esc(d.model)}</td>
     <td class="num">${esc(d.start)}</td>
@@ -1194,9 +1242,15 @@ function openThird(model){
 }
 
 /* ---------- Nikonos ---------- */
+function renderRelCounts(){
+  const nk = (DATA.nikonos||[]).length, ix = (DATA.ix||[]).length;
+  const a = $("#relshown"), b = $("#nkcount"), c = $("#ixcount");
+  if(a) a.textContent = nk + ix;
+  if(b) b.textContent = nk;
+  if(c) c.textContent = ix;
+}
 function renderNikonos(){
   const list = DATA.nikonos || [];
-  $("#nkshown").textContent = list.length;
   $("#nktbody").innerHTML = list.map(d=>`<tr>
     <td class="model">${esc(d.model)}</td>
     <td class="num">${esc(d.start)}</td>
@@ -1342,7 +1396,7 @@ $("#d-close").onclick = closeDrawer;
 $("#ov2").onclick = closeDrawer;
 
 /* ---------- 汇总渲染 ---------- */
-function renderAll(){ renderCams(); renderTime(); renderThird(); renderNikonos(); renderIX(); }
+function renderAll(){ renderCams(); renderTime(); renderThird(); renderNikonos(); renderIX(); renderRelCounts(); }
 
 DATA.cams.forEach(d=>{
   d.y0 = num(d.start);
@@ -1395,11 +1449,44 @@ html[data-theme="dark"] .sub,html[data-theme="dark"] .date,html[data-theme="dark
       navigator.serviceWorker.register('sw.js').catch(function () {});
     });
   }
+/* iOS 风格交互：移动端工具浮层 + 标签页滑动 */
+(function(){
+  try{
+    if(matchMedia("(max-width:640px)").matches && document.querySelector(".tools")){
+      var b=document.createElement("button");
+      b.id="mobileTools"; b.type="button"; b.textContent="搜索 / 筛选";
+      document.body.appendChild(b);
+      b.addEventListener("click",function(ev){ ev.stopPropagation(); document.body.classList.toggle("tools-open"); });
+      document.addEventListener("click",function(e){
+        if(!document.body.classList.contains("tools-open")) return;
+        var t=e.target;
+        if(t===b || b.contains(t) || (t.closest && t.closest(".tools"))) return;
+        document.body.classList.remove("tools-open");
+      });
+    }
+    document.addEventListener("click",function(e){
+      var btn=e.target.closest ? e.target.closest(".tabs button") : null;
+      if(!btn) return;
+      var bar=btn.parentElement;
+      var btns=[].slice.call(bar.querySelectorAll("button"));
+      var idx=btns.indexOf(btn), prev=+(bar.dataset.idx||0);
+      bar.dataset.idx=idx;
+      setTimeout(function(){
+        var panes=[].slice.call(document.querySelectorAll("main section, main .sec"));
+        var vis=panes.filter(function(p){ return getComputedStyle(p).display!=="none"; });
+        var target=vis[vis.length-1]; if(!target) return;
+        target.classList.remove("anim-r","anim-l"); void target.offsetWidth;
+        target.classList.add(idx>=prev ? "anim-r" : "anim-l");
+      },0);
+    },true);
+  }catch(err){}
+})();
 </script>
+
 <footer id="site-footer">
   <span>作者：<b>MaxSum</b></span><span>·</span>
   <a href="https://space.bilibili.com/399566399" target="_blank" rel="noopener">哔哩哔哩：某不知名行为艺术家</a><span>·</span>
-  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v50</span>
+  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v52</span>
 </footer>
 </body>
 </html>
