@@ -735,30 +735,28 @@ body.drawer-open .top{ transform: translateY(-105%); }
   .top{ transition: none !important; }
 }
 
-/* ---------- 手机端：头部固定高度，工具条浮层 ---------- */
+
+/* 统一移动端头部：同一高度、字体、无省略号 */
 @media (max-width: 640px){
-  .toprow{ height: 56px; min-height: 56px; align-items: center; overflow: visible; flex-wrap: nowrap; }
-  .brand{ min-width: 0; }
-  .brand p{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .tools{ display: none !important; }
-  body.tools-open .tools{
-    display: flex !important;
-    position: absolute; left: 0; right: 0; top: 56px;
-    padding: 10px 14px; z-index: 45;
-    background: #0b0d11; border-bottom: 1px solid rgba(255,255,255,.08);
-    box-shadow: 0 10px 24px rgba(0,0,0,.45);
+  html, body{ overflow-x: clip !important; max-width: 100%; }
+  .top{ padding: 10px 14px 8px !important; }
+  .toprow{ display: flex; flex-direction: column; align-items: stretch; gap: 8px; }
+  .brand h1{ font-size: 17px !important; font-weight: 700 !important; line-height: 1.3 !important; }
+  .brand p{ font-size: 12px !important; line-height: 1.3 !important; margin: 2px 0 0 !important;
+            white-space: normal !important; overflow: visible !important; text-overflow: clip !important; }
+  .tools{
+    display: flex !important; flex-wrap: nowrap !important; align-items: center;
+    gap: 6px; height: 44px; min-height: 44px; overflow-x: auto; overflow-y: hidden;
+    scrollbar-width: none; -ms-overflow-style: none;
   }
-  body.tools-open .tools input{ flex: 1; min-width: 0; }
-  #mobileTools{
-    position: fixed; left: 18px; bottom: 18px; z-index: 80;
-    height: 44px; padding: 0 16px; border-radius: 22px;
-    border: 1px solid #cfd4db; background: #fff; color: #111;
-    font: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
-    box-shadow: 0 6px 18px rgba(0,0,0,.18);
-    display: flex; align-items: center; gap: 6px;
-  }
-  html[data-theme="dark"] #mobileTools{ background:#1e232b; color:#f2c200; border-color:#3a414d; }
-  body.tools-open #mobileTools{ transform: scale(.94); }
+  .tools::-webkit-scrollbar{ display: none; }
+  .tools input{ flex: 1 1 auto; min-width: 110px; height: 36px; }
+  .tools button{ flex: 0 0 auto; height: 36px; }
+  .tools-blank{ height: 44px; min-height: 44px; }
+  .nav{ height: 39px !important; width: fit-content !important; max-width: 100%;
+        flex-wrap: wrap; row-gap: 4px; align-items: center; }
+  .nav a{ display: inline-flex; align-items: center; height: 33px; line-height: 1 !important;
+          padding: 0 12px !important; font-size: 12.5px !important; }
 }
 </style></head>
 <body>
@@ -1449,34 +1447,26 @@ html[data-theme="dark"] .sub,html[data-theme="dark"] .date,html[data-theme="dark
       navigator.serviceWorker.register('sw.js').catch(function () {});
     });
   }
-/* iOS 风格交互：移动端工具浮层 + 标签页滑动 */
+/* 标签页滑动 */
 (function(){
   try{
-    if(matchMedia("(max-width:640px)").matches && document.querySelector(".tools")){
-      var b=document.createElement("button");
-      b.id="mobileTools"; b.type="button"; b.textContent="搜索 / 筛选";
-      document.body.appendChild(b);
-      b.addEventListener("click",function(ev){ ev.stopPropagation(); document.body.classList.toggle("tools-open"); });
-      document.addEventListener("click",function(e){
-        if(!document.body.classList.contains("tools-open")) return;
-        var t=e.target;
-        if(t===b || b.contains(t) || (t.closest && t.closest(".tools"))) return;
-        document.body.classList.remove("tools-open");
-      });
-    }
     document.addEventListener("click",function(e){
-      var btn=e.target.closest ? e.target.closest(".tabs button") : null;
+      var btn = e.target.closest ? e.target.closest(".tabs button") : null;
       if(!btn) return;
-      var bar=btn.parentElement;
-      var btns=[].slice.call(bar.querySelectorAll("button"));
-      var idx=btns.indexOf(btn), prev=+(bar.dataset.idx||0);
-      bar.dataset.idx=idx;
+      var bar = btn.parentElement;
+      var btns = [].slice.call(bar.querySelectorAll("button"));
+      var idx = btns.indexOf(btn), prev = +(bar.dataset.idx || 0);
+      bar.dataset.idx = idx;
       setTimeout(function(){
-        var panes=[].slice.call(document.querySelectorAll("main section, main .sec"));
-        var vis=panes.filter(function(p){ return getComputedStyle(p).display!=="none"; });
-        var target=vis[vis.length-1]; if(!target) return;
-        target.classList.remove("anim-r","anim-l"); void target.offsetWidth;
-        target.classList.add(idx>=prev ? "anim-r" : "anim-l");
+        var panes = [].slice.call(document.querySelectorAll("main section, main .sec"));
+        var vis = panes.filter(function(p){ return getComputedStyle(p).display !== "none"; });
+        var target = vis[vis.length - 1];
+        if(!target) target = document.querySelector("main .tablewrap");
+        if(!target) target = document.querySelector("main .wrap");
+        if(!target) return;
+        target.classList.remove("anim-r","anim-l");
+        void target.offsetWidth;
+        target.classList.add(idx >= prev ? "anim-r" : "anim-l");
       },0);
     },true);
   }catch(err){}
@@ -1486,7 +1476,7 @@ html[data-theme="dark"] .sub,html[data-theme="dark"] .date,html[data-theme="dark
 <footer id="site-footer">
   <span>作者：<b>MaxSum</b></span><span>·</span>
   <a href="https://space.bilibili.com/399566399" target="_blank" rel="noopener">哔哩哔哩：某不知名行为艺术家</a><span>·</span>
-  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v52</span>
+  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v53</span>
 </footer>
 </body>
 </html>

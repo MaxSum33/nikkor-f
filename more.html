@@ -636,30 +636,28 @@ body.drawer-open .top{ transform: translateY(-105%); }
   .top{ transition: none !important; }
 }
 
-/* ---------- 手机端：头部固定高度，工具条浮层 ---------- */
+
+/* 统一移动端头部：同一高度、字体、无省略号 */
 @media (max-width: 640px){
-  .toprow{ height: 56px; min-height: 56px; align-items: center; overflow: visible; flex-wrap: nowrap; }
-  .brand{ min-width: 0; }
-  .brand p{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .tools{ display: none !important; }
-  body.tools-open .tools{
-    display: flex !important;
-    position: absolute; left: 0; right: 0; top: 56px;
-    padding: 10px 14px; z-index: 45;
-    background: #0b0d11; border-bottom: 1px solid rgba(255,255,255,.08);
-    box-shadow: 0 10px 24px rgba(0,0,0,.45);
+  html, body{ overflow-x: clip !important; max-width: 100%; }
+  .top{ padding: 10px 14px 8px !important; }
+  .toprow{ display: flex; flex-direction: column; align-items: stretch; gap: 8px; }
+  .brand h1{ font-size: 17px !important; font-weight: 700 !important; line-height: 1.3 !important; }
+  .brand p{ font-size: 12px !important; line-height: 1.3 !important; margin: 2px 0 0 !important;
+            white-space: normal !important; overflow: visible !important; text-overflow: clip !important; }
+  .tools{
+    display: flex !important; flex-wrap: nowrap !important; align-items: center;
+    gap: 6px; height: 44px; min-height: 44px; overflow-x: auto; overflow-y: hidden;
+    scrollbar-width: none; -ms-overflow-style: none;
   }
-  body.tools-open .tools input{ flex: 1; min-width: 0; }
-  #mobileTools{
-    position: fixed; left: 18px; bottom: 18px; z-index: 80;
-    height: 44px; padding: 0 16px; border-radius: 22px;
-    border: 1px solid #cfd4db; background: #fff; color: #111;
-    font: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
-    box-shadow: 0 6px 18px rgba(0,0,0,.18);
-    display: flex; align-items: center; gap: 6px;
-  }
-  html[data-theme="dark"] #mobileTools{ background:#1e232b; color:#f2c200; border-color:#3a414d; }
-  body.tools-open #mobileTools{ transform: scale(.94); }
+  .tools::-webkit-scrollbar{ display: none; }
+  .tools input{ flex: 1 1 auto; min-width: 110px; height: 36px; }
+  .tools button{ flex: 0 0 auto; height: 36px; }
+  .tools-blank{ height: 44px; min-height: 44px; }
+  .nav{ height: 39px !important; width: fit-content !important; max-width: 100%;
+        flex-wrap: wrap; row-gap: 4px; align-items: center; }
+  .nav a{ display: inline-flex; align-items: center; height: 33px; line-height: 1 !important;
+          padding: 0 12px !important; font-size: 12.5px !important; }
 }
 </style></head>
 <body>
@@ -669,6 +667,7 @@ body.drawer-open .top{ transform: translateY(-105%); }
       <h1>更多内容</h1>
       <p>评测链接 · 尼康一千零一夜 · 更新日志</p>
     </div>
+    <div class="tools tools-blank" aria-hidden="true"></div>
   </div>
   <nav class="nav">
     <a href="./index.html">镜头</a>
@@ -705,10 +704,24 @@ body.drawer-open .top{ transform: translateY(-105%); }
   <section class="sec" id="tab-lg">
     <div class="logbody">
   <h2>版本记录</h2>
-  <p class="sub">首个版本记为 beta0.01，之后每次迭代 +0.01。（时间为各版本构建时刻，早期版本按会话记录推算）<span class="lastup">最后更新：<b>2026-11-23 22:26:09</b></span></p>
+  <p class="sub">首个版本记为 beta0.01，之后每次迭代 +0.01。（时间为各版本构建时刻，早期版本按会话记录推算）<span class="lastup">最后更新：<b>2026-11-23 22:41:43</b></span></p>
 
   <div class="item">
-    <div class="v"><code>beta0.48</code><span class="tagnew">当前</span><span class="date">2026-11-23 22:26:09</span></div>
+    <div class="v"><code>beta0.49</code><span class="tagnew">当前</span><span class="date">2026-11-23 22:41:43</span></div>
+    <h3>手机端头部统一、导航固定、镜头/说明书补动画、README 同步</h3>
+    <ul>
+      <li>撤销 beta0.48 的「搜索 / 筛选浮层」方案，搜索框、导出、重置、筛选恢复常驻头部</li>
+      <li>手机端四页头部高度统一（品牌区 40px + 工具栏 44px + 导航 39px，实测均 168px）；副标题改短、去掉省略号</li>
+      <li>修复导航不吸顶：改用 overflow-x: clip，滚动后导航仍固定在顶部（实测 top=0）</li>
+      <li>深色切换按钮固定在右下角，四页位置一致（实测 427,643）</li>
+      <li>修复页面可左右拖动/默认像被放大：去掉横向溢出，scrollWidth 489 < 视口 504</li>
+      <li>镜头页与说明书页补上标签页左右滑动动画（这两页共用一张表，改为动画化表格区域）</li>
+      <li>从本版起，更新日志自动同步写入离线包内的 README.md</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.48</code><span class="date">2026-11-23 22:26:09</span></div>
     <h3>手机端头部统一 + iOS 风格过渡动画</h3>
     <ul>
       <li>四个页面手机端头部统一为「品牌行 56px + 导航 37px」：搜索/导出/重置收进浮层，由左下角「搜索 / 筛选」按钮打开，不再把导航挤到不同高度</li>
@@ -1284,34 +1297,26 @@ render();
       navigator.serviceWorker.register('sw.js').catch(function () {});
     });
   }
-/* iOS 风格交互：移动端工具浮层 + 标签页滑动 */
+/* 标签页滑动 */
 (function(){
   try{
-    if(matchMedia("(max-width:640px)").matches && document.querySelector(".tools")){
-      var b=document.createElement("button");
-      b.id="mobileTools"; b.type="button"; b.textContent="搜索 / 筛选";
-      document.body.appendChild(b);
-      b.addEventListener("click",function(ev){ ev.stopPropagation(); document.body.classList.toggle("tools-open"); });
-      document.addEventListener("click",function(e){
-        if(!document.body.classList.contains("tools-open")) return;
-        var t=e.target;
-        if(t===b || b.contains(t) || (t.closest && t.closest(".tools"))) return;
-        document.body.classList.remove("tools-open");
-      });
-    }
     document.addEventListener("click",function(e){
-      var btn=e.target.closest ? e.target.closest(".tabs button") : null;
+      var btn = e.target.closest ? e.target.closest(".tabs button") : null;
       if(!btn) return;
-      var bar=btn.parentElement;
-      var btns=[].slice.call(bar.querySelectorAll("button"));
-      var idx=btns.indexOf(btn), prev=+(bar.dataset.idx||0);
-      bar.dataset.idx=idx;
+      var bar = btn.parentElement;
+      var btns = [].slice.call(bar.querySelectorAll("button"));
+      var idx = btns.indexOf(btn), prev = +(bar.dataset.idx || 0);
+      bar.dataset.idx = idx;
       setTimeout(function(){
-        var panes=[].slice.call(document.querySelectorAll("main section, main .sec"));
-        var vis=panes.filter(function(p){ return getComputedStyle(p).display!=="none"; });
-        var target=vis[vis.length-1]; if(!target) return;
-        target.classList.remove("anim-r","anim-l"); void target.offsetWidth;
-        target.classList.add(idx>=prev ? "anim-r" : "anim-l");
+        var panes = [].slice.call(document.querySelectorAll("main section, main .sec"));
+        var vis = panes.filter(function(p){ return getComputedStyle(p).display !== "none"; });
+        var target = vis[vis.length - 1];
+        if(!target) target = document.querySelector("main .tablewrap");
+        if(!target) target = document.querySelector("main .wrap");
+        if(!target) return;
+        target.classList.remove("anim-r","anim-l");
+        void target.offsetWidth;
+        target.classList.add(idx >= prev ? "anim-r" : "anim-l");
       },0);
     },true);
   }catch(err){}
@@ -1344,7 +1349,7 @@ render();
 <footer id="site-footer">
   <span>作者：<b>MaxSum</b></span><span>·</span>
   <a href="https://space.bilibili.com/399566399" target="_blank" rel="noopener">哔哩哔哩：某不知名行为艺术家</a><span>·</span>
-  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v52</span>
+  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v53</span>
 </footer>
 </body>
 </html>
