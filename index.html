@@ -700,8 +700,6 @@ html[data-theme="dark"] .drawer .tag{
 }
 
 /* ---------- 抽屉打开时锁定背景滚动 ---------- */
-body.drawer-open{ overflow: hidden !important; }
-html:has(body.drawer-open){ overflow: hidden; }
 .ov2.on, .overlay.on{ touch-action: none; }
 .d-body, .drawer{ overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
 @media (max-width: 640px){
@@ -1299,11 +1297,26 @@ function render(){
 
   tb.querySelectorAll("tr").forEach(tr=>tr.onclick=()=>openModal(+tr.dataset.id));
 }
+
+function _blockScroll(e){
+  var d = e.target && e.target.closest ? e.target.closest("#drawer") : null;
+  if(d) return;
+  e.preventDefault();
+}
+function _lockScroll(on){
+  if(on){
+    document.addEventListener("wheel", _blockScroll, {passive:false});
+    document.addEventListener("touchmove", _blockScroll, {passive:false});
+  } else {
+    document.removeEventListener("wheel", _blockScroll);
+    document.removeEventListener("touchmove", _blockScroll);
+  }
+}
 function _drawerOpen(el){
   if(!el) return;
   var _y = window.scrollY || window.pageYOffset || 0;
   document.body.dataset.scrollY = String(_y);
-  document.body.style.top = "-" + _y + "px";
+  _lockScroll(true);
   document.body.classList.add("drawer-open");
   var m = window.innerWidth <= 640;
   el.style.setProperty("visibility","visible","important");
@@ -1314,7 +1327,7 @@ function _drawerOpen(el){
 function _drawerClose(el){
   if(!el) return;
   document.body.classList.remove("drawer-open");
-  document.body.style.top = "";
+  _lockScroll(false);
   var _y = parseInt(document.body.dataset.scrollY || "0", 10) || 0;
   delete document.body.dataset.scrollY;
   window.scrollTo(0, _y);
@@ -1527,7 +1540,7 @@ html[data-theme="dark"] .sub,html[data-theme="dark"] .date,html[data-theme="dark
 <footer id="site-footer">
   <span>作者：<b>MaxSum</b></span><span>·</span>
   <a href="https://space.bilibili.com/399566399" target="_blank" rel="noopener">哔哩哔哩：某不知名行为艺术家</a><span>·</span>
-  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v53</span>
+  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v54</span>
 </footer>
 </body>
 </html>

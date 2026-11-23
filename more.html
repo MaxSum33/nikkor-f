@@ -562,8 +562,6 @@ html[data-theme="dark"] .drawer .tag{
 }
 
 /* ---------- 抽屉打开时锁定背景滚动 ---------- */
-body.drawer-open{ overflow: hidden !important; }
-html:has(body.drawer-open){ overflow: hidden; }
 .ov2.on, .overlay.on{ touch-action: none; }
 .d-body, .drawer{ overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
 @media (max-width: 640px){
@@ -704,10 +702,21 @@ body.drawer-open .top{ transform: translateY(-105%); }
   <section class="sec" id="tab-lg">
     <div class="logbody">
   <h2>版本记录</h2>
-  <p class="sub">首个版本记为 beta0.01，之后每次迭代 +0.01。（时间为各版本构建时刻，早期版本按会话记录推算）<span class="lastup">最后更新：<b>2026-11-23 22:41:43</b></span></p>
+  <p class="sub">首个版本记为 beta0.01，之后每次迭代 +0.01。（时间为各版本构建时刻，早期版本按会话记录推算）<span class="lastup">最后更新：<b>2026-11-23 22:54:27</b></span></p>
 
   <div class="item">
-    <div class="v"><code>beta0.49</code><span class="tagnew">当前</span><span class="date">2026-11-23 22:41:43</span></div>
+    <div class="v"><code>beta0.50</code><span class="tagnew">当前</span><span class="date">2026-11-23 22:54:27</span></div>
+    <h3>修复滚动中打开二级菜单时顶部栏收起动画丢失</h3>
+    <ul>
+      <li>原因：打开抽屉时用 overflow 锁滚动，页面重排使顶部栏瞬间位移，收起动画被跳变掩盖；关闭时滚动恢复才有过渡</li>
+      <li>改为事件拦截锁定背景滚动（滚轮 / 触摸），抽屉内部仍可正常滚动，页面不再重排</li>
+      <li>实测滚动 800px 后打开：顶部栏位置保持 0 不变，transform 从 0 开始过渡；关闭后同样平滑</li>
+      <li>同步移除 body 的 top 位移与 html/body 的 overflow 锁定</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.49</code><span class="date">2026-11-23 22:41:43</span></div>
     <h3>手机端头部统一、导航固定、镜头/说明书补动画、README 同步</h3>
     <ul>
       <li>撤销 beta0.48 的「搜索 / 筛选浮层」方案，搜索框、导出、重置、筛选恢复常驻头部</li>
@@ -1349,7 +1358,7 @@ render();
 <footer id="site-footer">
   <span>作者：<b>MaxSum</b></span><span>·</span>
   <a href="https://space.bilibili.com/399566399" target="_blank" rel="noopener">哔哩哔哩：某不知名行为艺术家</a><span>·</span>
-  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v53</span>
+  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v54</span>
 </footer>
 </body>
 </html>
