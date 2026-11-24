@@ -1080,7 +1080,14 @@ document.querySelectorAll("#lensTabs button").forEach(b=>{
     document.querySelector(".tablewrap").style.display = isDS ? "none" : "";
     document.getElementById("designers").style.display = isDS ? "" : "none";
     document.getElementById("dsStat").style.display = isDS ? "" : "none";
-    if(isDS){ renderDesigners(); rebuildBrands(); return; }
+    if(isDS){ renderDesigners(); rebuildBrands();
+      const dv = document.getElementById("designers");
+      dv.classList.remove("anim-r","anim-l"); void dv.offsetWidth; dv.classList.add("anim-r");
+      return; }
+    if(TAB !== "ds"){
+      const tw = document.querySelector(".tablewrap");
+      if(tw){ tw.classList.remove("anim-r","anim-l"); void tw.offsetWidth; tw.classList.add(TAB==="tp"?"anim-r":"anim-l"); }
+    }
     rebuildBrands();
     const h1 = document.querySelector(".brand h1");
     const p = document.querySelector(".brand p");
@@ -1578,7 +1585,7 @@ html[data-theme="dark"] .sub,html[data-theme="dark"] .date,html[data-theme="dark
 <footer id="site-footer">
   <span>作者：<b>MaxSum</b></span><span>·</span>
   <a href="https://space.bilibili.com/399566399" target="_blank" rel="noopener">哔哩哔哩：某不知名行为艺术家</a><span>·</span>
-  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v65</span>
+  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v68</span>
 </footer>
 </body>
 </html>

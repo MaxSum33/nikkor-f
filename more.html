@@ -699,10 +699,46 @@ main{ animation: pgIn .34s cubic-bezier(.22,.61,.36,1) both; }
   <section class="sec" id="tab-lg">
     <div class="logbody">
   <h2>版本记录</h2>
-  <p class="sub">首个版本记为 beta0.01，之后每次迭代 +0.01。（时间为各版本构建时刻，早期版本按会话记录推算）<span class="lastup">最后更新：<b>2026-11-24 21:50:54</b></span></p>
+  <p class="sub">首个版本记为 beta0.01，之后每次迭代 +0.01。（时间为各版本构建时刻，早期版本按会话记录推算）<span class="lastup">最后更新：<b>2026-11-24 22:23:56</b></span></p>
 
   <div class="item">
-    <div class="v"><code>beta0.60</code><span class="tagnew">当前</span><span class="date">2026-11-24 21:50:54</span></div>
+    <div class="v"><code>beta0.63</code><span class="tagnew">当前</span><span class="date">2026-11-24 22:23:56</span></div>
+    <h3>配件页筛选改成左侧边栏</h3>
+    <ul>
+      <li>配件页改为「左侧筛选栏 + 右侧内容」布局，与镜头页、相机页一致</li>
+      <li>侧栏分「机身系列」「配件类型」两组，另有说明与「清空筛选」按钮；系列只作用于配件树，类型只作用于配件清单</li>
+      <li>手机端侧栏默认隐藏，「筛选」按钮从左滑出，带半透明遮罩，点遮罩关闭</li>
+      <li>桌面端隐藏「筛选」按钮，侧栏常驻并随页面滚动吸顶</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.62</code><span class="date">2026-11-24 22:17:02</span></div>
+    <h3>配件页深色按钮、机型跳转高亮、三级边界修正</h3>
+    <ul>
+      <li>配件页补上右下角深色模式切换按钮（以后每个新页面都会自带）</li>
+      <li>三级菜单与配件清单里的「适配机型」改为可点击：跳到相机页 → 平滑滚动到该机身行 → 琥珀色闪烁高亮 → 自动打开它的详情抽屉</li>
+      <li>相机页支持 <code>?model=</code> 深度链接，跳转后自动切回「机身表」标签</li>
+      <li>三级菜单右边距改为 36px（手机 20px），始终收在二级抽屉边缘以内，不再出屏</li>
+      <li>修正此前 deeplink 函数被塞进 bindChips 内部导致不执行的问题</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.61</code><span class="date">2026-11-24 22:06:20</span></div>
+    <h3>配件页手机端对齐、三级更窄、切换动画、设计师动画</h3>
+    <ul>
+      <li>配件页头部补齐搜索框、导出 CSV、重置、筛选四个控件，手机端高度与其余页面一致（168px，导航 39px）</li>
+      <li>手机端点「筛选」才展开系列/类型标签，默认收起，避免占用首屏</li>
+      <li>三级菜单在手机端改为 330px（二级 440px），不再比二级宽</li>
+      <li>三级菜单打开时点击其他配件，会先收起再由右侧重新弹出（190ms）</li>
+      <li>镜头页「设计师」标签补上左右滑动动画：进入时右滑入，切回表格时左滑回</li>
+      <li>约定：以后新增的界面一律附带进入与切换动画</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.60</code><span class="date">2026-11-24 21:50:54</span></div>
     <h3>补出 DC 镜头设计者，并把多位设计师的作品补全</h3>
     <ul>
       <li>105mm f/2D DC 与 135mm f/2D DC 的设计者查明为柳沢正明（柳泽正明 / Yanagisawa Masaaki），他同时也是 AF 85mm f/1.8 的设计者；依据 marcocavina 的 DC 专题（引用柳沢本人原始设计资料）与千夜一夜第 32 夜</li>
@@ -1465,7 +1501,7 @@ render();
 <footer id="site-footer">
   <span>作者：<b>MaxSum</b></span><span>·</span>
   <a href="https://space.bilibili.com/399566399" target="_blank" rel="noopener">哔哩哔哩：某不知名行为艺术家</a><span>·</span>
-  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v65</span>
+  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v68</span>
 </footer>
 </body>
 </html>
