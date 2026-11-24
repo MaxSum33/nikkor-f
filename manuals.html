@@ -638,12 +638,8 @@ main{ animation: pgIn .34s cubic-bezier(.22,.61,.36,1) both; }
 .nav a:active{ transform: scale(.96); }
 #themeBtn:active{ transform: scale(.9); }
 
-/* 顶部栏收起（打开二级菜单时） */
-.top{ transition: transform .3s cubic-bezier(.22,.61,.36,1), box-shadow .3s; will-change: transform; }
-body.drawer-open .top{ transform: translateY(-105%); }
 @media (prefers-reduced-motion: reduce){
   main, .anim-r, .anim-l{ animation: none !important; }
-  .top{ transition: none !important; }
 }
 
 
@@ -815,7 +811,7 @@ render();
 <footer id="site-footer">
   <span>作者：<b>MaxSum</b></span><span>·</span>
   <a href="https://space.bilibili.com/399566399" target="_blank" rel="noopener">哔哩哔哩：某不知名行为艺术家</a><span>·</span>
-  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v54</span>
+  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v55</span>
 </footer>
 </body>
 </html>
