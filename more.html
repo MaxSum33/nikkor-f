@@ -364,7 +364,7 @@ html[data-theme="dark"] .tabs button.on{ background:#e9edf3 !important; color:#1
   transition: right .34s var(--ios-ease), opacity .22s var(--ios-ease), visibility 0s !important;
 }
 html[data-theme="dark"] .drawer{
-  background: rgba(18,22,28,.66) !important;
+  background: rgba(18,22,28,.40) !important;
   border-color: rgba(255,255,255,.10) !important;
   box-shadow: 0 30px 80px rgba(0,0,0,.6) !important;
 }
@@ -698,10 +698,20 @@ main{ animation: pgIn .34s cubic-bezier(.22,.61,.36,1) both; }
   <section class="sec" id="tab-lg">
     <div class="logbody">
   <h2>版本记录</h2>
-  <p class="sub">首个版本记为 beta0.01，之后每次迭代 +0.01。（时间为各版本构建时刻，早期版本按会话记录推算）<span class="lastup">最后更新：<b>2026-11-24 08:58:08</b></span></p>
+  <p class="sub">首个版本记为 beta0.01，之后每次迭代 +0.01。（时间为各版本构建时刻，早期版本按会话记录推算）<span class="lastup">最后更新：<b>2026-11-24 09:05:32</b></span></p>
 
   <div class="item">
-    <div class="v"><code>beta0.51</code><span class="tagnew">当前</span><span class="date">2026-11-24 08:58:08</span></div>
+    <div class="v"><code>beta0.52</code><span class="tagnew">当前</span><span class="date">2026-11-24 09:05:32</span></div>
+    <h3>深色模式二级菜单更透明</h3>
+    <ul>
+      <li>深色下抽屉背景透明度由 0.66 降到 0.40，能透出背后的表格与页面层次</li>
+      <li>背景模糊加强到 40px（配合饱和度），透明度提高后文字依旧清晰</li>
+      <li>浅色模式保持不变</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="v"><code>beta0.51</code><span class="date">2026-11-24 08:58:08</span></div>
     <h3>导航栏去掉收起动画，始终固定</h3>
     <ul>
       <li>移除顶部栏在打开二级菜单时的上移/回弹动画，导航固定在原位不再移动</li>
@@ -1364,7 +1374,7 @@ render();
 <footer id="site-footer">
   <span>作者：<b>MaxSum</b></span><span>·</span>
   <a href="https://space.bilibili.com/399566399" target="_blank" rel="noopener">哔哩哔哩：某不知名行为艺术家</a><span>·</span>
-  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v55</span>
+  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v56</span>
 </footer>
 </body>
 </html>
