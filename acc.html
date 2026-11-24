@@ -1,0 +1,921 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<script>(function(){try{var t=localStorage.getItem("nikkor-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>相机配件 · 尼康 F 卡口资料库</title>
+<meta name="theme-color" content="#111318">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#111318">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Nikkor F">
+
+<style>
+:root{--bg:#f4f5f7;--panel:#fff;--ink:#15171c;--muted:#69707d;--line:#e6e8ec;--accent:#f2c200;--chip:#eef0f3}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+.top{position:sticky;top:0;z-index:30;background:#111318;color:#fff;border-bottom:3px solid var(--accent);padding:12px 22px 10px}
+.toprow{display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding-bottom:8px;min-height:56px}
+.brand h1{font-size:17px;margin:0;font-weight:700;color:#fff}
+.brand p{margin:2px 0 0;font-size:12px;color:#9aa3af}
+.nav{display:flex;gap:2px;flex-wrap:wrap;background:rgba(255,255,255,.10);border-radius:12px;padding:3px;width:fit-content;margin-bottom:8px}
+.nav a{color:#b9c1cc;text-decoration:none;font-size:13px;padding:7px 14px;border-radius:9px;white-space:nowrap}
+.nav a:hover{background:rgba(255,255,255,.12);color:#fff}
+.nav a.on{background:var(--accent);color:#111;font-weight:600}
+main{padding:16px 20px 24px}
+.tabs{background:#eceef2;border-radius:12px;padding:3px;width:fit-content;display:inline-flex;gap:2px;margin-bottom:14px}
+.tabs button{border:0;background:transparent;border-radius:9px;padding:7px 14px;font:inherit;font-size:13px;color:#5a626e;cursor:pointer}
+.tabs button.on{background:#fff;color:#111;font-weight:600;box-shadow:0 1px 4px rgba(16,24,40,.12)}
+.sec{display:none}
+.sec.on{display:block}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.chip{background:var(--chip);border:1px solid transparent;border-radius:99px;padding:5px 12px;font-size:12.5px;cursor:pointer;color:#4a515c}
+.chip.on{background:#111;color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+.camcard{display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid rgba(16,24,40,.08);border-radius:14px;padding:10px 12px;cursor:pointer;box-shadow:0 2px 10px rgba(16,24,40,.05)}
+.camcard:hover{border-color:var(--accent)}
+.camcard .ico{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:#f1f3f6}
+.camcard .nm{font-weight:600;font-size:13.5px}
+.camcard .meta{font-size:11.5px;color:var(--muted)}
+.camcard .cnt{margin-left:auto;font-size:11.5px;color:var(--muted);white-space:nowrap}
+.ico-cam{width:22px;height:22px;color:#4a515c}
+.panel{background:var(--panel);border:1px solid rgba(16,24,40,.08);border-radius:20px;box-shadow:0 6px 20px rgba(16,24,40,.06);overflow:auto}
+table{border-collapse:separate;border-spacing:0;width:100%;font-size:12.5px}
+thead th{position:sticky;top:0;background:#fafbfc;text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);font-size:11.5px;color:#555c68;white-space:nowrap}
+tbody td{padding:8px 10px;border-bottom:1px solid #f0f1f3}
+tbody tr{cursor:pointer}
+tbody tr:nth-child(even){background:#fcfcfd}
+tbody tr:hover{background:rgba(242,194,0,.10)}
+.muted{color:var(--muted)}
+.toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+#q{width:240px;max-width:60vw;padding:8px 12px;border-radius:10px;border:1px solid var(--line);background:#fff;font:inherit;font-size:13px}
+.stat{font-size:13px;color:var(--muted);margin:0 0 10px}
+.stat b{font-size:18px;color:var(--ink)}
+.overlay{position:fixed;inset:0;background:rgba(12,14,18,.38);opacity:0;visibility:hidden;transition:opacity .2s;z-index:60}
+.overlay.on{opacity:1;visibility:visible}
+/* 二级抽屉：和镜头/相机一致 */
+.drawer{position:fixed;top:0;bottom:0;margin:auto 0;right:-110vw;width:min(560px,calc(100vw - 72px));height:min(820px,calc(100vh - 96px));background:var(--panel);border-radius:22px;box-shadow:0 30px 80px rgba(0,0,0,.35);z-index:70;display:flex;flex-direction:column;transition:right .3s cubic-bezier(.22,.61,.36,1);border:1px solid rgba(16,24,40,.1)}
+.drawer.on{right:24px}
+.d-head{padding:16px 20px 12px;border-bottom:1px solid var(--line);position:relative}
+.d-head h2{margin:0;font-size:17px}
+.d-head p{margin:3px 0 0;font-size:12px;color:var(--muted)}
+.d-close{position:absolute;right:14px;top:14px;width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:#fff;cursor:pointer;font-size:16px;line-height:1}
+.d-body{flex:1;overflow:auto;padding:12px 20px 24px}
+.d-kv{display:grid;grid-template-columns:86px 1fr;gap:8px 12px;font-size:13px;margin:0 0 14px}
+.d-kv dt{color:var(--muted);font-size:12px}
+.d-kv dd{margin:0}
+.tree-g{margin:0 0 14px}
+.tree-h{display:flex;align-items:center;gap:8px;font-weight:600;font-size:13px;margin:0 0 6px;color:#2b303a}
+.tree-h .n{font-weight:400;color:var(--muted);font-size:11.5px}
+.tree-i{display:flex;gap:8px;align-items:center;padding:7px 8px;border-radius:9px;cursor:pointer;font-size:12.5px}
+.tree-i:hover{background:rgba(242,194,0,.12)}
+.tree-i .fn{color:var(--muted);font-size:11.5px;margin-left:auto;text-align:right;max-width:52%}
+/* 三级菜单：更小、更透、模糊更轻 */
+#drawer3{
+  position:fixed; right:-110vw; bottom:96px; z-index:80;
+  width:min(400px, calc(100vw - 56px)); max-height:min(520px, calc(100vh - 140px));
+  background:rgba(255,255,255,.70); backdrop-filter:blur(14px) saturate(1.2); -webkit-backdrop-filter:blur(14px) saturate(1.2);
+  border-radius:18px; box-shadow:0 18px 50px rgba(0,0,0,.22); border:1px solid rgba(16,24,40,.10);
+  display:flex; flex-direction:column; transition:right .28s cubic-bezier(.22,.61,.36,1);
+}
+#drawer3.on{ right:24px; }
+#drawer3 .d-head{ padding:12px 16px 9px; }
+#drawer3 .d-head h2{ font-size:15px; }
+#drawer3 .d-body{ padding:10px 16px 16px; font-size:12.5px; overflow:auto; }
+#drawer3 .d-kv{ grid-template-columns:70px 1fr; gap:6px 10px; font-size:12px; margin-bottom:10px; }
+.back{border:1px solid var(--line);background:#fff;border-radius:9px;padding:5px 10px;font:inherit;font-size:12px;cursor:pointer;margin-bottom:10px}
+/* 深色 */
+html[data-theme="dark"] body{background:#0d1015;color:#e7eaf0}
+html[data-theme="dark"] .panel{background:#141a21;border-color:#252b35}
+html[data-theme="dark"] .camcard{background:#141a21;border-color:#252b35}
+html[data-theme="dark"] .camcard .ico{background:#20262f}
+html[data-theme="dark"] .ico-cam{color:#a9b3c0}
+html[data-theme="dark"] thead th{background:#1a212a;color:#a9b3c0;border-bottom-color:#252b35}
+html[data-theme="dark"] tbody td{border-bottom-color:#222a34}
+html[data-theme="dark"] tbody tr:nth-child(even){background:#171e26}
+html[data-theme="dark"] tbody tr:hover{background:rgba(242,194,0,.10)}
+html[data-theme="dark"] .chip{background:#20262f;color:#c6cdd8}
+html[data-theme="dark"] .chip.on{background:#e9edf3;color:#111}
+html[data-theme="dark"] .tabs{background:#20262f}
+html[data-theme="dark"] .tabs button{color:#a9b3c0}
+html[data-theme="dark"] .tabs button.on{background:#e9edf3;color:#111}
+html[data-theme="dark"] .drawer{background:#12161c;border-color:#252b35}
+html[data-theme="dark"] .d-head{border-bottom-color:#252b35}
+html[data-theme="dark"] .d-close,html[data-theme="dark"] .back{background:#20262f;color:#e7eaf0;border-color:#2a323d}
+html[data-theme="dark"] #q{background:#1b212a;color:#e7eaf0;border-color:#2a323d}
+html[data-theme="dark"] .tree-i:hover{background:rgba(242,194,0,.14)}
+html[data-theme="dark"] .tree-h{color:#dfe5ee}
+html[data-theme="dark"] .muted,html[data-theme="dark"] .stat{color:#98a2b0}
+/* 二级：玻璃质感（浅色 0.84 / 深色 0.46，模糊 26 / 34） */
+body #drawer{ background:rgba(255,255,255,.84) !important; backdrop-filter:blur(26px) saturate(1.15) !important; -webkit-backdrop-filter:blur(26px) saturate(1.15) !important; }
+html[data-theme="dark"] body #drawer{ background:rgba(18,22,28,.46) !important; backdrop-filter:blur(34px) saturate(1.3) !important; -webkit-backdrop-filter:blur(34px) saturate(1.3) !important; }
+/* 三级：比二级更透、模糊更低（浅色 0.55 / 深色 0.20，模糊 8 / 10） */
+body #drawer3{ background:rgba(255,255,255,.55) !important; backdrop-filter:blur(8px) saturate(1.05) !important; -webkit-backdrop-filter:blur(8px) saturate(1.05) !important; }
+html[data-theme="dark"] body #drawer3{ background:rgba(18,22,28,.20) !important; backdrop-filter:blur(10px) saturate(1.1) !important; -webkit-backdrop-filter:blur(10px) saturate(1.1) !important; border-color:#2a323d; }
+@media (max-width:720px){
+  #q{width:100%;max-width:none}
+  .drawer{width:calc(100vw - 32px);height:calc(100vh - 32px)}
+  .drawer.on{right:16px}
+  #drawer3{width:calc(100vw - 40px);bottom:84px}
+  #drawer3.on{right:16px}
+}
+</style>
+<style id="glass-theme">/* ============================================================
+   Nikon 玻璃主题 v2
+   - 主界面：实底，不透明（可读性优先）
+   - 二级菜单（抽屉）：半透明磨砂，体现层级
+   - 保留尼康黄 / 黑识别色
+   ============================================================ */
+:root{
+  --ios-ease: cubic-bezier(.32,.72,0,1);
+  --ios-spring: cubic-bezier(.22,1.2,.36,1);
+  --nikon-yellow: #f2c200;
+  --nikon-black: #101216;
+  --panel-solid: #ffffff;
+  --panel-soft: #f7f8fa;
+  --hair: rgba(16,24,40,.08);
+}
+
+html:not([data-theme="dark"]) body{
+  background: #f4f5f7 !important;
+}
+html[data-theme="dark"] body{
+  background: #0d1015 !important;
+}
+
+/* ---------- 顶栏：尼康黑 + 黄线，实底 ---------- */
+.top{
+  background: var(--nikon-black) !important;
+  color: #fff !important;
+  border-bottom: 3px solid var(--nikon-yellow) !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,.18);
+  padding: 12px 22px 10px !important;
+}
+html[data-theme="dark"] .top{ background: #0a0c10 !important; }
+.brand h1{ color:#fff !important; letter-spacing:-.2px; }
+.brand p{ color:#9aa3af !important; }
+.brand b{ color: var(--nikon-yellow) !important; }
+
+/* 顶栏里的搜索框 */
+.top #q{
+  background: rgba(255,255,255,.10) !important;
+  border: 1px solid rgba(255,255,255,.16) !important;
+  color: #fff !important;
+  border-radius: 12px !important;
+  padding: 9px 14px !important;
+  transition: background .2s var(--ios-ease), box-shadow .2s var(--ios-ease);
+}
+.top #q::placeholder{ color:#8f98a5 !important; }
+.top #q:focus{
+  background: rgba(255,255,255,.16) !important;
+  box-shadow: 0 0 0 3px rgba(242,194,0,.35);
+  outline: none;
+}
+
+/* ---------- 按钮 ---------- */
+button, .btn{
+  border-radius: 12px !important;
+  border: 1px solid rgba(16,24,40,.10) !important;
+  background: #fff !important;
+  color: #15171c !important;
+  font-weight: 500;
+  padding: 8px 14px !important;
+  box-shadow: 0 1px 2px rgba(16,24,40,.06);
+  transition: transform .16s var(--ios-spring), background .2s var(--ios-ease), box-shadow .2s var(--ios-ease);
+}
+button:hover{ background: #f3f5f8 !important; }
+button:active{ transform: scale(.96); }
+button.primary{
+  background: var(--nikon-yellow) !important;
+  border-color: transparent !important;
+  color: #111 !important;
+  box-shadow: 0 4px 14px rgba(242,194,0,.35);
+}
+/* 顶栏内的按钮：深色 */
+.top button{
+  background: rgba(255,255,255,.10) !important;
+  border-color: rgba(255,255,255,.18) !important;
+  color:#fff !important;
+  box-shadow:none;
+}
+.top button:hover{ background: rgba(255,255,255,.18) !important; }
+.top button.primary{
+  background: var(--nikon-yellow) !important;
+  border-color: transparent !important;
+  color:#111 !important;
+}
+html[data-theme="dark"] button{
+  background:#1b212a !important; color:#e9edf3 !important; border-color: rgba(255,255,255,.10) !important;
+}
+html[data-theme="dark"] button:hover{ background:#232b36 !important; }
+
+/* ---------- 导航：黑底分段控件，活动块黄 ---------- */
+.nav{
+  background: rgba(255,255,255,.10) !important;
+  border-radius: 12px !important;
+  padding: 3px !important;
+  gap: 2px !important;
+  width: fit-content;
+  margin-bottom: 8px;
+}
+.nav a{
+  line-height: 1.5 !important;
+  border-radius: 9px !important;
+  padding: 7px 14px !important;
+  color: #b9c1cc !important;
+  font-weight: 500;
+  transition: background .2s var(--ios-ease), color .2s var(--ios-ease);
+}
+.nav a:hover{ background: rgba(255,255,255,.12) !important; color:#fff !important; }
+.nav a.on{
+  background: var(--nikon-yellow) !important;
+  color: #111 !important;
+  font-weight: 600;
+  box-shadow: 0 1px 4px rgba(0,0,0,.25);
+}
+html[data-theme="dark"] .nav a.on{ background: var(--nikon-yellow) !important; color:#111 !important; }
+
+/* ---------- 侧栏：实底白卡 ---------- */
+#side{
+  background: var(--panel-solid) !important;
+  border: 1px solid var(--hair) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 6px 20px rgba(16,24,40,.06) !important;
+  padding: 18px !important;
+}
+html[data-theme="dark"] #side{
+  background: #141a21 !important;
+  border-color: rgba(255,255,255,.07) !important;
+}
+#side h3{ color:#6b7280 !important; letter-spacing:.06em; }
+html[data-theme="dark"] #side h3{ color:#8b95a3 !important; }
+
+/* ---------- chip ---------- */
+.chip{
+  border-radius: 999px !important;
+  background: #eef0f4 !important;
+  color:#15171c !important;
+  padding: 6px 12px !important;
+  font-weight: 500;
+  border: 1px solid transparent !important;
+  transition: transform .16s var(--ios-spring), background .2s var(--ios-ease);
+}
+.chip:hover{ background:#e3e7ee !important; }
+.chip:active{ transform: scale(.95); }
+.chip.on{
+  background: var(--nikon-black) !important;
+  color: #fff !important;
+  box-shadow: 0 3px 10px rgba(16,24,40,.22);
+}
+html[data-theme="dark"] .chip{ background:#20262f !important; color:#dfe5ee !important; }
+html[data-theme="dark"] .chip.on{ background: var(--nikon-yellow) !important; color:#111 !important; }
+
+/* ---------- 分段控件 ---------- */
+.seg{
+  background:#eef0f4 !important;
+  border-radius: 11px !important;
+  padding: 3px !important;
+  gap: 2px !important;
+}
+.seg button{
+  border:none !important;
+  background: transparent !important;
+  box-shadow:none !important;
+  border-radius: 8px !important;
+  padding: 6px 10px !important;
+  color:#4a515c !important;
+}
+.seg button.on{
+  background:#fff !important;
+  color:#111 !important;
+  box-shadow: 0 1px 3px rgba(16,24,40,.14) !important;
+}
+html[data-theme="dark"] .seg{ background:#20262f !important; }
+html[data-theme="dark"] .seg button{ color:#a9b3c0 !important; }
+html[data-theme="dark"] .seg button.on{ background:#e9edf3 !important; color:#111 !important; }
+
+/* ---------- 表格：实底 ---------- */
+.wrap, .tablewrap{
+  background: var(--panel-solid) !important;
+  border: 1px solid var(--hair) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 6px 20px rgba(16,24,40,.06) !important;
+}
+html[data-theme="dark"] .wrap, html[data-theme="dark"] .tablewrap{
+  background:#141a21 !important; border-color: rgba(255,255,255,.07) !important;
+}
+thead th{ background:#fafbfc !important; }
+html[data-theme="dark"] thead th{ background:#1a212a !important; }
+tbody tr{ transition: background .16s var(--ios-ease); }
+tbody tr:hover{ background: rgba(242,194,0,.10) !important; }
+tbody td{ border-bottom: 1px solid rgba(16,24,40,.045) !important; }
+html[data-theme="dark"] tbody td{ border-bottom-color: rgba(255,255,255,.06) !important; }
+
+/* ---------- 相机页标签 ---------- */
+.tabs{
+  background:#eceef2 !important;
+  border-radius: 12px !important;
+  padding: 3px !important;
+  width: fit-content;
+  gap: 2px !important;
+}
+.tabs button{
+  border:none !important;
+  background: transparent !important;
+  box-shadow:none !important;
+  border-radius: 9px !important;
+  padding: 7px 14px !important;
+  color:#5a626e !important;
+}
+.tabs button.on{
+  background:#fff !important;
+  color:#111 !important;
+  box-shadow: 0 1px 4px rgba(16,24,40,.12) !important;
+}
+html[data-theme="dark"] .tabs{ background:#20262f !important; }
+html[data-theme="dark"] .tabs button{ color:#a9b3c0 !important; }
+html[data-theme="dark"] .tabs button.on{ background:#e9edf3 !important; color:#111 !important; }
+
+/* ---------- 二级菜单：居中悬浮的磨砂面板 ---------- */
+.drawer{
+  position: fixed !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  margin: auto 0 !important;
+  right: calc(-1 * (min(560px, calc(100vw - 72px)) + 60px)) !important;
+  height: min(880px, calc(100vh - 96px)) !important;
+  width: min(560px, calc(100vw - 72px)) !important;
+  border-radius: 22px !important;
+  border: 1px solid rgba(255,255,255,.55) !important;
+  background: rgba(255,255,255,.62) !important;
+  -webkit-backdrop-filter: saturate(190%) blur(34px);
+  backdrop-filter: saturate(190%) blur(34px);
+  box-shadow: 0 30px 80px rgba(16,24,40,.26), 0 2px 8px rgba(16,24,40,.10) !important;
+  transition: right .34s var(--ios-ease), opacity .22s var(--ios-ease), visibility .34s step-end !important;
+  opacity: 0;
+  visibility: hidden;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.drawer.on{
+  right: 28px !important;
+  opacity: 1;
+  visibility: visible;
+  transition: right .34s var(--ios-ease), opacity .22s var(--ios-ease), visibility 0s !important;
+}
+html[data-theme="dark"] .drawer{
+  background: rgba(18,22,28,.40) !important;
+  border-color: rgba(255,255,255,.10) !important;
+  box-shadow: 0 30px 80px rgba(0,0,0,.6) !important;
+}
+.d-head{
+  background: transparent !important;
+  border-bottom: 1px solid rgba(16,24,40,.06) !important;
+  border-radius: 22px 22px 0 0 !important;
+}
+html[data-theme="dark"] .d-head{ border-bottom-color: rgba(255,255,255,.08) !important; }
+.d-head h2{ color: var(--ink) !important; letter-spacing:-.3px; }
+.d-head p{ color: var(--muted) !important; }
+.d-body{ border-radius: 0 0 22px 22px !important; }
+
+/* 关闭按钮：严格居中 */
+#m-close, .d-close{
+  width:32px !important; height:32px !important; padding:0 !important;
+  display:inline-flex !important; align-items:center !important; justify-content:center !important;
+  border-radius:50% !important; line-height:0 !important;
+  background: rgba(120,120,128,.16) !important; border:none !important; color: var(--ink) !important;
+}
+#m-close svg, .d-close svg{ display:block; margin:auto; }
+#m-close:hover, .d-close:hover{ background: rgba(120,120,128,.26) !important; }
+
+/* ---------- 深浅色切换按钮 ---------- */
+#themeBtn{
+  width:42px !important; height:42px !important; padding:0 !important;
+  border-radius:50% !important;
+  display:flex !important; align-items:center !important; justify-content:center !important;
+  background:#fff !important; color:#111 !important;
+  border:1px solid rgba(16,24,40,.12) !important;
+  box-shadow: 0 6px 18px rgba(16,24,40,.16) !important;
+  transition: transform .18s var(--ios-spring), background .2s var(--ios-ease);
+}
+#themeBtn svg{ display:block; }
+#themeBtn .ico-sun{ display:none; }
+html[data-theme="dark"] #themeBtn{ background:#1b212a !important; color:#e9edf3 !important; border-color: rgba(255,255,255,.14) !important; }
+html[data-theme="dark"] #themeBtn .ico-moon{ display:none; }
+html[data-theme="dark"] #themeBtn .ico-sun{ display:block; }
+#themeBtn:active{ transform: scale(.9); }
+
+/* ---------- 时间线 / 页脚 ---------- */
+.g-head{ background:#fafbfc !important; }
+html[data-theme="dark"] .g-head{ background:#1a212a !important; }
+.g-lab{ background:#fff !important; }
+html[data-theme="dark"] .g-lab{ background:#141a21 !important; }
+.g-bar{ border-radius:6px !important; }
+.g-row:hover{ background: rgba(242,194,0,.10) !important; }
+
+#site-footer{ border-top:1px solid rgba(16,24,40,.07) !important; }
+html[data-theme="dark"] #site-footer{ border-top-color: rgba(255,255,255,.08) !important; }
+
+/* ---------- 部分兼容行（深色下不再刺眼） ---------- */
+html[data-theme="dark"] tr.partial,
+html[data-theme="dark"] .partial{ background: rgba(242,194,0,.10) !important; }
+html[data-theme="dark"] tr.partial:hover,
+html[data-theme="dark"] .partial:hover{ background: rgba(242,194,0,.16) !important; }
+html[data-theme="dark"] tr.partial td{ border-bottom-color: rgba(242,194,0,.14) !important; }
+
+/* ---------- 动效 ---------- */
+@keyframes iosIn{ from{ opacity:0; transform: translateY(6px);} to{ opacity:1; transform:none;} }
+.tablewrap, #side{ animation: iosIn .28s var(--ios-ease) both; }
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:.01ms !important; transition-duration:.01ms !important; }
+}
+
+/* ---------- 移动端 ---------- */
+@media (max-width: 640px){
+  .top{ padding: 10px 14px 8px !important; }
+  .tools{ flex-wrap: wrap; gap: 6px; width: 100%; }
+  #q{ flex: 1 1 100%; width: 100% !important; max-width: none !important; }
+  .nav{ width: fit-content !important; max-width: 100%; flex-wrap: wrap; row-gap: 4px; align-items: center; }
+  .nav a{ padding: 6px 10px !important; font-size: 12.5px !important; }
+  #side{ border-radius: 16px !important; }
+  .tablewrap{ border-radius: 16px !important; }
+  .drawer{
+    top: 12px !important; bottom: 12px !important; margin: 0 !important;
+    right: -110vw !important; left: auto !important;
+    height: auto !important; max-height: none !important;
+    width: calc(100vw - 64px) !important;
+    border-radius: 20px !important;
+  }
+  .drawer.on{ right: 12px !important; }
+  .d-head{ border-radius: 20px 20px 0 0 !important; }
+  .d-body{ border-radius: 0 0 20px 20px !important; }
+  #themeBtn{ right: 12px; bottom: 12px; }
+  .kv{ grid-template-columns: 84px minmax(0,1fr) !important; gap:6px 10px !important; font-size:12.5px !important; }
+  .d-body{ padding: 12px 14px 22px !important; }
+  .d-head{ padding: 12px 16px !important; }
+}
+
+/* ---------- 统一分段标签（相机页 / 说明书页） ---------- */
+.tabs{
+  background: #e9ebef !important;
+  border: 1px solid rgba(16,24,40,.06) !important;
+  border-radius: 12px !important;
+  padding: 3px !important;
+  width: fit-content;
+  gap: 2px !important;
+  display: inline-flex;
+  align-items: center;
+}
+.tabs button{
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 9px !important;
+  padding: 7px 14px !important;
+  color: #5a626e !important;
+  font-size: 13px !important;
+}
+.tabs button.on{
+  background: #fff !important;
+  color: #111 !important;
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(16,24,40,.14) !important;
+}
+html[data-theme="dark"] .tabs{ background:#20262f !important; border-color: rgba(255,255,255,.08) !important; }
+html[data-theme="dark"] .tabs button{ color:#a9b3c0 !important; }
+html[data-theme="dark"] .tabs button.on{ background:#e9edf3 !important; color:#111 !important; }
+
+/* ---------- 抽屉内表格：半透明分层 ---------- */
+.drawer table,
+.drawer .acctab{
+  background: transparent !important;
+}
+.drawer thead th,
+.drawer .acctab th{
+  background: rgba(120,120,128,.08) !important;
+  color: #5a626e !important;
+  border-bottom: 1px solid rgba(16,24,40,.06) !important;
+  font-weight: 600;
+}
+.drawer tbody tr,
+.drawer .acctab tr{
+  background: transparent !important;
+}
+.drawer tbody tr:nth-child(even),
+.drawer .acctab tr:nth-child(even){
+  background: rgba(255,255,255,.16) !important;
+}
+.drawer tbody tr:hover,
+.drawer .acctab tr:hover{
+  background: rgba(242,194,0,.12) !important;
+}
+.drawer tbody td,
+.drawer .acctab td{
+  border-bottom: 1px solid rgba(16,24,40,.05) !important;
+}
+/* 抽屉内的标签也降低对比 */
+.drawer .tag,
+
+html[data-theme="dark"] .drawer thead th,
+html[data-theme="dark"] .drawer .acctab th{
+  background: rgba(255,255,255,.06) !important;
+  color: #a9b3c0 !important;
+  border-bottom-color: rgba(255,255,255,.07) !important;
+}
+html[data-theme="dark"] .drawer tbody tr:nth-child(even),
+html[data-theme="dark"] .drawer .acctab tr:nth-child(even){
+  background: rgba(255,255,255,.025) !important;
+}
+html[data-theme="dark"] .drawer tbody tr:hover,
+html[data-theme="dark"] .drawer .acctab tr:hover{
+  background: rgba(242,194,0,.10) !important;
+}
+html[data-theme="dark"] .drawer tbody td,
+html[data-theme="dark"] .drawer .acctab td{
+  border-bottom-color: rgba(255,255,255,.06) !important;
+}
+html[data-theme="dark"] .drawer .tag{
+  background: rgba(255,255,255,.08) !important;
+  color: #c6cdd8 !important;
+}
+
+/* 抽屉统一尺寸（镜头 / 副厂 / 相机 完全一致） */
+#drawer, .drawer{
+  top: 0 !important;
+  bottom: 0 !important;
+  margin: auto 0 !important;
+  height: min(820px, calc(100vh - 96px)) !important;
+  max-height: none !important;
+  min-height: 0 !important;
+  width: min(560px, calc(100vw - 72px)) !important;
+  max-width: none !important;
+  border-radius: 22px !important;
+}
+@media (max-width: 640px){
+  #drawer, .drawer{
+    top: 12px !important; bottom: 12px !important; margin: 0 !important;
+    height: auto !important;
+    width: calc(100vw - 64px) !important;
+    border-radius: 20px !important;
+  }
+}
+
+/* ---------- 抽屉打开时锁定背景滚动 ---------- */
+.ov2.on, .overlay.on{ touch-action: none; }
+.d-body, .drawer{ overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+@media (max-width: 640px){
+  body.drawer-open{ position: static; width: auto; }
+}
+
+/* ---------- 深色时间线 ---------- */
+html[data-theme="dark"] .g-head{ background:#1a212a !important; border-bottom-color:#252b35 !important; }
+html[data-theme="dark"] .g-head .g-lab{ background:#1a212a !important; border-right-color:#252b35 !important; color:#a9b3c0 !important; }
+html[data-theme="dark"] .g-stitle{ background:#1a212a !important; color:#c6cdd8 !important;
+  border-color:#252b35 !important; }
+html[data-theme="dark"] .g-row{ background:#141a21 !important; border-bottom-color:#222a34 !important; }
+html[data-theme="dark"] .g-row:nth-child(even){ background:#171e26 !important; }
+html[data-theme="dark"] .g-row:hover{ background: rgba(242,194,0,.10) !important; }
+html[data-theme="dark"] .g-row .g-lab{ background:inherit !important; border-right-color:#252b35 !important; color:#dfe5ee !important; }
+html[data-theme="dark"] .g-track{ background:inherit !important; }
+html[data-theme="dark"] .g-years i{ background:#2a323d !important; }
+html[data-theme="dark"] .g-years span{ color:#8b95a3 !important; }
+html[data-theme="dark"] .gantt{ background:transparent !important; }
+
+/* 更多页内的搜索框（不是顶栏那个） */
+.msrch{
+  background:#fff !important; color:#15171c !important;
+  border:1px solid #e6e8ec !important; border-radius:10px !important;
+  padding:8px 12px !important; font:inherit; font-size:13px;
+}
+.msrch:focus{ box-shadow:0 0 0 3px rgba(242,194,0,.30) !important; outline:none; border-color:#f2c200 !important; }
+html[data-theme="dark"] .msrch{ background:#1b212a !important; color:#e9edf3 !important; border-color:#2a323d !important; }
+
+/* 主题切换按钮：固定右下角（所有页面统一） */
+#themeBtn{
+  position: fixed !important;
+  right: 18px !important;
+  bottom: 18px !important;
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 50% !important;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 !important;
+  border: 1px solid #cfd4db;
+  background: #fff; color: #111;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,.18);
+  z-index: 80 !important;
+}
+html[data-theme="dark"] #themeBtn{ background:#1e232b !important; color:#f2c200 !important; border-color:#3a414d !important; }
+#themeBtn svg{ display:block; }
+
+/* ---------- iOS 风格动效 ---------- */
+@keyframes pgIn{ from{opacity:0; transform:translateX(18px)} to{opacity:1; transform:none} }
+@keyframes slideFromRight{ from{opacity:0; transform:translateX(26px)} to{opacity:1; transform:none} }
+@keyframes slideFromLeft{ from{opacity:0; transform:translateX(-26px)} to{opacity:1; transform:none} }
+main{ animation: pgIn .34s cubic-bezier(.22,.61,.36,1) both; }
+.anim-r{ animation: slideFromRight .28s cubic-bezier(.22,.61,.36,1) both; }
+.anim-l{ animation: slideFromLeft .28s cubic-bezier(.22,.61,.36,1) both; }
+
+/* 按钮 / 标签按压反馈 */
+.tabs button, .nav a, .chip, .seg button, .tools button, #themeBtn{
+  transition: transform .16s cubic-bezier(.22,.61,.36,1), background .16s, color .16s, box-shadow .16s;
+}
+.tabs button:active, .chip:active, .seg button:active, .tools button:active{ transform: scale(.94); }
+.nav a:active{ transform: scale(.96); }
+#themeBtn:active{ transform: scale(.9); }
+
+@media (prefers-reduced-motion: reduce){
+  main, .anim-r, .anim-l{ animation: none !important; }
+}
+
+
+/* 统一移动端头部：同一高度、字体、无省略号 */
+@media (max-width: 640px){
+  html, body{ overflow-x: clip !important; max-width: 100%; }
+  .top{ padding: 10px 14px 8px !important; }
+  .toprow{ display: flex; flex-direction: column; align-items: stretch; gap: 8px; }
+  .brand h1{ font-size: 17px !important; font-weight: 700 !important; line-height: 1.3 !important; }
+  .brand p{ font-size: 12px !important; line-height: 1.3 !important; margin: 2px 0 0 !important;
+            white-space: normal !important; overflow: visible !important; text-overflow: clip !important; }
+  .tools{
+    display: flex !important; flex-wrap: nowrap !important; align-items: center;
+    gap: 6px; height: 44px; min-height: 44px; overflow-x: auto; overflow-y: hidden;
+    scrollbar-width: none; -ms-overflow-style: none;
+  }
+  .tools::-webkit-scrollbar{ display: none; }
+  .tools input{ flex: 1 1 auto; min-width: 110px; height: 36px; }
+  .tools button{ flex: 0 0 auto; height: 36px; }
+  .tools-blank{ height: 44px; min-height: 44px; }
+  .nav{ height: 39px !important; width: fit-content !important; max-width: 100%;
+        flex-wrap: wrap; row-gap: 4px; align-items: center; }
+  .nav a{ display: inline-flex; align-items: center; height: 33px; line-height: 1 !important;
+          padding: 0 12px !important; font-size: 12.5px !important; }
+}
+</style></head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ico-mf" viewBox="0 0 24 24">
+    <rect x="2.5" y="6.5" width="19" height="12.5" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <circle cx="12" cy="12.8" r="3.6" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <rect x="8.5" y="3.8" width="7" height="2.7" rx="1" fill="currentColor" opacity=".55"/>
+    <path d="M20 4.6l2.1 2.2-2.1 1.6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="ico-af" viewBox="0 0 24 24">
+    <rect x="2.5" y="6.5" width="19" height="12.5" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <circle cx="12" cy="12.8" r="3.6" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <rect x="8.5" y="3.8" width="7" height="2.7" rx="1" fill="currentColor" opacity=".55"/>
+    <path d="M18.4 9.2v1.6M20 10h-3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+    <path d="M20 4.6l2.1 2.2-2.1 1.6" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity=".7"/>
+  </symbol>
+  <symbol id="ico-dslr" viewBox="0 0 24 24">
+    <rect x="2.5" y="6.5" width="19" height="12.5" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <circle cx="12" cy="12.8" r="3.6" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <rect x="8.5" y="3.8" width="7" height="2.7" rx="1" fill="currentColor" opacity=".55"/>
+    <rect x="16.4" y="8.4" width="3.8" height="2.8" rx=".7" fill="currentColor" opacity=".45"/>
+  </symbol>
+</svg>
+
+<header class="top">
+  <div class="toprow">
+    <div class="brand">
+      <h1>相机配件</h1>
+      <p>按机身查配件树 · 按种类查配件</p>
+    </div>
+  </div>
+  <nav class="nav">
+    <a href="./index.html">镜头</a>
+    <a href="./cameras.html">相机</a>
+    <a href="./acc.html" class="on">配件</a>
+    <a href="./manuals.html">说明书</a>
+    <a href="./more.html">更多</a>
+  </nav>
+</header>
+
+<main>
+  <div class="tabs">
+    <button data-tab="tree" class="on">相机配件树</button>
+    <button data-tab="parts">配件清单</button>
+  </div>
+
+  <section class="sec on" id="tab-tree">
+    <div class="chips" id="f-series"></div>
+    <div class="stat">共 <b id="camN">0</b> 个机身 · 点击机身弹出配件树</div>
+    <div class="grid" id="camlist"></div>
+  </section>
+
+  <section class="sec" id="tab-parts">
+    <div class="toolbar">
+      <input id="q" type="search" placeholder="搜索配件名称 / 机型" autocomplete="off">
+    </div>
+    <div class="chips" id="f-type"></div>
+    <div class="stat">共 <b id="partN">0</b> 种配件 · 点击查看功能与适配机型</div>
+    <div class="panel"><table><thead><tr><th>配件</th><th>类型</th><th>适配机型</th></tr></thead><tbody id="ptbody"></tbody></table></div>
+  </section>
+</main>
+
+<div class="overlay" id="ov"></div>
+
+<!-- 二级：机身配件树 -->
+<aside class="drawer" id="drawer" aria-label="配件树">
+  <div class="d-head">
+    <h2 id="d-title"></h2>
+    <p id="d-sub"></p>
+    <button class="d-close" id="d-close" aria-label="关闭">✕</button>
+  </div>
+  <div class="d-body" id="d-body"></div>
+</aside>
+
+<!-- 三级：配件详情 -->
+<aside id="drawer3" aria-label="配件详情">
+  <div class="d-head">
+    <h2 id="d3-title"></h2>
+    <p id="d3-sub"></p>
+    <button class="d-close" id="d3-close" aria-label="关闭">✕</button>
+  </div>
+  <div class="d-body" id="d3-body"></div>
+</aside>
+
+<script>
+const DATA = {"bodies":[{"model":"Nikon F","series":"专业F系","start":"1959"},{"model":"Nikon F2","series":"专业F系","start":"1971"},{"model":"Nikon F2H","series":"专业F系","start":"1978"},{"model":"Nikon F3","series":"专业F系","start":"1980"},{"model":"Nikon F4","series":"专业F系","start":"1988"},{"model":"Nikon F3H","series":"专业F系","start":"1996"},{"model":"Nikon F5","series":"专业F系","start":"1996"},{"model":"Nikon F6","series":"专业F系","start":"2004"},{"model":"Nikkormat FT","series":"尼柯玛特","start":"1965"},{"model":"Nikkormat FTn","series":"尼柯玛特","start":"1967"},{"model":"Nikkormat EL","series":"尼柯玛特","start":"1972"},{"model":"Nikkormat FT2","series":"尼柯玛特","start":"1975"},{"model":"Nikkormat ELW","series":"尼柯玛特","start":"1976"},{"model":"Nikkormat FT3","series":"尼柯玛特","start":"1977"},{"model":"Nikomat EL2","series":"尼柯玛特","start":"1977"},{"model":"Nikon FM","series":"手动紧凑","start":"1977"},{"model":"Nikon FE","series":"手动紧凑","start":"1978"},{"model":"Nikon EM","series":"手动紧凑","start":"1979"},{"model":"Nikon FG","series":"手动紧凑","start":"1982"},{"model":"Nikon FM2","series":"手动紧凑","start":"1982"},{"model":"Nikon FA","series":"手动紧凑","start":"1983"},{"model":"Nikon FE2","series":"手动紧凑","start":"1983"},{"model":"Nikon FG20","series":"手动紧凑","start":"1984"},{"model":"Nikon FM10","series":"手动紧凑","start":"1995"},{"model":"Nikon FE10","series":"手动紧凑","start":"1996"},{"model":"Nikon FM3A","series":"手动紧凑","start":"2001"},{"model":"Nikon F-301","series":"自动胶片","start":"1985"},{"model":"Nikon F-501","series":"自动胶片","start":"1986"},{"model":"Nikon F-401","series":"自动胶片","start":"1987"},{"model":"Nikon F-801","series":"自动胶片","start":"1988"},{"model":"Nikon F-601","series":"自动胶片","start":"1990"},{"model":"Nikon F90","series":"自动胶片","start":"1992"},{"model":"Nikon F50","series":"自动胶片","start":"1994"},{"model":"Nikon F70","series":"自动胶片","start":"1994"},{"model":"Nikon F90X","series":"自动胶片","start":"1994"},{"model":"Nikon F60","series":"自动胶片","start":"1998"},{"model":"Nikon F100","series":"自动胶片","start":"1999"},{"model":"Nikon F80","series":"自动胶片","start":"2000"},{"model":"Nikon F65","series":"自动胶片","start":"2001"},{"model":"Nikon F55","series":"自动胶片","start":"2002"},{"model":"Nikon F75","series":"自动胶片","start":"2003"},{"model":"Nikon D1","series":"数码DX","start":"1999"},{"model":"Nikon D1H","series":"数码DX","start":"2001"},{"model":"Nikon D1X","series":"数码DX","start":"2001"},{"model":"Nikon D100","series":"数码DX","start":"2002"},{"model":"Nikon D2H","series":"数码DX","start":"2003"},{"model":"Nikon D2X","series":"数码DX","start":"2004"},{"model":"Nikon D70","series":"数码DX","start":"2004"},{"model":"Nikon D200","series":"数码DX","start":"2005"},{"model":"Nikon D2Hs","series":"数码DX","start":"2005"},{"model":"Nikon D50","series":"数码DX","start":"2005"},{"model":"Nikon D70s","series":"数码DX","start":"2005"},{"model":"Nikon D2Xs","series":"数码DX","start":"2006"},{"model":"Nikon D40","series":"数码DX","start":"2006"},{"model":"Nikon D80","series":"数码DX","start":"2006"},{"model":"Nikon D300","series":"数码DX","start":"2007"},{"model":"Nikon D40X","series":"数码DX","start":"2007"},{"model":"Nikon D60","series":"数码DX","start":"2008"},{"model":"Nikon D90","series":"数码DX","start":"2008"},{"model":"Nikon D3000","series":"数码DX","start":"2009"},{"model":"Nikon D300S","series":"数码DX","start":"2009"},{"model":"Nikon D5000","series":"数码DX","start":"2009"},{"model":"Nikon D3100","series":"数码DX","start":"2010"},{"model":"Nikon D7000","series":"数码DX","start":"2010"},{"model":"Nikon D5100","series":"数码DX","start":"2011"},{"model":"Nikon D3200","series":"数码DX","start":"2012"},{"model":"Nikon D5200","series":"数码DX","start":"2012"},{"model":"Nikon D5300","series":"数码DX","start":"2013"},{"model":"Nikon D7100","series":"数码DX","start":"2013"},{"model":"Nikon D3300","series":"数码DX","start":"2014"},{"model":"Nikon D5500","series":"数码DX","start":"2015"},{"model":"Nikon D7200","series":"数码DX","start":"2015"},{"model":"Nikon D3400","series":"数码DX","start":"2016"},{"model":"Nikon D500","series":"数码DX","start":"2016"},{"model":"Nikon D5600","series":"数码DX","start":"2016"},{"model":"Nikon D7500","series":"数码DX","start":"2017"},{"model":"Nikon D3500","series":"数码DX","start":"2018"},{"model":"Nikon D3","series":"数码FX","start":"2007"},{"model":"Nikon D3X","series":"数码FX","start":"2008"},{"model":"Nikon D700","series":"数码FX","start":"2008"},{"model":"Nikon D3S","series":"数码FX","start":"2009"},{"model":"Nikon D4","series":"数码FX","start":"2012"},{"model":"Nikon D600","series":"数码FX","start":"2012"},{"model":"Nikon D800","series":"数码FX","start":"2012"},{"model":"Nikon D610","series":"数码FX","start":"2013"},{"model":"Nikon Df","series":"数码FX","start":"2013"},{"model":"Nikon D4S","series":"数码FX","start":"2014"},{"model":"Nikon D750","series":"数码FX","start":"2014"},{"model":"Nikon D810","series":"数码FX","start":"2014"},{"model":"Nikon D5","series":"数码FX","start":"2016"},{"model":"Nikon D850","series":"数码FX","start":"2017"},{"model":"Nikon D6","series":"数码FX","start":"2020"},{"model":"Nikon D780","series":"数码FX","start":"2020"},{"model":"DCS-100","series":"副厂机身","start":"1991"},{"model":"DCS-200","series":"副厂机身","start":"1992"},{"model":"DCS-410","series":"副厂机身","start":"1996"},{"model":"DCS-420","series":"副厂机身","start":"1994"},{"model":"DCS-460","series":"副厂机身","start":"1995"},{"model":"DCS-315","series":"副厂机身","start":"1998"},{"model":"DCS-330","series":"副厂机身","start":"1999"},{"model":"DCS-620","series":"副厂机身","start":"1999"},{"model":"DCS-620X","series":"副厂机身","start":"2000"},{"model":"DCS-660","series":"副厂机身","start":"1999"},{"model":"DCS-720x","series":"副厂机身","start":"2001"},{"model":"DCS-760","series":"副厂机身","start":"2001"},{"model":"DCS Pro 14n","series":"副厂机身","start":"2002"},{"model":"DCS Pro 14nx","series":"副厂机身","start":"2004"},{"model":"DCS Pro SLR/n","series":"副厂机身","start":"2004"},{"model":"NC2000e","series":"副厂机身","start":"1996"},{"model":"FinePix S1 Pro","series":"副厂机身","start":"2000"},{"model":"FinePix S2 Pro","series":"副厂机身","start":"2002"},{"model":"FinePix S3 Pro","series":"副厂机身","start":"2004"},{"model":"FinePix S3 Pro UVIR","series":"副厂机身","start":"2006"},{"model":"FinePix S5 Pro","series":"副厂机身","start":"2006"},{"model":"FinePix IS Pro","series":"副厂机身","start":"2007"},{"model":"Nikonos I","series":"Nikonos","start":"1963"},{"model":"Nikonos II","series":"Nikonos","start":"1968"},{"model":"Nikonos III","series":"Nikonos","start":"1975"},{"model":"Nikonos IV-A","series":"Nikonos","start":"1980"},{"model":"Nikonos V","series":"Nikonos","start":"1984"},{"model":"Nikonos RS","series":"Nikonos","start":"1992"},{"model":"Nikon Pronea 6i","series":"IX 系统","start":"1996"},{"model":"Nikon Pronea S","series":"IX 系统","start":"1997"}],"accs":{"Nikon F":[{"name":"F36 马达驱动装置","type":"手柄/马达","note":"尼康 F 专用外接马达驱动（1959 年系统配件），需配专用电池包供电"},{"name":"F250 马达驱动装置","type":"手柄/马达","note":"250 张大容量连拍系统用马达，配合 250 张胶片后背使用"},{"name":"Photomic FTn 测光取景器","type":"取景器","note":"1968 年 F 末期 TTL 测光顶，取景器内可读快门速度"},{"name":"Photomic T 测光取景器","type":"取景器","note":"1965 年推出，尼康 F 首个 TTL 测光取景器（Tn 为其改良型）"},{"name":"腰平取景器（Waist-Level Finder）","type":"取景器","note":"F 可换取景器之一，俯视取景与低角度拍摄用"},{"name":"眼平棱镜取景器（Eye-Level Prism）","type":"取景器","note":"F 最初标配的无测光棱镜取景器"},{"name":"DF-1 鱼眼取景器","type":"取景器","note":"用于 6mm f/5.6 与 10mm f/5.6 等非反光式鱼眼镜头取景，套在 F 的倒片旋钮上"},{"name":"AS-1 闪光灯耦合器","type":"闪光灯","note":"为 F（及 F2）加装 ISO 型热靴以使用尼康专用闪光灯"},{"name":"CF-6 快速皮套","type":"皮套","note":"半软皮套，可容纳任意尼康或尼柯玛特机身加装长焦镜头"},{"name":"AE-1 马达驱动释放适配器","type":"遥控","note":"用于 F36 马达驱动的电气式远程释放"},{"name":"标准电池包（Cord Pack）","type":"电源","note":"8 节 C 型电池，带快门按钮"},{"name":"MA-1 AC/DC 转换器","type":"电源","note":"马达外接交直流供电"},{"name":"Photomic 测光取景器","type":"取景器","note":"1962 年首个 CdS 外测光顶"},{"name":"Photomic Tn 测光取景器","type":"取景器","note":"T 的改良型，1967 年推出"},{"name":"SB-1 手柄式闪光灯","type":"闪光灯","note":"F 时代手柄闪光灯"},{"name":"CS-F1 软皮套","type":"皮套","note":"牛革软套，F 加 50mm"},{"name":"对焦屏 A 型","type":"对焦屏","note":"中央裂像+12mm 参考圈，通用对焦；小光圈下裂像易变黑"},{"name":"对焦屏 B 型","type":"对焦屏","note":"磨砂菲涅尔场+5/12mm 参考圈，通用构图；无对焦辅助、四角偏暗"},{"name":"对焦屏 C 型","type":"对焦屏","note":"细磨砂场+5mm 透明点与十字线，显微天文视差对焦；取景偏暗"},{"name":"对焦屏 D 型","type":"对焦屏","note":"全细磨砂场，微距与长焦专用；四角失光、取景最暗"},{"name":"对焦屏 E 型","type":"对焦屏","note":"磨砂场+5/12mm 圈与横竖刻线，建筑与翻拍；无裂像辅助"},{"name":"对焦屏 G1","type":"对焦屏","note":"透明菲涅尔场+12mm 微棱，G1 配鱼眼；景深无法观察"},{"name":"对焦屏 G2","type":"对焦屏","note":"透明菲涅尔场+12mm 微棱，G2 配广角；景深无法观察"},{"name":"对焦屏 G3","type":"对焦屏","note":"透明场+12mm 微棱，G3 配 50/1.2 与 300/2.8；景深难观察"},{"name":"对焦屏 G4","type":"对焦屏","note":"透明场+12mm 微棱，G4 配 300/2.8 长焦；景深无法观察"},{"name":"对焦屏 H1","type":"对焦屏","note":"全屏微棱菲涅尔场，H1 配 200mm 内 f/2.8 镜头；微棱摩尔纹"},{"name":"对焦屏 H2","type":"对焦屏","note":"全屏微棱菲涅尔场，H2 配 200mm 内 f/5.6 镜头；边缘略暗"},{"name":"对焦屏 H3","type":"对焦屏","note":"全屏微棱菲涅尔场，H3 配 200mm 上 f/4 镜头；微棱摩尔纹"},{"name":"对焦屏 H4","type":"对焦屏","note":"全屏微棱菲涅尔场，H4 配 200mm 上 f/5.6 镜头；中心偏暗"},{"name":"对焦屏 J 型","type":"对焦屏","note":"中央微棱对焦斑+12mm 参考圈，通用；暗光微棱闪烁、精度一般"},{"name":"对焦屏 K 型","type":"对焦屏","note":"裂像+1mm 微棱环，通用型对焦屏；小光圈下裂像变黑"},{"name":"对焦屏 L 型","type":"对焦屏","note":"45° 斜向裂像+12mm 圈，适合横线条主体；构图偏中心"},{"name":"对焦屏 M 型","type":"对焦屏","note":"5mm 透明点+双十字与毫米刻度，显微测量；需 6 倍取景器"},{"name":"对焦屏 P 型","type":"对焦屏","note":"K 型加 45° 裂像与横竖刻线，通用构图；裂像暗光变黑"}],"Nikon F2":[{"name":"MD-1 马达驱动","type":"手柄/马达","note":"1971 年 F2 首款马达驱动，需外接电池包"},{"name":"MD-2 马达驱动","type":"手柄/马达","note":"MD-1 改良型，操作与可靠性改进"},{"name":"MD-3 马达驱动","type":"手柄/马达","note":"1974 年推出的简装版，最高连拍约 4 张/秒"},{"name":"DP-1 Photomic 测光取景器","type":"取景器","note":"外测光 CdS 取景器，非 TTL 测光"},{"name":"DP-2 Photomic S 测光取景器","type":"取景器","note":"TTL 全开光圈，双灯显示"},{"name":"DP-3 Photomic SB 测光取景器","type":"取景器","note":"在 DP-2 基础上增加快门速度显示"},{"name":"DP-11 Photomic A 测光取景器","type":"取景器","note":"F2A 用 AI 联动测光顶（1977）"},{"name":"DP-12 Photomic AS 测光取景器","type":"取景器","note":"F2AS 用 AI 联动测光顶，LED 显示"},{"name":"DW-1 腰平取景器","type":"取景器","note":"F2 可换腰平取景器，俯视取景用"},{"name":"MD-100 高速马达驱动","type":"手柄/马达","note":"F2H 用特制，约 14 fps"},{"name":"MB-1 电池包","type":"电池","note":"MD-1/MD-2 用电源包"},{"name":"SB-7E 闪光灯","type":"闪光灯","note":"F2 专用脚，取景器 Ready 灯"},{"name":"对焦屏 A 型","type":"对焦屏","note":"中央裂像+12mm 参考圈，通用对焦；小光圈下裂像易变黑"},{"name":"对焦屏 B 型","type":"对焦屏","note":"磨砂场+12mm 磨砂对焦斑，长焦与通用拍摄；中心无裂像辅助"},{"name":"对焦屏 C 型","type":"对焦屏","note":"细磨砂场+4mm 透明点与十字线，显微天文；取景偏暗"},{"name":"对焦屏 D 型","type":"对焦屏","note":"全细磨砂场，微距与长焦专用；四角失光、取景最暗"},{"name":"对焦屏 E 型","type":"对焦屏","note":"磨砂场+12mm 磨砂点与横竖刻线，建筑翻拍；无裂像辅助"},{"name":"对焦屏 G1","type":"对焦屏","note":"透明菲涅尔场+12mm 微棱，G1 配鱼眼；景深无法观察"},{"name":"对焦屏 G2","type":"对焦屏","note":"透明菲涅尔场+12mm 微棱，G2 配广角；景深无法观察"},{"name":"对焦屏 G3","type":"对焦屏","note":"透明场+12mm 微棱，G3 配 50/1.2 与 300/2.8；景深难观察"},{"name":"对焦屏 G4","type":"对焦屏","note":"透明场+12mm 微棱，G4 配 300/2.8 长焦；景深无法观察"},{"name":"对焦屏 H1","type":"对焦屏","note":"全屏微棱菲涅尔场，H1 配 200mm 内 f/2.8 镜头；微棱摩尔纹"},{"name":"对焦屏 H2","type":"对焦屏","note":"全屏微棱菲涅尔场，H2 配 200mm 内 f/5.6 镜头；边缘略暗"},{"name":"对焦屏 H3","type":"对焦屏","note":"全屏微棱菲涅尔场，H3 配 200mm 上 f/4 镜头；微棱摩尔纹"},{"name":"对焦屏 H4","type":"对焦屏","note":"全屏微棱菲涅尔场，H4 配 200mm 上 f/5.6 镜头；中心偏暗"},{"name":"对焦屏 J 型","type":"对焦屏","note":"中央微棱对焦斑+12mm 参考圈，通用；暗光微棱闪烁、精度一般"},{"name":"对焦屏 K 型","type":"对焦屏","note":"裂像+1mm 微棱环，F2 标准通用屏；小光圈裂像变黑"},{"name":"对焦屏 L 型","type":"对焦屏","note":"45° 斜向裂像+12mm 圈，适合横线条主体；构图偏中心"},{"name":"对焦屏 M 型","type":"对焦屏","note":"5.5mm 透明点+双十字与毫米刻度，显微测量；需 6 倍取景器"},{"name":"对焦屏 P 型","type":"对焦屏","note":"K 型加 45° 裂像与横竖刻线，通用构图；裂像暗光变黑"},{"name":"对焦屏 R 型","type":"对焦屏","note":"裂像棱镜角度更缓，f/3.5-5.6 慢镜头不变黑；精度略低"},{"name":"MF-1 250 张散装胶片后背","type":"后背","note":"250 张大容量后背，1971 年随 F2 推出；需 MD-1/MD-2 马达与 MB-1 电池包，用 2 个 MZ-1 暗盒装约 10m 散装卷，供体育、科研等长时间连拍"},{"name":"MF-2 750 张散装胶片后背","type":"后背","note":"750 张大容量后背，特注品；100 英尺散装卷、双 MZ-2 暗盒、内置马达 1-4 fps、带裁片刀；需 MD-1/MD-2（不可用 MD-3），由 MA-2/MA-4 交直流转换器供电"},{"name":"MF-3 自动停片后背","type":"后背","note":"36 张用；配 MD-2 电动倒片时自动停在片头、留约 2 英寸片头，并有 LED 提示；不能用 MD-1/MD-3"},{"name":"MF-10 数据后背（36 张）","type":"后背","note":"数据记录：内置时钟打印时间、日期，可插手写备忘片一起曝光；属 F2 Data/36 套装，需特制 F2 机身与 MD-1/MD-2、MB-1，4 节 AA 供电"},{"name":"MF-11 数据后背（250 张）","type":"后背","note":"250 张大容量数据后背（MF-10 的 250 张版本），配 MF-1 杂志后背用于 F2 Data/250 套装，需特制机身与马达系统"}],"Nikon F3":[{"name":"MD-4 马达驱动","type":"手柄/马达","note":"F3 系列通用马达，F3P 常与 MD-4 配套使用"},{"name":"DE-2 眼平取景器","type":"取景器","note":"F3 标准配置取景器（0.8 倍）"},{"name":"DW-3 腰平取景器","type":"取景器","note":"说明书列为 F3AF 可选可换取景器"},{"name":"DW-4 6 倍放大取景器","type":"取景器","note":"微距、翻拍与显微摄影的高倍取景"},{"name":"DA-2 运动取景器","type":"取景器","note":"高眼点，戴头盔、护目镜或装防水罩时使用"},{"name":"SB-12 专用闪光灯","type":"闪光灯","note":"F3 TTL 直插式闪光灯，装灯后同步速度自动设为 1/80 秒"},{"name":"SB-16A 闪光灯","type":"闪光灯","note":"F3 专用 TTL 闪光灯，A 型专用底座（无热靴触点）"},{"name":"CF-20 半软皮套","type":"皮套","note":"F3 专用半软皮套"},{"name":"DK-4 橡胶眼罩","type":"取景器","note":"旋入式橡胶眼罩，防杂光并可保护眼镜"},{"name":"MD-4H 高速马达驱动","type":"手柄/马达","note":"F3H 专用，约 13 fps"},{"name":"MN-2 镍镉电池组","type":"电池","note":"MD-4 用充电电池组，低温与高速连拍时使用"},{"name":"DB-2 防寒电池包","type":"电源","note":"装 2 节 5 号，低温供电"},{"name":"DE-3 高眼点取景器","type":"取景器","note":"F3HP 标准配置，眼点约 25mm，戴眼镜可直接取景"},{"name":"DE-5 取景器","type":"取景器","note":"F3P 专用钛色顶取景器，为 F3 系列唯一顶部带 ISO 热靴的取景器"},{"name":"对焦屏 A 型","type":"对焦屏","note":"中央裂像+12mm 参考圈，通用对焦；小光圈下裂像易变黑"},{"name":"对焦屏 B 型","type":"对焦屏","note":"磨砂场+3mm 磨砂对焦斑与 12mm 圈，F3P 标配；无裂像辅助"},{"name":"对焦屏 C 型","type":"对焦屏","note":"细磨砂场+4mm 透明点与十字线，显微天文视差对焦；取景暗"},{"name":"对焦屏 D 型","type":"对焦屏","note":"全细磨砂场，微距与长焦专用；四角失光、取景最暗"},{"name":"对焦屏 E 型","type":"对焦屏","note":"磨砂场+3mm 磨砂点与横竖刻线，建筑翻拍；无裂像辅助"},{"name":"对焦屏 G1","type":"对焦屏","note":"透明菲涅尔场+12mm 微棱，G1 配鱼眼；景深无法观察"},{"name":"对焦屏 G2","type":"对焦屏","note":"透明菲涅尔场+12mm 微棱，G2 配广角；景深无法观察"},{"name":"对焦屏 G3","type":"对焦屏","note":"透明场+12mm 微棱，G3 配 50/1.2 与 300/2.8；景深难观察"},{"name":"对焦屏 G4","type":"对焦屏","note":"透明场+12mm 微棱，G4 配 300/2.8 长焦；景深无法观察"},{"name":"对焦屏 H1","type":"对焦屏","note":"全屏微棱菲涅尔场，H1 配 200mm 内 f/2.8 镜头；微棱摩尔纹"},{"name":"对焦屏 H2","type":"对焦屏","note":"全屏微棱菲涅尔场，H2 配 200mm 内 f/5.6 镜头；边缘略暗"},{"name":"对焦屏 H3","type":"对焦屏","note":"全屏微棱菲涅尔场，H3 配 200mm 上 f/4 镜头；微棱摩尔纹"},{"name":"对焦屏 H4","type":"对焦屏","note":"全屏微棱菲涅尔场，H4 配 200mm 上 f/5.6 镜头；中心偏暗"},{"name":"对焦屏 J 型","type":"对焦屏","note":"中央微棱对焦斑+12mm 参考圈，通用；暗光微棱闪烁、精度一般"},{"name":"对焦屏 K 型","type":"对焦屏","note":"裂像+1mm 微棱环，F3P 用通用屏；小光圈下裂像变黑"},{"name":"对焦屏 L 型","type":"对焦屏","note":"45° 斜向裂像+12mm 圈，适合横线条主体；构图偏中心"},{"name":"对焦屏 M 型","type":"对焦屏","note":"5.5mm 透明点+双十字与毫米刻度，显微测量；需 6 倍取景器"},{"name":"对焦屏 P 型","type":"对焦屏","note":"K 型加 45° 裂像与横竖刻线，通用构图；裂像暗光变黑"},{"name":"对焦屏 R 型","type":"对焦屏","note":"裂像棱镜角度更缓，f/3.5-5.6 慢镜头不变黑；精度略低"},{"name":"对焦屏 T 型","type":"对焦屏","note":"裂像加电视安全框线，供电视播出前构图；仅广播用途"},{"name":"MF-14 数据后背","type":"后背","note":"数据打印：年/月/日、日/时/分或 -2 至 2000 的连续编号；石英钟带闹钟，2 枚 SR44；适用 F3 全系列（F3H 配 MD-4H 时字迹会虚）"},{"name":"MF-18 数据后背","type":"后背","note":"以 MF-14 为基础增加自动停片：配 MD-4 电动倒片时保留片头在暗盒外，其余数据打印功能同 MF-14；2 枚 SR44"},{"name":"MF-17 250 张数据后背套装","type":"后背","note":"含 MF-4 后背与打印组件，可打印年/月/日、时/分/秒及手写备忘；需 S 型对焦屏，配 MD-4 马达使用，附 MC-15 连线"},{"name":"MF-4 250 张散装胶片后背","type":"后背","note":"250 张大容量；双 MZ-1 暗盒装约 10m 散装卷，配 MD-4 马达可连续拍 250 张"},{"name":"MF-6 自动停片后背","type":"后背","note":"自动停片后背，配合 MD-4 连拍使用"},{"name":"MF-6B 自动停片后背","type":"后背","note":"F3P / F3H 的标配后背，产量少、二手稀有"},{"name":"DK-2 橡胶眼罩","type":"取景器","note":"高眼点目镜用橡胶眼罩"},{"name":"CF-6 快速皮套","type":"皮套","note":"可容机身加 AF 200mm f/3.5 IF-ED"},{"name":"DX-1 AF 取景器","type":"取景器","note":"F3AF 标准配置，内置 AF 传感器与对焦指示；换回普通取景器时须取出对焦屏"},{"name":"MK-1 连拍速度转换器","type":"手柄/马达","note":"F3AF 说明书列为专用配件，装于 MD-4 上提高连拍速度"},{"name":"SB-17 闪光灯","type":"闪光灯","note":"F3AF 说明书列为可用闪光灯"},{"name":"CF-24 半软皮套","type":"皮套","note":"可容机身加 AF 80mm f/2.8"},{"name":"对焦屏 U 型","type":"对焦屏","note":"磨砂场+3mm 磨砂点与 12mm 圈，100mm 以上长焦易看；广角失光"}],"Nikon F4":[{"name":"MB-20 电池手柄","type":"手柄/马达","note":"F4 标准配置手柄，内装 4 节 5 号电池，无竖拍快门"},{"name":"MB-21 电池手柄","type":"手柄/马达","note":"换装后即为 F4S，6 节 5 号电池，带竖拍快门，最高约 5.7 张/秒"},{"name":"MB-23 电池手柄","type":"手柄/马达","note":"换装后即为 F4E，可用 MN-20 镍镉电池组"},{"name":"DP-20 多重测光取景器","type":"取景器","note":"F4 标准配置，矩阵、中央重点与点测三种测光"},{"name":"DA-20 运动取景器","type":"取景器","note":"高眼点运动取景器，支持中央重点与点测"},{"name":"DW-21 6 倍放大取景器","type":"取景器","note":"高倍率俯视取景，仅点测"},{"name":"SB-25 闪光灯","type":"闪光灯","note":"F4 时期原厂 TTL 闪光灯"},{"name":"SB-26 闪光灯","type":"闪光灯","note":"F4 时期原厂 TTL 闪光灯，带无线从属"},{"name":"MB-22 外接电源调节器","type":"电源","note":"接外部恒流电源，配 MC-11"},{"name":"MN-20 镍镉电池组","type":"电池","note":"配 MB-23 使用，需 MH-20 充电"},{"name":"DW-20 腰平取景器","type":"取景器","note":"F4 系列腰平取景，仅点测"},{"name":"SB-24 闪光灯","type":"闪光灯","note":"F4 首发搭配的 AF-TTL 灯"},{"name":"CF-42 半软皮套","type":"皮套","note":"F4 配 35-135 变焦用"},{"name":"DK-2 橡胶眼罩","type":"取景器","note":"F4 目镜用，防杂光"},{"name":"对焦屏 B 型","type":"对焦屏","note":"磨砂场+5/12mm 圈与 AF 对焦框，F4 标配；无裂像辅助"},{"name":"对焦屏 U 型","type":"对焦屏","note":"磨砂场+5/12mm 圈与对焦框，>200mm 长焦；广角四角失光"},{"name":"对焦屏 F 型","type":"对焦屏","note":"磨砂场+5/12mm 圈与对焦框，反射镜头及 400mm 长焦；无裂像"},{"name":"对焦屏 C 型","type":"对焦屏","note":"细磨砂场+5mm 透明点与十字线，显微天文；取景偏暗"},{"name":"对焦屏 M 型","type":"对焦屏","note":"5mm 透明点+双十字与刻度，显微测量；测光受限、偏暗"},{"name":"对焦屏 E 型","type":"对焦屏","note":"B 型加横竖刻线，建筑与翻拍；刻线略干扰构图"},{"name":"对焦屏 J 型","type":"对焦屏","note":"中央 5mm 微棱斑+12mm 圈，通用；无对焦框、暗光闪烁"},{"name":"对焦屏 K 型","type":"对焦屏","note":"裂像+1mm 微棱环，手动镜头通用；无对焦框、小光圈黑"},{"name":"对焦屏 P 型","type":"对焦屏","note":"K 型改 45° 裂像并加横竖刻线，构图方便；裂像暗光变黑"},{"name":"对焦屏 G1","type":"对焦屏","note":"透明场+12mm 微棱，G1 配鱼眼；景深无法观察"},{"name":"对焦屏 G2","type":"对焦屏","note":"透明场+12mm 微棱，G2 配广角；景深无法观察"},{"name":"对焦屏 G3","type":"对焦屏","note":"透明场+12mm 微棱，G3 配 50/1.2 与 300/2.8；景深难观察"},{"name":"对焦屏 G4","type":"对焦屏","note":"透明场+12mm 微棱，G4 配 300/2.8 长焦；景深无法观察"},{"name":"MF-22 数据后背","type":"后背","note":"日期/时间打印：年/月/日、月/日/年、日/月/年、日/时/分，打在画面右下角；CR2025 一枚；F4/F4S/F4E 通用"},{"name":"MF-23 多功能后背","type":"后背","note":"数据记录：日期时间、张数、序号、固定数、快门/光圈、曝光补偿，可打印在画面内或片间；含间隔定时、曝光延迟、自动包围、长曝光 1 秒至 999 小时、Freeze Focus、每日闹钟与自动停片；2 枚 SR44；F4 系列通用"},{"name":"MF-24 250 张多功能后背","type":"后背","note":"MF-23 的数据与拍摄控制功能，加 250 张散装胶片能力，可用外接电源；F4 系列通用"}],"Nikon F5":[{"name":"MN-30 镍氢电池组","type":"电池","note":"F5 内置手柄电池仓用充电电池组，替代 8 节 5 号电池"},{"name":"MH-30 镍氢充电器","type":"电源","note":"MN-30 专用充电器"},{"name":"DP-30 多重测光取景器","type":"取景器","note":"钛壳，矩阵/中央/点测"},{"name":"DA-30 运动取景器","type":"取景器","note":"高眼点，矩阵与中央重点"},{"name":"DW-30 腰平取景器","type":"取景器","note":"F5 腰平取景，仅点测"},{"name":"CF-53 半软皮套","type":"皮套","note":"F5 专用半软套"},{"name":"DK-2 橡胶眼罩","type":"取景器","note":"防杂光，F3 等也可用"},{"name":"SB-28 闪光灯","type":"闪光灯","note":"F5 时期原厂 TTL 闪光灯"},{"name":"MC-32 外接电源线","type":"电源","note":"接 12V 外接电源，影棚用"},{"name":"DW-31 6 倍放大取景器","type":"取景器","note":"高倍取景，仅点测"},{"name":"DK-7 目镜适配器","type":"取景器","note":"转接 DR-3/DG-2 至 DP-30"},{"name":"DR-3 直角取景器","type":"取景器","note":"直角取景，需 DK-7"},{"name":"MC-30 遥控线","type":"遥控","note":"带锁定，B 门长曝用"},{"name":"对焦屏 EC-B","type":"对焦屏","note":"细磨砂场+对焦框，F5 标配，AF 与手动通用；无裂像辅助"},{"name":"对焦屏 EC-E","type":"对焦屏","note":"EC-B 加横竖刻线，建筑与多次曝光定位；刻线稍干扰"},{"name":"对焦屏 A 型","type":"对焦屏","note":"5mm BriteView 裂像+对焦框，通用；小光圈裂像变黑"},{"name":"对焦屏 B 型","type":"对焦屏","note":"磨砂场+12mm 圈与对焦框，通用；无裂像辅助、偏暗"},{"name":"对焦屏 C 型","type":"对焦屏","note":"细磨砂场+5mm 透明点与十字线，显微天文；取景偏暗"},{"name":"对焦屏 E 型","type":"对焦屏","note":"磨砂场+12mm 圈、对焦框与横竖刻线，建筑；刻线干扰"},{"name":"对焦屏 G1","type":"对焦屏","note":"透明场+12mm 微棱与对焦框，G1 配鱼眼；景深无法观察"},{"name":"对焦屏 G2","type":"对焦屏","note":"透明场+12mm 微棱与对焦框，G2 配广角；景深无法观察"},{"name":"对焦屏 G3","type":"对焦屏","note":"透明场+12mm 微棱与对焦框，G3 配 50/1.2；景深难观察"},{"name":"对焦屏 G4","type":"对焦屏","note":"透明场+12mm 微棱与对焦框，G4 配 300/2.8；景深无法观察"},{"name":"对焦屏 J 型","type":"对焦屏","note":"中央 5mm 微棱+12mm 圈，通用；暗光微棱闪烁、偏暗"},{"name":"对焦屏 L 型","type":"对焦屏","note":"A 型改 45° 裂像，适合横线主体；构图偏中心"},{"name":"对焦屏 M 型","type":"对焦屏","note":"5mm 透明点+双十字与刻度，显微测量；无法测光"},{"name":"对焦屏 U 型","type":"对焦屏","note":"磨砂场+12mm 圈与对焦框，>200mm 长焦；广角四角失光"},{"name":"MF-27 数据后背","type":"后背","note":"F5 专用简化型数据后背，打印日期或 24 小时时刻，支持年/月/日、月/日/年、日/月/年、日/时/分四种格式；CR2025 一枚"},{"name":"MF-28 多功能后背","type":"后背","note":"画面内/片间数据打印，另有自动包围、焦点优先、间隔定时（最长 99 小时 59 分 59 秒）、长曝光 1 秒至 999 小时等控制；2 枚 CR2025"}],"Nikon F6":[{"name":"MB-40 多功能高速电池手柄","type":"手柄/马达","note":"竖拍手柄兼电池仓，8 节 5 号电池或 EN-EL4(a)，最高约 8 张/秒"},{"name":"EN-EL4a 锂离子电池","type":"电池","note":"配 MB-40 使用的充电锂电池"},{"name":"BL-3 电池仓盖","type":"其他","note":"MB-40 改用 EN-EL4 系列电池时替换的电池仓盖"},{"name":"DK-19 橡胶眼罩","type":"取景器","note":"F6 用橡胶眼罩，遮光并提升取景舒适度"},{"name":"DK-17M 放大目镜","type":"取景器","note":"取景倍率约 1.2 倍，并扩展视度调节范围"},{"name":"DK-17A 防雾目镜","type":"取景器","note":"带防雾镀膜，低温环境减少起雾"},{"name":"SB-800 闪光灯","type":"闪光灯","note":"F6 时期原厂 i-TTL 闪光灯"},{"name":"MC-36 遥控线","type":"遥控","note":"多功能遥控线，支持定时与长曝光"},{"name":"CF-64 半软皮套","type":"皮套","note":"F6 专用半软皮套"},{"name":"MS-40 电池夹","type":"电池","note":"MB-40 用 8 节 5 号电池夹"},{"name":"MS-41 电池夹","type":"电池","note":"机身用 2 枚 3V 锂电池夹"},{"name":"MH-21 快速充电器","type":"电源","note":"EN-EL4 系列电池充电"},{"name":"DK-17C 视度校正镜","type":"取景器","note":"-3 至 +2 共五款"},{"name":"DG-2 放大目镜","type":"取景器","note":"2 倍中央放大，需 DK-18"},{"name":"DR-5 直角取景器","type":"取景器","note":"直角取景，1:1 或 2:1"},{"name":"对焦屏 B 型","type":"对焦屏","note":"细磨砂场+对焦框，F6 标配，通用；无裂像辅助"},{"name":"对焦屏 U 型","type":"对焦屏","note":"磨砂场+12mm 圈与对焦框，>200mm 长焦；四角失光"},{"name":"对焦屏 E 型","type":"对焦屏","note":"B 型加横竖刻线，翻拍与建筑构图；刻线稍干扰"},{"name":"对焦屏 M 型","type":"对焦屏","note":"5mm 透明点+双十字与刻度，显微测量；不能测光"},{"name":"对焦屏 J 型","type":"对焦屏","note":"中央 5mm 微棱+12mm 圈，通用；暗光闪烁、精度一般"},{"name":"对焦屏 A 型","type":"对焦屏","note":"5mm BriteView 裂像，通用对焦；小光圈裂像变黑"},{"name":"对焦屏 L 型","type":"对焦屏","note":"A 型改 45° 裂像，适合横线主体；构图偏中心"}],"Nikkormat FT":[{"name":"橡胶眼罩（Nikkormat 用）","type":"取景器","note":"尼康为 Nikkormat 系列设的旋入式橡胶眼罩，防杂光"},{"name":"目镜框转接器","type":"取景器","note":"早期方形目镜框的 Nikkormat 转接为 19mm 螺纹，以便加装旋入式取景附件"},{"name":"视度矫正镜片（9 种）","type":"取景器","note":"-5 至 +3 共 9 种，旋入 19mm 目镜螺纹"},{"name":"DG-1 目镜放大镜","type":"取景器","note":"为 Nikon F2 与 Nikkormat 系列设计，2 倍放大取景器中央"},{"name":"DF-1 鱼眼取景器","type":"取景器","note":"配 6mm/10mm f/5.6 非反光鱼眼镜头取景；装 FT 需另加抬高转接件"},{"name":"AS-2 闪光灯耦合器","type":"闪光灯","note":"为 Nikkormat 提供 ISO 型热靴"},{"name":"DR-4 直角取景器","type":"取景器","note":"配 DK-13 转接环使用；DK-13 适用范围含 F、F2、F3、FM/FE 系列与 Nikkormat"},{"name":"DK-13 转接环","type":"取景器","note":"DR-3/DR-4 直角取景器装于 Nikkormat 所需的转接环"},{"name":"CS-9 软皮套","type":"皮套","note":"可容纳尼康或 Nikkormat 机身加 135mm f/3.5 以内镜头"},{"name":"DR-3 直角取景器","type":"取景器","note":"旋入式 90° 取景器；装于 FT 时须先取下目镜等附件与中间环"},{"name":"AR-2 快门线","type":"遥控","note":"螺纹式快门线，带锁可作 B 门长曝"},{"name":"AR-1 软快门钮","type":"遥控","note":"加大的平顶快门按钮，旋入标准快门螺纹减轻触发冲击"}],"Nikkormat FTn":[{"name":"CTM 皮套","type":"皮套","note":"尼康原厂目录代码 CTM，为 Nikkormat FTn 的专用皮套"},{"name":"橡胶眼罩（Nikkormat 用）","type":"取景器","note":"标准型橡胶眼罩，可遮杂光并减少测光误差"},{"name":"视度矫正镜片（9 种）","type":"取景器","note":"-5 至 +3 共 9 种，旋入 19mm 螺纹"},{"name":"DG-1 目镜放大镜","type":"取景器","note":"为 F2 与 Nikkormat 系列设计，2 倍目镜放大镜"},{"name":"DF-1 鱼眼取景器","type":"取景器","note":"自 FTn 起可直接插在机身热靴上使用，无需抬高转接件"},{"name":"AS-2 闪光灯耦合器","type":"闪光灯","note":"提供 ISO 型热靴"},{"name":"DR-4 直角取景器","type":"取景器","note":"需配 DK-13 转接环"},{"name":"DK-13 转接环","type":"取景器","note":"直角取景器转接用"},{"name":"CS-9 软皮套","type":"皮套","note":"可容机身加 135mm f/3.5 以内镜头"},{"name":"DR-3 直角取景器","type":"取景器","note":"旋入式 90° 取景器，装 Nikkormat 需先取下目镜及附件"},{"name":"替换目镜玻璃","type":"取景器","note":"Nikkormat/EL2 用 19mm 螺纹透明目镜玻璃片"},{"name":"CF-4 半软皮套","type":"皮套","note":"Nikkormat FTn/FT2/FT3 加 50mm 镜头用半软套"},{"name":"CH-6 硬皮套","type":"皮套","note":"Nikkormat FTn/FT2/FT3 加标准或较小镜头用硬质皮套"},{"name":"CH-7 硬皮套","type":"皮套","note":"前端加长，可容至 43–86mm 变焦镜头"},{"name":"手柄 Model 2","type":"其他","note":"原厂枪式手柄（Pistol Grip Model 2），装于三脚孔，长焦镜头手持更稳"}],"Nikkormat FT3":[{"name":"橡胶眼罩（Nikkormat 用）","type":"取景器","note":"Nikkormat 标准型橡胶眼罩"},{"name":"目镜玻璃（F2/EL2/FT3 用）","type":"取景器","note":"19mm 螺纹替换用目镜玻璃片"},{"name":"视度矫正镜片（9 种）","type":"取景器","note":"-5 至 +3 共 9 种，旋入 19mm 螺纹"},{"name":"DG-1 目镜放大镜","type":"取景器","note":"F2 与 Nikkormat 系列通用，2 倍放大取景器中央"},{"name":"DF-1 鱼眼取景器","type":"取景器","note":"装于 Nikkormat 需配 AS-2"},{"name":"AS-2 闪光灯耦合器","type":"闪光灯","note":"装于 FT3 的 ISO 热靴，使 F/F2 型闪光灯可无连线直连"},{"name":"DR-4 直角取景器","type":"取景器","note":"配 DK-13 转接环使用；DK-13 适用范围含 F、F2、F3、FM/FE 系列与 Nikkormat"},{"name":"DK-13 转接环","type":"取景器","note":"直角取景器转接用"},{"name":"CH-6 硬皮套","type":"皮套","note":"Nikkormat FT2/FT3 用硬质皮套"},{"name":"CF-4 半软皮套","type":"皮套","note":"Nikkormat FT2/FT3 用半软皮套"},{"name":"DR-3 直角取景器","type":"取景器","note":"旋入式 90° 取景器，适合近摄、翻拍与显微摄影"},{"name":"CH-7 硬皮套","type":"皮套","note":"可容至 43–86mm 变焦镜头的硬质皮套"},{"name":"CF-5 皮套前盖","type":"皮套","note":"配 CF-4 底座，可容至 135mm f/3.5 镜头"}],"Nikkormat EL":[{"name":"橡胶眼罩（Nikkormat/EL2 用）","type":"取景器","note":"标准型眼罩，装上目镜框后整体旋回原位使用"},{"name":"目镜玻璃（F2/EL2/FT3 用）","type":"取景器","note":"替换用目镜玻璃片"},{"name":"视度矫正镜片（9 种）","type":"取景器","note":"-5 至 +3 共 9 种，旋入取下目镜后的螺纹"},{"name":"DG-1 目镜放大镜","type":"取景器","note":"Nikkormat 系列用 2 倍目镜放大镜"},{"name":"DF-1 鱼眼取景器","type":"取景器","note":"装于 Nikkormat 需配 AS-2"},{"name":"AS-2 闪光灯耦合器","type":"闪光灯","note":"EL 有 ISO 热靴，装上后 BC-7、SB-2、SB-6、SB-7E 可无连线直连"},{"name":"DR-4 直角取景器","type":"取景器","note":"需配 DK-13 转接环"},{"name":"CH-3 硬皮套","type":"皮套","note":"EL/ELW 装标准或广角镜头（含 85mm）用硬质皮套"},{"name":"CF-7 半软皮套","type":"皮套","note":"Nikkormat EL/ELW 与 FT3 用半软皮套"},{"name":"CH-8 硬皮套","type":"皮套","note":"前端加长，可容至 43–86mm 变焦镜头"},{"name":"CS-11 软皮套","type":"皮套","note":"牛皮软质两件式皮套，EL/ELW/EL2 通用"},{"name":"SB-3 闪光灯","type":"闪光灯","note":"EL 系列可用的原厂闪光灯，自带光敏元件，可无同步线直装"},{"name":"SB-4 闪光灯","type":"闪光灯","note":"EL 系列可用的原厂闪光灯，自动测光型"},{"name":"DR-3 直角取景器","type":"取景器","note":"旋入式 90° 取景器，装 EL 需先取下目镜"}],"Nikomat EL2":[{"name":"AW-1 自动卷片器","type":"手柄/马达","note":"Nikkormat EL2（及 ELW）专用卷片器，约 0.5 秒/张；EL 本体不可用"},{"name":"橡胶眼罩（Nikkormat/EL2 用）","type":"取景器","note":"旋入式橡胶眼罩"},{"name":"目镜玻璃（F2/EL2/FT3 用）","type":"取景器","note":"替换用目镜玻璃片"},{"name":"视度矫正镜片（9 种）","type":"取景器","note":"-5 至 +3 共 9 种，旋入 19mm 螺纹"},{"name":"DG-1 目镜放大镜","type":"取景器","note":"Nikkormat/EL2 用 2 倍目镜放大镜"},{"name":"DR-4 直角取景器","type":"取景器","note":"需配 DK-13 转接环"},{"name":"CH-9 硬皮套","type":"皮套","note":"装 AW-1 卷片器加 50mm 镜头时使用"},{"name":"CF-7 半软皮套","type":"皮套","note":"EL/ELW/FT3 系列通用半软皮套"},{"name":"SB-3 闪光灯","type":"闪光灯","note":"EL2 说明书列为热靴型可用闪光灯"},{"name":"SB-5 闪光灯","type":"闪光灯","note":"EL2 说明书列为底座式可用闪光灯"},{"name":"CH-8 硬皮套","type":"皮套","note":"EL2 装标准镜头用硬质皮套，前端可容较长镜头"},{"name":"CH-10 硬皮套","type":"皮套","note":"装 AW-1 加 105mm f/2.5 级镜头时使用"},{"name":"CS-11 软皮套","type":"皮套","note":"牛皮软质两件式皮套，EL/ELW/EL2 通用"},{"name":"AS-2 闪光灯耦合器","type":"闪光灯","note":"EL2 有 ISO 热靴，装上后 F/F2 型闪光灯可无连线直连"},{"name":"DR-3 直角取景器","type":"取景器","note":"旋入式 90° 取景器，装 EL2 需先取下目镜"},{"name":"替换目镜玻璃","type":"取景器","note":"Nikkormat/EL2 用 19mm 螺纹透明目镜玻璃片"}],"Nikon FM":[{"name":"MD-11 马达驱动","type":"手柄/马达","note":"FM/FE 配套的第一款中档马达驱动（1977 年），约 3.5 张/秒，内置电池夹装 8 节 5 号电池"},{"name":"DK-3 橡胶眼罩","type":"取景器","note":"FM/FE/FM2/FE2/FA 专用分瓣式橡胶眼罩，开后背时可折起"},{"name":"视度矫正镜片（FM/FE 专用型）","type":"取景器","note":"9 种（-5 至 +3），小型化以便开后背"},{"name":"CF-8 半软皮套","type":"皮套","note":"FM/FE 用半软皮套"},{"name":"CF-9 半软皮套","type":"皮套","note":"装机身马达 MD-11 时使用，可容 105mm f/2.5 以内镜头"},{"name":"CS-7 软皮套","type":"皮套","note":"可容 EL2、FM、FE 与 Nikkormat 系列"},{"name":"DG-2 目镜放大镜","type":"取景器","note":"专为 FM/FE 设计，2 倍放大取景器中央，内建 +1～-5 视度调节"},{"name":"DR-4 直角取景器","type":"取景器","note":"需配 DK-13 转接环"},{"name":"SB-15 闪光灯","type":"闪光灯","note":"FM/FE 时期原厂直装闪光灯，走自动/手动档（FM 本身无 TTL 闪光控制）"},{"name":"MD-12 马达驱动","type":"手柄/马达","note":"MD-11 的后继型，FM/FE 同样可装，约 3.2 张/秒，与 FM2/FE2/FA/FM3A 共用"},{"name":"SB-10 闪光灯","type":"闪光灯","note":"FE 的配套小型闪光灯，FM 亦可直装使用"},{"name":"CF-7 半软皮套","type":"皮套","note":"装标准镜头（含 85mm f/2）的原厂半软套，前盖可拆下"},{"name":"MC-12 遥控线","type":"遥控","note":"接 MD-11/MD-12 马达遥控端子，约 3m 外触发快门（部分资料标作 MC-12A）"},{"name":"MF-12 数据后背","type":"后背","note":"数据打印：年/月/日、日/时/分或张数，石英钟带闹钟；FM/FE 后背无触点，需用连线接机身 PC 端子；也可用于 FM2/FE2/FA"}],"Nikon FM2":[{"name":"MD-12 马达驱动","type":"手柄/马达","note":"FM2 专用马达，最高约 3.2 张/秒（快门 1/125–1/4000 秒时），8 节 5 号电池"},{"name":"CF-27 半软皮套","type":"皮套","note":"可容机身加小于 50mm f/1.4 的镜头"},{"name":"CF-29 半软皮套","type":"皮套","note":"装 MD-12 马达时使用"},{"name":"CS-16 软包","type":"皮套","note":"FM2 用软质相机套，机身连标准镜头整体收纳"},{"name":"SB-16B 闪光灯","type":"闪光灯","note":"FM2 说明书列为可直装的 TTL 闪光灯，带子灯与变焦主灯"},{"name":"DK-3 橡胶眼罩","type":"取景器","note":"旋入式橡胶眼罩，防杂光并减轻目镜疲劳"},{"name":"DB-2 防寒电池包","type":"电源","note":"低温时外接供电，容 2 节 M 型电池，可放进口袋保暖"},{"name":"DR-4 直角取景器","type":"取景器","note":"需配 DK-13 转接环"},{"name":"MC-12 遥控线","type":"遥控","note":"接 MD-11/MD-12 遥控端子，约 3m 遥控拍摄（部分资料标作 MC-12A）"},{"name":"对焦屏 K 型","type":"对焦屏","note":"旧款裂像+微棱环屏，FM2n 用需 -1/3 EV；亮度较低"},{"name":"对焦屏 B 型","type":"对焦屏","note":"旧款磨砂点屏，FM2n 用需 -1/3 EV；无对焦辅助"},{"name":"对焦屏 E 型","type":"对焦屏","note":"旧款网格屏，FM2n 用需 -1/3 EV；网格干扰构图"},{"name":"对焦屏 K2","type":"对焦屏","note":"后期裂像+微棱环，较亮，FM2 用需 +1/3 EV；小光圈黑"},{"name":"对焦屏 B2","type":"对焦屏","note":"后期磨砂点屏，FM2 用需 +1/3 EV；无对焦辅助"},{"name":"对焦屏 E2","type":"对焦屏","note":"后期网格屏，FM2 用需 +1/3 EV；网格干扰构图"},{"name":"MF-16 数据后背","type":"后背","note":"数据打印：年/月/日、日/时/分或张数（至 2000），红色 LED 印字，石英钟带闹钟；FM2 后背有触点、无需连线；也可用 MF-12（需把连线接到机身 PC 端子）；FM2/FM2n 通用"},{"name":"CF-28 半软皮套","type":"皮套","note":"可容机身加 50mm f/1.2 至 105mm f/2.5 镜头"},{"name":"AR-9 软快门钮","type":"遥控","note":"装 MD-12 时使用的软释放按钮"}],"Nikon FM3A":[{"name":"MD-12 马达驱动","type":"手柄/马达","note":"尼康官方注明 FM3A、New FM2、FE2、FA 共用，约 3.2 张/秒"},{"name":"CF-27S 半软皮套","type":"皮套","note":"可容机身加 50mm f/1.4 以内镜头（FM3A 专用 S 版）"},{"name":"CF-29S 半软皮套","type":"皮套","note":"装 MD-12 马达时使用（FM3A 专用 S 版）"},{"name":"SB-27 闪光灯","type":"闪光灯","note":"FM3A 说明书主推的直装 TTL 闪光灯，灯头可转位"},{"name":"SB-28 闪光灯","type":"闪光灯","note":"说明书列为可选；另有 SB-50DX、SB-23、SB-22s 亦在列"},{"name":"DK-3 橡胶眼罩","type":"取景器","note":"橡胶制目镜罩，使取景更清晰并减轻眼睛疲劳"},{"name":"DB-2 低温电池包","type":"电源","note":"外接电池包，低温下稳定供电（装后不可上三脚架）"},{"name":"DR-4 直角取景器","type":"取景器","note":"90° 取景，装 FM3A 需另配 DK-13 转接环"},{"name":"DG-2 目镜放大镜","type":"取景器","note":"2 倍放大取景器中央，便于近摄、翻拍与长焦对焦"},{"name":"对焦屏 K3","type":"对焦屏","note":"小直径裂像+微棱环，FM3A 标配，通用；小光圈裂像变暗"},{"name":"对焦屏 B3","type":"对焦屏","note":"Clear Matte IIa 全磨砂场，通用与微距；无对焦辅助"},{"name":"对焦屏 E3","type":"对焦屏","note":"B3 加横竖刻线，建筑与多次曝光定位；刻线干扰构图"},{"name":"对焦屏 K2","type":"对焦屏","note":"旧款裂像+微棱环，FM3A 可直接用；小光圈裂像变黑"},{"name":"对焦屏 B2","type":"对焦屏","note":"旧款磨砂点屏，FM3A 可直接用；无对焦辅助、偏暗"},{"name":"对焦屏 E2","type":"对焦屏","note":"旧款网格屏，FM3A 可直接用；网格干扰构图"}],"Nikon FE":[{"name":"MD-11 马达驱动","type":"手柄/马达","note":"FE 的配套马达驱动，约 3.5 张/秒，8 节 5 号电池"},{"name":"CF-7 半软皮套","type":"皮套","note":"FE 装机标准镜头（含 85mm f/2）用原厂半软套"},{"name":"CF-8 半软皮套","type":"皮套","note":"可容至 105mm f/2.5 镜头"},{"name":"CF-9 半软皮套","type":"皮套","note":"装 MD-11 马达时使用，前端可容 43–86mm 变焦"},{"name":"DK-3 橡胶眼罩","type":"取景器","note":"FM/FE 专用橡胶眼罩"},{"name":"视度矫正镜片（FM/FE 专用型）","type":"取景器","note":"9 种（-5 至 +3）"},{"name":"SB-15 闪光灯","type":"闪光灯","note":"FE 时代原厂直装闪光灯，走自动/手动档（FE 无 TTL 闪光控制）"},{"name":"DG-2 目镜放大镜","type":"取景器","note":"为 FM/FE 设计的 2 倍目镜放大镜"},{"name":"MD-12 马达驱动","type":"手柄/马达","note":"MD-11 后继型，FE 可直接安装，约 3.2 张/秒"},{"name":"SB-10 闪光灯","type":"闪光灯","note":"与 FE 配套的小型直装闪光灯，可联动取景器充电指示灯"},{"name":"DR-3 直角取景器","type":"取景器","note":"旋入式 90° 取景器，装 FE 需加中间环，内建 -5～+3 视度调节"},{"name":"对焦屏 K 型","type":"对焦屏","note":"裂像+1mm 微棱环，FE 标准通用屏；小光圈裂像变黑"},{"name":"对焦屏 B 型","type":"对焦屏","note":"磨砂场+3mm 磨砂点与 12mm 圈，微距长焦；无对焦辅助"},{"name":"对焦屏 E 型","type":"对焦屏","note":"磨砂点+网格刻线，翻拍建筑与多次曝光；网格干扰"},{"name":"对焦屏 K2","type":"对焦屏","note":"后期裂像+微棱环，比 K 亮，FE 用需 +1/2 EV；小光圈黑"},{"name":"对焦屏 B2","type":"对焦屏","note":"后期磨砂点屏，FE 用需 +1/2 EV；无对焦辅助"},{"name":"对焦屏 E2","type":"对焦屏","note":"后期网格屏，FE 用需 +1/2 EV；网格干扰构图"},{"name":"MF-12 数据后背","type":"后背","note":"数据打印：年/月/日、日/时/分或张数，石英钟带闹钟；FM/FE 后背无触点，需用连线接机身 PC 端子；也可用于 FM2/FE2/FA"}],"Nikon FE2":[{"name":"MD-12 马达驱动","type":"手柄/马达","note":"尼康注明 FM3A、New FM2、FE2、FA 共用，约 3.2 张/秒"},{"name":"DK-3 橡胶眼罩","type":"取景器","note":"FE2/FM2/FA 通用旋入式橡胶眼罩"},{"name":"SB-16B 闪光灯","type":"闪光灯","note":"FE2 说明书列为可直装的 TTL 闪光灯"},{"name":"DR-4 直角取景器","type":"取景器","note":"需配 DK-13 转接环"},{"name":"视度矫正镜片（FM/FE 专用型）","type":"取景器","note":"9 种（-5 至 +3）"},{"name":"CF-6 快速皮套","type":"皮套","note":"可容机身加长焦镜头"},{"name":"DG-2 目镜放大镜","type":"取景器","note":"FM/FE 系列通用"},{"name":"MD-11 马达驱动","type":"手柄/马达","note":"MD-12 前代产品，FE2 亦可安装，约 3.5 张/秒"},{"name":"CF-27 半软皮套","type":"皮套","note":"可容机身加小于 50mm f/1.4 的镜头"},{"name":"CF-28 半软皮套","type":"皮套","note":"可容 50mm f/1.2 至 105mm f/2.5 或 Series E 36–72mm 镜头"},{"name":"CF-29 半软皮套","type":"皮套","note":"装 MD-12 马达时使用"},{"name":"MC-12 遥控线","type":"遥控","note":"接 MD-11/MD-12 遥控端子，约 3m 遥控拍摄（部分资料标作 MC-12A）"},{"name":"对焦屏 K2","type":"对焦屏","note":"裂像+微棱环，FE2 标准屏，亮度高；小光圈裂像变黑"},{"name":"对焦屏 B2","type":"对焦屏","note":"磨砂点屏，FE2 可选；无对焦辅助、取景偏暗"},{"name":"对焦屏 E2","type":"对焦屏","note":"磨砂点+网格屏，FE2 可选；网格干扰构图"},{"name":"对焦屏 K 型","type":"对焦屏","note":"旧款裂像+微棱环屏，FE2 用需 -1/3 EV；亮度较低"},{"name":"对焦屏 B 型","type":"对焦屏","note":"旧款磨砂点屏，FE2 用需 -1/3 EV；无对焦辅助"},{"name":"对焦屏 E 型","type":"对焦屏","note":"旧款网格屏，FE2 用需 -1/3 EV；网格干扰构图"},{"name":"MF-16 数据后背","type":"后背","note":"数据打印：年/月/日、日/时/分或张数，红色 LED 印字，石英钟带闹钟；FE2 后背有触点、无需连线；也可用 MF-12（PC 端子连线）"}],"Nikon FA":[{"name":"MD-12 马达驱动","type":"手柄/马达","note":"尼康官方注明 FM3A、New FM2、FE2、FA 共用，约 2.7 张/秒"},{"name":"MD-15 马达驱动","type":"手柄/马达","note":"FA 专用马达（1983 年），约 3.2 张/秒，装上后机身由马达电池供电"},{"name":"DK-3 橡胶眼罩","type":"取景器","note":"FM/FE 系列橡胶眼罩"},{"name":"DG-2 目镜放大镜","type":"取景器","note":"FM/FE 系列用 2 倍目镜放大镜"},{"name":"DR-4 直角取景器","type":"取景器","note":"需配 DK-13 转接环"},{"name":"视度矫正镜片（FM/FE 专用型）","type":"取景器","note":"9 种（-5 至 +3）"},{"name":"SB-16B 闪光灯","type":"闪光灯","note":"FA 说明书列的直装 TTL 闪光灯，GN32"},{"name":"SB-18 闪光灯","type":"闪光灯","note":"FA 说明书列的直装闪光灯，GN20，TTL/手动"},{"name":"CF-30 半软皮套","type":"皮套","note":"FA 专用半软套，可容 50mm f/1.4 以内镜头"},{"name":"CF-28A 皮套前盖","type":"皮套","note":"可容至 35–70mm f/3.5 或 35–105mm f/3.5-4.5 镜头"},{"name":"DB-2 防寒电池包","type":"电源","note":"低温外接供电，接机身后可放进口袋保温"},{"name":"MC-12 遥控线","type":"遥控","note":"接马达驱动遥控端子，约 3m 遥控拍摄（部分资料标作 MC-12A）"},{"name":"对焦屏 K2","type":"对焦屏","note":"裂像+微棱环，FA 标准屏，亮度高；小光圈裂像变黑"},{"name":"对焦屏 B2","type":"对焦屏","note":"磨砂点屏，FA 可选；无对焦辅助、取景偏暗"},{"name":"对焦屏 E2","type":"对焦屏","note":"磨砂点+网格屏，FA 可选；网格干扰构图"},{"name":"对焦屏 K 型","type":"对焦屏","note":"旧款裂像+微棱屏，FA 用需 -1/3 EV；亮度较低"},{"name":"对焦屏 B 型","type":"对焦屏","note":"旧款磨砂点屏，FA 用需 -1/3 EV；无对焦辅助"},{"name":"对焦屏 E 型","type":"对焦屏","note":"旧款网格屏，FA 用需 -1/3 EV；网格干扰构图"},{"name":"MF-16 数据后背","type":"后背","note":"数据打印：年/月/日、日/时/分或张数，红色 LED 印字，石英钟带闹钟；FA 后背有触点、无需连线；也可用 MF-12（PC 端子连线）"}],"Nikon FG":[{"name":"MD-14 马达驱动","type":"手柄/马达","note":"专为 FG 设计，高速 3.2、低速 2.0 张/秒，8 节 5 号电池，装后仍用机身快门钮触发"},{"name":"DK-5 目镜盖","type":"取景器","note":"EM/FG/FG20 用遮光目镜盖，长曝光与自拍时防杂光"},{"name":"CF-17 半软皮套","type":"皮套","note":"装标准镜头用原厂半软套，EM/FG/FG20 通用"},{"name":"CF-18 软皮套","type":"皮套","note":"可容机身加 43–86mm f/3.5 或 36–72mm f/3.5 变焦"},{"name":"CF-19D 皮套后片","type":"皮套","note":"装 MF-15 数据后背时替换的皮套底/后片"},{"name":"MD-E 卷片器","type":"手柄/马达","note":"EM 用小型卷片器，FG 亦可安装，约 1.5 张/秒，无手柄"},{"name":"SB-15 闪光灯","type":"闪光灯","note":"FG 说明书列的直装 TTL 闪光灯"},{"name":"SB-18 闪光灯","type":"闪光灯","note":"FG 说明书列的直装闪光灯，GN20，TTL/手动"},{"name":"SB-E 闪光灯","type":"闪光灯","note":"EM 专用小型直装闪光灯，FG 兼容，GN17"}],"Nikon FG20":[{"name":"MD-14 马达驱动","type":"手柄/马达","note":"FG20 与 FG 同尺寸同驱动接口，高速 3.2、低速 2.0 张/秒"},{"name":"DK-5 目镜盖","type":"取景器","note":"EM/FG/FG20 通用遮光目镜盖"},{"name":"CF-17 软皮套","type":"皮套","note":"FG/FG20/EM 通用软皮套"},{"name":"CF-18 软皮套","type":"皮套","note":"可容机身加变焦镜头"},{"name":"MD-E 卷片器","type":"手柄/马达","note":"EM 用小型卷片器，FG20 亦可装，约 1.5 张/秒"},{"name":"SB-15 闪光灯","type":"闪光灯","note":"FG 系列可用的直装闪光灯；FG20 未保留 TTL 闪光控制，走自动/手动档"},{"name":"SB-E 闪光灯","type":"闪光灯","note":"EM 专用闪光灯，FG20 兼容，GN17"},{"name":"CF-33 半软皮套","type":"皮套","note":"专为 FG20 加 35–70mm f/3.3-4.5 镜头设计"},{"name":"视度矫正镜片（9 种）","type":"取景器","note":"近/远视矫正用，-5、-4、-3、-2、0、+0.5、+1、+2、+3 共 9 种"},{"name":"DB-2 防寒电池包","type":"电源","note":"可装入 MD-14 电池仓外接供电，低温下保证测光工作"},{"name":"AR-8 快门线转接器","type":"遥控","note":"旋入快门钮中心，转接 AR-2 快门线或 AR-4 双快门线"}],"Nikon EM":[{"name":"MD-E 卷片马达","type":"手柄/马达","note":"为 EM 专门设计的小型卷片器，约 1.5 张/秒，无手柄，用机身快门钮触发"},{"name":"SB-E 专用闪光灯","type":"闪光灯","note":"EM 专用小型闪光灯"},{"name":"CF-11 半软皮套","type":"皮套","note":"EM 加 50mm 标准镜头用原厂半软套"},{"name":"CF-17 软皮套","type":"皮套","note":"EM/FG/FG20 通用软皮套"},{"name":"DK-5 目镜盖","type":"取景器","note":"EM/FG/FG20 通用遮光目镜盖"},{"name":"MD-14 马达驱动","type":"手柄/马达","note":"FG 用马达，尼康注明亦可装于 EM，高速 3.2、低速 2.0 张/秒"},{"name":"SB-E 闪光灯","type":"闪光灯","note":"EM 专用直装闪光灯，GN17，热靴直连并联动机身取景器充电指示灯"},{"name":"SB-15 闪光灯","type":"闪光灯","note":"EM 可用的原厂直装闪光灯"},{"name":"CF-12 半软皮套","type":"皮套","note":"EM 加 100mm E 镜头用半软套"},{"name":"CF-14 半软皮套","type":"皮套","note":"EM 加 Series E 36–72mm 变焦用半软套"},{"name":"CF-16 半软皮套","type":"皮套","note":"EM 装 MD-E 卷片器加 36–72mm E 变焦时使用"},{"name":"视度矫正镜片（9 种）","type":"取景器","note":"直接装于目镜框，-5 至 +3 共 9 种"}],"Nikon FM10":[{"name":"SB-600 闪光灯","type":"闪光灯","note":"尼康 FM10 官方配件页列为可选配件"},{"name":"SB-900 闪光灯","type":"闪光灯","note":"尼康 FM10 官方配件页列为可选配件"},{"name":"R1C1 近摄闪光灯指挥套件","type":"闪光灯","note":"尼康 FM10 官方配件页列为可选配件"},{"name":"相机皮套（随附）","type":"皮套","note":"FM10 随机附带的尼康相机套，官方未单独编号"},{"name":"SB-910 闪光灯","type":"闪光灯","note":"尼康官方 FM10 相关产品页列为另购闪光灯（ISO 热靴直装）"},{"name":"SB-700 闪光灯","type":"闪光灯","note":"尼康官方 FM10 相关产品页列为另购闪光灯"},{"name":"AR-3 快门线","type":"遥控","note":"官方列为 FM10 另购件，螺纹式快门线，可锁 B 门"},{"name":"DG-2 目镜放大镜","type":"取景器","note":"官方列为 FM10 另购件，2 倍放大取景器中央"},{"name":"DK-22 目镜转接环","type":"取景器","note":"官方列为另购件，FM10 装 DG-2 时使用的转接环"},{"name":"DK-5 目镜盖","type":"取景器","note":"官方列为 FM10 另购件，遮住目镜防杂光"},{"name":"AR-11 软快门按钮","type":"遥控","note":"官方列为 FM10 另购件，加大快门接触面减轻震动"},{"name":"LR44 电池（2 枚）","type":"电池","note":"FM10 随机附带 1.5V LR44 碱性电池 2 枚（测光电源）"},{"name":"三脚垫（随附）","type":"其他","note":"FM10 随机附带，装于机身底部供三脚架固定"}],"Nikon FE10":[{"name":"相机皮套（随附）","type":"皮套","note":"FE10 随机附带的尼康相机套，官方未单独编号"},{"name":"SB-600 闪光灯","type":"闪光灯","note":"与 FM10 同一 ISO 热靴接口，兼容"},{"name":"SB-900 闪光灯","type":"闪光灯","note":"与 FM10 同一 ISO 热靴接口，兼容"},{"name":"R1C1 近摄闪光灯指挥套件","type":"闪光灯","note":"与 FM10 同一热靴接口，兼容"},{"name":"SB-700 闪光灯","type":"闪光灯","note":"与 FM10 同型机身（同规格 ISO 热靴），官方 FM10 配件页同款另购闪光灯"},{"name":"SB-910 闪光灯","type":"闪光灯","note":"与 FM10 同型机身，可直装"},{"name":"AR-3 快门线","type":"遥控","note":"螺纹式快门线，FE10 快门钮螺纹通用，可锁 B 门"},{"name":"DG-2 目镜放大镜","type":"取景器","note":"与 FM10 同规格目镜，可加装"},{"name":"DK-5 目镜盖","type":"取景器","note":"与 FM10 通用的遮光目镜盖"},{"name":"LR44 电池（2 枚）","type":"电池","note":"FE10 随机附带 1.5V LR44 碱性电池 2 枚（测光/电子快门电源）"},{"name":"三脚垫（随附）","type":"其他","note":"FE10 随机附带，装于机身底部"}],"Nikon F-301":[{"name":"CF-35 半软相机套","type":"皮套","note":"可装机身与 35-70mm 变焦镜头"},{"name":"SB-24 闪光灯","type":"闪光灯","note":"TTL 自动闪光，灯头可变焦"},{"name":"MB-3 电池手柄","type":"手柄/马达","note":"F-301/F-501 专用，可装 4 节 AA 电池"},{"name":"SB-20 闪光灯","type":"闪光灯","note":"TTL 自动闪光"},{"name":"AH-4 手带","type":"其他","note":"三脚架接口手带"}],"Nikon F-501":[{"name":"CF-35 半软相机套","type":"皮套","note":"可装机身与 35-70mm 变焦镜头"},{"name":"SB-24 闪光灯","type":"闪光灯","note":"TTL 自动闪光，灯头可变焦"},{"name":"MB-3 电池手柄","type":"手柄/马达","note":"F-301/F-501 专用，可装 4 节 AA 电池"},{"name":"AH-4 手带","type":"其他","note":"三脚架接口手带"}],"Nikon F-401":[{"name":"CF-37 半软相机套","type":"皮套","note":"可装机身与 35-70mm 变焦镜头"},{"name":"SB-24 闪光灯","type":"闪光灯","note":"TTL 自动闪光，灯头可变焦"},{"name":"AH-4 手带","type":"其他","note":"三脚架接口手带，便于竖拍握持"},{"name":"SB-22s 闪光灯","type":"闪光灯","note":"紧凑型 TTL 自动闪光灯"},{"name":"CS-19 软相机套","type":"皮套","note":"AF 单反通用软套"},{"name":"SB-25 闪光灯","type":"闪光灯","note":"TTL 自动闪光，支持 3D 多重感应"}],"Nikon F-601":[{"name":"CF-45 半软相机套","type":"皮套","note":"可装机身与 35-70mm 变焦镜头"},{"name":"SB-25 闪光灯","type":"闪光灯","note":"TTL 自动闪光，支持 3D 多重感应"},{"name":"AH-4 手带","type":"其他","note":"三脚架接口手带"},{"name":"SB-24 闪光灯","type":"闪光灯","note":"TTL 自动闪光，灯头可变焦"},{"name":"SB-22s 闪光灯","type":"闪光灯","note":"紧凑型 TTL 自动闪光灯"}],"Nikon F-801":[{"name":"CF-39 半软相机套","type":"皮套","note":"可装机身与 35-70mm 变焦镜头"},{"name":"SB-24 闪光灯","type":"闪光灯","note":"TTL 自动闪光，灯头可变焦"},{"name":"DK-6 接眼目罩","type":"取景器","note":"F-801 系列用橡胶接眼目罩"},{"name":"AH-4 手带","type":"其他","note":"三脚架接口手带"},{"name":"SB-25 闪光灯","type":"闪光灯","note":"TTL 自动闪光，支持 3D 多重感应"}],"Nikon F90":[{"name":"MB-10 竖拍手柄","type":"手柄/马达","note":"F90/F90X 专用，可装 4 节 AA 电池"},{"name":"SB-25 闪光灯","type":"闪光灯","note":"TTL 自动闪光，支持 3D 多重感应"},{"name":"MC-20 遥控线","type":"遥控","note":"10 针接口，线长约 80cm"},{"name":"CF-47 半软相机套","type":"皮套","note":"可装机身与 35-70mm 变焦镜头"},{"name":"DK-6 接眼目罩","type":"取景器","note":"F90 系列用橡胶接眼目罩"},{"name":"MF-25 数据后背","type":"后背","note":"日期/时刻打印，带世界时间（24 城市及夏令时）与每日闹钟；F90/F90X 通用；2 枚 CR2025"},{"name":"MF-26 多功能后背","type":"后背","note":"八种数据打印（含快门/光圈等曝光值），另有 AE 包围、闪光包围、2-19 张连拍、间隔定时、长曝光、多重曝光；F90/F90X 通用；F90S/F90XS 版本标配"}],"Nikon F90X":[{"name":"MB-10 竖拍手柄","type":"手柄/马达","note":"F90/F90X 专用，可装 4 节 AA 电池"},{"name":"SB-26 闪光灯","type":"闪光灯","note":"TTL 自动闪光，带无线从属功能"},{"name":"MC-20 遥控线","type":"遥控","note":"10 针接口，线长约 80cm"},{"name":"CF-47 半软相机套","type":"皮套","note":"可装机身与 35-70mm 变焦镜头"},{"name":"DK-6 接眼目罩","type":"取景器","note":"F90 系列用橡胶接眼目罩"},{"name":"MF-25 数据后背","type":"后背","note":"日期/时刻、世界时间（24 城市及夏令时）与闹钟；F90/F90X 通用；2 枚 CR2025"},{"name":"MF-26 多功能后背","type":"后背","note":"数据打印、AE/闪光包围、2-19 张连拍、间隔定时、长曝光、多重曝光；F90/F90X 通用；F90S/F90XS 版本标配"}],"Nikon F70":[{"name":"CF-52 半软相机套","type":"皮套","note":"F70 专用"},{"name":"SB-26 闪光灯","type":"闪光灯","note":"TTL 自动闪光，带无线从属功能"},{"name":"AH-4 手带","type":"其他","note":"三脚架接口手带"},{"name":"MC-12B 遥控线","type":"遥控","note":"F70 用遥控线，线长约 0.8m"},{"name":"DK-9 接眼目罩","type":"取景器","note":"F50/F70 用橡胶接眼目罩"}],"Nikon F60":[{"name":"CS-19 软相机套","type":"皮套","note":"AF 单反通用软套"},{"name":"SB-27 闪光灯","type":"闪光灯","note":"紧凑型 TTL 自动闪光灯"},{"name":"AH-4 手带","type":"其他","note":"三脚架接口手带"},{"name":"SB-22s 闪光灯","type":"闪光灯","note":"紧凑型 TTL 自动闪光灯"},{"name":"SU-4 无线闪光灯控制器","type":"闪光灯","note":"从属闪光控制，支持无线增灯"}],"Nikon F50":[{"name":"CF-49 半软相机套","type":"皮套","note":"可装机身与 35-80mm 变焦镜头"},{"name":"SB-26 闪光灯","type":"闪光灯","note":"TTL 自动闪光，带无线从属功能"},{"name":"AH-4 手带","type":"其他","note":"三脚架接口手带"},{"name":"DK-9 接眼目罩","type":"取景器","note":"F50/F70 用橡胶接眼目罩"}],"Nikon F55":[{"name":"CF-62 半软相机套","type":"皮套","note":"可装机身与 28-80mm 变焦镜头"},{"name":"SB-28 闪光灯","type":"闪光灯","note":"TTL 自动闪光，GN36"},{"name":"AH-4 手带","type":"其他","note":"三脚架接口手带"},{"name":"ML-L3 红外遥控器","type":"遥控","note":"无线红外快门遥控"},{"name":"DK-16 接眼目罩","type":"取景器","note":"F55/F65/F75 用橡胶接眼目罩"}],"Nikon F65":[{"name":"MB-17 电池手柄","type":"手柄/马达","note":"F65 专用，可装 4 节 AA 电池"},{"name":"CF-61 半软相机套","type":"皮套","note":"可装机身与 28-80mm 变焦镜头"},{"name":"ML-L3 红外遥控器","type":"遥控","note":"无线红外快门遥控"},{"name":"SB-28 闪光灯","type":"闪光灯","note":"TTL 自动闪光，GN36"},{"name":"DK-16 接眼目罩","type":"取景器","note":"F55/F65/F75 用橡胶接眼目罩"}],"Nikon F75":[{"name":"CF-63 半软相机套","type":"皮套","note":"可装机身与 50mm 或 28-80mm 镜头"},{"name":"ML-L3 红外遥控器","type":"遥控","note":"无线红外快门遥控"},{"name":"SB-28 闪光灯","type":"闪光灯","note":"TTL 自动闪光，GN36"},{"name":"SB-800 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN38"},{"name":"DK-16 接眼目罩","type":"取景器","note":"F55/F65/F75 用橡胶接眼目罩"},{"name":"AH-4 手带","type":"其他","note":"三脚架接口手带"}],"Nikon F80":[{"name":"MB-16 电池手柄","type":"手柄/马达","note":"F80 专用，可装 4 节 AA 电池"},{"name":"CF-59 半软相机套","type":"皮套","note":"可装机身与 28-200mm 变焦镜头"},{"name":"SB-28 闪光灯","type":"闪光灯","note":"TTL 自动闪光，GN36"},{"name":"CF-60 半软相机套","type":"皮套","note":"长焦变焦镜头用"},{"name":"AR-3 快门线","type":"遥控","note":"旋入式快门线，用于长曝光"},{"name":"SB-800 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN38"},{"name":"SB-50DX 闪光灯","type":"闪光灯","note":"紧凑型 i-TTL 闪光灯"},{"name":"AH-4 手带","type":"其他","note":"三脚架接口手带"}],"Nikon F100":[{"name":"MB-15 电池手柄","type":"手柄/马达","note":"F100 专用竖拍手柄，可装 4 节 AA 电池"},{"name":"CF-57 半软相机套","type":"皮套","note":"可装机身与 28-105mm 变焦镜头"},{"name":"SB-80DX 闪光灯","type":"闪光灯","note":"D-TTL 闪光灯，GN38"},{"name":"MC-30 遥控线","type":"遥控","note":"10 针接口，线长约 80cm"},{"name":"MS-13 电池架","type":"电源","note":"可装 2 节 CR123A 锂电池"},{"name":"MN-15 镍氢电池","type":"电池","note":"F100 专用可充电镍氢电池组"},{"name":"MH-15 快速充电器","type":"电源","note":"MN-15 专用充电器"},{"name":"MF-29 数据后背","type":"后背","note":"F100 专用简化型数据后背，打印年/月/日、日/时/分、月/日/年、日/月/年；CR2025 一枚"}],"Nikon D1":[{"name":"EN-4 镍氢电池","type":"电池","note":"7.2V 镍氢电池组"},{"name":"SB-28DX 闪光灯","type":"闪光灯","note":"D-TTL 数码专用闪光灯"},{"name":"MC-30 遥控线","type":"遥控","note":"10 针接口，线长约 80cm"},{"name":"MH-16 电池充电器","type":"电源","note":"EN-4 专用充电器"},{"name":"SB-80DX 闪光灯","type":"闪光灯","note":"D-TTL 闪光灯，GN38"},{"name":"DK-2 接眼目罩","type":"取景器","note":"D1 系列用橡胶接眼目罩"}],"Nikon D1X":[{"name":"EN-4 镍氢电池","type":"电池","note":"7.2V 镍氢电池组"},{"name":"SB-28DX 闪光灯","type":"闪光灯","note":"D-TTL 数码专用闪光灯"},{"name":"MC-30 遥控线","type":"遥控","note":"10 针接口，线长约 80cm"},{"name":"MH-16 电池充电器","type":"电源","note":"EN-4 专用充电器"},{"name":"SB-80DX 闪光灯","type":"闪光灯","note":"D-TTL 闪光灯，GN38"},{"name":"DK-2 接眼目罩","type":"取景器","note":"D1 系列用橡胶接眼目罩"}],"Nikon D2H":[{"name":"EN-EL4 锂电池","type":"电池","note":"11.1V 锂电池"},{"name":"SB-800 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN38"},{"name":"MC-30 遥控线","type":"遥控","note":"10 针接口，线长约 80cm"},{"name":"MH-21 电池充电器","type":"电源","note":"EN-EL4 专用充电器"},{"name":"WT-1 无线传输器","type":"其他","note":"D2H 用无线网络传输器"},{"name":"DK-19 接眼目罩","type":"取景器","note":"D2 系列用橡胶接眼目罩"}],"Nikon D2X":[{"name":"EN-EL4a 锂电池","type":"电池","note":"11.1V 锂电池"},{"name":"SB-800 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN38"},{"name":"MC-30 遥控线","type":"遥控","note":"10 针接口，线长约 80cm"},{"name":"MH-21 电池充电器","type":"电源","note":"EN-EL4/EN-EL4a 专用充电器"},{"name":"WT-2 无线传输器","type":"其他","note":"D2X 用无线网络传输器"},{"name":"DK-19 接眼目罩","type":"取景器","note":"D2 系列用橡胶接眼目罩"}],"Nikon D100":[{"name":"EN-EL3 锂电池","type":"电池","note":"7.4V 锂电池"},{"name":"MB-D100 电池手柄","type":"手柄/马达","note":"D100 专用竖拍手柄"},{"name":"SB-80DX 闪光灯","type":"闪光灯","note":"D-TTL 闪光灯，GN38"},{"name":"MC-30 遥控线","type":"遥控","note":"10 针接口，需搭配 MB-D100 手柄使用"},{"name":"MH-18 电池充电器","type":"电源","note":"EN-EL3 专用充电器"},{"name":"DK-10 接眼目罩","type":"取景器","note":"D100 用橡胶接眼目罩"},{"name":"AR-3 快门线","type":"遥控","note":"旋入式快门线，用于长曝光"}],"Nikon D200":[{"name":"EN-EL3e 锂电池","type":"电池","note":"7.4V 锂电池"},{"name":"MB-D200 电池手柄","type":"手柄/马达","note":"D200 专用竖拍手柄"},{"name":"SB-800 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN38"},{"name":"MC-30 遥控线","type":"遥控","note":"10 针接口，线长约 80cm"},{"name":"MH-18a 电池充电器","type":"电源","note":"EN-EL3e 专用充电器"},{"name":"WT-3 无线传输器","type":"其他","note":"D200 用无线网络传输器"},{"name":"DK-21 接眼目罩","type":"取景器","note":"D200 用橡胶接眼目罩"}],"Nikon D300":[{"name":"EN-EL3e 锂电池","type":"电池","note":"7.4V 锂电池"},{"name":"MB-D10 电池手柄","type":"手柄/马达","note":"D300/D300S/D700 专用竖拍手柄"},{"name":"SB-800 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN38"},{"name":"MC-30 遥控线","type":"遥控","note":"10 针接口，线长约 80cm"},{"name":"MH-18a 电池充电器","type":"电源","note":"EN-EL3e 专用充电器"},{"name":"WT-4 无线传输器","type":"其他","note":"D300/D300S/D700 用无线网络传输器"},{"name":"DK-23 接眼目罩","type":"取景器","note":"D300 用橡胶接眼目罩"},{"name":"CF-D200 半软相机套","type":"皮套","note":"D300/D300S 用"}],"Nikon D300S":[{"name":"EN-EL3e 锂电池","type":"电池","note":"7.4V 锂电池"},{"name":"MB-D10 电池手柄","type":"手柄/马达","note":"D300/D300S/D700 专用竖拍手柄"},{"name":"SB-900 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN34"},{"name":"MC-30 遥控线","type":"遥控","note":"10 针接口，线长约 80cm"},{"name":"MH-18a 电池充电器","type":"电源","note":"EN-EL3e 专用充电器"},{"name":"WT-4 无线传输器","type":"其他","note":"D300S 用无线网络传输器"},{"name":"DK-23 接眼目罩","type":"取景器","note":"D300S 用橡胶接眼目罩"},{"name":"CF-D200 半软相机套","type":"皮套","note":"D300/D300S 用"}],"Nikon D500":[{"name":"EN-EL15 锂电池","type":"电池","note":"7.0V 锂电池"},{"name":"MB-D17 电池手柄","type":"手柄/马达","note":"D500 专用竖拍手柄"},{"name":"SB-5000 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，支持无线电 AWL"},{"name":"MC-30 遥控线","type":"遥控","note":"10 针接口，线长约 80cm"},{"name":"EN-EL15a 锂电池","type":"电池","note":"7.0V 锂电池"},{"name":"MH-25a 电池充电器","type":"电源","note":"EN-EL15/EN-EL15a 专用充电器"},{"name":"WT-7 无线传输器","type":"其他","note":"D500 用无线网络传输器"},{"name":"DK-19 接眼目罩","type":"取景器","note":"D500 用橡胶接眼目罩"}],"Nikon D70":[{"name":"EN-EL3 锂电池","type":"电池","note":"7.4V 锂电池"},{"name":"SB-800 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN38"},{"name":"ML-L3 红外遥控器","type":"遥控","note":"无线红外快门遥控"},{"name":"MC-DC1 遥控线","type":"遥控","note":"D70/D70s 用有线遥控线"},{"name":"MH-18 电池充电器","type":"电源","note":"EN-EL3 专用充电器"},{"name":"DK-20 接眼目罩","type":"取景器","note":"D70 用橡胶接眼目罩"}],"Nikon D80":[{"name":"EN-EL3e 锂电池","type":"电池","note":"7.4V 锂电池"},{"name":"MB-D80 电池手柄","type":"手柄/马达","note":"D80/D90 专用竖拍手柄"},{"name":"SB-800 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN38"},{"name":"ML-L3 红外遥控器","type":"遥控","note":"无线红外快门遥控"},{"name":"MH-18a 电池充电器","type":"电源","note":"EN-EL3e 专用充电器"},{"name":"MC-DC1 遥控线","type":"遥控","note":"D80 用有线遥控线"},{"name":"DK-21 接眼目罩","type":"取景器","note":"D80 用橡胶接眼目罩"}],"Nikon D90":[{"name":"EN-EL3e 锂电池","type":"电池","note":"7.4V 锂电池"},{"name":"MB-D80 电池手柄","type":"手柄/马达","note":"D80/D90 专用竖拍手柄"},{"name":"SB-900 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN34"},{"name":"ML-L3 红外遥控器","type":"遥控","note":"无线红外快门遥控"},{"name":"MC-DC2 遥控线","type":"遥控","note":"带配件端子机身用遥控线"},{"name":"MH-18a 电池充电器","type":"电源","note":"EN-EL3e 专用充电器"},{"name":"DK-21 接眼目罩","type":"取景器","note":"D90 用橡胶接眼目罩"}],"Nikon D3000":[{"name":"EN-EL9 锂电池","type":"电池","note":"7.4V 锂电池"},{"name":"ML-L3 红外遥控器","type":"遥控","note":"无线红外快门遥控"},{"name":"SB-400 闪光灯","type":"闪光灯","note":"紧凑型 i-TTL 闪光灯"},{"name":"EN-EL9a 锂电池","type":"电池","note":"7.4V 锂电池"},{"name":"MH-23 电池充电器","type":"电源","note":"EN-EL9/EN-EL9a 专用充电器"},{"name":"DK-20 接眼目罩","type":"取景器","note":"D3000 用橡胶接眼目罩"}],"Nikon D3100":[{"name":"EN-EL14 锂电池","type":"电池","note":"7.2V 锂电池"},{"name":"ML-L3 红外遥控器","type":"遥控","note":"无线红外快门遥控"},{"name":"SB-400 闪光灯","type":"闪光灯","note":"紧凑型 i-TTL 闪光灯"},{"name":"CF-DC1 半软相机套","type":"皮套","note":"D3100/D3200 用原厂相机套"},{"name":"MH-24 电池充电器","type":"电源","note":"EN-EL14 专用充电器"},{"name":"DK-20 接眼目罩","type":"取景器","note":"D3100 用橡胶接眼目罩"},{"name":"MC-DC2 遥控线","type":"遥控","note":"带配件端子机身用遥控线"}],"Nikon D3200":[{"name":"EN-EL14 锂电池","type":"电池","note":"7.2V 锂电池"},{"name":"ML-L3 红外遥控器","type":"遥控","note":"无线红外快门遥控"},{"name":"SB-700 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN28"},{"name":"CF-DC1 半软相机套","type":"皮套","note":"D3100/D3200 用原厂相机套"},{"name":"MH-24 电池充电器","type":"电源","note":"EN-EL14 专用充电器"},{"name":"DK-20 接眼目罩","type":"取景器","note":"D3200 用橡胶接眼目罩"},{"name":"WU-1a 无线移动适配器","type":"其他","note":"Wi-Fi 无线传输适配器"},{"name":"MC-DC2 遥控线","type":"遥控","note":"带配件端子机身用遥控线"}],"Nikon D3300":[{"name":"EN-EL14a 锂电池","type":"电池","note":"7.2V 锂电池，容量较 EN-EL14 提升"},{"name":"ML-L3 红外遥控器","type":"遥控","note":"无线红外快门遥控"},{"name":"SB-700 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN28"},{"name":"CF-DC1 半软相机套","type":"皮套","note":"D3300 兼容原厂相机套"},{"name":"MH-24 电池充电器","type":"电源","note":"EN-EL14/EN-EL14a 专用充电器"},{"name":"DK-25 接眼目罩","type":"取景器","note":"D3300 用橡胶接眼目罩"},{"name":"MC-DC2 遥控线","type":"遥控","note":"带配件端子机身用遥控线"}],"Nikon D3400":[{"name":"EN-EL14a 锂电池","type":"电池","note":"7.2V 锂电池"},{"name":"ML-L3 红外遥控器","type":"遥控","note":"无线红外快门遥控"},{"name":"SB-700 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN28"},{"name":"MH-24 电池充电器","type":"电源","note":"EN-EL14/EN-EL14a 专用充电器"},{"name":"DK-25 接眼目罩","type":"取景器","note":"D3400 用橡胶接眼目罩"}],"Nikon D3500":[{"name":"EN-EL14a 锂电池","type":"电池","note":"7.2V 锂电池"},{"name":"SB-700 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN28"},{"name":"DR-6 直角取景器","type":"取景器","note":"直角取景附件，便于低角度取景"},{"name":"MH-24 电池充电器","type":"电源","note":"EN-EL14/EN-EL14a 专用充电器"},{"name":"DK-25 接眼目罩","type":"取景器","note":"D3500 用橡胶接眼目罩"}],"Nikon D5000":[{"name":"EN-EL9 锂电池","type":"电池","note":"7.4V 锂电池"},{"name":"ML-L3 红外遥控器","type":"遥控","note":"无线红外快门遥控"},{"name":"SB-400 闪光灯","type":"闪光灯","note":"紧凑型 i-TTL 闪光灯"},{"name":"EN-EL9a 锂电池","type":"电池","note":"7.4V 锂电池"},{"name":"MH-23 电池充电器","type":"电源","note":"EN-EL9/EN-EL9a 专用充电器"},{"name":"DK-24 接眼目罩","type":"取景器","note":"D5000 用橡胶接眼目罩"}],"Nikon D5100":[{"name":"EN-EL14 锂电池","type":"电池","note":"7.2V 锂电池"},{"name":"ML-L3 红外遥控器","type":"遥控","note":"无线红外快门遥控"},{"name":"SB-700 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN28"},{"name":"CF-DC2 半软相机套","type":"皮套","note":"D5100/D5200 用原厂相机套"},{"name":"MH-24 电池充电器","type":"电源","note":"EN-EL14 专用充电器"},{"name":"DK-20 接眼目罩","type":"取景器","note":"D5100 用橡胶接眼目罩"}],"Nikon D5200":[{"name":"EN-EL14 锂电池","type":"电池","note":"7.2V 锂电池"},{"name":"ML-L3 红外遥控器","type":"遥控","note":"无线红外快门遥控"},{"name":"SB-700 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN28"},{"name":"CF-DC2 半软相机套","type":"皮套","note":"D5100/D5200 用原厂相机套"},{"name":"MH-24 电池充电器","type":"电源","note":"EN-EL14 专用充电器"},{"name":"DK-20 接眼目罩","type":"取景器","note":"D5200 用橡胶接眼目罩"}],"Nikon D5300":[{"name":"EN-EL14a 锂电池","type":"电池","note":"7.2V 锂电池"},{"name":"ML-L3 红外遥控器","type":"遥控","note":"无线红外快门遥控"},{"name":"SB-700 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN28"},{"name":"CF-DC7 半软相机套","type":"皮套","note":"D5300/D5500 用原厂相机套"},{"name":"MH-24 电池充电器","type":"电源","note":"EN-EL14/EN-EL14a 专用充电器"},{"name":"DK-25 接眼目罩","type":"取景器","note":"D5300 用橡胶接眼目罩"}],"Nikon D5500":[{"name":"EN-EL14a 锂电池","type":"电池","note":"7.2V 锂电池"},{"name":"ML-L3 红外遥控器","type":"遥控","note":"无线红外快门遥控"},{"name":"SB-700 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN28"},{"name":"CF-DC7 半软相机套","type":"皮套","note":"D5300/D5500 用原厂相机套"},{"name":"MH-24 电池充电器","type":"电源","note":"EN-EL14/EN-EL14a 专用充电器"},{"name":"DK-25 接眼目罩","type":"取景器","note":"D5500 用橡胶接眼目罩"}],"Nikon D5600":[{"name":"EN-EL14a 锂电池","type":"电池","note":"7.2V 锂电池"},{"name":"MC-DC2 遥控线","type":"遥控","note":"带配件端子机身用遥控线"},{"name":"SB-700 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN28"},{"name":"MH-24 电池充电器","type":"电源","note":"EN-EL14/EN-EL14a 专用充电器"},{"name":"DK-25 接眼目罩","type":"取景器","note":"D5600 用橡胶接眼目罩"}],"Nikon D7000":[{"name":"EN-EL15 锂电池","type":"电池","note":"7.0V 锂电池"},{"name":"MB-D11 电池手柄","type":"手柄/马达","note":"D7000 专用竖拍手柄"},{"name":"SB-700 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN28"},{"name":"ML-L3 红外遥控器","type":"遥控","note":"无线红外快门遥控"},{"name":"MC-DC2 遥控线","type":"遥控","note":"带配件端子机身用遥控线"},{"name":"CF-DC3 半软相机套","type":"皮套","note":"D7000 系列用原厂相机套"},{"name":"MH-25 电池充电器","type":"电源","note":"EN-EL15 专用充电器"},{"name":"DK-21 接眼目罩","type":"取景器","note":"D7000 用橡胶接眼目罩"}],"Nikon D7100":[{"name":"EN-EL15 锂电池","type":"电池","note":"7.0V 锂电池"},{"name":"MB-D15 电池手柄","type":"手柄/马达","note":"D7100/D7200 专用竖拍手柄"},{"name":"SB-910 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN34"},{"name":"MC-DC2 遥控线","type":"遥控","note":"带配件端子机身用遥控线"},{"name":"CF-DC3 半软相机套","type":"皮套","note":"D7000 系列用原厂相机套"},{"name":"MH-25 电池充电器","type":"电源","note":"EN-EL15 专用充电器"},{"name":"DK-23 接眼目罩","type":"取景器","note":"D7100 用橡胶接眼目罩"}],"Nikon D7200":[{"name":"EN-EL15 锂电池","type":"电池","note":"7.0V 锂电池"},{"name":"MB-D15 电池手柄","type":"手柄/马达","note":"D7100/D7200 专用竖拍手柄"},{"name":"SB-910 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN34"},{"name":"MC-DC2 遥控线","type":"遥控","note":"带配件端子机身用遥控线"},{"name":"CF-DC3 半软相机套","type":"皮套","note":"D7000 系列用原厂相机套"},{"name":"MH-25 电池充电器","type":"电源","note":"EN-EL15 专用充电器"},{"name":"WT-7 无线传输器","type":"其他","note":"D7200 用无线网络传输器"},{"name":"DK-23 接眼目罩","type":"取景器","note":"D7200 用橡胶接眼目罩"}],"Nikon D7500":[{"name":"EN-EL15a 锂电池","type":"电池","note":"7.0V 锂电池"},{"name":"SB-700 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN28"},{"name":"MC-DC2 遥控线","type":"遥控","note":"带配件端子机身用遥控线"},{"name":"MH-25a 电池充电器","type":"电源","note":"EN-EL15/EN-EL15a 专用充电器"},{"name":"ML-L3 红外遥控器","type":"遥控","note":"无线红外快门遥控"},{"name":"DK-28 接眼目罩","type":"取景器","note":"D7500 用橡胶接眼目罩"}],"Nikon D3":[{"name":"EN-EL4a 锂电池","type":"电池","note":"11.1V 锂电池"},{"name":"SB-900 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN34"},{"name":"MC-30 遥控线","type":"遥控","note":"10 针接口，线长约 80cm"},{"name":"WT-4A 无线传输器","type":"其他","note":"无线网络传输器"},{"name":"MH-22 电池充电器","type":"电源","note":"EN-EL4/EN-EL4a 专用充电器"},{"name":"WT-4 无线传输器","type":"其他","note":"D3 用无线网络传输器"},{"name":"DK-19 接眼目罩","type":"取景器","note":"D3 用橡胶接眼目罩"}],"Nikon D4":[{"name":"EN-EL18 锂电池","type":"电池","note":"10.8V 锂电池"},{"name":"SB-910 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN34"},{"name":"MC-36 定时遥控线","type":"遥控","note":"10 针接口，支持间隔定时"},{"name":"WT-5A 无线传输器","type":"其他","note":"无线网络传输器"},{"name":"MH-26 电池充电器","type":"电源","note":"EN-EL18 专用充电器"},{"name":"WT-5 无线传输器","type":"其他","note":"D4 用无线网络传输器"},{"name":"DK-19 接眼目罩","type":"取景器","note":"D4 用橡胶接眼目罩"}],"Nikon D5":[{"name":"EN-EL18a 锂电池","type":"电池","note":"10.8V 锂电池"},{"name":"SB-5000 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，支持无线电 AWL"},{"name":"MC-36 定时遥控线","type":"遥控","note":"10 针接口，支持间隔定时"},{"name":"WT-6A 无线传输器","type":"其他","note":"无线网络传输器"},{"name":"MH-26a 电池充电器","type":"电源","note":"EN-EL18 系列专用充电器"},{"name":"WT-6 无线传输器","type":"其他","note":"D5 用无线网络传输器"},{"name":"DK-19 接眼目罩","type":"取景器","note":"D5 用橡胶接眼目罩"},{"name":"WR-1 无线遥控器","type":"遥控","note":"10 针接口无线遥控收发器"}],"Nikon D6":[{"name":"EN-EL18c 锂电池","type":"电池","note":"10.8V 锂电池"},{"name":"SB-5000 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，支持无线电 AWL"},{"name":"MC-36 定时遥控线","type":"遥控","note":"10 针接口，支持间隔定时"},{"name":"MH-26a 电池充电器","type":"电源","note":"EN-EL18 系列专用充电器"},{"name":"WT-6 无线传输器","type":"其他","note":"D6 用无线网络传输器"},{"name":"DK-27 接眼目罩","type":"取景器","note":"D6 用橡胶接眼目罩"},{"name":"WR-1 无线遥控器","type":"遥控","note":"10 针接口无线遥控收发器"}],"Nikon D700":[{"name":"EN-EL3e 锂电池","type":"电池","note":"7.4V 锂电池"},{"name":"MB-D10 电池手柄","type":"手柄/马达","note":"D300/D300S/D700 专用竖拍手柄"},{"name":"SB-900 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN34"},{"name":"MC-30 遥控线","type":"遥控","note":"10 针接口，线长约 80cm"},{"name":"MH-18a 电池充电器","type":"电源","note":"EN-EL3e 专用充电器"},{"name":"WT-4 无线传输器","type":"其他","note":"D700 用无线网络传输器"},{"name":"DK-19 接眼目罩","type":"取景器","note":"D700 用橡胶接眼目罩"}],"Nikon D800":[{"name":"EN-EL15 锂电池","type":"电池","note":"7.0V 锂电池"},{"name":"MB-D12 电池手柄","type":"手柄/马达","note":"D800/D810 专用竖拍手柄"},{"name":"SB-910 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN34"},{"name":"MC-30 遥控线","type":"遥控","note":"10 针接口，线长约 80cm"},{"name":"CF-DC4 半软相机套","type":"皮套","note":"D800/D810 用原厂相机套"},{"name":"MH-25 电池充电器","type":"电源","note":"EN-EL15 专用充电器"},{"name":"WT-4 无线传输器","type":"其他","note":"D800E 用无线网络传输器"},{"name":"DK-19 接眼目罩","type":"取景器","note":"D800E 用橡胶接眼目罩"}],"Nikon D810":[{"name":"EN-EL15 锂电池","type":"电池","note":"7.0V 锂电池"},{"name":"MB-D12 电池手柄","type":"手柄/马达","note":"D800/D810 专用竖拍手柄"},{"name":"SB-910 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN34"},{"name":"MC-30 遥控线","type":"遥控","note":"10 针接口"},{"name":"CF-DC4 半软相机套","type":"皮套","note":"D800/D810 用原厂相机套"},{"name":"MH-25 电池充电器","type":"电源","note":"EN-EL15 专用充电器"},{"name":"MC-36 定时遥控线","type":"遥控","note":"10 针接口，支持间隔定时"},{"name":"WT-7 无线传输器","type":"其他","note":"D810A 用无线网络传输器"},{"name":"WR-1 无线遥控器","type":"遥控","note":"10 针接口无线遥控收发器"},{"name":"DK-19 接眼目罩","type":"取景器","note":"D810A 用橡胶接眼目罩"},{"name":"EN-EL15 电池","type":"电池","note":"与 D810 通用"}],"Nikon D850":[{"name":"EN-EL15a 锂电池","type":"电池","note":"7.0V 锂电池"},{"name":"MB-D18 电池手柄","type":"手柄/马达","note":"D850 专用竖拍手柄"},{"name":"SB-5000 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，支持无线电 AWL"},{"name":"MC-36 定时遥控线","type":"遥控","note":"10 针接口，支持间隔定时"},{"name":"MH-25a 电池充电器","type":"电源","note":"EN-EL15/EN-EL15a 专用充电器"},{"name":"WT-7 无线传输器","type":"其他","note":"D850 用无线网络传输器"},{"name":"DK-19 接眼目罩","type":"取景器","note":"D850 用橡胶接眼目罩"},{"name":"WR-1 无线遥控器","type":"遥控","note":"10 针接口无线遥控收发器"}],"Nikon D600":[{"name":"EN-EL15 锂电池","type":"电池","note":"7.0V 锂电池"},{"name":"MB-D14 电池手柄","type":"手柄/马达","note":"D600/D610 专用竖拍手柄"},{"name":"SB-910 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN34"},{"name":"MC-DC2 遥控线","type":"遥控","note":"带配件端子机身用遥控线"},{"name":"CF-DC5 半软相机套","type":"皮套","note":"D600/D610 用原厂相机套"},{"name":"MH-25 电池充电器","type":"电源","note":"EN-EL15 专用充电器"},{"name":"WR-10 无线遥控器","type":"遥控","note":"WR-R10 接收器 + WR-T10 发射器套装"},{"name":"DK-21 接眼目罩","type":"取景器","note":"D600 用橡胶接眼目罩"}],"Nikon D610":[{"name":"EN-EL15 锂电池","type":"电池","note":"7.0V 锂电池"},{"name":"MB-D14 电池手柄","type":"手柄/马达","note":"D600/D610 专用竖拍手柄"},{"name":"SB-910 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN34"},{"name":"MC-DC2 遥控线","type":"遥控","note":"带配件端子机身用遥控线"},{"name":"CF-DC5 半软相机套","type":"皮套","note":"D600/D610 用原厂相机套"},{"name":"MH-25 电池充电器","type":"电源","note":"EN-EL15 专用充电器"},{"name":"WR-10 无线遥控器","type":"遥控","note":"WR-R10 接收器 + WR-T10 发射器套装"},{"name":"DK-21 接眼目罩","type":"取景器","note":"D610 用橡胶接眼目罩"}],"Nikon D750":[{"name":"EN-EL15 锂电池","type":"电池","note":"7.0V 锂电池"},{"name":"MB-D16 电池手柄","type":"手柄/马达","note":"D750 专用竖拍手柄"},{"name":"SB-910 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN34"},{"name":"ML-L3 红外遥控器","type":"遥控","note":"无线红外快门遥控"},{"name":"CF-DC5 半软相机套","type":"皮套","note":"D750 兼容原厂相机套"},{"name":"MH-25 电池充电器","type":"电源","note":"EN-EL15 专用充电器"},{"name":"MC-DC2 遥控线","type":"遥控","note":"带配件端子机身用遥控线"},{"name":"WT-7 无线传输器","type":"其他","note":"D750 用无线网络传输器"},{"name":"WR-10 无线遥控器","type":"遥控","note":"WR-R10 接收器 + WR-T10 发射器套装"},{"name":"DK-21 接眼目罩","type":"取景器","note":"D750 用橡胶接眼目罩"}],"Nikon Df":[{"name":"EN-EL14a 锂电池","type":"电池","note":"7.2V 锂电池"},{"name":"SB-910 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN34"},{"name":"MC-DC2 遥控线","type":"遥控","note":"带配件端子机身用遥控线"},{"name":"CF-DC6 半软相机套","type":"皮套","note":"Df 用原厂相机套"},{"name":"MH-24 电池充电器","type":"电源","note":"EN-EL14/EN-EL14a 专用充电器"},{"name":"DK-19 接眼目罩","type":"取景器","note":"Df 用橡胶接眼目罩"},{"name":"AR-3 快门线","type":"遥控","note":"旋入式快门线，用于长曝光"}],"Nikon D1H":[{"name":"EN-4 镍氢电池","type":"电池","note":"7.2V 镍氢电池组"},{"name":"MC-30 遥控线","type":"遥控","note":"10 针接口，线长约 80cm"},{"name":"MH-16 电池充电器","type":"电源","note":"EN-4 专用充电器"},{"name":"SB-80DX 闪光灯","type":"闪光灯","note":"D-TTL 闪光灯，GN38"},{"name":"DK-2 接眼目罩","type":"取景器","note":"D1 系列用橡胶接眼目罩"}],"Nikon D2Hs":[{"name":"EN-EL4 电池","type":"电池","note":"与 D2H 通用"},{"name":"MC-30 遥控线","type":"遥控","note":"10 针接口"}],"Nikon D3X":[{"name":"EN-EL4a 电池","type":"电池","note":"与 D3 通用"},{"name":"MC-30 遥控线","type":"遥控","note":"10 针接口，线长约 80cm"},{"name":"EN-EL4a 锂电池","type":"电池","note":"11.1V 锂电池"},{"name":"MH-22 电池充电器","type":"电源","note":"EN-EL4/EN-EL4a 专用充电器"},{"name":"SB-900 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN34"},{"name":"WT-4 无线传输器","type":"其他","note":"D3X 用无线网络传输器"},{"name":"DK-19 接眼目罩","type":"取景器","note":"D3X 用橡胶接眼目罩"}],"Nikon D3S":[{"name":"EN-EL4a 电池","type":"电池","note":"与 D3 通用"},{"name":"MC-30 遥控线","type":"遥控","note":"10 针接口，线长约 80cm"},{"name":"EN-EL4a 锂电池","type":"电池","note":"11.1V 锂电池"},{"name":"MH-22 电池充电器","type":"电源","note":"EN-EL4/EN-EL4a 专用充电器"},{"name":"SB-900 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN34"},{"name":"WT-4 无线传输器","type":"其他","note":"D3S 用无线网络传输器"},{"name":"DK-19 接眼目罩","type":"取景器","note":"D3S 用橡胶接眼目罩"}],"Nikon D4S":[{"name":"EN-EL18a 电池","type":"电池","note":"与 D4 系列通用"},{"name":"MC-36 遥控线","type":"遥控","note":"10 针接口"}],"Nikon D50":[{"name":"EN-EL3 电池","type":"电池","note":"6MP 入门机"},{"name":"ML-L3 红外遥控","type":"遥控","note":"机身正面有红外接收窗"}],"Nikon D40":[{"name":"EN-EL9 电池","type":"电池","note":"与 D40X/D60 通用"},{"name":"ML-L3 红外遥控","type":"遥控","note":"入门机身通用"}],"Nikon D40X":[{"name":"EN-EL9 电池","type":"电池","note":"与 D40/D60 通用"},{"name":"ML-L3 红外遥控","type":"遥控","note":"入门机身通用"}],"Nikon D60":[{"name":"EN-EL9 电池","type":"电池","note":"与 D40/D40X 通用"},{"name":"ML-L3 红外遥控","type":"遥控","note":"入门机身通用"}],"Nikon D780":[{"name":"EN-EL15b 锂电池","type":"电池","note":"与 D850/D750 同系列"},{"name":"MH-25a 电池充电器","type":"电源","note":"随附"},{"name":"SB-5000 闪光灯","type":"闪光灯","note":"无线电 TTL，D780 支持"},{"name":"DK-21 橡胶眼罩","type":"取景器","note":"与 D750 同款"},{"name":"MC-DC2 遥控线","type":"遥控","note":"机身侧接口"}],"Nikon D70s":[{"name":"EN-EL3a 锂电池","type":"电池","note":"7.4V 锂电池"},{"name":"MH-18a 电池充电器","type":"电源","note":"EN-EL3a/EN-EL3e 专用充电器"},{"name":"MC-DC1 遥控线","type":"遥控","note":"D70/D70s 用有线遥控线"},{"name":"ML-L3 红外遥控器","type":"遥控","note":"无线红外快门遥控"},{"name":"SB-800 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN38"},{"name":"DK-20 接眼目罩","type":"取景器","note":"D70s 用橡胶接眼目罩"}],"Nikkormat FT2":[{"name":"AS-2 闪光灯耦合器","type":"闪光灯","note":"装于 FT2 的 ISO 热靴上，使 BC-7、SB-2、SB-6、SB-7E 等 F/F2 型闪光灯可无连线直连"},{"name":"DG-1 目镜放大镜","type":"取景器","note":"F2 与 Nikkormat 系列通用，2 倍放大"},{"name":"DR-3 直角取景器","type":"取景器","note":"旋入式 90° 取景器，内建 -5～+3 视度调节"},{"name":"视度矫正镜片（9 种）","type":"取景器","note":"-5 至 +3 共 9 种，可与其他旋入式取景附件叠用"},{"name":"橡胶眼罩（Nikkormat 用）","type":"取景器","note":"标准型橡胶眼罩，可与视度矫正镜片同时使用"},{"name":"CF-4 半软皮套","type":"皮套","note":"Nikkormat FT2 加 50mm 镜头用半软套"},{"name":"CF-5 皮套前盖","type":"皮套","note":"配 CF-4 底座使用的前盖，可容至 135mm f/3.5 镜头"},{"name":"CH-6 硬皮套","type":"皮套","note":"FT2/FT3 加标准镜头用硬质皮套"},{"name":"CH-7 硬皮套","type":"皮套","note":"前端加长，可容 43–86mm 变焦"},{"name":"DF-1 鱼眼取景器","type":"取景器","note":"插于机身热靴，配 6mm/10mm f/5.6 鱼眼取景"}],"Nikkormat ELW":[{"name":"AW-1 自动卷片器","type":"手柄/马达","note":"ELW 首创的中档电动过片器，约 0.5 秒/张，6 节 5 号电池"},{"name":"CH-3 硬皮套","type":"皮套","note":"ELW 装标准/广角镜头（含 85mm）用硬质皮套"},{"name":"CH-8 硬皮套","type":"皮套","note":"可容至 43–86mm 变焦镜头的硬质皮套"},{"name":"CH-9 硬皮套","type":"皮套","note":"装 AW-1 卷片器时使用，可容 50mm 级镜头"},{"name":"CH-10 硬皮套","type":"皮套","note":"装 AW-1 且配较大镜头（至 43–86mm 变焦）时使用"},{"name":"CS-11 软皮套","type":"皮套","note":"牛皮软质两件式皮套，EL/ELW/EL2 通用"},{"name":"AS-2 闪光灯耦合器","type":"闪光灯","note":"装于热靴，使 BC-7 等 F/F2 型闪光灯可无同步线直连"},{"name":"SB-3 闪光灯","type":"闪光灯","note":"原厂光敏自动闪光灯，可直接插热靴使用"},{"name":"SB-4 闪光灯","type":"闪光灯","note":"原厂光敏自动闪光灯，可直接插热靴使用"},{"name":"DG-1 目镜放大镜","type":"取景器","note":"Nikkormat 系列用 2 倍目镜放大镜"}],"Nikon F2H":[{"name":"MD-100 高速马达驱动","type":"手柄/马达","note":"F2H 专用，约 10fps"},{"name":"MB-100 电池包","type":"电源","note":"配 MD-100 使用"}],"Nikon F3H":[{"name":"MD-4H 高速马达驱动","type":"手柄/马达","note":"F3H 专用，MN-2 下约 13fps"},{"name":"MN-2 镍镉电池组","type":"电池","note":"高速连拍必备"}],"DCS-100":[{"name":"KODAK 专用电动卷片器（基于尼康 MD-4 改装）","type":"手柄/马达","note":"自带快门释放钮，经线缆与 DSU 相连"},{"name":"KODAK DSU 数字存储单元（K370-2801）","type":"其他","note":"肩背式，内置 200MB 硬盘、4 英寸监视器与 SCSI"},{"name":"KODAK 12V 交流电源适配器","type":"电源","note":"DSU 与相机可用；电池需自备 12V 摄像机电池"},{"name":"KODAK SCSI 数据线","type":"其他","note":"由 DSU 向计算机传输图像"},{"name":"KODAK DSU 外接键盘","type":"其他","note":"柯达选配，可给图像加数据备注"},{"name":"KODAK 数码后背（M3 CCD 1.3MP）","type":"后背","note":"取代 F3 的胶片后背，分彩色与黑白两种"}],"DCS-200":[{"name":"KODAK 6×M 型镍镉充电电池组","type":"电池","note":"为数码后背供电；机身另用 4×AA"},{"name":"KODAK 交流电池充电器/适配器","type":"电源","note":"只能给后背电池充电/供电，不影响机身电池"},{"name":"KODAK 外接硬盘","type":"其他","note":"选配，经 SCSI 存取"},{"name":"KODAK SCSI 线缆","type":"其他","note":"后背集成 SCSI 接口"},{"name":"KODAK 数码后背（1.5MP CCD）","type":"后背","note":"与 F-801s 机身组成一体，含 80MB 硬盘"}],"DCS-410":[{"name":"KODAK 镍氢充电电池","type":"电池","note":"单块电池同时供后背与机身"},{"name":"KODAK 通用交流电池充电器/适配器（95–250V）","type":"电源","note":"随机附带，可充后背电池"},{"name":"KODAK 数码后背（1.5MP）","type":"后背","note":"拆下后背可还原为 F90 胶片机"},{"name":"KODAK 改装对焦屏","type":"对焦屏","note":"标示成像范围，可按备件单独购买"}],"DCS-420":[{"name":"KODAK 镍氢充电电池","type":"电池","note":"供后背与机身，满电约 1000 张"},{"name":"KODAK 通用交流电池充电器/适配器（95–250V）","type":"电源","note":"随机附带"},{"name":"KODAK 数码后背（1.5MP）","type":"后背","note":"另有 420m 黑白与 420IR 红外版后背"},{"name":"KODAK 改装对焦屏","type":"对焦屏","note":"标示缩小后的成像范围"}],"DCS-460":[{"name":"KODAK 镍氢充电电池","type":"电池","note":"满电约 300 张"},{"name":"KODAK 通用交流电池充电器/适配器（95–250V）","type":"电源","note":"随机附带"},{"name":"KODAK 数码后背（6.2MP）","type":"后背","note":"M6 CCD，APS-H 画幅"},{"name":"KODAK 改装对焦屏","type":"对焦屏","note":"标示成像范围"}],"DCS-315":[{"name":"KODAK 交流电源适配器","type":"电源","note":"6×AA 之外的替代电源"},{"name":"KODAK 红外截止滤镜（Hot Mirror）","type":"其他","note":"315 红外敏感，需按镜头更换滤镜"},{"name":"KODAK 数码后背（1.5MP）","type":"后背","note":"基于 Pronea 6i 机身"}],"DCS-330":[{"name":"KODAK 交流电源适配器","type":"电源","note":"6×AA 之外的替代电源"},{"name":"KODAK 抗锯齿滤镜","type":"其他","note":"330 标配，可更换"},{"name":"KODAK 数码后背（3MP）","type":"后背","note":"ITO 增感 CCD"}],"DCS-620":[{"name":"KODAK 镍镉/镍氢充电电池组","type":"电池","note":"单块电池，供机身与后背"},{"name":"KODAK 双位外接充电器","type":"电源","note":"一次可充两块电池"},{"name":"KODAK 交流电源适配器","type":"电源","note":"室内使用，节省电池"},{"name":"KODAK IEEE-1394 数据线","type":"其他","note":"FireWire 传输"},{"name":"KODAK DCS Photo Desk 软件","type":"其他","note":"随附图像处理与相机管理软件"}],"DCS-620X":[{"name":"KODAK 镍镉/镍氢充电电池组","type":"电池","note":"与 620 同型"},{"name":"KODAK 双位外接充电器","type":"电源","note":"一次可充两块电池"},{"name":"KODAK 交流电源适配器","type":"电源","note":"室内使用"},{"name":"KODAK IEEE-1394 数据线","type":"其他","note":"FireWire 传输"},{"name":"KODAK DCS Photo Desk 软件","type":"其他","note":"随附软件"}],"DCS-660":[{"name":"KODAK 镍镉/镍氢充电电池组","type":"电池","note":"与 620 同型"},{"name":"KODAK 双位外接充电器","type":"电源","note":"一次可充两块电池"},{"name":"KODAK 交流电源适配器","type":"电源","note":"室内使用"},{"name":"KODAK IEEE-1394 数据线","type":"其他","note":"FireWire 传输"},{"name":"KODAK DCS Photo Desk 软件","type":"其他","note":"随附软件"}],"DCS-720x":[{"name":"KODAK 镍镉/镍氢充电电池组","type":"电池","note":"与 760 同型"},{"name":"KODAK 双位外接充电器","type":"电源","note":"一次可充两块电池"},{"name":"KODAK 交流电源适配器","type":"电源","note":"室内使用"},{"name":"KODAK IEEE-1394 数据线","type":"其他","note":"FireWire 传输"},{"name":"KODAK DCS Photo Desk 软件","type":"其他","note":"随附软件"}],"DCS-760":[{"name":"KODAK 镍镉/镍氢充电电池组","type":"电池","note":"细长条电池组，供机身与后背"},{"name":"KODAK 双位外接充电器","type":"电源","note":"一次可充两块电池"},{"name":"KODAK 交流电源适配器","type":"电源","note":"室内使用"},{"name":"KODAK IEEE-1394 数据线","type":"其他","note":"FireWire 传输"},{"name":"KODAK DCS Photo Desk 软件","type":"其他","note":"随附软件"}],"DCS Pro 14n":[{"name":"KODAK 锂离子充电电池组","type":"电池","note":"专用电池，置于手柄内"},{"name":"KODAK 电池充电器","type":"电源","note":"随附"},{"name":"KODAK 交流电源适配器","type":"电源","note":"室内使用"},{"name":"KODAK DCS Photo Desk 软件","type":"其他","note":"随附软件，处理 DCR 原始文件"}],"DCS Pro 14nx":[{"name":"KODAK 锂离子充电电池组","type":"电池","note":"与 14n 同型"},{"name":"KODAK 电池充电器","type":"电源","note":"随附"},{"name":"KODAK 交流电源适配器","type":"电源","note":"室内使用"},{"name":"KODAK DCS Photo Desk 软件","type":"其他","note":"随附软件"}],"DCS Pro SLR/n":[{"name":"KODAK 锂离子充电电池组","type":"电池","note":"与 14n/14nx 同型"},{"name":"KODAK 电池充电器","type":"电源","note":"随附"},{"name":"KODAK 交流电源适配器","type":"电源","note":"室内使用"},{"name":"KODAK DCS Photo Desk 软件","type":"其他","note":"随附软件"}],"NC2000e":[{"name":"KODAK 镍氢充电电池","type":"电池","note":"与 DCS 400 系列同型"},{"name":"KODAK 通用交流电池充电器/适配器","type":"电源","note":"与 DCS 400 系列同型"},{"name":"KODAK 数码后背（1.3MP）","type":"后背","note":"美联社定制机型所用后背"},{"name":"KODAK 改装对焦屏","type":"对焦屏","note":"标示成像范围"}],"FinePix S1 Pro":[{"name":"AC-5VH 交流电源适配器","type":"电源","note":"富士专用 5V 适配器，另购"},{"name":"电池适配器（影像处理器向机身供电）","type":"电源","note":"用 4×AA 影像处理器给机身供电"},{"name":"相机背带","type":"其他","note":"随机附带"},{"name":"LCD 保护盖","type":"其他","note":"随机附带"}],"FinePix S2 Pro":[{"name":"AC-5VH/AC-5VHS 交流电源适配器","type":"电源","note":"另购，供机身使用"},{"name":"Hyper-Utility 软件（S2 Pro 用）","type":"其他","note":"可选，支持联机拍摄与 RAW 处理"},{"name":"相机背带","type":"其他","note":"随机附带"},{"name":"LCD 保护盖","type":"其他","note":"随机附带"}],"FinePix S3 Pro":[{"name":"AC-5VX 交流电源适配器","type":"电源","note":"另购"},{"name":"Hyper-Utility 软件（S3 Pro 用）","type":"其他","note":"可选，联机拍摄与 RAW 处理"},{"name":"相机背带","type":"其他","note":"随机附带"},{"name":"LCD 保护盖","type":"其他","note":"随机附带"}],"FinePix S3 Pro UVIR":[{"name":"AC-5VX 交流电源适配器","type":"电源","note":"与 S3 Pro 同款"},{"name":"Hyper-Utility 软件（S3 Pro 用）","type":"其他","note":"可选"},{"name":"相机背带","type":"其他","note":"随机附带"},{"name":"LCD 保护盖","type":"其他","note":"随机附带"}],"FinePix S5 Pro":[{"name":"NP-150 锂离子电池","type":"电池","note":"S5 Pro 专用，不兼容尼康 EN-EL3e"},{"name":"BC-150 电池充电器","type":"电源","note":"NP-150 专用充电器"},{"name":"MB-D200 电池手柄","type":"手柄/马达","note":"尼康制造、富士官方选配；可装 2×NP-150 或 6×AA"},{"name":"相机背带","type":"其他","note":"随机附带"}],"FinePix IS Pro":[{"name":"NP-150 锂离子电池","type":"电池","note":"与 S5 Pro 同型"},{"name":"BC-150 电池充电器","type":"电源","note":"NP-150 专用充电器"},{"name":"MB-D200 电池手柄","type":"手柄/马达","note":"尼康制造、富士官方选配；可装 2×NP-150 或 6×AA"},{"name":"相机背带","type":"其他","note":"随机附带"}],"Nikon D2Xs":[{"name":"EN-EL4a 锂电池","type":"电池","note":"11.1V 锂电池"},{"name":"SB-800 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，GN38"},{"name":"MC-30 遥控线","type":"遥控","note":"10 针接口，线长约 80cm"},{"name":"MH-21 电池充电器","type":"电源","note":"EN-EL4/EN-EL4a 专用充电器"},{"name":"WT-2 无线传输器","type":"其他","note":"D2X 用无线网络传输器"},{"name":"DK-19 接眼目罩","type":"取景器","note":"D2 系列用橡胶接眼目罩"}]},"parts":[{"name":"AH-4 手带","type":"其他","note":"三脚架接口手带","models":["Nikon F-301","Nikon F-501","Nikon F-401","Nikon F-601","Nikon F-801","Nikon F70","Nikon F60","Nikon F50","Nikon F55","Nikon F75","Nikon F80"]},{"name":"BL-3 电池仓盖","type":"其他","note":"MB-40 改用 EN-EL4 系列电池时替换的电池仓盖","models":["Nikon F6"]},{"name":"Hyper-Utility 软件（S2 Pro 用）","type":"其他","note":"可选，支持联机拍摄与 RAW 处理","models":["FinePix S2 Pro"]},{"name":"Hyper-Utility 软件（S3 Pro 用）","type":"其他","note":"可选，联机拍摄与 RAW 处理","models":["FinePix S3 Pro","FinePix S3 Pro UVIR"]},{"name":"KODAK DCS Photo Desk 软件","type":"其他","note":"随附图像处理与相机管理软件","models":["DCS-620","DCS-620X","DCS-660","DCS-720x","DCS-760","DCS Pro 14n","DCS Pro 14nx","DCS Pro SLR/n"]},{"name":"KODAK DSU 外接键盘","type":"其他","note":"柯达选配，可给图像加数据备注","models":["DCS-100"]},{"name":"KODAK DSU 数字存储单元（K370-2801）","type":"其他","note":"肩背式，内置 200MB 硬盘、4 英寸监视器与 SCSI","models":["DCS-100"]},{"name":"KODAK IEEE-1394 数据线","type":"其他","note":"FireWire 传输","models":["DCS-620","DCS-620X","DCS-660","DCS-720x","DCS-760"]},{"name":"KODAK SCSI 数据线","type":"其他","note":"由 DSU 向计算机传输图像","models":["DCS-100"]},{"name":"KODAK SCSI 线缆","type":"其他","note":"后背集成 SCSI 接口","models":["DCS-200"]},{"name":"KODAK 外接硬盘","type":"其他","note":"选配，经 SCSI 存取","models":["DCS-200"]},{"name":"KODAK 抗锯齿滤镜","type":"其他","note":"330 标配，可更换","models":["DCS-330"]},{"name":"KODAK 红外截止滤镜（Hot Mirror）","type":"其他","note":"315 红外敏感，需按镜头更换滤镜","models":["DCS-315"]},{"name":"LCD 保护盖","type":"其他","note":"随机附带","models":["FinePix S1 Pro","FinePix S2 Pro","FinePix S3 Pro","FinePix S3 Pro UVIR"]},{"name":"WT-1 无线传输器","type":"其他","note":"D2H 用无线网络传输器","models":["Nikon D2H"]},{"name":"WT-2 无线传输器","type":"其他","note":"D2X 用无线网络传输器","models":["Nikon D2X","Nikon D2Xs"]},{"name":"WT-3 无线传输器","type":"其他","note":"D200 用无线网络传输器","models":["Nikon D200"]},{"name":"WT-4 无线传输器","type":"其他","note":"D300/D300S/D700 用无线网络传输器","models":["Nikon D300","Nikon D300S","Nikon D3","Nikon D700","Nikon D800","Nikon D3X","Nikon D3S"]},{"name":"WT-4A 无线传输器","type":"其他","note":"无线网络传输器","models":["Nikon D3"]},{"name":"WT-5 无线传输器","type":"其他","note":"D4 用无线网络传输器","models":["Nikon D4"]},{"name":"WT-5A 无线传输器","type":"其他","note":"无线网络传输器","models":["Nikon D4"]},{"name":"WT-6 无线传输器","type":"其他","note":"D5 用无线网络传输器","models":["Nikon D5","Nikon D6"]},{"name":"WT-6A 无线传输器","type":"其他","note":"无线网络传输器","models":["Nikon D5"]},{"name":"WT-7 无线传输器","type":"其他","note":"D500 用无线网络传输器","models":["Nikon D500","Nikon D7200","Nikon D810","Nikon D850","Nikon D750"]},{"name":"WU-1a 无线移动适配器","type":"其他","note":"Wi-Fi 无线传输适配器","models":["Nikon D3200"]},{"name":"三脚垫（随附）","type":"其他","note":"FM10 随机附带，装于机身底部供三脚架固定","models":["Nikon FM10","Nikon FE10"]},{"name":"手柄 Model 2","type":"其他","note":"原厂枪式手柄（Pistol Grip Model 2），装于三脚孔，长焦镜头手持更稳","models":["Nikkormat FTn"]},{"name":"相机背带","type":"其他","note":"随机附带","models":["FinePix S1 Pro","FinePix S2 Pro","FinePix S3 Pro","FinePix S3 Pro UVIR","FinePix S5 Pro","FinePix IS Pro"]},{"name":"DA-2 运动取景器","type":"取景器","note":"高眼点，戴头盔、护目镜或装防水罩时使用","models":["Nikon F3"]},{"name":"DA-20 运动取景器","type":"取景器","note":"高眼点运动取景器，支持中央重点与点测","models":["Nikon F4"]},{"name":"DA-30 运动取景器","type":"取景器","note":"高眼点，矩阵与中央重点","models":["Nikon F5"]},{"name":"DE-2 眼平取景器","type":"取景器","note":"F3 标准配置取景器（0.8 倍）","models":["Nikon F3"]},{"name":"DE-3 高眼点取景器","type":"取景器","note":"F3HP 标准配置，眼点约 25mm，戴眼镜可直接取景","models":["Nikon F3"]},{"name":"DE-5 取景器","type":"取景器","note":"F3P 专用钛色顶取景器，为 F3 系列唯一顶部带 ISO 热靴的取景器","models":["Nikon F3"]},{"name":"DF-1 鱼眼取景器","type":"取景器","note":"用于 6mm f/5.6 与 10mm f/5.6 等非反光式鱼眼镜头取景，套在 F 的倒片旋钮上","models":["Nikon F","Nikkormat FT","Nikkormat FTn","Nikkormat FT3","Nikkormat EL","Nikkormat FT2"]},{"name":"DG-1 目镜放大镜","type":"取景器","note":"为 Nikon F2 与 Nikkormat 系列设计，2 倍放大取景器中央","models":["Nikkormat FT","Nikkormat FTn","Nikkormat FT3","Nikkormat EL","Nikomat EL2","Nikkormat FT2","Nikkormat ELW"]},{"name":"DG-2 放大目镜","type":"取景器","note":"2 倍中央放大，需 DK-18","models":["Nikon F6"]},{"name":"DG-2 目镜放大镜","type":"取景器","note":"专为 FM/FE 设计，2 倍放大取景器中央，内建 +1～-5 视度调节","models":["Nikon FM","Nikon FM3A","Nikon FE","Nikon FE2","Nikon FA","Nikon FM10","Nikon FE10"]},{"name":"DK-10 接眼目罩","type":"取景器","note":"D100 用橡胶接眼目罩","models":["Nikon D100"]},{"name":"DK-13 转接环","type":"取景器","note":"DR-3/DR-4 直角取景器装于 Nikkormat 所需的转接环","models":["Nikkormat FT","Nikkormat FTn","Nikkormat FT3"]},{"name":"DK-16 接眼目罩","type":"取景器","note":"F55/F65/F75 用橡胶接眼目罩","models":["Nikon F55","Nikon F65","Nikon F75"]},{"name":"DK-17A 防雾目镜","type":"取景器","note":"带防雾镀膜，低温环境减少起雾","models":["Nikon F6"]},{"name":"DK-17C 视度校正镜","type":"取景器","note":"-3 至 +2 共五款","models":["Nikon F6"]},{"name":"DK-17M 放大目镜","type":"取景器","note":"取景倍率约 1.2 倍，并扩展视度调节范围","models":["Nikon F6"]},{"name":"DK-19 接眼目罩","type":"取景器","note":"D2 系列用橡胶接眼目罩","models":["Nikon D2H","Nikon D2X","Nikon D500","Nikon D3","Nikon D4","Nikon D5","Nikon D700","Nikon D800","Nikon D810","Nikon D850","Nikon Df","Nikon D3X","Nikon D3S","Nikon D2Xs"]},{"name":"DK-19 橡胶眼罩","type":"取景器","note":"F6 用橡胶眼罩，遮光并提升取景舒适度","models":["Nikon F6"]},{"name":"DK-2 接眼目罩","type":"取景器","note":"D1 系列用橡胶接眼目罩","models":["Nikon D1","Nikon D1X","Nikon D1H"]},{"name":"DK-2 橡胶眼罩","type":"取景器","note":"高眼点目镜用橡胶眼罩","models":["Nikon F3","Nikon F4","Nikon F5"]},{"name":"DK-20 接眼目罩","type":"取景器","note":"D70 用橡胶接眼目罩","models":["Nikon D70","Nikon D3000","Nikon D3100","Nikon D3200","Nikon D5100","Nikon D5200","Nikon D70s"]},{"name":"DK-21 接眼目罩","type":"取景器","note":"D200 用橡胶接眼目罩","models":["Nikon D200","Nikon D80","Nikon D90","Nikon D7000","Nikon D600","Nikon D610","Nikon D750"]},{"name":"DK-21 橡胶眼罩","type":"取景器","note":"与 D750 同款","models":["Nikon D780"]},{"name":"DK-22 目镜转接环","type":"取景器","note":"官方列为另购件，FM10 装 DG-2 时使用的转接环","models":["Nikon FM10"]},{"name":"DK-23 接眼目罩","type":"取景器","note":"D300 用橡胶接眼目罩","models":["Nikon D300","Nikon D300S","Nikon D7100","Nikon D7200"]},{"name":"DK-24 接眼目罩","type":"取景器","note":"D5000 用橡胶接眼目罩","models":["Nikon D5000"]},{"name":"DK-25 接眼目罩","type":"取景器","note":"D3300 用橡胶接眼目罩","models":["Nikon D3300","Nikon D3400","Nikon D3500","Nikon D5300","Nikon D5500","Nikon D5600"]},{"name":"DK-27 接眼目罩","type":"取景器","note":"D6 用橡胶接眼目罩","models":["Nikon D6"]},{"name":"DK-28 接眼目罩","type":"取景器","note":"D7500 用橡胶接眼目罩","models":["Nikon D7500"]},{"name":"DK-3 橡胶眼罩","type":"取景器","note":"FM/FE/FM2/FE2/FA 专用分瓣式橡胶眼罩，开后背时可折起","models":["Nikon FM","Nikon FM2","Nikon FM3A","Nikon FE","Nikon FE2","Nikon FA"]},{"name":"DK-4 橡胶眼罩","type":"取景器","note":"旋入式橡胶眼罩，防杂光并可保护眼镜","models":["Nikon F3"]},{"name":"DK-5 目镜盖","type":"取景器","note":"EM/FG/FG20 用遮光目镜盖，长曝光与自拍时防杂光","models":["Nikon FG","Nikon FG20","Nikon EM","Nikon FM10","Nikon FE10"]},{"name":"DK-6 接眼目罩","type":"取景器","note":"F-801 系列用橡胶接眼目罩","models":["Nikon F-801","Nikon F90","Nikon F90X"]},{"name":"DK-7 目镜适配器","type":"取景器","note":"转接 DR-3/DG-2 至 DP-30","models":["Nikon F5"]},{"name":"DK-9 接眼目罩","type":"取景器","note":"F50/F70 用橡胶接眼目罩","models":["Nikon F70","Nikon F50"]},{"name":"DP-1 Photomic 测光取景器","type":"取景器","note":"外测光 CdS 取景器，非 TTL 测光","models":["Nikon F2"]},{"name":"DP-11 Photomic A 测光取景器","type":"取景器","note":"F2A 用 AI 联动测光顶（1977）","models":["Nikon F2"]},{"name":"DP-12 Photomic AS 测光取景器","type":"取景器","note":"F2AS 用 AI 联动测光顶，LED 显示","models":["Nikon F2"]},{"name":"DP-2 Photomic S 测光取景器","type":"取景器","note":"TTL 全开光圈，双灯显示","models":["Nikon F2"]},{"name":"DP-20 多重测光取景器","type":"取景器","note":"F4 标准配置，矩阵、中央重点与点测三种测光","models":["Nikon F4"]},{"name":"DP-3 Photomic SB 测光取景器","type":"取景器","note":"在 DP-2 基础上增加快门速度显示","models":["Nikon F2"]},{"name":"DP-30 多重测光取景器","type":"取景器","note":"钛壳，矩阵/中央/点测","models":["Nikon F5"]},{"name":"DR-3 直角取景器","type":"取景器","note":"直角取景，需 DK-7","models":["Nikon F5","Nikkormat FT","Nikkormat FTn","Nikkormat FT3","Nikkormat EL","Nikomat EL2","Nikon FE","Nikkormat FT2"]},{"name":"DR-4 直角取景器","type":"取景器","note":"配 DK-13 转接环使用；DK-13 适用范围含 F、F2、F3、FM/FE 系列与 Nikkormat","models":["Nikkormat FT","Nikkormat FTn","Nikkormat FT3","Nikkormat EL","Nikomat EL2","Nikon FM","Nikon FM2","Nikon FM3A","Nikon FE2","Nikon FA"]},{"name":"DR-5 直角取景器","type":"取景器","note":"直角取景，1:1 或 2:1","models":["Nikon F6"]},{"name":"DR-6 直角取景器","type":"取景器","note":"直角取景附件，便于低角度取景","models":["Nikon D3500"]},{"name":"DW-1 腰平取景器","type":"取景器","note":"F2 可换腰平取景器，俯视取景用","models":["Nikon F2"]},{"name":"DW-20 腰平取景器","type":"取景器","note":"F4 系列腰平取景，仅点测","models":["Nikon F4"]},{"name":"DW-21 6 倍放大取景器","type":"取景器","note":"高倍率俯视取景，仅点测","models":["Nikon F4"]},{"name":"DW-3 腰平取景器","type":"取景器","note":"说明书列为 F3AF 可选可换取景器","models":["Nikon F3"]},{"name":"DW-30 腰平取景器","type":"取景器","note":"F5 腰平取景，仅点测","models":["Nikon F5"]},{"name":"DW-31 6 倍放大取景器","type":"取景器","note":"高倍取景，仅点测","models":["Nikon F5"]},{"name":"DW-4 6 倍放大取景器","type":"取景器","note":"微距、翻拍与显微摄影的高倍取景","models":["Nikon F3"]},{"name":"DX-1 AF 取景器","type":"取景器","note":"F3AF 标准配置，内置 AF 传感器与对焦指示；换回普通取景器时须取出对焦屏","models":["Nikon F3"]},{"name":"Photomic FTn 测光取景器","type":"取景器","note":"1968 年 F 末期 TTL 测光顶，取景器内可读快门速度","models":["Nikon F"]},{"name":"Photomic T 测光取景器","type":"取景器","note":"1965 年推出，尼康 F 首个 TTL 测光取景器（Tn 为其改良型）","models":["Nikon F"]},{"name":"Photomic Tn 测光取景器","type":"取景器","note":"T 的改良型，1967 年推出","models":["Nikon F"]},{"name":"Photomic 测光取景器","type":"取景器","note":"1962 年首个 CdS 外测光顶","models":["Nikon F"]},{"name":"替换目镜玻璃","type":"取景器","note":"Nikkormat/EL2 用 19mm 螺纹透明目镜玻璃片","models":["Nikkormat FTn","Nikomat EL2"]},{"name":"橡胶眼罩（Nikkormat 用）","type":"取景器","note":"尼康为 Nikkormat 系列设的旋入式橡胶眼罩，防杂光","models":["Nikkormat FT","Nikkormat FTn","Nikkormat FT3","Nikkormat FT2"]},{"name":"橡胶眼罩（Nikkormat/EL2 用）","type":"取景器","note":"标准型眼罩，装上目镜框后整体旋回原位使用","models":["Nikkormat EL","Nikomat EL2"]},{"name":"目镜框转接器","type":"取景器","note":"早期方形目镜框的 Nikkormat 转接为 19mm 螺纹，以便加装旋入式取景附件","models":["Nikkormat FT"]},{"name":"目镜玻璃（F2/EL2/FT3 用）","type":"取景器","note":"19mm 螺纹替换用目镜玻璃片","models":["Nikkormat FT3","Nikkormat EL","Nikomat EL2"]},{"name":"眼平棱镜取景器（Eye-Level Prism）","type":"取景器","note":"F 最初标配的无测光棱镜取景器","models":["Nikon F"]},{"name":"腰平取景器（Waist-Level Finder）","type":"取景器","note":"F 可换取景器之一，俯视取景与低角度拍摄用","models":["Nikon F"]},{"name":"视度矫正镜片（9 种）","type":"取景器","note":"-5 至 +3 共 9 种，旋入 19mm 目镜螺纹","models":["Nikkormat FT","Nikkormat FTn","Nikkormat FT3","Nikkormat EL","Nikomat EL2","Nikon FG20","Nikon EM","Nikkormat FT2"]},{"name":"视度矫正镜片（FM/FE 专用型）","type":"取景器","note":"9 种（-5 至 +3），小型化以便开后背","models":["Nikon FM","Nikon FE","Nikon FE2","Nikon FA"]},{"name":"KODAK 数码后背（1.3MP）","type":"后背","note":"美联社定制机型所用后背","models":["NC2000e"]},{"name":"KODAK 数码后背（1.5MP CCD）","type":"后背","note":"与 F-801s 机身组成一体，含 80MB 硬盘","models":["DCS-200"]},{"name":"KODAK 数码后背（1.5MP）","type":"后背","note":"拆下后背可还原为 F90 胶片机","models":["DCS-410","DCS-420","DCS-315"]},{"name":"KODAK 数码后背（3MP）","type":"后背","note":"ITO 增感 CCD","models":["DCS-330"]},{"name":"KODAK 数码后背（6.2MP）","type":"后背","note":"M6 CCD，APS-H 画幅","models":["DCS-460"]},{"name":"KODAK 数码后背（M3 CCD 1.3MP）","type":"后背","note":"取代 F3 的胶片后背，分彩色与黑白两种","models":["DCS-100"]},{"name":"MF-1 250 张散装胶片后背","type":"后背","note":"250 张大容量后背，1971 年随 F2 推出；需 MD-1/MD-2 马达与 MB-1 电池包，用 2 个 MZ-1 暗盒装约 10m 散装卷，供体育、科研等长时间连拍","models":["Nikon F2"]},{"name":"MF-10 数据后背（36 张）","type":"后背","note":"数据记录：内置时钟打印时间、日期，可插手写备忘片一起曝光；属 F2 Data/36 套装，需特制 F2 机身与 MD-1/MD-2、MB-1，4 节 AA 供电","models":["Nikon F2"]},{"name":"MF-11 数据后背（250 张）","type":"后背","note":"250 张大容量数据后背（MF-10 的 250 张版本），配 MF-1 杂志后背用于 F2 Data/250 套装，需特制机身与马达系统","models":["Nikon F2"]},{"name":"MF-12 数据后背","type":"后背","note":"数据打印：年/月/日、日/时/分或张数，石英钟带闹钟；FM/FE 后背无触点，需用连线接机身 PC 端子；也可用于 FM2/FE2/FA","models":["Nikon FM","Nikon FE"]},{"name":"MF-14 数据后背","type":"后背","note":"数据打印：年/月/日、日/时/分或 -2 至 2000 的连续编号；石英钟带闹钟，2 枚 SR44；适用 F3 全系列（F3H 配 MD-4H 时字迹会虚）","models":["Nikon F3"]},{"name":"MF-16 数据后背","type":"后背","note":"数据打印：年/月/日、日/时/分或张数（至 2000），红色 LED 印字，石英钟带闹钟；FM2 后背有触点、无需连线；也可用 MF-12（需把连线接到机身 PC 端子）；FM2/FM2n 通用","models":["Nikon FM2","Nikon FE2","Nikon FA"]},{"name":"MF-17 250 张数据后背套装","type":"后背","note":"含 MF-4 后背与打印组件，可打印年/月/日、时/分/秒及手写备忘；需 S 型对焦屏，配 MD-4 马达使用，附 MC-15 连线","models":["Nikon F3"]},{"name":"MF-18 数据后背","type":"后背","note":"以 MF-14 为基础增加自动停片：配 MD-4 电动倒片时保留片头在暗盒外，其余数据打印功能同 MF-14；2 枚 SR44","models":["Nikon F3"]},{"name":"MF-2 750 张散装胶片后背","type":"后背","note":"750 张大容量后背，特注品；100 英尺散装卷、双 MZ-2 暗盒、内置马达 1-4 fps、带裁片刀；需 MD-1/MD-2（不可用 MD-3），由 MA-2/MA-4 交直流转换器供电","models":["Nikon F2"]},{"name":"MF-22 数据后背","type":"后背","note":"日期/时间打印：年/月/日、月/日/年、日/月/年、日/时/分，打在画面右下角；CR2025 一枚；F4/F4S/F4E 通用","models":["Nikon F4"]},{"name":"MF-23 多功能后背","type":"后背","note":"数据记录：日期时间、张数、序号、固定数、快门/光圈、曝光补偿，可打印在画面内或片间；含间隔定时、曝光延迟、自动包围、长曝光 1 秒至 999 小时、Freeze Focus、每日闹钟与自动停片；2 枚 SR44；F4 系列通用","models":["Nikon F4"]},{"name":"MF-24 250 张多功能后背","type":"后背","note":"MF-23 的数据与拍摄控制功能，加 250 张散装胶片能力，可用外接电源；F4 系列通用","models":["Nikon F4"]},{"name":"MF-25 数据后背","type":"后背","note":"日期/时刻打印，带世界时间（24 城市及夏令时）与每日闹钟；F90/F90X 通用；2 枚 CR2025","models":["Nikon F90","Nikon F90X"]},{"name":"MF-26 多功能后背","type":"后背","note":"八种数据打印（含快门/光圈等曝光值），另有 AE 包围、闪光包围、2-19 张连拍、间隔定时、长曝光、多重曝光；F90/F90X 通用；F90S/F90XS 版本标配","models":["Nikon F90","Nikon F90X"]},{"name":"MF-27 数据后背","type":"后背","note":"F5 专用简化型数据后背，打印日期或 24 小时时刻，支持年/月/日、月/日/年、日/月/年、日/时/分四种格式；CR2025 一枚","models":["Nikon F5"]},{"name":"MF-28 多功能后背","type":"后背","note":"画面内/片间数据打印，另有自动包围、焦点优先、间隔定时（最长 99 小时 59 分 59 秒）、长曝光 1 秒至 999 小时等控制；2 枚 CR2025","models":["Nikon F5"]},{"name":"MF-29 数据后背","type":"后背","note":"F100 专用简化型数据后背，打印年/月/日、日/时/分、月/日/年、日/月/年；CR2025 一枚","models":["Nikon F100"]},{"name":"MF-3 自动停片后背","type":"后背","note":"36 张用；配 MD-2 电动倒片时自动停在片头、留约 2 英寸片头，并有 LED 提示；不能用 MD-1/MD-3","models":["Nikon F2"]},{"name":"MF-4 250 张散装胶片后背","type":"后背","note":"250 张大容量；双 MZ-1 暗盒装约 10m 散装卷，配 MD-4 马达可连续拍 250 张","models":["Nikon F3"]},{"name":"MF-6 自动停片后背","type":"后背","note":"自动停片后背，配合 MD-4 连拍使用","models":["Nikon F3"]},{"name":"MF-6B 自动停片后背","type":"后背","note":"F3P / F3H 的标配后背，产量少、二手稀有","models":["Nikon F3"]},{"name":"KODAK 改装对焦屏","type":"对焦屏","note":"标示成像范围，可按备件单独购买","models":["DCS-410","DCS-420","DCS-460","NC2000e"]},{"name":"对焦屏 A 型","type":"对焦屏","note":"中央裂像+12mm 参考圈，通用对焦；小光圈下裂像易变黑","models":["Nikon F","Nikon F2","Nikon F3","Nikon F5","Nikon F6"]},{"name":"对焦屏 B 型","type":"对焦屏","note":"磨砂菲涅尔场+5/12mm 参考圈，通用构图；无对焦辅助、四角偏暗","models":["Nikon F","Nikon F2","Nikon F3","Nikon F4","Nikon F5","Nikon F6","Nikon FM2","Nikon FE","Nikon FE2","Nikon FA"]},{"name":"对焦屏 B2","type":"对焦屏","note":"后期磨砂点屏，FM2 用需 +1/3 EV；无对焦辅助","models":["Nikon FM2","Nikon FM3A","Nikon FE","Nikon FE2","Nikon FA"]},{"name":"对焦屏 B3","type":"对焦屏","note":"Clear Matte IIa 全磨砂场，通用与微距；无对焦辅助","models":["Nikon FM3A"]},{"name":"对焦屏 C 型","type":"对焦屏","note":"细磨砂场+5mm 透明点与十字线，显微天文视差对焦；取景偏暗","models":["Nikon F","Nikon F2","Nikon F3","Nikon F4","Nikon F5"]},{"name":"对焦屏 D 型","type":"对焦屏","note":"全细磨砂场，微距与长焦专用；四角失光、取景最暗","models":["Nikon F","Nikon F2","Nikon F3"]},{"name":"对焦屏 E 型","type":"对焦屏","note":"磨砂场+5/12mm 圈与横竖刻线，建筑与翻拍；无裂像辅助","models":["Nikon F","Nikon F2","Nikon F3","Nikon F4","Nikon F5","Nikon F6","Nikon FM2","Nikon FE","Nikon FE2","Nikon FA"]},{"name":"对焦屏 E2","type":"对焦屏","note":"后期网格屏，FM2 用需 +1/3 EV；网格干扰构图","models":["Nikon FM2","Nikon FM3A","Nikon FE","Nikon FE2","Nikon FA"]},{"name":"对焦屏 E3","type":"对焦屏","note":"B3 加横竖刻线，建筑与多次曝光定位；刻线干扰构图","models":["Nikon FM3A"]},{"name":"对焦屏 EC-B","type":"对焦屏","note":"细磨砂场+对焦框，F5 标配，AF 与手动通用；无裂像辅助","models":["Nikon F5"]},{"name":"对焦屏 EC-E","type":"对焦屏","note":"EC-B 加横竖刻线，建筑与多次曝光定位；刻线稍干扰","models":["Nikon F5"]},{"name":"对焦屏 F 型","type":"对焦屏","note":"磨砂场+5/12mm 圈与对焦框，反射镜头及 400mm 长焦；无裂像","models":["Nikon F4"]},{"name":"对焦屏 G1","type":"对焦屏","note":"透明菲涅尔场+12mm 微棱，G1 配鱼眼；景深无法观察","models":["Nikon F","Nikon F2","Nikon F3","Nikon F4","Nikon F5"]},{"name":"对焦屏 G2","type":"对焦屏","note":"透明菲涅尔场+12mm 微棱，G2 配广角；景深无法观察","models":["Nikon F","Nikon F2","Nikon F3","Nikon F4","Nikon F5"]},{"name":"对焦屏 G3","type":"对焦屏","note":"透明场+12mm 微棱，G3 配 50/1.2 与 300/2.8；景深难观察","models":["Nikon F","Nikon F2","Nikon F3","Nikon F4","Nikon F5"]},{"name":"对焦屏 G4","type":"对焦屏","note":"透明场+12mm 微棱，G4 配 300/2.8 长焦；景深无法观察","models":["Nikon F","Nikon F2","Nikon F3","Nikon F4","Nikon F5"]},{"name":"对焦屏 H1","type":"对焦屏","note":"全屏微棱菲涅尔场，H1 配 200mm 内 f/2.8 镜头；微棱摩尔纹","models":["Nikon F","Nikon F2","Nikon F3"]},{"name":"对焦屏 H2","type":"对焦屏","note":"全屏微棱菲涅尔场，H2 配 200mm 内 f/5.6 镜头；边缘略暗","models":["Nikon F","Nikon F2","Nikon F3"]},{"name":"对焦屏 H3","type":"对焦屏","note":"全屏微棱菲涅尔场，H3 配 200mm 上 f/4 镜头；微棱摩尔纹","models":["Nikon F","Nikon F2","Nikon F3"]},{"name":"对焦屏 H4","type":"对焦屏","note":"全屏微棱菲涅尔场，H4 配 200mm 上 f/5.6 镜头；中心偏暗","models":["Nikon F","Nikon F2","Nikon F3"]},{"name":"对焦屏 J 型","type":"对焦屏","note":"中央微棱对焦斑+12mm 参考圈，通用；暗光微棱闪烁、精度一般","models":["Nikon F","Nikon F2","Nikon F3","Nikon F4","Nikon F5","Nikon F6"]},{"name":"对焦屏 K 型","type":"对焦屏","note":"裂像+1mm 微棱环，通用型对焦屏；小光圈下裂像变黑","models":["Nikon F","Nikon F2","Nikon F3","Nikon F4","Nikon FM2","Nikon FE","Nikon FE2","Nikon FA"]},{"name":"对焦屏 K2","type":"对焦屏","note":"后期裂像+微棱环，较亮，FM2 用需 +1/3 EV；小光圈黑","models":["Nikon FM2","Nikon FM3A","Nikon FE","Nikon FE2","Nikon FA"]},{"name":"对焦屏 K3","type":"对焦屏","note":"小直径裂像+微棱环，FM3A 标配，通用；小光圈裂像变暗","models":["Nikon FM3A"]},{"name":"对焦屏 L 型","type":"对焦屏","note":"45° 斜向裂像+12mm 圈，适合横线条主体；构图偏中心","models":["Nikon F","Nikon F2","Nikon F3","Nikon F5","Nikon F6"]},{"name":"对焦屏 M 型","type":"对焦屏","note":"5mm 透明点+双十字与毫米刻度，显微测量；需 6 倍取景器","models":["Nikon F","Nikon F2","Nikon F3","Nikon F4","Nikon F5","Nikon F6"]},{"name":"对焦屏 P 型","type":"对焦屏","note":"K 型加 45° 裂像与横竖刻线，通用构图；裂像暗光变黑","models":["Nikon F","Nikon F2","Nikon F3","Nikon F4"]},{"name":"对焦屏 R 型","type":"对焦屏","note":"裂像棱镜角度更缓，f/3.5-5.6 慢镜头不变黑；精度略低","models":["Nikon F2","Nikon F3"]},{"name":"对焦屏 T 型","type":"对焦屏","note":"裂像加电视安全框线，供电视播出前构图；仅广播用途","models":["Nikon F3"]},{"name":"对焦屏 U 型","type":"对焦屏","note":"磨砂场+3mm 磨砂点与 12mm 圈，100mm 以上长焦易看；广角失光","models":["Nikon F3","Nikon F4","Nikon F5","Nikon F6"]},{"name":"AW-1 自动卷片器","type":"手柄/马达","note":"Nikkormat EL2（及 ELW）专用卷片器，约 0.5 秒/张；EL 本体不可用","models":["Nikomat EL2","Nikkormat ELW"]},{"name":"F250 马达驱动装置","type":"手柄/马达","note":"250 张大容量连拍系统用马达，配合 250 张胶片后背使用","models":["Nikon F"]},{"name":"F36 马达驱动装置","type":"手柄/马达","note":"尼康 F 专用外接马达驱动（1959 年系统配件），需配专用电池包供电","models":["Nikon F"]},{"name":"KODAK 专用电动卷片器（基于尼康 MD-4 改装）","type":"手柄/马达","note":"自带快门释放钮，经线缆与 DSU 相连","models":["DCS-100"]},{"name":"MB-10 竖拍手柄","type":"手柄/马达","note":"F90/F90X 专用，可装 4 节 AA 电池","models":["Nikon F90","Nikon F90X"]},{"name":"MB-15 电池手柄","type":"手柄/马达","note":"F100 专用竖拍手柄，可装 4 节 AA 电池","models":["Nikon F100"]},{"name":"MB-16 电池手柄","type":"手柄/马达","note":"F80 专用，可装 4 节 AA 电池","models":["Nikon F80"]},{"name":"MB-17 电池手柄","type":"手柄/马达","note":"F65 专用，可装 4 节 AA 电池","models":["Nikon F65"]},{"name":"MB-20 电池手柄","type":"手柄/马达","note":"F4 标准配置手柄，内装 4 节 5 号电池，无竖拍快门","models":["Nikon F4"]},{"name":"MB-21 电池手柄","type":"手柄/马达","note":"换装后即为 F4S，6 节 5 号电池，带竖拍快门，最高约 5.7 张/秒","models":["Nikon F4"]},{"name":"MB-23 电池手柄","type":"手柄/马达","note":"换装后即为 F4E，可用 MN-20 镍镉电池组","models":["Nikon F4"]},{"name":"MB-3 电池手柄","type":"手柄/马达","note":"F-301/F-501 专用，可装 4 节 AA 电池","models":["Nikon F-301","Nikon F-501"]},{"name":"MB-40 多功能高速电池手柄","type":"手柄/马达","note":"竖拍手柄兼电池仓，8 节 5 号电池或 EN-EL4(a)，最高约 8 张/秒","models":["Nikon F6"]},{"name":"MB-D10 电池手柄","type":"手柄/马达","note":"D300/D300S/D700 专用竖拍手柄","models":["Nikon D300","Nikon D300S","Nikon D700"]},{"name":"MB-D100 电池手柄","type":"手柄/马达","note":"D100 专用竖拍手柄","models":["Nikon D100"]},{"name":"MB-D11 电池手柄","type":"手柄/马达","note":"D7000 专用竖拍手柄","models":["Nikon D7000"]},{"name":"MB-D12 电池手柄","type":"手柄/马达","note":"D800/D810 专用竖拍手柄","models":["Nikon D800","Nikon D810"]},{"name":"MB-D14 电池手柄","type":"手柄/马达","note":"D600/D610 专用竖拍手柄","models":["Nikon D600","Nikon D610"]},{"name":"MB-D15 电池手柄","type":"手柄/马达","note":"D7100/D7200 专用竖拍手柄","models":["Nikon D7100","Nikon D7200"]},{"name":"MB-D16 电池手柄","type":"手柄/马达","note":"D750 专用竖拍手柄","models":["Nikon D750"]},{"name":"MB-D17 电池手柄","type":"手柄/马达","note":"D500 专用竖拍手柄","models":["Nikon D500"]},{"name":"MB-D18 电池手柄","type":"手柄/马达","note":"D850 专用竖拍手柄","models":["Nikon D850"]},{"name":"MB-D200 电池手柄","type":"手柄/马达","note":"D200 专用竖拍手柄","models":["Nikon D200","FinePix S5 Pro","FinePix IS Pro"]},{"name":"MB-D80 电池手柄","type":"手柄/马达","note":"D80/D90 专用竖拍手柄","models":["Nikon D80","Nikon D90"]},{"name":"MD-1 马达驱动","type":"手柄/马达","note":"1971 年 F2 首款马达驱动，需外接电池包","models":["Nikon F2"]},{"name":"MD-100 高速马达驱动","type":"手柄/马达","note":"F2H 用特制，约 14 fps","models":["Nikon F2","Nikon F2H"]},{"name":"MD-11 马达驱动","type":"手柄/马达","note":"FM/FE 配套的第一款中档马达驱动（1977 年），约 3.5 张/秒，内置电池夹装 8 节 5 号电池","models":["Nikon FM","Nikon FE","Nikon FE2"]},{"name":"MD-12 马达驱动","type":"手柄/马达","note":"MD-11 的后继型，FM/FE 同样可装，约 3.2 张/秒，与 FM2/FE2/FA/FM3A 共用","models":["Nikon FM","Nikon FM2","Nikon FM3A","Nikon FE","Nikon FE2","Nikon FA"]},{"name":"MD-14 马达驱动","type":"手柄/马达","note":"专为 FG 设计，高速 3.2、低速 2.0 张/秒，8 节 5 号电池，装后仍用机身快门钮触发","models":["Nikon FG","Nikon FG20","Nikon EM"]},{"name":"MD-15 马达驱动","type":"手柄/马达","note":"FA 专用马达（1983 年），约 3.2 张/秒，装上后机身由马达电池供电","models":["Nikon FA"]},{"name":"MD-2 马达驱动","type":"手柄/马达","note":"MD-1 改良型，操作与可靠性改进","models":["Nikon F2"]},{"name":"MD-3 马达驱动","type":"手柄/马达","note":"1974 年推出的简装版，最高连拍约 4 张/秒","models":["Nikon F2"]},{"name":"MD-4 马达驱动","type":"手柄/马达","note":"F3 系列通用马达，F3P 常与 MD-4 配套使用","models":["Nikon F3"]},{"name":"MD-4H 高速马达驱动","type":"手柄/马达","note":"F3H 专用，约 13 fps","models":["Nikon F3","Nikon F3H"]},{"name":"MD-E 卷片器","type":"手柄/马达","note":"EM 用小型卷片器，FG 亦可安装，约 1.5 张/秒，无手柄","models":["Nikon FG","Nikon FG20"]},{"name":"MD-E 卷片马达","type":"手柄/马达","note":"为 EM 专门设计的小型卷片器，约 1.5 张/秒，无手柄，用机身快门钮触发","models":["Nikon EM"]},{"name":"MK-1 连拍速度转换器","type":"手柄/马达","note":"F3AF 说明书列为专用配件，装于 MD-4 上提高连拍速度","models":["Nikon F3"]},{"name":"EN-4 镍氢电池","type":"电池","note":"7.2V 镍氢电池组","models":["Nikon D1","Nikon D1X","Nikon D1H"]},{"name":"EN-EL14 锂电池","type":"电池","note":"7.2V 锂电池","models":["Nikon D3100","Nikon D3200","Nikon D5100","Nikon D5200"]},{"name":"EN-EL14a 锂电池","type":"电池","note":"7.2V 锂电池，容量较 EN-EL14 提升","models":["Nikon D3300","Nikon D3400","Nikon D3500","Nikon D5300","Nikon D5500","Nikon D5600","Nikon Df"]},{"name":"EN-EL15 电池","type":"电池","note":"与 D810 通用","models":["Nikon D810"]},{"name":"EN-EL15 锂电池","type":"电池","note":"7.0V 锂电池","models":["Nikon D500","Nikon D7000","Nikon D7100","Nikon D7200","Nikon D800","Nikon D810","Nikon D600","Nikon D610","Nikon D750"]},{"name":"EN-EL15a 锂电池","type":"电池","note":"7.0V 锂电池","models":["Nikon D500","Nikon D7500","Nikon D850"]},{"name":"EN-EL15b 锂电池","type":"电池","note":"与 D850/D750 同系列","models":["Nikon D780"]},{"name":"EN-EL18 锂电池","type":"电池","note":"10.8V 锂电池","models":["Nikon D4"]},{"name":"EN-EL18a 电池","type":"电池","note":"与 D4 系列通用","models":["Nikon D4S"]},{"name":"EN-EL18a 锂电池","type":"电池","note":"10.8V 锂电池","models":["Nikon D5"]},{"name":"EN-EL18c 锂电池","type":"电池","note":"10.8V 锂电池","models":["Nikon D6"]},{"name":"EN-EL3 电池","type":"电池","note":"6MP 入门机","models":["Nikon D50"]},{"name":"EN-EL3 锂电池","type":"电池","note":"7.4V 锂电池","models":["Nikon D100","Nikon D70"]},{"name":"EN-EL3a 锂电池","type":"电池","note":"7.4V 锂电池","models":["Nikon D70s"]},{"name":"EN-EL3e 锂电池","type":"电池","note":"7.4V 锂电池","models":["Nikon D200","Nikon D300","Nikon D300S","Nikon D80","Nikon D90","Nikon D700"]},{"name":"EN-EL4 电池","type":"电池","note":"与 D2H 通用","models":["Nikon D2Hs"]},{"name":"EN-EL4 锂电池","type":"电池","note":"11.1V 锂电池","models":["Nikon D2H"]},{"name":"EN-EL4a 电池","type":"电池","note":"与 D3 通用","models":["Nikon D3X","Nikon D3S"]},{"name":"EN-EL4a 锂电池","type":"电池","note":"11.1V 锂电池","models":["Nikon D2X","Nikon D3","Nikon D3X","Nikon D3S","Nikon D2Xs"]},{"name":"EN-EL4a 锂离子电池","type":"电池","note":"配 MB-40 使用的充电锂电池","models":["Nikon F6"]},{"name":"EN-EL9 电池","type":"电池","note":"与 D40X/D60 通用","models":["Nikon D40","Nikon D40X","Nikon D60"]},{"name":"EN-EL9 锂电池","type":"电池","note":"7.4V 锂电池","models":["Nikon D3000","Nikon D5000"]},{"name":"EN-EL9a 锂电池","type":"电池","note":"7.4V 锂电池","models":["Nikon D3000","Nikon D5000"]},{"name":"KODAK 6×M 型镍镉充电电池组","type":"电池","note":"为数码后背供电；机身另用 4×AA","models":["DCS-200"]},{"name":"KODAK 锂离子充电电池组","type":"电池","note":"专用电池，置于手柄内","models":["DCS Pro 14n","DCS Pro 14nx","DCS Pro SLR/n"]},{"name":"KODAK 镍氢充电电池","type":"电池","note":"单块电池同时供后背与机身","models":["DCS-410","DCS-420","DCS-460","NC2000e"]},{"name":"KODAK 镍镉/镍氢充电电池组","type":"电池","note":"单块电池，供机身与后背","models":["DCS-620","DCS-620X","DCS-660","DCS-720x","DCS-760"]},{"name":"LR44 电池（2 枚）","type":"电池","note":"FM10 随机附带 1.5V LR44 碱性电池 2 枚（测光电源）","models":["Nikon FM10","Nikon FE10"]},{"name":"MB-1 电池包","type":"电池","note":"MD-1/MD-2 用电源包","models":["Nikon F2"]},{"name":"MN-15 镍氢电池","type":"电池","note":"F100 专用可充电镍氢电池组","models":["Nikon F100"]},{"name":"MN-2 镍镉电池组","type":"电池","note":"MD-4 用充电电池组，低温与高速连拍时使用","models":["Nikon F3","Nikon F3H"]},{"name":"MN-20 镍镉电池组","type":"电池","note":"配 MB-23 使用，需 MH-20 充电","models":["Nikon F4"]},{"name":"MN-30 镍氢电池组","type":"电池","note":"F5 内置手柄电池仓用充电电池组，替代 8 节 5 号电池","models":["Nikon F5"]},{"name":"MS-40 电池夹","type":"电池","note":"MB-40 用 8 节 5 号电池夹","models":["Nikon F6"]},{"name":"MS-41 电池夹","type":"电池","note":"机身用 2 枚 3V 锂电池夹","models":["Nikon F6"]},{"name":"NP-150 锂离子电池","type":"电池","note":"S5 Pro 专用，不兼容尼康 EN-EL3e","models":["FinePix S5 Pro","FinePix IS Pro"]},{"name":"AC-5VH 交流电源适配器","type":"电源","note":"富士专用 5V 适配器，另购","models":["FinePix S1 Pro"]},{"name":"AC-5VH/AC-5VHS 交流电源适配器","type":"电源","note":"另购，供机身使用","models":["FinePix S2 Pro"]},{"name":"AC-5VX 交流电源适配器","type":"电源","note":"另购","models":["FinePix S3 Pro","FinePix S3 Pro UVIR"]},{"name":"BC-150 电池充电器","type":"电源","note":"NP-150 专用充电器","models":["FinePix S5 Pro","FinePix IS Pro"]},{"name":"DB-2 低温电池包","type":"电源","note":"外接电池包，低温下稳定供电（装后不可上三脚架）","models":["Nikon FM3A"]},{"name":"DB-2 防寒电池包","type":"电源","note":"装 2 节 5 号，低温供电","models":["Nikon F3","Nikon FM2","Nikon FA","Nikon FG20"]},{"name":"KODAK 12V 交流电源适配器","type":"电源","note":"DSU 与相机可用；电池需自备 12V 摄像机电池","models":["DCS-100"]},{"name":"KODAK 交流电池充电器/适配器","type":"电源","note":"只能给后背电池充电/供电，不影响机身电池","models":["DCS-200"]},{"name":"KODAK 交流电源适配器","type":"电源","note":"6×AA 之外的替代电源","models":["DCS-315","DCS-330","DCS-620","DCS-620X","DCS-660","DCS-720x","DCS-760","DCS Pro 14n","DCS Pro 14nx","DCS Pro SLR/n"]},{"name":"KODAK 双位外接充电器","type":"电源","note":"一次可充两块电池","models":["DCS-620","DCS-620X","DCS-660","DCS-720x","DCS-760"]},{"name":"KODAK 电池充电器","type":"电源","note":"随附","models":["DCS Pro 14n","DCS Pro 14nx","DCS Pro SLR/n"]},{"name":"KODAK 通用交流电池充电器/适配器","type":"电源","note":"与 DCS 400 系列同型","models":["NC2000e"]},{"name":"KODAK 通用交流电池充电器/适配器（95–250V）","type":"电源","note":"随机附带，可充后背电池","models":["DCS-410","DCS-420","DCS-460"]},{"name":"MA-1 AC/DC 转换器","type":"电源","note":"马达外接交直流供电","models":["Nikon F"]},{"name":"MB-100 电池包","type":"电源","note":"配 MD-100 使用","models":["Nikon F2H"]},{"name":"MB-22 外接电源调节器","type":"电源","note":"接外部恒流电源，配 MC-11","models":["Nikon F4"]},{"name":"MC-32 外接电源线","type":"电源","note":"接 12V 外接电源，影棚用","models":["Nikon F5"]},{"name":"MH-15 快速充电器","type":"电源","note":"MN-15 专用充电器","models":["Nikon F100"]},{"name":"MH-16 电池充电器","type":"电源","note":"EN-4 专用充电器","models":["Nikon D1","Nikon D1X","Nikon D1H"]},{"name":"MH-18 电池充电器","type":"电源","note":"EN-EL3 专用充电器","models":["Nikon D100","Nikon D70"]},{"name":"MH-18a 电池充电器","type":"电源","note":"EN-EL3e 专用充电器","models":["Nikon D200","Nikon D300","Nikon D300S","Nikon D80","Nikon D90","Nikon D700","Nikon D70s"]},{"name":"MH-21 快速充电器","type":"电源","note":"EN-EL4 系列电池充电","models":["Nikon F6"]},{"name":"MH-21 电池充电器","type":"电源","note":"EN-EL4 专用充电器","models":["Nikon D2H","Nikon D2X","Nikon D2Xs"]},{"name":"MH-22 电池充电器","type":"电源","note":"EN-EL4/EN-EL4a 专用充电器","models":["Nikon D3","Nikon D3X","Nikon D3S"]},{"name":"MH-23 电池充电器","type":"电源","note":"EN-EL9/EN-EL9a 专用充电器","models":["Nikon D3000","Nikon D5000"]},{"name":"MH-24 电池充电器","type":"电源","note":"EN-EL14 专用充电器","models":["Nikon D3100","Nikon D3200","Nikon D3300","Nikon D3400","Nikon D3500","Nikon D5100","Nikon D5200","Nikon D5300","Nikon D5500","Nikon D5600","Nikon Df"]},{"name":"MH-25 电池充电器","type":"电源","note":"EN-EL15 专用充电器","models":["Nikon D7000","Nikon D7100","Nikon D7200","Nikon D800","Nikon D810","Nikon D600","Nikon D610","Nikon D750"]},{"name":"MH-25a 电池充电器","type":"电源","note":"EN-EL15/EN-EL15a 专用充电器","models":["Nikon D500","Nikon D7500","Nikon D850","Nikon D780"]},{"name":"MH-26 电池充电器","type":"电源","note":"EN-EL18 专用充电器","models":["Nikon D4"]},{"name":"MH-26a 电池充电器","type":"电源","note":"EN-EL18 系列专用充电器","models":["Nikon D5","Nikon D6"]},{"name":"MH-30 镍氢充电器","type":"电源","note":"MN-30 专用充电器","models":["Nikon F5"]},{"name":"MS-13 电池架","type":"电源","note":"可装 2 节 CR123A 锂电池","models":["Nikon F100"]},{"name":"标准电池包（Cord Pack）","type":"电源","note":"8 节 C 型电池，带快门按钮","models":["Nikon F"]},{"name":"电池适配器（影像处理器向机身供电）","type":"电源","note":"用 4×AA 影像处理器给机身供电","models":["FinePix S1 Pro"]},{"name":"CF-11 半软皮套","type":"皮套","note":"EM 加 50mm 标准镜头用原厂半软套","models":["Nikon EM"]},{"name":"CF-12 半软皮套","type":"皮套","note":"EM 加 100mm E 镜头用半软套","models":["Nikon EM"]},{"name":"CF-14 半软皮套","type":"皮套","note":"EM 加 Series E 36–72mm 变焦用半软套","models":["Nikon EM"]},{"name":"CF-16 半软皮套","type":"皮套","note":"EM 装 MD-E 卷片器加 36–72mm E 变焦时使用","models":["Nikon EM"]},{"name":"CF-17 半软皮套","type":"皮套","note":"装标准镜头用原厂半软套，EM/FG/FG20 通用","models":["Nikon FG"]},{"name":"CF-17 软皮套","type":"皮套","note":"FG/FG20/EM 通用软皮套","models":["Nikon FG20","Nikon EM"]},{"name":"CF-18 软皮套","type":"皮套","note":"可容机身加 43–86mm f/3.5 或 36–72mm f/3.5 变焦","models":["Nikon FG","Nikon FG20"]},{"name":"CF-19D 皮套后片","type":"皮套","note":"装 MF-15 数据后背时替换的皮套底/后片","models":["Nikon FG"]},{"name":"CF-20 半软皮套","type":"皮套","note":"F3 专用半软皮套","models":["Nikon F3"]},{"name":"CF-24 半软皮套","type":"皮套","note":"可容机身加 AF 80mm f/2.8","models":["Nikon F3"]},{"name":"CF-27 半软皮套","type":"皮套","note":"可容机身加小于 50mm f/1.4 的镜头","models":["Nikon FM2","Nikon FE2"]},{"name":"CF-27S 半软皮套","type":"皮套","note":"可容机身加 50mm f/1.4 以内镜头（FM3A 专用 S 版）","models":["Nikon FM3A"]},{"name":"CF-28 半软皮套","type":"皮套","note":"可容机身加 50mm f/1.2 至 105mm f/2.5 镜头","models":["Nikon FM2","Nikon FE2"]},{"name":"CF-28A 皮套前盖","type":"皮套","note":"可容至 35–70mm f/3.5 或 35–105mm f/3.5-4.5 镜头","models":["Nikon FA"]},{"name":"CF-29 半软皮套","type":"皮套","note":"装 MD-12 马达时使用","models":["Nikon FM2","Nikon FE2"]},{"name":"CF-29S 半软皮套","type":"皮套","note":"装 MD-12 马达时使用（FM3A 专用 S 版）","models":["Nikon FM3A"]},{"name":"CF-30 半软皮套","type":"皮套","note":"FA 专用半软套，可容 50mm f/1.4 以内镜头","models":["Nikon FA"]},{"name":"CF-33 半软皮套","type":"皮套","note":"专为 FG20 加 35–70mm f/3.3-4.5 镜头设计","models":["Nikon FG20"]},{"name":"CF-35 半软相机套","type":"皮套","note":"可装机身与 35-70mm 变焦镜头","models":["Nikon F-301","Nikon F-501"]},{"name":"CF-37 半软相机套","type":"皮套","note":"可装机身与 35-70mm 变焦镜头","models":["Nikon F-401"]},{"name":"CF-39 半软相机套","type":"皮套","note":"可装机身与 35-70mm 变焦镜头","models":["Nikon F-801"]},{"name":"CF-4 半软皮套","type":"皮套","note":"Nikkormat FTn/FT2/FT3 加 50mm 镜头用半软套","models":["Nikkormat FTn","Nikkormat FT3","Nikkormat FT2"]},{"name":"CF-42 半软皮套","type":"皮套","note":"F4 配 35-135 变焦用","models":["Nikon F4"]},{"name":"CF-45 半软相机套","type":"皮套","note":"可装机身与 35-70mm 变焦镜头","models":["Nikon F-601"]},{"name":"CF-47 半软相机套","type":"皮套","note":"可装机身与 35-70mm 变焦镜头","models":["Nikon F90","Nikon F90X"]},{"name":"CF-49 半软相机套","type":"皮套","note":"可装机身与 35-80mm 变焦镜头","models":["Nikon F50"]},{"name":"CF-5 皮套前盖","type":"皮套","note":"配 CF-4 底座，可容至 135mm f/3.5 镜头","models":["Nikkormat FT3","Nikkormat FT2"]},{"name":"CF-52 半软相机套","type":"皮套","note":"F70 专用","models":["Nikon F70"]},{"name":"CF-53 半软皮套","type":"皮套","note":"F5 专用半软套","models":["Nikon F5"]},{"name":"CF-57 半软相机套","type":"皮套","note":"可装机身与 28-105mm 变焦镜头","models":["Nikon F100"]},{"name":"CF-59 半软相机套","type":"皮套","note":"可装机身与 28-200mm 变焦镜头","models":["Nikon F80"]},{"name":"CF-6 快速皮套","type":"皮套","note":"半软皮套，可容纳任意尼康或尼柯玛特机身加装长焦镜头","models":["Nikon F","Nikon F3","Nikon FE2"]},{"name":"CF-60 半软相机套","type":"皮套","note":"长焦变焦镜头用","models":["Nikon F80"]},{"name":"CF-61 半软相机套","type":"皮套","note":"可装机身与 28-80mm 变焦镜头","models":["Nikon F65"]},{"name":"CF-62 半软相机套","type":"皮套","note":"可装机身与 28-80mm 变焦镜头","models":["Nikon F55"]},{"name":"CF-63 半软相机套","type":"皮套","note":"可装机身与 50mm 或 28-80mm 镜头","models":["Nikon F75"]},{"name":"CF-64 半软皮套","type":"皮套","note":"F6 专用半软皮套","models":["Nikon F6"]},{"name":"CF-7 半软皮套","type":"皮套","note":"Nikkormat EL/ELW 与 FT3 用半软皮套","models":["Nikkormat EL","Nikomat EL2","Nikon FM","Nikon FE"]},{"name":"CF-8 半软皮套","type":"皮套","note":"FM/FE 用半软皮套","models":["Nikon FM","Nikon FE"]},{"name":"CF-9 半软皮套","type":"皮套","note":"装机身马达 MD-11 时使用，可容 105mm f/2.5 以内镜头","models":["Nikon FM","Nikon FE"]},{"name":"CF-D200 半软相机套","type":"皮套","note":"D300/D300S 用","models":["Nikon D300","Nikon D300S"]},{"name":"CF-DC1 半软相机套","type":"皮套","note":"D3100/D3200 用原厂相机套","models":["Nikon D3100","Nikon D3200","Nikon D3300"]},{"name":"CF-DC2 半软相机套","type":"皮套","note":"D5100/D5200 用原厂相机套","models":["Nikon D5100","Nikon D5200"]},{"name":"CF-DC3 半软相机套","type":"皮套","note":"D7000 系列用原厂相机套","models":["Nikon D7000","Nikon D7100","Nikon D7200"]},{"name":"CF-DC4 半软相机套","type":"皮套","note":"D800/D810 用原厂相机套","models":["Nikon D800","Nikon D810"]},{"name":"CF-DC5 半软相机套","type":"皮套","note":"D600/D610 用原厂相机套","models":["Nikon D600","Nikon D610","Nikon D750"]},{"name":"CF-DC6 半软相机套","type":"皮套","note":"Df 用原厂相机套","models":["Nikon Df"]},{"name":"CF-DC7 半软相机套","type":"皮套","note":"D5300/D5500 用原厂相机套","models":["Nikon D5300","Nikon D5500"]},{"name":"CH-10 硬皮套","type":"皮套","note":"装 AW-1 加 105mm f/2.5 级镜头时使用","models":["Nikomat EL2","Nikkormat ELW"]},{"name":"CH-3 硬皮套","type":"皮套","note":"EL/ELW 装标准或广角镜头（含 85mm）用硬质皮套","models":["Nikkormat EL","Nikkormat ELW"]},{"name":"CH-6 硬皮套","type":"皮套","note":"Nikkormat FTn/FT2/FT3 加标准或较小镜头用硬质皮套","models":["Nikkormat FTn","Nikkormat FT3","Nikkormat FT2"]},{"name":"CH-7 硬皮套","type":"皮套","note":"前端加长，可容至 43–86mm 变焦镜头","models":["Nikkormat FTn","Nikkormat FT3","Nikkormat FT2"]},{"name":"CH-8 硬皮套","type":"皮套","note":"前端加长，可容至 43–86mm 变焦镜头","models":["Nikkormat EL","Nikomat EL2","Nikkormat ELW"]},{"name":"CH-9 硬皮套","type":"皮套","note":"装 AW-1 卷片器加 50mm 镜头时使用","models":["Nikomat EL2","Nikkormat ELW"]},{"name":"CS-11 软皮套","type":"皮套","note":"牛皮软质两件式皮套，EL/ELW/EL2 通用","models":["Nikkormat EL","Nikomat EL2","Nikkormat ELW"]},{"name":"CS-16 软包","type":"皮套","note":"FM2 用软质相机套，机身连标准镜头整体收纳","models":["Nikon FM2"]},{"name":"CS-19 软相机套","type":"皮套","note":"AF 单反通用软套","models":["Nikon F-401","Nikon F60"]},{"name":"CS-7 软皮套","type":"皮套","note":"可容 EL2、FM、FE 与 Nikkormat 系列","models":["Nikon FM"]},{"name":"CS-9 软皮套","type":"皮套","note":"可容纳尼康或 Nikkormat 机身加 135mm f/3.5 以内镜头","models":["Nikkormat FT","Nikkormat FTn"]},{"name":"CS-F1 软皮套","type":"皮套","note":"牛革软套，F 加 50mm","models":["Nikon F"]},{"name":"CTM 皮套","type":"皮套","note":"尼康原厂目录代码 CTM，为 Nikkormat FTn 的专用皮套","models":["Nikkormat FTn"]},{"name":"相机皮套（随附）","type":"皮套","note":"FM10 随机附带的尼康相机套，官方未单独编号","models":["Nikon FM10","Nikon FE10"]},{"name":"AE-1 马达驱动释放适配器","type":"遥控","note":"用于 F36 马达驱动的电气式远程释放","models":["Nikon F"]},{"name":"AR-1 软快门钮","type":"遥控","note":"加大的平顶快门按钮，旋入标准快门螺纹减轻触发冲击","models":["Nikkormat FT"]},{"name":"AR-11 软快门按钮","type":"遥控","note":"官方列为 FM10 另购件，加大快门接触面减轻震动","models":["Nikon FM10"]},{"name":"AR-2 快门线","type":"遥控","note":"螺纹式快门线，带锁可作 B 门长曝","models":["Nikkormat FT"]},{"name":"AR-3 快门线","type":"遥控","note":"官方列为 FM10 另购件，螺纹式快门线，可锁 B 门","models":["Nikon FM10","Nikon FE10","Nikon F80","Nikon D100","Nikon Df"]},{"name":"AR-8 快门线转接器","type":"遥控","note":"旋入快门钮中心，转接 AR-2 快门线或 AR-4 双快门线","models":["Nikon FG20"]},{"name":"AR-9 软快门钮","type":"遥控","note":"装 MD-12 时使用的软释放按钮","models":["Nikon FM2"]},{"name":"MC-12 遥控线","type":"遥控","note":"接 MD-11/MD-12 马达遥控端子，约 3m 外触发快门（部分资料标作 MC-12A）","models":["Nikon FM","Nikon FM2","Nikon FE2","Nikon FA"]},{"name":"MC-12B 遥控线","type":"遥控","note":"F70 用遥控线，线长约 0.8m","models":["Nikon F70"]},{"name":"MC-20 遥控线","type":"遥控","note":"10 针接口，线长约 80cm","models":["Nikon F90","Nikon F90X"]},{"name":"MC-30 遥控线","type":"遥控","note":"带锁定，B 门长曝用","models":["Nikon F5","Nikon F100","Nikon D1","Nikon D1X","Nikon D2H","Nikon D2X","Nikon D100","Nikon D200","Nikon D300","Nikon D300S","Nikon D500","Nikon D3","Nikon D700","Nikon D800","Nikon D810","Nikon D1H","Nikon D2Hs","Nikon D3X","Nikon D3S","Nikon D2Xs"]},{"name":"MC-36 定时遥控线","type":"遥控","note":"10 针接口，支持间隔定时","models":["Nikon D4","Nikon D5","Nikon D6","Nikon D810","Nikon D850"]},{"name":"MC-36 遥控线","type":"遥控","note":"多功能遥控线，支持定时与长曝光","models":["Nikon F6","Nikon D4S"]},{"name":"MC-DC1 遥控线","type":"遥控","note":"D70/D70s 用有线遥控线","models":["Nikon D70","Nikon D80","Nikon D70s"]},{"name":"MC-DC2 遥控线","type":"遥控","note":"带配件端子机身用遥控线","models":["Nikon D90","Nikon D3100","Nikon D3200","Nikon D3300","Nikon D5600","Nikon D7000","Nikon D7100","Nikon D7200","Nikon D7500","Nikon D600","Nikon D610","Nikon D750","Nikon Df","Nikon D780"]},{"name":"ML-L3 红外遥控","type":"遥控","note":"机身正面有红外接收窗","models":["Nikon D50","Nikon D40","Nikon D40X","Nikon D60"]},{"name":"ML-L3 红外遥控器","type":"遥控","note":"无线红外快门遥控","models":["Nikon F55","Nikon F65","Nikon F75","Nikon D70","Nikon D80","Nikon D90","Nikon D3000","Nikon D3100","Nikon D3200","Nikon D3300","Nikon D3400","Nikon D5000","Nikon D5100","Nikon D5200","Nikon D5300","Nikon D5500","Nikon D7000","Nikon D7500","Nikon D750","Nikon D70s"]},{"name":"WR-1 无线遥控器","type":"遥控","note":"10 针接口无线遥控收发器","models":["Nikon D5","Nikon D6","Nikon D810","Nikon D850"]},{"name":"WR-10 无线遥控器","type":"遥控","note":"WR-R10 接收器 + WR-T10 发射器套装","models":["Nikon D600","Nikon D610","Nikon D750"]},{"name":"AS-1 闪光灯耦合器","type":"闪光灯","note":"为 F（及 F2）加装 ISO 型热靴以使用尼康专用闪光灯","models":["Nikon F"]},{"name":"AS-2 闪光灯耦合器","type":"闪光灯","note":"为 Nikkormat 提供 ISO 型热靴","models":["Nikkormat FT","Nikkormat FTn","Nikkormat FT3","Nikkormat EL","Nikomat EL2","Nikkormat FT2","Nikkormat ELW"]},{"name":"R1C1 近摄闪光灯指挥套件","type":"闪光灯","note":"尼康 FM10 官方配件页列为可选配件","models":["Nikon FM10","Nikon FE10"]},{"name":"SB-1 手柄式闪光灯","type":"闪光灯","note":"F 时代手柄闪光灯","models":["Nikon F"]},{"name":"SB-10 闪光灯","type":"闪光灯","note":"FE 的配套小型闪光灯，FM 亦可直装使用","models":["Nikon FM","Nikon FE"]},{"name":"SB-12 专用闪光灯","type":"闪光灯","note":"F3 TTL 直插式闪光灯，装灯后同步速度自动设为 1/80 秒","models":["Nikon F3"]},{"name":"SB-15 闪光灯","type":"闪光灯","note":"FM/FE 时期原厂直装闪光灯，走自动/手动档（FM 本身无 TTL 闪光控制）","models":["Nikon FM","Nikon FE","Nikon FG","Nikon FG20","Nikon EM"]},{"name":"SB-16A 闪光灯","type":"闪光灯","note":"F3 专用 TTL 闪光灯，A 型专用底座（无热靴触点）","models":["Nikon F3"]},{"name":"SB-16B 闪光灯","type":"闪光灯","note":"FM2 说明书列为可直装的 TTL 闪光灯，带子灯与变焦主灯","models":["Nikon FM2","Nikon FE2","Nikon FA"]},{"name":"SB-17 闪光灯","type":"闪光灯","note":"F3AF 说明书列为可用闪光灯","models":["Nikon F3"]},{"name":"SB-18 闪光灯","type":"闪光灯","note":"FA 说明书列的直装闪光灯，GN20，TTL/手动","models":["Nikon FA","Nikon FG"]},{"name":"SB-20 闪光灯","type":"闪光灯","note":"TTL 自动闪光","models":["Nikon F-301"]},{"name":"SB-22s 闪光灯","type":"闪光灯","note":"紧凑型 TTL 自动闪光灯","models":["Nikon F-401","Nikon F-601","Nikon F60"]},{"name":"SB-24 闪光灯","type":"闪光灯","note":"F4 首发搭配的 AF-TTL 灯","models":["Nikon F4","Nikon F-301","Nikon F-501","Nikon F-401","Nikon F-601","Nikon F-801"]},{"name":"SB-25 闪光灯","type":"闪光灯","note":"F4 时期原厂 TTL 闪光灯","models":["Nikon F4","Nikon F-401","Nikon F-601","Nikon F-801","Nikon F90"]},{"name":"SB-26 闪光灯","type":"闪光灯","note":"F4 时期原厂 TTL 闪光灯，带无线从属","models":["Nikon F4","Nikon F90X","Nikon F70","Nikon F50"]},{"name":"SB-27 闪光灯","type":"闪光灯","note":"FM3A 说明书主推的直装 TTL 闪光灯，灯头可转位","models":["Nikon FM3A","Nikon F60"]},{"name":"SB-28 闪光灯","type":"闪光灯","note":"F5 时期原厂 TTL 闪光灯","models":["Nikon F5","Nikon FM3A","Nikon F55","Nikon F65","Nikon F75","Nikon F80"]},{"name":"SB-28DX 闪光灯","type":"闪光灯","note":"D-TTL 数码专用闪光灯","models":["Nikon D1","Nikon D1X"]},{"name":"SB-3 闪光灯","type":"闪光灯","note":"EL 系列可用的原厂闪光灯，自带光敏元件，可无同步线直装","models":["Nikkormat EL","Nikomat EL2","Nikkormat ELW"]},{"name":"SB-4 闪光灯","type":"闪光灯","note":"EL 系列可用的原厂闪光灯，自动测光型","models":["Nikkormat EL","Nikkormat ELW"]},{"name":"SB-400 闪光灯","type":"闪光灯","note":"紧凑型 i-TTL 闪光灯","models":["Nikon D3000","Nikon D3100","Nikon D5000"]},{"name":"SB-5 闪光灯","type":"闪光灯","note":"EL2 说明书列为底座式可用闪光灯","models":["Nikomat EL2"]},{"name":"SB-5000 闪光灯","type":"闪光灯","note":"i-TTL 闪光灯，支持无线电 AWL","models":["Nikon D500","Nikon D5","Nikon D6","Nikon D850","Nikon D780"]},{"name":"SB-50DX 闪光灯","type":"闪光灯","note":"紧凑型 i-TTL 闪光灯","models":["Nikon F80"]},{"name":"SB-600 闪光灯","type":"闪光灯","note":"尼康 FM10 官方配件页列为可选配件","models":["Nikon FM10","Nikon FE10"]},{"name":"SB-700 闪光灯","type":"闪光灯","note":"尼康官方 FM10 相关产品页列为另购闪光灯","models":["Nikon FM10","Nikon FE10","Nikon D3200","Nikon D3300","Nikon D3400","Nikon D3500","Nikon D5100","Nikon D5200","Nikon D5300","Nikon D5500","Nikon D5600","Nikon D7000","Nikon D7500"]},{"name":"SB-7E 闪光灯","type":"闪光灯","note":"F2 专用脚，取景器 Ready 灯","models":["Nikon F2"]},{"name":"SB-800 闪光灯","type":"闪光灯","note":"F6 时期原厂 i-TTL 闪光灯","models":["Nikon F6","Nikon F75","Nikon F80","Nikon D2H","Nikon D2X","Nikon D200","Nikon D300","Nikon D70","Nikon D80","Nikon D70s","Nikon D2Xs"]},{"name":"SB-80DX 闪光灯","type":"闪光灯","note":"D-TTL 闪光灯，GN38","models":["Nikon F100","Nikon D1","Nikon D1X","Nikon D100","Nikon D1H"]},{"name":"SB-900 闪光灯","type":"闪光灯","note":"尼康 FM10 官方配件页列为可选配件","models":["Nikon FM10","Nikon FE10","Nikon D300S","Nikon D90","Nikon D3","Nikon D700","Nikon D3X","Nikon D3S"]},{"name":"SB-910 闪光灯","type":"闪光灯","note":"尼康官方 FM10 相关产品页列为另购闪光灯（ISO 热靴直装）","models":["Nikon FM10","Nikon FE10","Nikon D7100","Nikon D7200","Nikon D4","Nikon D800","Nikon D810","Nikon D600","Nikon D610","Nikon D750","Nikon Df"]},{"name":"SB-E 专用闪光灯","type":"闪光灯","note":"EM 专用小型闪光灯","models":["Nikon EM"]},{"name":"SB-E 闪光灯","type":"闪光灯","note":"EM 专用小型直装闪光灯，FG 兼容，GN17","models":["Nikon FG","Nikon FG20","Nikon EM"]},{"name":"SU-4 无线闪光灯控制器","type":"闪光灯","note":"从属闪光控制，支持无线增灯","models":["Nikon F60"]}]};
+const $ = s => document.querySelector(s);
+const esc = s => String(s==null?"":s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+
+const TYPE_ICON = {"取景器":"👁","闪光灯":"⚡","对焦屏":"▦","皮套":"🧳","遥控":"📶","电源":"🔌","电池":"🔋","其他":"▣","手柄/马达":"⚙","后背":"🎞"};
+const icon = t => TYPE_ICON[t] || "▣";
+const camIcon = series => /数码/.test(series) ? "ico-dslr" : (/自动胶片|IX/.test(series) ? "ico-af" : "ico-mf");
+
+const BODIES = DATA.bodies;
+const ACCS = DATA.accs;
+const parts = DATA.parts;
+const state = {series:new Set(), type:new Set(), q:""};
+
+/* ---------- 系列 ---------- */
+const seriesList = [];
+BODIES.forEach(b=>{ if(seriesList.indexOf(b.series)<0) seriesList.push(b.series); });
+$("#f-series").innerHTML = seriesList.map(x=>`<span class="chip" data-s="${esc(x)}">${esc(x)}</span>`).join("");
+document.querySelectorAll("#f-series .chip").forEach(c=>{
+  c.onclick = ()=>{ state.series.has(c.dataset.s)?state.series.delete(c.dataset.s):state.series.add(c.dataset.s);
+    c.classList.toggle("on"); renderCams(); };
+});
+
+/* ---------- 机身列表 ---------- */
+function renderCams(){
+  const list = BODIES.filter(b=>!state.series.size || state.series.has(b.series));
+  $("#camN").textContent = list.length;
+  $("#camlist").innerHTML = list.map(b=>{
+    const n = (ACCS[b.model]||[]).length;
+    return `<div class="camcard" data-model="${esc(b.model)}">
+      <div class="ico"><svg class="ico-cam"><use href="#${camIcon(b.series)}"></use></svg></div>
+      <div><div class="nm">${esc(b.model)}</div><div class="meta">${esc(b.series)}${b.start?" · "+esc(b.start):""}</div></div>
+      <div class="cnt">${n?n+" 件":"暂无"}</div>
+    </div>`;
+  }).join("");
+  document.querySelectorAll(".camcard").forEach(el=>{ el.onclick = ()=>openCamTree(el.dataset.model); });
+}
+
+/* ---------- 二级：配件树 ---------- */
+function openCamTree(model){
+  const body = BODIES.find(b=>b.model===model) || {model};
+  const items = ACCS[model] || [];
+  const byType = {};
+  items.forEach(a=>{ (byType[a.type] = byType[a.type]||[]).push(a); });
+  const types = Object.keys(byType).sort((x,y)=>byType[y].length - byType[x].length);
+  $("#d-title").textContent = body.model;
+  $("#d-sub").textContent = `${body.series||""}${body.start?" · "+body.start:""} · ${items.length} 件原厂配件`;
+  let h = "";
+  if(!items.length) h = '<p class="muted">该机身暂无配件资料。</p>';
+  types.forEach(t=>{
+    h += `<div class="tree-g"><div class="tree-h">${icon(t)} ${esc(t)} <span class="n">${byType[t].length}</span></div>`;
+    h += byType[t].map(a=>`<div class="tree-i" data-name="${esc(a.name)}"><span>${esc(a.name)}</span></div>`).join("");
+    h += "</div>";
+  });
+  $("#d-body").innerHTML = h;
+  document.querySelectorAll("#d-body .tree-i").forEach(el=>{
+    el.onclick = ()=>openLv3(el.dataset.name);
+  });
+  $("#drawer").classList.add("on"); $("#ov").classList.add("on"); document.body.classList.add("drawer-open");
+}
+
+/* ---------- 三级：配件详情 ---------- */
+function openLv3(name){
+  const p = parts.find(x=>x.name===name); if(!p) return;
+  $("#d3-title").textContent = p.name;
+  $("#d3-sub").textContent = `${p.type} · ${p.models.length} 个机型可用`;
+  $("#d3-body").innerHTML = `<dl class="d-kv"><dt>类型</dt><dd>${esc(p.type)}</dd><dt>功能</dt><dd>${esc(p.note||"—")}</dd></dl>`
+    + `<div class="tree-h" style="margin-top:2px">适配机型</div><div style="display:flex;flex-wrap:wrap;gap:6px">`
+    + p.models.map(m=>`<span class="chip" style="cursor:default">${esc(m)}</span>`).join("") + `</div>`;
+  $("#drawer3").classList.add("on");
+}
+
+/* ---------- 配件清单 ---------- */
+const typeList = [...new Set(parts.map(p=>p.type))].sort();
+$("#f-type").innerHTML = typeList.map(t=>`<span class="chip" data-t="${esc(t)}">${icon(t)} ${esc(t)}</span>`).join("");
+document.querySelectorAll("#f-type .chip").forEach(c=>{
+  c.onclick = ()=>{ state.type.has(c.dataset.t)?state.type.delete(c.dataset.t):state.type.add(c.dataset.t);
+    c.classList.toggle("on"); renderParts(); };
+});
+$("#q").oninput = e=>{ state.q = e.target.value.trim().toLowerCase(); renderParts(); };
+
+function renderParts(){
+  const list = parts.filter(p=>{
+    if(state.type.size && !state.type.has(p.type)) return false;
+    if(state.q){ const hay=(p.name+" "+(p.models||[]).join(" ")).toLowerCase(); if(!hay.includes(state.q)) return false; }
+    return true;
+  });
+  $("#partN").textContent = list.length;
+  $("#ptbody").innerHTML = list.map(p=>`<tr data-name="${esc(p.name)}"><td>${icon(p.type)} ${esc(p.name)}</td><td>${esc(p.type)}</td><td class="muted">${p.models.length} 个机型</td></tr>`).join("");
+  document.querySelectorAll("#ptbody tr").forEach(tr=>{ tr.onclick = ()=>openPart(tr.dataset.name); });
+}
+
+function openPart(name){
+  const p = parts.find(x=>x.name===name); if(!p) return;
+  $("#d-title").textContent = p.name;
+  $("#d-sub").textContent = `${p.type} · ${p.models.length} 个机型可用`;
+  $("#d-body").innerHTML = `<button class="back" id="backBtn">← 返回配件树</button>`
+    + `<dl class="d-kv"><dt>类型</dt><dd>${esc(p.type)}</dd><dt>功能</dt><dd>${esc(p.note||"—")}</dd></dl>`
+    + `<div class="tree-h" style="margin-top:6px">适配机型</div><div style="display:flex;flex-wrap:wrap;gap:6px">`
+    + p.models.map(m=>`<span class="chip" style="cursor:default">${esc(m)}</span>`).join("") + `</div>`;
+  $("#backBtn").onclick = ()=>{ document.querySelectorAll(".tabs button")[0].click(); };
+  $("#drawer").classList.add("on"); $("#ov").classList.add("on"); document.body.classList.add("drawer-open");
+}
+
+/* ---------- 关闭 ---------- */
+function closeAll(){
+  $("#drawer").classList.remove("on");
+  $("#drawer3").classList.remove("on");
+  $("#ov").classList.remove("on");
+  document.body.classList.remove("drawer-open");
+}
+$("#d-close").onclick = closeAll;
+$("#d3-close").onclick = ()=>$("#drawer3").classList.remove("on");
+$("#ov").onclick = closeAll;
+document.addEventListener("keydown", e=>{
+  if(e.key!=="Escape") return;
+  if($("#drawer3").classList.contains("on")) $("#drawer3").classList.remove("on");
+  else closeAll();
+});
+
+/* ---------- 标签切换 ---------- */
+document.querySelectorAll(".tabs button").forEach(b=>{
+  b.onclick = ()=>{
+    const bar = document.querySelector(".tabs");
+    const idx = [].indexOf.call(bar.querySelectorAll("button"), b);
+    const prev = +(bar.dataset.idx || 0);
+    bar.dataset.idx = idx;
+    bar.querySelectorAll("button").forEach(x=>x.classList.toggle("on", x===b));
+    document.querySelectorAll(".sec").forEach(s=>s.classList.toggle("on", s.id==="tab-"+b.dataset.tab));
+    const target = document.querySelector(".sec.on");
+    if(target){ target.classList.remove("anim-r","anim-l"); void target.offsetWidth; target.classList.add(idx>=prev?"anim-r":"anim-l"); }
+  };
+});
+
+renderCams();
+renderParts();
+</script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('sw.js').catch(function () {});
+    });
+  }
+/* 标签页滑动 */
+(function(){
+  try{
+    document.addEventListener("click",function(e){
+      var btn = e.target.closest ? e.target.closest(".tabs button") : null;
+      if(!btn) return;
+      var bar = btn.parentElement;
+      var btns = [].slice.call(bar.querySelectorAll("button"));
+      var idx = btns.indexOf(btn), prev = +(bar.dataset.idx || 0);
+      bar.dataset.idx = idx;
+      setTimeout(function(){
+        var panes = [].slice.call(document.querySelectorAll("main section, main .sec"));
+        var vis = panes.filter(function(p){ return getComputedStyle(p).display !== "none"; });
+        var target = vis[vis.length - 1];
+        if(!target) target = document.querySelector("main .tablewrap");
+        if(!target) target = document.querySelector("main .wrap");
+        if(!target) return;
+        target.classList.remove("anim-r","anim-l");
+        void target.offsetWidth;
+        target.classList.add(idx >= prev ? "anim-r" : "anim-l");
+      },0);
+    },true);
+  }catch(err){}
+})();
+</script>
+
+
+<footer id="site-footer">
+  <span>作者：<b>MaxSum</b></span><span>·</span>
+  <a href="https://space.bilibili.com/399566399" target="_blank" rel="noopener">哔哩哔哩：某不知名行为艺术家</a><span>·</span>
+  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v65</span>
+</footer>
+</body>
+</html>
