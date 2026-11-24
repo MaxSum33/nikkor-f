@@ -665,6 +665,47 @@ main{ animation: pgIn .34s cubic-bezier(.22,.61,.36,1) both; }
   .nav a{ display: inline-flex; align-items: center; height: 33px; line-height: 1 !important;
           padding: 0 12px !important; font-size: 12.5px !important; }
 }
+
+/* 侧栏：配件页同款滑出 + 液态玻璃 */
+#side{
+  background: rgba(255,255,255,.86) !important;
+  backdrop-filter: blur(26px) saturate(1.15) !important;
+  -webkit-backdrop-filter: blur(26px) saturate(1.15) !important;
+  border: 1px solid rgba(16,24,40,.10) !important;
+  box-shadow: 0 10px 34px rgba(16,24,40,.10) !important;
+}
+html[data-theme="dark"] #side{
+  background: rgba(18,22,28,.40) !important;
+  backdrop-filter: blur(40px) saturate(1.3) !important;
+  -webkit-backdrop-filter: blur(34px) saturate(1.3) !important;
+  border-color: rgba(255,255,255,.08) !important;
+  box-shadow: 0 10px 40px rgba(0,0,0,.5) !important;
+}
+.side-ov{ position:fixed; inset:0; background:rgba(12,14,18,.38); opacity:0; visibility:hidden; transition:opacity .2s; z-index:55; }
+body.filters-open .side-ov{ opacity:1; visibility:visible; }
+
+@media (max-width: 960px){
+  #side{
+    display: block !important;
+    position: fixed !important;
+    left: -300px !important;
+    top: 0 !important; bottom: 0 !important;
+    width: 276px !important;
+    margin: 0 !important;
+    max-height: none !important;
+    height: 100% !important;
+    border-radius: 0 20px 20px 0 !important;
+    padding: 16px 14px 28px !important;
+    z-index: 58 !important;
+    overflow: auto !important;
+    transition: left .28s cubic-bezier(.22,.61,.36,1) !important;
+    box-shadow: 18px 0 60px rgba(0,0,0,.28) !important;
+    transform: none !important;
+    animation: none !important;
+  }
+  body.filters-open #side{ left: 0 !important; }
+  #side.open{ display: block !important; position: fixed !important; }
+}
 </style></head>
 <body>
 <header class="top">
@@ -807,12 +848,34 @@ render();
     },true);
   }catch(err){}
 })();
+
+  /* side-ov 自动注入：有 #side 的页面（镜头/相机）复用配件页的滑出筛选 */
+  try{
+    var side = document.getElementById("side");
+    if(side && !document.querySelector(".side-ov")){
+      var ov = document.createElement("div");
+      ov.className = "side-ov";
+      document.body.appendChild(ov);
+      ov.addEventListener("click", function(){ document.body.classList.remove("filters-open"); });
+      var ft = document.getElementById("ftoggle");
+      if(ft){
+        ft.onclick = function(ev){
+          ev.preventDefault();
+          if(matchMedia("(max-width:960px)").matches){
+            document.body.classList.toggle("filters-open");
+          } else {
+            side.classList.toggle("open");
+          }
+        };
+      }
+    }
+  }catch(e){}
 </script>
 
 <footer id="site-footer">
   <span>作者：<b>MaxSum</b></span><span>·</span>
   <a href="https://space.bilibili.com/399566399" target="_blank" rel="noopener">哔哩哔哩：某不知名行为艺术家</a><span>·</span>
-  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v68</span>
+  <span>数据整理自尼康官方资料与公开评测</span><span>·</span><span>界面 v69</span>
 </footer>
 </body>
 </html>
